@@ -1,3 +1,10 @@
-<div>
-    <img src="assets/img/logo.svg">
+<div class="headerContainer">
+    <div class="logoContainer">
+        <img src="assets/img/Logo.svg">
+        <img src="assets/img/LogoName.svg">
+    </div>
+    <div   [class.dNone]="router.url =='/signup'" class="loginHeaderRight">
+        <div class="nunito fs18">Neu bei DABubble?</div>
+        <a routerLink="/signup" class="makeAccount">Konto erstellen</a>
+    </div>
 </div>

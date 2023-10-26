@@ -1,0 +1,26 @@
+<div class="logInDialog" [formGroup]="registerForm">
+    <img style="position: absolute;left:32px" src="assets/img/arrow_back.svg">
+    <h1 class="nunito headline">Konto erstellen</h1>
+    <p class="nunito loginDis">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
+ 
+    <div class="input">
+       <img src="assets/img/person_filled.svg">
+       <input  formControlName="name" type="text" placeholder="Name und Nachname">
+    </div>
+    <div class="input">
+       <img src="assets/img/mail.svg">
+       <input formControlName="email" placeholder="beispielname@email.com">
+    </div>
+    <div class="input">
+       <img src="assets/img/lock.svg">
+       <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password">
+    </div>
+ 
+    <div class="weiterContainer" >
+       <button [disabled]="registerForm.invalid" (click)="register()" class="btn weiter">Weiter</button>    
+    </div>
+ </div>
+ <div class="impData">
+    <a routerLink="/imprint" target="_blank">Impressum</a>
+    <a href="">Datenschutz</a>
+ </div>
