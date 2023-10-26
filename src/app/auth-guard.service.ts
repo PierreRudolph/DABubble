@@ -1,6 +1,4 @@
-import { Injectable,inject } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
-
+import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
@@ -8,7 +6,7 @@ export class AuthGuardService {
   constructor() { }
   canActivate(currentUser: UserToken, userId: string): boolean {
     console.log("navigation allowed?:" ,false);
-    return false;
+    return true;
   }
   canMatch(currentUser: UserToken): boolean {
     return true;

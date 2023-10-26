@@ -4,14 +4,16 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import {AuthGuardService} from './auth-guard.service';
+import { ImpressumComponent } from './impressum/impressum.component';
 
 
 const routes: Routes = [
   {path: 'main', component: MainPageComponent,canActivate: [AuthGuardService]},
+  {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   {path: 'login', component: LoginScreenComponent },
-  {path: '', component: LoginScreenComponent },
-  {path: 'signup', component: CreateAccountComponent },
-  // {path: 'imprint', component: ImpressumComponent },
+  // {path: '', component: LoginScreenComponent },
+  {path: 'signup', component: CreateAccountComponent ,canActivate: [AuthGuardService]},
+  {path: 'imprint', component: ImpressumComponent },
 ];
 
 @NgModule({
