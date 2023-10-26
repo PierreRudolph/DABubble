@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'Nunito';
+    src: url('assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Figtree';
+    src: url('assets/fonts/Figtree-VariableFont_wght.ttf') format('truetype');
+}
+
+
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+
+}
+
+html,
+body {
+    height: 100%;
+}
+
+.nunito {
+    font-family: 'Nunito';
+
+}
+
+.fs18 {
+    font-size: 18px;
+}
+
+.figtree {
+    font-family: 'Figtree';
+}
+
+.wei400 {
+    font-weight: 400;
+}
+
+.btn {
+    padding: 12px 25px 12px 25px;
+    border-radius: 25px;
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    cursor: pointer;
+   
+}
+
+.dNone{
+    display: none!important;
+}
