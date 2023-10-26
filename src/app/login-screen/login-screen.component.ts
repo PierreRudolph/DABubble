@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import {FormControl, Validators, FormGroup} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-screen',
   templateUrl: './login-screen.component.html',
   styleUrls: ['./login-screen.component.scss']
 })
-export class LoginScreenComponent {
+export class LoginScreenComponent  {
 
   hide:boolean=true;    
   public registerForm:FormGroup = new FormGroup({  
@@ -16,7 +17,7 @@ export class LoginScreenComponent {
  })
   public loading: boolean = false; 
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService, private route:Router) {
 
    }
 
@@ -25,7 +26,7 @@ export class LoginScreenComponent {
            // Login successful       
         let user = this.authService.getAuthServiceUser();
         console.log("user",user._delegate.uid);          
-           // this.route.navigateByUrl("/user");
+           this.route.navigateByUrl("/main");
          })
          .catch((error) => {
            // An error occurred

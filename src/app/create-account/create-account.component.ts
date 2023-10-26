@@ -19,12 +19,15 @@ export class CreateAccountComponent {
   public loading: boolean = false;
 
 
-  constructor(public authService: AuthService, private router:Router) { }
+  constructor(public authService: AuthService, private router:Router) {
+   let u = authService.getAuthServiceUser();
+   console.log("mein user",u);
+   }
 
   register() {
     this.authService.signUp(this.registerForm.value.email,   this.registerForm.value.password).then(() => {  
       console.log("successful register"); 
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/login');
 
         })
         .catch((error) => {

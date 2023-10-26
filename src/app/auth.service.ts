@@ -8,7 +8,7 @@ import {  Router,  } from '@angular/router';
 export class AuthService {
   public user:any;
   public sub:any;
- constructor(private afAuth: AngularFireAuth, private route:Router) {
+ constructor(private afAuth: AngularFireAuth) {
 
   this.sub = afAuth.authState.subscribe(user => {
     this.user = user;
