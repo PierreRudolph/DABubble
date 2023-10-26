@@ -43,4 +43,14 @@ export class AuthService {
         // An error occurred
       });
   }
+
+  logout() {
+    this.afAuth.signOut()
+      .then(() => {
+     
+      })
+      .catch((error) => {
+        // An error occurred
+      });
+  }
 }

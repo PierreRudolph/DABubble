@@ -33,8 +33,12 @@ export class LoginScreenComponent {
      }
 
      getCuttenUser(){
-      let user = this.authService.getAuthServiceUser();
-      console.log("user",user._delegate.uid);   
+      //nur als test
+      // let user = this.authService.getAuthServiceUser();
+      // console.log("user",user._delegate.uid);  
+      this.authService.logout();
+      // let user = this.authService.getAuthServiceUser();
+      // console.log("user",user._delegate.uid);
      }
    
 

@@ -90,10 +90,16 @@
     border: none;
     cursor: pointer;
 
-    &:disabled{
+    &:disabled {
         background-color: gray;
         cursor: unset;
     }
+}
+
+.arrowBack {
+    position: absolute;
+    left: 32px;
+    cursor: pointer;
 }
 
 .impData {
