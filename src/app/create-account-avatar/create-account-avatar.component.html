@@ -1,12 +1,24 @@
 <div class="logInDialog" >
     <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow_back.svg"></a>
     <h1 class="nunito headline">Wähle deinen Avatar</h1> 
-    <div class="profile">
-        <img  src="assets/img/person.svg">
+    <div [class.pad0]="!padding" class="profile">
+        <img  class="profileImg" src="{{portraitPath}}">
     </div>
-    <div class="name">{{name}}</div>   
+    <div class="name">{{name}}</div> 
+    <div class="chooseList">Aus der Liste wählen</div>  
+    <div class="icons">
+        <img class="imgIcon" (click)="setPortraitPath('assets/img/ch1.svg')" src="assets/img/ch1.svg">
+        <img class="imgIcon" (click)="setPortraitPath('assets/img/ch2.svg')" src="assets/img/ch2.svg">
+        <img class="imgIcon" (click)="setPortraitPath('assets/img/ch3.svg')" src="assets/img/ch3.svg">
+        <img class="imgIcon" (click)="setPortraitPath('assets/img/ch4.svg')" src="assets/img/ch4.svg">
+        <img class="imgIcon" (click)="setPortraitPath('assets/img/ch5.svg')" src="assets/img/ch5.svg">
+        <img class="imgIcon" (click)="setPortraitPath('assets/img/ch6.svg')" src="assets/img/ch6.svg">
+    </div>
+    <div class="chooseList">eigenes Bild verwenden
+        <button class="btn upload">Datei hochladen</button>
+    </div>
     <div class="weiterContainer">
-       <button  (click)="weiter()" class="btn weiter">Weiter</button>
+       <button  (click)="register()" class="btn weiter">Weiter</button>
     </div>
    
  </div>

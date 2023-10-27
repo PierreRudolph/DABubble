@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class CreateAccountMainComponent {
 
-  public fristpage = false;
+  public fristpage = true;
   public user: any;
   public name:string="Laura Schröder";
 

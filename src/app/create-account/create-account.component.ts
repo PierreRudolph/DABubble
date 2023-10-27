@@ -22,9 +22,8 @@ export class CreateAccountComponent {
   public loading: boolean = false;
 
 
-  constructor(public authService: AuthService, private router:Router) {
-   let u = authService.getAuthServiceUser();
-   console.log("mein user",u);
+  constructor() {
+  
    }
 
    addNewItem(js: string) {
@@ -42,16 +41,7 @@ export class CreateAccountComponent {
     this.addNewItem(JSON.stringify(userInfo));    
    }
 
-  register() {
-    this.authService.signUp(this.registerForm.value.email,   this.registerForm.value.password).then(() => {  
-      console.log("successful register"); 
-      this.router.navigateByUrl('/login');
-
-        })
-        .catch((error) => {
-          console.log("register fail",error);
-        })  
-    }
+ 
 
     clickBox(){     
       console.log("return check value", this.registerForm.value.data);
