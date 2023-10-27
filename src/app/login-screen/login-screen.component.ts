@@ -25,11 +25,13 @@ export class LoginScreenComponent  {
     return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
            // Login successful       
         let user = this.authService.getAuthServiceUser();
-        console.log("user",user._delegate.uid);          
-           this.route.navigateByUrl("/main");
+        let id = user._delegate.uid;
+        console.log("user",id);  
+        localStorage.setItem('uid',id)        
+        this.route.navigateByUrl("/main");
          })
          .catch((error) => {
-           // An error occurred
+          console.log("fail");
          });
      }
 

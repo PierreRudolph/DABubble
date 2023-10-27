@@ -9,9 +9,9 @@ import { ImpressumComponent } from './impressum/impressum.component';
 
 const routes: Routes = [
   {path: 'main', component: MainPageComponent,canActivate: [AuthGuardService]},
-  {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
+  // {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   {path: 'login', component: LoginScreenComponent },
-  // {path: '', component: LoginScreenComponent },
+  {path: '', component: LoginScreenComponent },
   {path: 'signup', component: CreateAccountComponent ,canActivate: [AuthGuardService]},
   {path: 'imprint', component: ImpressumComponent },
 ];
