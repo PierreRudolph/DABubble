@@ -12,7 +12,7 @@ const routes: Routes = [
   // {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   {path: 'login', component: LoginScreenComponent },
   {path: '', component: LoginScreenComponent },
-  {path: 'signup', component: CreateAccountComponent ,canActivate: [AuthGuardService]},//canaktivate hier nur zu Testzwecke
+  {path: 'signup', component: CreateAccountComponent },// canActivate: [AuthGuardService] canaktivate hier nur zu Testzwecke
   {path: 'imprint', component: ImpressumComponent },
 ];
 

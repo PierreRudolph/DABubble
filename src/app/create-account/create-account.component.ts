@@ -12,6 +12,7 @@ export class CreateAccountComponent {
 
   hide:boolean=true;    
   public registerForm:FormGroup = new FormGroup({
+    data:new FormControl('', Validators.requiredTrue),
     name:new FormControl('', Validators.required),
     email:new FormControl('', [Validators.required, Validators.email]),
     password:new FormControl('', Validators.required)
@@ -33,6 +34,10 @@ export class CreateAccountComponent {
         .catch((error) => {
           console.log("register fail",error);
         })  
+    }
+
+    clickBox(){     
+      console.log("return check value", this.registerForm.value.data);
     }
     
 

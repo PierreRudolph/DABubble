@@ -120,3 +120,56 @@
         text-decoration: none;
     }
 }
+
+#privacyAgreement {
+    display: none;
+    // border-color: #57E8A2;
+    // background-color: #a5f3cd;
+  }
+
+  #privacyAgreement +::before{
+    // wählt wegen + den span aus
+    content: "\2713";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    border-radius: 10%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #797EF3;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    box-sizing: content-box;   
+    margin-right: 10px;
+    background-color: white;
+    color: white;
+    // color: black;
+  }
+  
+  .red{
+    color: red!important;
+  }
+
+#privacyAgreement:checked + *::before {
+    content: "\2713";
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+    // height: 12px;
+    border-radius: 10%;
+    border-style: solid;
+    border-width: 2px;
+    color: #797EF3;
+    background-color: white;
+    border-color: #797EF3;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    box-sizing: content-box;    
+    margin-right: 10px;
+  }
+
+  #checkSpan{
+    font-size: 16px;
+  }
+
+  .discription{}
