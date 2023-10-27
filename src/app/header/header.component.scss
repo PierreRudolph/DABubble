@@ -2,9 +2,11 @@
     display: flex;
     justify-content: space-between;
     position: absolute;
+    top: 0px;
     width: 100vw;
     box-sizing: border-box;
     padding: 75px;
+    padding-bottom: 0px;
 }
 
 .logoContainer {
