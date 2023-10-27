@@ -20,6 +20,8 @@ import { AuthGuardService } from './auth-guard.service';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { CreateAccountMainComponent } from './create-account-main/create-account-main.component';
 import { CreateAccountAvatarComponent } from './create-account-avatar/create-account-avatar.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 @NgModule({
   declarations: [
@@ -38,7 +40,8 @@ import { CreateAccountAvatarComponent } from './create-account-avatar/create-acc
     AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSidenavModule
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
