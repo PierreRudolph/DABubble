@@ -15,7 +15,9 @@
         <img class="imgIcon" (click)="setPortraitPath('assets/img/ch6.svg')" src="assets/img/ch6.svg">
     </div>
     <div class="chooseList">eigenes Bild verwenden
-        <button class="btn upload">Datei hochladen</button>
+        <!-- <button class="btn upload">Datei hochladen</button> -->
+        <input type="file" id="img"  style="display:none;"  (change)="onSelect($event)">
+        <label for="img" class="btn upload">Datei hochladen</label>
     </div>
     <div class="weiterContainer">
        <button  (click)="register()" class="btn weiter">Weiter</button>
