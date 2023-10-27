@@ -1,10 +1,10 @@
-<header>
-    <div>
-        <img src="assets/img/logo.svg">
+<div class="headerContainer">
+    <div class="logoContainer">
+        <img src="assets/img/Logo.svg">
+        <img src="assets/img/LogoName.svg">
     </div>
-    <input class="search-field" placeholder="Code learning durchsuchen">
-    <div>
-        <span>Frederik Beck</span>
-        <img src="assets/img/avatar.svg">
+    <div [class.dNone]="router.url =='/signup'" class="loginHeaderRight">
+        <div class="nunito fs18">Neu bei DABubble?</div>
+        <a routerLink="/signup" class="makeAccount">Konto erstellen</a>
     </div>
-</header>
+</div>

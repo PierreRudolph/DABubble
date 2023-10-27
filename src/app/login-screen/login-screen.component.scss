@@ -1,0 +1,139 @@
+.logInDialog {
+    width: 606px;
+    height: 740px;
+    position: absolute;
+    left: calc(50% - 303px);
+    top: calc(50% - 370px);
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+.headline {
+    color: #444DF2;
+    font-size: 46px;
+    font-weight: 700;
+}
+
+.loginDis {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-align: center;
+}
+
+.input {
+    position: relative;
+    width: 500px;
+    height: 60px;
+    background-color: #ECEEFE;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    padding: 18px 30px 18px 30px;
+    box-sizing: border-box;
+
+    input {
+        border: none;
+        background-color: #ECEEFE;
+        font-family: 'Nunito';
+        font-size: 18px;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+.pwForget {
+    color: var(--Purple-2, #797EF3);
+    font-family: Figtree;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.or {
+    background-color: white;
+    position: absolute;
+    width: 50px;
+    height: 36px;
+    top: calc(50% - 24px);
+    left: calc(50% - 40px);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    padding: 15px;
+
+
+}
+
+.googleLoginButt {
+    cursor: pointer;
+    position: relative;
+    width: 500px;
+    height: 60px;
+    border: none;
+    background-color: #ECEEFE;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding-left: 30px;
+    padding-right: 30px;
+    color: var(--Purple-1, #444DF2);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+}
+
+.anm {
+    background-color: #444DF2;
+    color: white;
+    border: none;
+    &:disabled{
+        cursor: unset;
+        background-color: gray;
+    }
+    
+}
+
+.guest {
+    // color: #444DF2;
+    color:red;
+    background-color: white;
+    border: 1px solid;
+
+}
+
+.impData {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    bottom: 50px;
+    width:200px;
+    left:calc(50% - 100px);
+
+    a {
+        color: var(--Purple-2, #797EF3);
+        font-family: Figtree;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        text-decoration: none;
+    }
+}

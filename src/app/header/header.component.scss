@@ -1,13 +1,34 @@
-header {
+.headerContainer {
     display: flex;
     justify-content: space-between;
-    height: 120px;
-    width: 100%;
+    position: absolute;
+    width: 100vw;
+    box-sizing: border-box;
+    padding: 75px;
 }
 
-input {
-    width: 989px;
+.logoContainer {
     height: 70px;
-    padding: 17px 45px;
-    border-radius: 45px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+}
+
+.loginHeaderRight {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+}
+
+
+.makeAccount {
+    font-family: 'Figtree';
+    size: 18px;
+    font-weight: 400;
+    cursor: pointer;
+    color: #797EF3;
+    text-decoration: none;
+    padding: 10px;
 }
