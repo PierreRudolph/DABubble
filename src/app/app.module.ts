@@ -19,6 +19,8 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { AuthGuardService } from './auth-guard.service';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { CreateAccountMainComponent } from './create-account-main/create-account-main.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { CreateAccountMainComponent } from './create-account-main/create-account
     AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatSidenavModule
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
