@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
-import {  Router,  } from '@angular/router';
+import { GoogleAuthProvider } from "firebase/auth";
+
 
 @Injectable({
   providedIn: 'root'
@@ -33,11 +34,7 @@ export class AuthService {
 
   async logIn(email: string, password: string) {
    return  this.afAuth.signInWithEmailAndPassword(email, password)
-      .then((res) => {
-        // Login successful
-        // console.log("suggcessful login",res.user ? res.user.uid : "");
-        // console.log("suggcessful login",this.user);
-        // this.route.navigateByUrl("/user");
+      .then((res) => {       
       })
       .catch((error) => {
         // An error occurred
@@ -53,4 +50,9 @@ export class AuthService {
         // An error occurred
       });
   }
+ 
+  async logInWithGoogle(){
+    return this.afAuth.signInWithPopup(new GoogleAuthProvider());
+  }
+
 }

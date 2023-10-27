@@ -6,23 +6,24 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthGuardService {
-  private user = this.authService.getAuthServiceUser();
-  constructor(public authService: AuthService, private router:Router) {
-     }
+
+  constructor(public authService: AuthService, private router: Router) {
+  }
 
   canActivate(): boolean {
-    let userid =this.user ? this.user._delegate.uid:'';
+    let user = this.authService.getAuthServiceUser();
+    let userid = user ? user._delegate.uid : 'no';
     let id = localStorage.getItem("uid");
+    let google= localStorage.getItem("google");
     console.log("item", id);
     console.log("useritem", userid);
-    let allow = id!=null && id==userid     
+    let allow = (id != null && id == userid) || (google!=null);
     console.log("navigation allowed?:", allow);
-    if(!allow)
-    {
-     this.router.navigateByUrl("/login");
+    if (!allow) {
+      this.router.navigateByUrl("/login");
     }
-    return (id!=null && id==userid);
-   
+    return (allow);
+
     // return true;
   }
   canMatch(): boolean {
