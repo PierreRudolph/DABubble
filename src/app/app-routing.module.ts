@@ -9,7 +9,8 @@ import { CreateAccountMainComponent } from './create-account-main/create-account
 
 
 const routes: Routes = [
-  {path: 'main', component: MainPageComponent,canActivate: [AuthGuardService]},
+  // 
+  {path: 'main', component: MainPageComponent},
   // {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   {path: 'login', component: LoginScreenComponent },
   {path: '', component: LoginScreenComponent },
