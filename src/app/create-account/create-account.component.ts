@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component ,Output,EventEmitter} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {FormControl, Validators, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
@@ -10,7 +10,9 @@ import { Router } from '@angular/router';
 })
 export class CreateAccountComponent {
 
-  hide:boolean=true;    
+  @Output() newItemEvent = new EventEmitter<string>();
+  public hide:boolean=true;  
+  public userInfo:string = "";     
   public registerForm:FormGroup = new FormGroup({
     data:new FormControl('', Validators.requiredTrue),
     name:new FormControl('', Validators.required),
@@ -23,6 +25,21 @@ export class CreateAccountComponent {
   constructor(public authService: AuthService, private router:Router) {
    let u = authService.getAuthServiceUser();
    console.log("mein user",u);
+   }
+
+   addNewItem(js: string) {
+    this.newItemEvent.emit(js);
+  }
+
+   weiter(){    
+    let userInfo = {
+    "name":this.registerForm.value.name, 
+    "email":this.registerForm.value.email,
+    "password":this.registerForm.value.password
+     };
+    this.userInfo = JSON.stringify(userInfo);
+    console.log(userInfo);
+    this.addNewItem(JSON.stringify(userInfo));    
    }
 
   register() {

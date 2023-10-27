@@ -18,6 +18,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { AuthGuardService } from './auth-guard.service';
 import { SideMenuComponent } from './side-menu/side-menu.component';
+import { CreateAccountMainComponent } from './create-account-main/create-account-main.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { SideMenuComponent } from './side-menu/side-menu.component';
     MainPageComponent,
     HeaderComponent,
     LoginScreenComponent,
-    ImpressumComponent, CreateAccountComponent, SideMenuComponent
+    ImpressumComponent, CreateAccountComponent, SideMenuComponent, CreateAccountMainComponent
   ],
   imports: [
     BrowserModule,
