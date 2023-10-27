@@ -19,6 +19,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { AuthGuardService } from './auth-guard.service';
 import { SideMenuComponent } from './side-menu/side-menu.component';
 import { CreateAccountMainComponent } from './create-account-main/create-account-main.component';
+import { CreateAccountAvatarComponent } from './create-account-avatar/create-account-avatar.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { CreateAccountMainComponent } from './create-account-main/create-account
     MainPageComponent,
     HeaderComponent,
     LoginScreenComponent,
-    ImpressumComponent, CreateAccountComponent, SideMenuComponent, CreateAccountMainComponent
+    ImpressumComponent, CreateAccountComponent, SideMenuComponent, CreateAccountMainComponent, CreateAccountAvatarComponent
   ],
   imports: [
     BrowserModule,

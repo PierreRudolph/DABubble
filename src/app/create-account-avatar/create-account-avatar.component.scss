@@ -1,0 +1,61 @@
+.logInDialog {
+    width: 606px;
+    height: 740px;
+    position: absolute;
+    left: calc(50% - 303px);
+    top: calc(50% - 370px);
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    gap: 30px;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: var(--Purple-1, #444DF2);
+    text-align: center;
+    /* Bold Display */
+    font-family: Nunito;
+    font-size: 46px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 120%;
+}
+
+.arrowBack {
+    position: absolute;
+    left: 32px;
+    cursor: pointer;
+}
+
+.weiter {
+    background-color: #444DF2;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+        background-color: gray;
+        cursor: unset;
+    }
+}
+
+.profile{
+    background-color: #797EF3;
+    border-radius: 100%;
+    padding: 15px;
+}
+
+.name{
+    color: #000;
+
+text-align: center;
+font-family: Nunito;
+font-size: 32px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+}

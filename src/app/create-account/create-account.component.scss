@@ -102,24 +102,6 @@
     cursor: pointer;
 }
 
-.impData {
-    display: flex;
-    gap: 15px;
-    position: absolute;
-    bottom: 50px;
-    width: 200px;
-    left: calc(50% - 100px);
-
-    a {
-        color: var(--Purple-2, #797EF3);
-        font-family: Figtree;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 120%;
-        text-decoration: none;
-    }
-}
 
 #privacyAgreement {
     display: none;

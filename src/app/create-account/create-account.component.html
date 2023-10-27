@@ -1,5 +1,5 @@
 <div class="logInDialog" [formGroup]="registerForm">
-   <a routerLink="/"><img class="arrowBack" src="assets/img/arrow_back.svg"></a>
+   <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow_back.svg"></a>
    <h1 class="nunito headline">Konto erstellen</h1>
    <p class="nunito loginDis">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
 
@@ -26,7 +26,7 @@
       <button [disabled]="registerForm.invalid" (click)="weiter()" class="btn weiter">Weiter</button>
    </div>
 </div>
-<div class="impData">
+<!-- <div class="impData">
    <a routerLink="/imprint" target="_blank">Impressum</a>
    <a href="">Datenschutz</a>
-</div>
+</div> -->
