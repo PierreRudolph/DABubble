@@ -14,6 +14,7 @@
 }
 
 .sidenav-content {
+    position: relative;
     position: absolute;
     left: 0px;
     top: 44%;
@@ -29,9 +30,18 @@
         border-top-left-radius: 30px;
         border-bottom-left-radius: 30px;
         box-shadow: -4px -4px 7px 0px rgba(0, 0, 0, 0.2);
-        font-family: 'Nunito';
-        font-weight: 500;
-        font-size: 20px;
+
+        span {
+            font-family: 'Nunito';
+            font-weight: 500;
+            font-size: 20px;
+        }
+    }
+
+    img {
+        position: absolute;
+        top: 20px;
+        left: 14px;
     }
 
 }
