@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from 'src/moduls/user.class';
 
 @Component({
   selector: 'app-create-account-main',
@@ -8,16 +9,16 @@ import { Component } from '@angular/core';
 export class CreateAccountMainComponent {
 
   public fristpage = false;
-  public user: any;
-  public name:string="Laura Schröder";
+  public user: User = new User();
 
-  setPage(js: string) {
-    console.log("name as string", js);
-    let data = JSON.parse(js);
-    this.user = data;
-    this.name = data.name;
-    console.log("name is", data.name);
-    this.fristpage = false;
+  construkter() {
+  
+  }
+
+  setPage(user: User) {
+    console.log("name as string", user.name);
+    this.user = user;   
+    this.fristpage= false;
   }
 
 }

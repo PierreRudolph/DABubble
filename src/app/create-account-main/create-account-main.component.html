@@ -1,5 +1,5 @@
 <app-create-account *ngIf="fristpage" (newItemEvent)="setPage($event)"></app-create-account>
-<app-create-account-avatar *ngIf="!fristpage" [name]="name" [user]="user">Data is false</app-create-account-avatar>
+<app-create-account-avatar *ngIf="!fristpage" [user]="user"></app-create-account-avatar>
 <div class="impData">
     <a routerLink="/imprint" target="_blank">Impressum</a>
     <a href="">Datenschutz</a>

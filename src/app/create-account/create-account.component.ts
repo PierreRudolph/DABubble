@@ -2,6 +2,7 @@ import { Component ,Output,EventEmitter} from '@angular/core';
 import { AuthService } from '../auth.service';
 import {FormControl, Validators, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from 'src/moduls/user.class';
 
 @Component({
   selector: 'app-create-account',
@@ -10,9 +11,10 @@ import { Router } from '@angular/router';
 })
 export class CreateAccountComponent {
 
-  @Output() newItemEvent = new EventEmitter<string>();
+  @Output() newItemEvent = new EventEmitter<User>();
   public hide:boolean=true;  
-  public userInfo:string = "";     
+  public userInfo:string = "";    
+  public user:User= new User(); 
   public registerForm:FormGroup = new FormGroup({
     data:new FormControl('', Validators.requiredTrue),
     name:new FormControl('', Validators.required),
@@ -26,19 +28,21 @@ export class CreateAccountComponent {
   
    }
 
-   addNewItem(js: string) {
-    this.newItemEvent.emit(js);
+   addNewItem(user:User) {
+    this.newItemEvent.emit(user);
   }
 
    weiter(){    
     let userInfo = {
     "name":this.registerForm.value.name, 
     "email":this.registerForm.value.email,
-    "password":this.registerForm.value.password
+    "password":this.registerForm.value.password,
+    "iconPath":"",
      };
+    this.user = new User(userInfo);
     this.userInfo = JSON.stringify(userInfo);
     console.log(userInfo);
-    this.addNewItem(JSON.stringify(userInfo));    
+    this.addNewItem(this.user);    
    }
 
  

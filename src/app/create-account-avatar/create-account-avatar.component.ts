@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { User } from 'src/moduls/user.class';
 
 @Component({
   selector: 'app-create-account-avatar',
@@ -10,7 +11,7 @@ import { Router } from '@angular/router';
 export class CreateAccountAvatarComponent {
 
   @Input() name: string = "";
-  @Input() user: any;
+  @Input() user: User= new User();
   
   public padding: boolean = true;
   public portraitPath = "assets/img/person.svg"
@@ -18,6 +19,8 @@ export class CreateAccountAvatarComponent {
   constructor(public authService: AuthService, private router: Router) {
     let u = authService.getAuthServiceUser();
     console.log("mein user", u);
+    setTimeout(()=>{ this.user.name = "Laura Schröder";},125);
+   
   }
 
   register() {
@@ -34,18 +37,23 @@ export class CreateAccountAvatarComponent {
   }
 
   setPortraitPath(path: string) {
+    this.user.iconPath = path;
     this.portraitPath = path;
-    this.padding = false;
+    this.padding = false;   
   }
 
   onSelect(event: any) {
     console.log("event", event);
-    if (event.taget.files[0]) {
-      
+    console.log("file", event.target.files[0]);
+    
+    if (event.target.files[0]) {      
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
-      this.portraitPath = event.target.result;
+      this.portraitPath= event.target.result;
+      console.log("path", this.portraitPath);
+      this.user.iconPath = this.portraitPath;
+      console.log("user icon", this.user.iconPath);
       };
     }
   }
