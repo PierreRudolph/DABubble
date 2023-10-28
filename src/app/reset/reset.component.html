@@ -1,0 +1,21 @@
+<div class="forgetInDialog" [formGroup]="registerForm">
+    <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow_back.svg"></a>
+    <h1 class="nunito headline">Passwort zurücksetzen</h1>
+    <div class="input">
+       <img src="assets/img/lock.svg">
+       <input formControlName="password" placeholder="neues Passwort">
+    </div>
+    <div class="input">
+        <img src="assets/img/lock.svg">
+        <input formControlName="passwordConfirm" placeholder="Neues Kennwort bestätigen">
+     </div>  
+    <div class="weiterContainer">
+       <!-- <button [disabled]="registerForm.invalid && (registerForm.value.password === registerForm.value.passwordConfirm)" 
+       (click)="changePw()" class="btn weiter">Passwort ändern</button> -->
+       <button [disabled]="getValid()" (click)="changePw()" class="btn weiter">Passwort ändern</button>
+    </div>
+ </div>
+ <div class="impData">
+    <a routerLink="/imprint" target="_blank">Impressum</a>
+    <a href="">Datenschutz</a>
+ </div>

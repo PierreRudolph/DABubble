@@ -22,6 +22,7 @@ import { CreateAccountMainComponent } from './create-account-main/create-account
 import { CreateAccountAvatarComponent } from './create-account-avatar/create-account-avatar.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetComponent } from './reset/reset.component';
 
 
 @NgModule({
@@ -30,7 +31,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
     MainPageComponent,
     HeaderComponent,
     LoginScreenComponent,
-    ImpressumComponent, CreateAccountComponent, SideMenuComponent, CreateAccountMainComponent, CreateAccountAvatarComponent, ForgotPasswordComponent
+    ImpressumComponent, CreateAccountComponent, SideMenuComponent, CreateAccountMainComponent, CreateAccountAvatarComponent, ForgotPasswordComponent, ResetComponent
   ],
   imports: [
     BrowserModule,

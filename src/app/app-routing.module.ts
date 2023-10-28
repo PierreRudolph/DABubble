@@ -7,6 +7,7 @@ import {AuthGuardService} from './auth-guard.service';
 import { ImpressumComponent } from './impressum/impressum.component';
 import { CreateAccountMainComponent } from './create-account-main/create-account-main.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { ResetComponent } from './reset/reset.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   // {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   {path: 'login', component: LoginScreenComponent },
   {path: 'forget', component: ForgotPasswordComponent },
+  {path: 'reset', component: ResetComponent },
   {path: '', component: MainPageComponent },
   {path: 'signup', component: CreateAccountMainComponent },// canActivate: [AuthGuardService] canaktivate hier nur zu Testzwecke
   {path: 'imprint', component: ImpressumComponent },
