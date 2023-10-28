@@ -1,16 +1,17 @@
 .mat-drawer-div {
     background-color: #eceefe;
-
     height: 900px;
-    width: 366px;
+    width: 380px;
 }
 
 .sidenav {
     background-color: white;
     display: flex;
     height: 900px;
-    width: 366px;
-
+    width: 370px;
+    left: 20px;
+    border-radius: 30px;
+    padding: 32px 30px;
 }
 
 .sidenav-content {
@@ -25,8 +26,6 @@
         background-color: white;
         width: 60px;
         height: 347px;
-
-
         border-top-right-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.2);
@@ -71,12 +70,28 @@
     position: absolute;
     top: 20px;
     left: 14px;
-    content: url("/assets/icons/open-sidenav.svg");
 }
 
 .close-sidenav {
     position: absolute;
     top: 20px;
     left: 14px;
-    content: url("/assets/icons/close-sidenav.svg");
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+}
+
+.workspace-name {
+    font-family: 'Nunito';
+    font-weight: 700;
+    font-size: 24px;
+}
+
+.edit-pencil {
+
+    &:hover {
+        content: url('/assets/icons/edit-pencil-hover.svg');
+    }
 }
