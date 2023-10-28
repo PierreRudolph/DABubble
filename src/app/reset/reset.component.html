@@ -3,16 +3,16 @@
     <h1 class="nunito headline">Passwort zurücksetzen</h1>
     <div class="input">
        <img src="assets/img/lock.svg">
-       <input formControlName="password" placeholder="neues Passwort">
+       <input type="password" formControlName="password" placeholder="neues Passwort">
     </div>
     <div class="input">
         <img src="assets/img/lock.svg">
-        <input formControlName="passwordConfirm" placeholder="Neues Kennwort bestätigen">
+        <input type="password" formControlName="passwordConfirm" placeholder="Neues Kennwort bestätigen">
      </div>  
     <div class="weiterContainer">
        <!-- <button [disabled]="registerForm.invalid && (registerForm.value.password === registerForm.value.passwordConfirm)" 
        (click)="changePw()" class="btn weiter">Passwort ändern</button> -->
-       <button [disabled]="getValid()" (click)="changePw()" class="btn weiter">Passwort ändern</button>
+       <button [disabled]="getValid()" (click)="handleResetPassword()" class="btn weiter">Passwort ändern</button>
     </div>
  </div>
  <div class="impData">
