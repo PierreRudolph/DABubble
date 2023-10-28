@@ -84,17 +84,6 @@
 
 }
 
-.weiter {
-    background-color: #444DF2;
-    color: white;
-    border: none;
-    cursor: pointer;
-
-    &:disabled {
-        background-color: gray;
-        cursor: unset;
-    }
-}
 
 .arrowBack {
     position: absolute;

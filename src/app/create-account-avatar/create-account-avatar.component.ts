@@ -42,18 +42,13 @@ export class CreateAccountAvatarComponent {
     this.padding = false;   
   }
 
-  onSelect(event: any) {
-    console.log("event", event);
-    console.log("file", event.target.files[0]);
-    
+  onSelect(event: any) {     
     if (event.target.files[0]) {      
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
-      this.portraitPath= event.target.result;
-      console.log("path", this.portraitPath);
-      this.user.iconPath = this.portraitPath;
-      console.log("user icon", this.user.iconPath);
+      this.portraitPath= event.target.result;      
+      this.user.iconPath = this.portraitPath;      
       };
     }
   }

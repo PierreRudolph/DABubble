@@ -52,6 +52,7 @@ export class LoginScreenComponent {
     // this.route.navigateByUrl("/main");
     if (user) {
       this.authService.logout();
+      console.log("userid is",user._delegate.uid);
     }
   }
 

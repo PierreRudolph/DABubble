@@ -44,7 +44,7 @@ export class AuthService {
   logout() {
     this.afAuth.signOut()
       .then(() => {
-     
+     console.log("logged out");
       })
       .catch((error) => {
         // An error occurred
@@ -53,6 +53,10 @@ export class AuthService {
  
   async logInWithGoogle(){
     return this.afAuth.signInWithPopup(new GoogleAuthProvider());
+  }
+
+  async forgotPassword(mail:string){
+    return this.afAuth.sendPasswordResetEmail(mail);
   }
 
 }

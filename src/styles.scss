@@ -54,3 +54,40 @@ body {
 .dNone {
     display: none !important;
 }
+
+.impData {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    bottom: 50px;
+    width:200px;
+    left:calc(50% - 100px);
+
+    a {
+        color: var(--Purple-2, #797EF3);
+        font-family: Figtree;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        text-decoration: none;
+    }
+}
+
+.arrowBack {
+    position: absolute;
+    left: 32px;
+    cursor: pointer;
+}
+
+.weiter {
+    background-color: #444DF2;
+    color: white;
+    border: none;
+    cursor: pointer;
+
+    &:disabled {
+        background-color: gray;
+        cursor: unset;
+    }
+}

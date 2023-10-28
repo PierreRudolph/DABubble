@@ -9,8 +9,7 @@ export class User {
         this.name = obj ? obj.name : '';
         this.email = obj ? obj.email : '';
         this.password = obj ? obj.password : '';
-        this.iconPath = obj ? obj.iconPath : '';
-     
+        this.iconPath = obj ? obj.iconPath : '';    
         
     }
 

@@ -27,29 +27,12 @@ h1 {
     margin-block-end: 0;
 }
 
-.arrowBack {
-    position: absolute;
-    left: 32px;
-    cursor: pointer;
-}
-
 .weiterContainer {
     width: 100%;
     display: flex;
     justify-content: flex-end;
 }
 
-.weiter {
-    background-color: #444DF2;
-    color: white;
-    border: none;
-    cursor: pointer;
-
-    &:disabled {
-        background-color: gray;
-        cursor: unset;
-    }
-}
 
 .profile {
     background-color: #797EF3;
