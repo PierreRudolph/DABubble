@@ -18,30 +18,65 @@
     position: absolute;
     left: 0px;
     top: 44%;
-    z-index: 99;
+    z-index: 9;
 
     button {
         cursor: pointer;
         background-color: white;
         width: 60px;
         height: 347px;
+
+
+        border-top-right-radius: 30px;
+        border-bottom-right-radius: 30px;
+        box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.2);
+
+
+    }
+
+    span {
+        pointer-events: none;
+        cursor: pointer;
+        position: absolute;
+        top: 65px;
+        left: 17px;
         transform: rotate(180deg);
         writing-mode: vertical-lr;
-        border-top-left-radius: 30px;
-        border-bottom-left-radius: 30px;
-        box-shadow: -4px -4px 7px 0px rgba(0, 0, 0, 0.2);
+        font-family: 'Nunito';
+        font-weight: 500;
+        font-size: 20px;
+        color: black;
+    }
 
+
+
+    &:hover {
         span {
-            font-family: 'Nunito';
-            font-weight: 500;
-            font-size: 20px;
+            transition: all 225ms ease-in-out;
+            color: #7e83f5;
+            letter-spacing: 0.5px;
+        }
+
+        .open-sidenav {
+            content: url("/assets/icons/open-sidenav-hover.svg");
+        }
+
+        .close-sidenav {
+            content: url("/assets/icons/close-sidenav-hover.svg");
         }
     }
+}
 
-    img {
-        position: absolute;
-        top: 20px;
-        left: 14px;
-    }
+.open-sidenav {
+    position: absolute;
+    top: 20px;
+    left: 14px;
+    content: url("/assets/icons/open-sidenav.svg");
+}
 
+.close-sidenav {
+    position: absolute;
+    top: 20px;
+    left: 14px;
+    content: url("/assets/icons/close-sidenav.svg");
 }

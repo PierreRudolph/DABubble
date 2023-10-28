@@ -6,7 +6,9 @@
 
 </mat-drawer-container>
 <div class="example-sidenav-content sidenav-content">
-    <button type="button" mat-button (click)="drawer.toggle()">
-        Workspace-Menü schließen <img src="assets/img/show-menu.svg">
+    <img class="open-sidenav" *ngIf="!menuHidden" src="assets/img/open-sidenav.svg">
+    <img class="close-sidenav" *ngIf="menuHidden" src="assets/img/close-sidenav.svg">
+    <span>Workspace-Menü schließen</span>
+    <button type="button" mat-button (click)="drawer.toggle();menuHidden=!menuHidden">
     </button>
 </div>

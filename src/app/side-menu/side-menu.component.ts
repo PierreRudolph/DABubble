@@ -7,4 +7,5 @@ import { Component } from '@angular/core';
 })
 export class SideMenuComponent {
   showFiller: boolean | undefined;
+  menuHidden: boolean | true | undefined;
 }
