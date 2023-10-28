@@ -1,19 +1,100 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
+
 
 @Component({
   selector: 'app-reset',
   templateUrl: './reset.component.html',
   styleUrls: ['./reset.component.scss']
 })
-export class ResetComponent {
+export class ResetComponent implements OnInit, OnDestroy {
+  ngUnsubscribe: Subject<any> = new Subject<any>();
+  mode: string = "";
+  // Just a code Firebase uses to prove that
+  // this is a real password reset.
+  actionCode: string = "";
+  public actionCodeChecked: boolean = false;
   public registerForm: FormGroup = new FormGroup({
     password: new FormControl('', Validators.required),
-    passwordConfirm: new FormControl('', Validators.required),  
+    passwordConfirm: new FormControl('', Validators.required),
   })
-  changePw(){}
 
-  getValid(){
-    return  ! (this.registerForm.valid &&( this.registerForm.value.password == this.registerForm.value.passwordConfirm));
+  getValid() {
+    return !(this.registerForm.valid && (this.registerForm.value.password == this.registerForm.value.passwordConfirm));
   }
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
+  ) { }
+
+  ngOnInit() {
+    this.activatedRoute.queryParams
+      .pipe(takeUntil(this.ngUnsubscribe))
+      .subscribe(params => {
+        // if we didn't receive any parameters, 
+        // we can't do anything
+        if (!params) this.router.navigateByUrl('login');
+
+        this.mode = params['mode'];
+        this.actionCode = params['oobCode'];
+        console.log("mode",this.mode);
+        console.log("oobcode",this.actionCode);
+
+        switch (params['mode']) {
+          case "resetPassword": {
+            // Verify the password reset code is valid.
+            this.authService.getAuth().verifyPasswordResetCode(this.actionCode).then(email => {
+              this.actionCodeChecked = true;
+            }).catch(e => {
+              // Invalid or expired action code. Ask user to try to reset the password
+              // again.
+              alert(e);
+              this.router.navigate(['/auth/login']);
+            });
+          } break         
+          default: {
+            console.log('query parameters are missing');
+            this.router.navigateByUrl('login');
+          }
+        }
+      })
+  }
+
+  ngOnDestroy() {
+    // End all subscriptions listening to ngUnsubscribe
+    // to avoid memory leaks.
+    // this.ngUnsubscribe.next();
+    this.ngUnsubscribe.complete();
+  }
+
+    /**
+   * Attempt to confirm the password reset with firebase and
+   * navigate user back to home.
+   */
+    handleResetPassword() {
+      if ((this.registerForm.value.password != this.registerForm.value.passwordConfirm)) {
+        alert('New Password and Confirm Password do not match');
+        return;
+      }
+      // Save the new password.
+      this.authService.getAuth().confirmPasswordReset(
+          this.actionCode,   
+          this.registerForm.value.password
+      )
+      .then(resp => {
+        // Password reset has been confirmed and new password updated.
+        alert('New password has been saved');
+        this.router.navigateByUrl('login');
+      }).catch(e => {
+        // Error occurred during confirmation. The code might have
+        // expired or the password is too weak.
+        alert(e);
+      });
+    }
 }

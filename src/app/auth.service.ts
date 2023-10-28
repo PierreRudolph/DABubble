@@ -17,6 +17,10 @@ export class AuthService {
   });
   }
 
+  getAuth(){
+    return this.afAuth;
+  }
+
  async signUp(email: string, password: string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password)
       .then(() => {
@@ -58,5 +62,7 @@ export class AuthService {
   async forgotPassword(mail:string){
     return this.afAuth.sendPasswordResetEmail(mail);
   }
+
+  
 
 }
