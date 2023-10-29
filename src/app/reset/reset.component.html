@@ -14,6 +14,8 @@
        (click)="changePw()" class="btn weiter">Passwort ändern</button> -->
        <button [disabled]="getValid()" (click)="handleResetPassword()" class="btn weiter">Passwort ändern</button>
     </div>
+
+    <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Anmelden!</div>  
  </div>
  <div class="impData">
     <a routerLink="/imprint" target="_blank">Impressum</a>

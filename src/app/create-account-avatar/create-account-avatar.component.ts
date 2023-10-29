@@ -14,7 +14,7 @@ export class CreateAccountAvatarComponent {
   @Input() user: User = new User();
 
   public padding: boolean = true;
-  public hide: boolean = true;
+  public hide: boolean = false;
   public move: boolean = false;
   public portraitPath = "assets/img/person.svg"
 

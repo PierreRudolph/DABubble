@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../auth.service';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, timeout } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 
 
@@ -14,8 +14,10 @@ import { Subject } from 'rxjs';
 export class ResetComponent implements OnInit, OnDestroy {
   ngUnsubscribe: Subject<any> = new Subject<any>();
   mode: string = "";
-  // Just a code Firebase uses to prove that
-  // this is a real password reset.
+  
+  public hide: boolean = true;
+  public move: boolean = false;
+
   actionCode: string = "";
   public actionCodeChecked: boolean = false;
   public registerForm: FormGroup = new FormGroup({
@@ -60,7 +62,7 @@ export class ResetComponent implements OnInit, OnDestroy {
           } break         
           default: {
             console.log('query parameters are missing');
-            this.router.navigateByUrl('login');
+            this.router.navigateByUrl('login');           
           }
         }
       })
@@ -78,6 +80,7 @@ export class ResetComponent implements OnInit, OnDestroy {
    * navigate user back to home.
    */
     handleResetPassword() {
+
       if ((this.registerForm.value.password != this.registerForm.value.passwordConfirm)) {
         alert('New Password and Confirm Password do not match');
         return;
@@ -89,8 +92,14 @@ export class ResetComponent implements OnInit, OnDestroy {
       )
       .then(resp => {
         // Password reset has been confirmed and new password updated.
-        alert('New password has been saved');
-        this.router.navigateByUrl('login');
+        this.hide = false;
+        this.move = true;
+        setTimeout(()=>{
+          this.hide = true;
+          this.move = false;
+          this.router.navigateByUrl('login');
+        },2500);
+       
       }).catch(e => {
         // Error occurred during confirmation. The code might have
         // expired or the password is too weak.
