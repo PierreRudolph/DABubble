@@ -1,13 +1,13 @@
 .mat-drawer-div {
     background-color: #eceefe;
-    height: 900px;
-    width: 380px;
+    height: calc(100vh - 170px);
+    width: 400px;
 }
 
 .sidenav {
     background-color: white;
     display: flex;
-    height: 900px;
+    height: 100%;
     width: 370px;
     left: 20px;
     border-radius: 30px;
@@ -80,6 +80,7 @@
 
 .head {
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 
@@ -87,11 +88,55 @@
     font-family: 'Nunito';
     font-weight: 700;
     font-size: 24px;
+    margin-bottom: 0px;
 }
 
 .edit-pencil {
 
     &:hover {
         content: url('/assets/icons/edit-pencil-hover.svg');
+    }
+}
+
+.channelsPanel {
+    margin-top: 25px;
+}
+
+.panel-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        align-items: center;
+        width: 121px;
+        justify-content: space-between;
+    }
+}
+
+.arrow-drop-down {
+    &:hover {
+        content: url('/assets/icons/arrow-drop-down-hover.svg');
+    }
+}
+
+.workspaces-icon {
+
+
+    &:hover {
+        content: url('/assets/icons/workspaces-hover.svg');
+    }
+}
+
+.panel-headline {
+    font-family: 'Nunito';
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.add-icon {
+    &:hover {
+        content: url('/assets/icons/add-hover.svg');
     }
 }

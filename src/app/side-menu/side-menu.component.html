@@ -5,6 +5,44 @@
             <p class="workspace-name">Code learning</p>
             <img class="edit-pencil" src="assets/icons/edit-pencil.svg">
         </div>
+
+        <div class="channelsPanel">
+            <mat-accordion multi>
+
+                <mat-expansion-panel class="mat-elevation-z0" hideToggle multi>
+
+                    <mat-expansion-panel-header style="box-shadow: none;">
+                        <div class="panel-header">
+                            <img class="arrow-drop-down" src="assets/icons/arrow-drop-down.svg">
+                            <div>
+                                <img class="workspaces-icon" src="assets/icons/workspaces.svg">
+                                <span class="panel-headline">Channels</span>
+                            </div>
+                            <img class="add-icon" src="assets/icons/add.svg">
+                        </div>
+                        <!--<mat-panel-description>
+                            This is a summary of the content
+                        </mat-panel-description>-->
+                    </mat-expansion-panel-header>
+
+                    <p>This is the primary content of the panel.</p>
+
+                </mat-expansion-panel>
+
+                <mat-expansion-panel class="mat-elevation-z0" (opened)="channelsPanelOpen = true"
+                    (closed)="channelsPanelOpen = false" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Self aware panel
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Currently I am {{channelsPanelOpen ? 'open' : 'closed'}}
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <p>I'm visible because I am open</p>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
     </mat-drawer>
 
 

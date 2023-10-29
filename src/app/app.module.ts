@@ -23,7 +23,7 @@ import { CreateAccountAvatarComponent } from './create-account-avatar/create-acc
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetComponent } from './reset/reset.component';
-
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -43,7 +43,8 @@ import { ResetComponent } from './reset/reset.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatExpansionModule
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
