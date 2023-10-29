@@ -33,14 +33,14 @@ export class CreateAccountAvatarComponent {
     setTimeout(()=>{
       this.hide=true;
     this.move=false;
-    // this.authService.signUp(this.user.email, this.user.password).then(() => {
-    //   console.log("successful register");
-    //   this.router.navigateByUrl('/login');
+    this.authService.signUp(this.user.email, this.user.password).then(() => {
+      console.log("successful register");
+      this.router.navigateByUrl('/login');
 
-    // })
-    //   .catch((error) => {
-    //     console.log("register fail", error);
-    //   })
+    })
+      .catch((error) => {
+        console.log("register fail", error);
+      })
     },2500);
    
   }
