@@ -37,7 +37,7 @@ h1 {
 .profile {
     background-color: #797EF3;
     border-radius: 100%;
-    padding: 15px;   
+    padding: 15px;
     display: flex;
     justify-content: center;
 }
@@ -82,12 +82,44 @@ h1 {
 
 .pad0 {
     padding: 0 !important;
+
     .profileImg {
         width: 180px;
         height: 180px;
     }
 }
 
-.imgIcon{
+.imgIcon {
     cursor: pointer;
+}
+
+.popUp3 {
+    color: var(--White, #FFF);
+    font-family: Nunito;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    background-color: #444DF2;
+    padding: 50px;
+    border-radius: 30px;
+    width: 440px;
+    transform: translateY(-100px);
+    animation: transform;
+}
+
+.moveUp {
+    animation-name: move;
+    animation-duration: 1s;
+    transform: translateY(-400px);
+}
+
+@keyframes move {
+    from {
+        transform: translateY(-100px);
+    }
+
+    to {
+        transform: translateY(-400px);
+    }
 }

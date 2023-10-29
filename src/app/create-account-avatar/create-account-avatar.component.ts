@@ -11,44 +11,53 @@ import { User } from 'src/moduls/user.class';
 export class CreateAccountAvatarComponent {
 
   @Input() name: string = "";
-  @Input() user: User= new User();
-  
+  @Input() user: User = new User();
+
   public padding: boolean = true;
+  public hide: boolean = true;
+  public move: boolean = false;
   public portraitPath = "assets/img/person.svg"
 
   constructor(public authService: AuthService, private router: Router) {
     let u = authService.getAuthServiceUser();
     console.log("mein user", u);
-    setTimeout(()=>{ this.user.name = "Laura Schröder";},125);
-   
+    setTimeout(() => { this.user.name = "Laura Schröder"; }, 125);
+
   }
 
   register() {
     console.log("user ", this.user.email);
     console.log("password", this.user.password);
-    this.authService.signUp(this.user.email, this.user.password).then(() => {
-      console.log("successful register");
-      this.router.navigateByUrl('/login');
+    this.hide=false;
+    this.move=true;
+    setTimeout(()=>{
+      this.hide=true;
+    this.move=false;
+    // this.authService.signUp(this.user.email, this.user.password).then(() => {
+    //   console.log("successful register");
+    //   this.router.navigateByUrl('/login');
 
-    })
-      .catch((error) => {
-        console.log("register fail", error);
-      })
+    // })
+    //   .catch((error) => {
+    //     console.log("register fail", error);
+    //   })
+    },2500);
+   
   }
 
   setPortraitPath(path: string) {
     this.user.iconPath = path;
     this.portraitPath = path;
-    this.padding = false;   
+    this.padding = false;
   }
 
-  onSelect(event: any) {     
-    if (event.target.files[0]) {      
+  onSelect(event: any) {
+    if (event.target.files[0]) {
       let reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event: any) => {
-      this.portraitPath= event.target.result;      
-      this.user.iconPath = this.portraitPath;      
+        this.portraitPath = event.target.result;
+        this.user.iconPath = this.portraitPath;
       };
     }
   }

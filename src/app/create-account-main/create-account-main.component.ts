@@ -8,7 +8,7 @@ import { User } from 'src/moduls/user.class';
 })
 export class CreateAccountMainComponent {
 
-  public fristpage = true;
+  public fristpage = false;
   public user: User = new User();
 
   construkter() {
