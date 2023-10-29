@@ -21,27 +21,25 @@ export class CreateAccountAvatarComponent {
   constructor(public authService: AuthService, private router: Router) {
     let u = authService.getAuthServiceUser();
     console.log("mein user", u);
-    setTimeout(() => { this.user.name = "Laura Schröder"; }, 125);
+    // setTimeout(() => { this.user.name = "Laura Schröder"; }, 125);
 
   }
 
-  register() {
-    console.log("user ", this.user.email);
-    console.log("password", this.user.password);
-    this.hide=false;
-    this.move=true;
-    setTimeout(()=>{
-      this.hide=true;
-    this.move=false;
+  register() {         
     this.authService.signUp(this.user.email, this.user.password).then(() => {
-      console.log("successful register");
-      this.router.navigateByUrl('/login');
+      this.hide=false;
+      this.move=true;
+      setTimeout(()=>{
+        this.hide=true;
+        this.move=false;
+        this.router.navigateByUrl('/login');
+      },2500);        
 
     })
       .catch((error) => {
         console.log("register fail", error);
       })
-    },2500);
+   
    
   }
 
