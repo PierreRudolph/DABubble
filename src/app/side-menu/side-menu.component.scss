@@ -8,7 +8,7 @@
 
 .mat-drawer-div {
     background-color: #eceefe;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 195px);
     width: 400px;
 }
 
@@ -37,9 +37,11 @@
         border-top-right-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.2);
+        border: none;
     }
 
     span {
+        transition: all 225ms ease-in-out;
         pointer-events: none;
         cursor: pointer;
         position: absolute;
