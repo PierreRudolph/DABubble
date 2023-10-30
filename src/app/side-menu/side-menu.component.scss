@@ -8,7 +8,7 @@
 
 .mat-drawer-div {
     background-color: #eceefe;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 195px);
     width: 400px;
 }
 
@@ -20,6 +20,7 @@
     border-radius: 30px;
     padding: 32px 30px;
 }
+
 
 .sidenav-content {
     position: relative;
@@ -36,11 +37,11 @@
         border-top-right-radius: 30px;
         border-bottom-right-radius: 30px;
         box-shadow: 4px 4px 7px 0px rgba(0, 0, 0, 0.2);
-
-
+        border: none;
     }
 
     span {
+        transition: all 225ms ease-in-out;
         pointer-events: none;
         cursor: pointer;
         position: absolute;
@@ -53,8 +54,6 @@
         font-size: 20px;
         color: black;
     }
-
-
 
     &:hover {
         span {
@@ -107,7 +106,6 @@
 
     &:active {
         content: url('/assets/icons/edit-pencil-square-click.svg');
-
     }
 }
 
@@ -137,8 +135,6 @@
         width: 121px;
         justify-content: space-between;
     }
-
-
 }
 
 .header-left {
@@ -158,7 +154,6 @@
             content: url('/assets/icons/workspaces-hover.svg');
         }
     }
-
 }
 
 .arrow-drop-down {
@@ -174,8 +169,6 @@
     margin-right: 10px;
 }
 
-
-
 .panel-headline {
     font-family: 'Nunito';
     font-weight: 700;
@@ -184,18 +177,84 @@
 
 .add-icon {
 
-
     &:hover {
         content: url('/assets/icons/add-hover.svg');
     }
 }
 
-.add-circle {
+.created-channel {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 20px;
+    transition: all 225ms ease-in-out;
+    padding: 10px 0px;
+
+    img {
+        margin-left: 20px;
+        margin-right: 10px;
+    }
+
+    span {
+        font-size: 18px;
+    }
+
     &:hover {
-        content: url('/assets/icons/add-circle-hover.svg');
+        background-color: #eceefe;
+
+        img {
+            content: url('/assets/icons/tag-hover.svg');
+        }
     }
 
     &:active {
-        content: url('/assets/icons/add-circle-click.svg');
+        span {
+            transition: all 225ms ease-in-out;
+            color: #7e83f5;
+            font-weight: 700;
+        }
+
+        img {
+            content: url('/assets/icons/tag-click.svg');
+        }
     }
+}
+
+.add-ch-div {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px 0px;
+    transition: all 225ms ease-in-out;
+
+    span {
+        font-family: "Nunito", sans-serif;
+        font-size: 18px;
+    }
+
+    &:hover {
+        img {
+            content: url('/assets/icons/add-circle-hover.svg');
+        }
+
+        span {
+            color: #7e83f5;
+        }
+    }
+
+    &:active {
+        img {
+            content: url('/assets/icons/add-circle-click.svg');
+        }
+
+        span {
+            color: black;
+        }
+    }
+}
+
+.add-circle {
+    margin-left: 20px;
+    margin-right: 10px;
 }
