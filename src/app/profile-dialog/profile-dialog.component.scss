@@ -1,0 +1,57 @@
+.profileDialog {
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 600px;
+    right: 50px;
+    top: 130px;
+    display: flex;
+    position: absolute;
+    padding: 45px 40px 45px 40px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    border-top-right-radius: 0;
+    background-color: white;
+    gap: 38px;
+}
+
+.profileContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+
+}
+
+.imgProfile {
+    width: 200px;
+    height: auto;
+}
+
+.firstLine {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.cross {
+    width: 25px;
+    height: auto;
+    cursor: pointer;
+}
+
+.edit {
+    text-decoration: none;
+    color: var(--Purple-3, #535AF1);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    cursor: pointer;
+
+}

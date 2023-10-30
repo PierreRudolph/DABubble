@@ -41,7 +41,8 @@ export class LoginScreenComponent {
       then((dat) => {
         console.log("succesfully logged in with google", dat);
         localStorage.setItem('google', "loggedIn");
-        this.route.navigateByUrl("/login");
+        // this.route.navigateByUrl("/login");
+        this.route.navigateByUrl("/probe");
       }).
       catch((err) => { });
   }

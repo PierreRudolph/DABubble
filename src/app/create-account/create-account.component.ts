@@ -40,7 +40,7 @@ export class CreateAccountComponent {
     "iconPath":"",
     "status":"",
     "uid":"",
-    "idDB":"",
+    "idDB":""
      };
     this.user = new User(userInfo);
     this.userInfo = JSON.stringify(userInfo);

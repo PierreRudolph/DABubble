@@ -1,3 +1,13 @@
+<div class="profile">
+    <div>{{user.name}}</div>
+    <img src="{{user.iconPath}}">
+    <img style="cursor: pointer;" (click)="openProfil()" src="assets/img/arrowDown.svg">
+</div>
+<div *ngIf="choiceDialog" class="choiceDialog">
+    <div (click)="openProfile()">Profile</div>
+    <div>Logout</div>
+</div>
+<app-profile-dialog [user]="user"></app-profile-dialog>
 <div class="userAll">
     <div>
         <div>Eingeloggter User</div>
@@ -6,10 +16,10 @@
         <img src="{{user.iconPath}}">
     </div>
     <div *ngFor="let u of userList">
-        <div>Eingeloggter User</div>
+        <div>Andere User</div>
         <div>Name: {{u.name}}</div>
         <div>Email: {{u.email}}</div>
         <img src="{{u.iconPath}}">
     </div>
-    
+
 </div>

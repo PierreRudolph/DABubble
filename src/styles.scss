@@ -38,6 +38,24 @@ body {
 
 }
 
+.nunitoBlack {
+    color: var(--Black, #000);
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}
+
+.fs24{
+    font-size: 24px;
+}
+
+.fs32{
+    font-size: 32px;
+}
+
+
 .fs18 {
     font-size: 18px;
 }

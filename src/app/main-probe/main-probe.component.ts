@@ -1,7 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
+import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 @Component({
   selector: 'app-main-probe',
   templateUrl: './main-probe.component.html',
@@ -15,13 +17,15 @@ export class MainProbeComponent {
   public userList: any;
   private userUid: string = ""; //uid od the user
   private unsub: any;
+  public choiceDialog: boolean = false;
+  public profileOpen = false;
 
-  constructor(public authService: AuthService) {
+  constructor(public authService: AuthService,public dialog: MatDialog) {
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
-      console.log("userAuth", this.userAuth);
-      console.log("userUid", this.userUid);
+      // console.log("userAuth", this.userAuth);
+      // console.log("userUid", this.userUid);
       this.unsub = this.subGameInfo();
     }, 1000);
   }
@@ -32,16 +36,30 @@ export class MainProbeComponent {
       this.userList = [];
       list.forEach(elem => {
         let u = new User(elem.data())
-        if (u.uid == this.userUid) { this.user = u; }
+        if (u.uid == this.userUid) {
+          this.user = u;
+          this.user.status = "'aktiv";
+        }
         else { this.userList.push(u); }
       });
-      console.log('logged in User', this.user);
-      console.log('gameData anzeigen', this.userList);
+      // console.log('logged in User', this.user);
+      // console.log('gameData anzeigen', this.userList);
     });
   }
 
+  userRef() {
+    return collection(this.firestore, 'user');
+  }
 
-  // async addUser(item: {}) {
+  openProfil() {
+    this.choiceDialog = !this.choiceDialog;
+   }
+
+   openProfile(){   
+      this.profileOpen=true;
+    }
+
+     // async addUser(item: {}) {
   //   await addDoc(this.userRef(), item).catch(
   //     (err) => { console.error(err) }).then(
   //       (docRef) => {
@@ -62,8 +80,9 @@ export class MainProbeComponent {
   //   await updateDoc(docRef, { "idDB": id }).catch(
   //     (err) => { console.log(err); });
   // }
+   }
 
-  userRef() {
-    return collection(this.firestore, 'user');
-  }
-}
+ 
+
+
+

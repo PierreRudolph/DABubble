@@ -24,8 +24,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetComponent } from './reset/reset.component';
 import { MainProbeComponent } from './main-probe/main-probe.component';
-
+import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,15 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MainPageComponent,
     HeaderComponent,
     LoginScreenComponent,
-    ImpressumComponent, CreateAccountComponent, SideMenuComponent, CreateAccountMainComponent, CreateAccountAvatarComponent, ForgotPasswordComponent, ResetComponent, MainProbeComponent
+    ImpressumComponent,
+    CreateAccountComponent,
+    SideMenuComponent,
+    CreateAccountMainComponent,
+    CreateAccountAvatarComponent,
+    ForgotPasswordComponent,
+    ResetComponent,
+    MainProbeComponent,
+    ProfileDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +55,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
     MatSidenavModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatDialogModule
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
