@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
+import { Firestore, addDoc, collection, doc, updateDoc } from '@angular/fire/firestore';
+
 
 @Component({
   selector: 'app-create-account-avatar',
@@ -14,9 +16,12 @@ export class CreateAccountAvatarComponent {
   @Input() user: User = new User();
 
   public padding: boolean = true;
-  public hide: boolean = false;
+  public hide: boolean = true;
   public move: boolean = false;
-  public portraitPath = "assets/img/person.svg"
+  public wait: boolean = false;
+  public portraitPath = "assets/img/person.svg";
+  public firestore: Firestore = inject(Firestore);
+  public idDoc = "";
 
   constructor(public authService: AuthService, private router: Router) {
     let u = authService.getAuthServiceUser();
@@ -25,23 +30,59 @@ export class CreateAccountAvatarComponent {
 
   }
 
-  register() {         
-    this.authService.signUp(this.user.email, this.user.password).then(() => {
-      this.hide=false;
-      this.move=true;
-      setTimeout(()=>{
-        this.hide=true;
-        this.move=false;
-        this.router.navigateByUrl('/login');
-      },2500);        
+  register() {
+    this.wait = true;
+    console.log(this.user);
+    this.authService.signUp(this.user.email, this.user.password).then((res) => {
+      this.hide = false;
+      this.move = true;
+      this.user.password = "";
+      let userAny: any = res;
+      let id = userAny.user._delegate.uid;     
+      this.user.uid = id;
+     
+      this.addUser(this.user.toJSON());
+      setTimeout(() => {
+        this.hide = true;
+        this.move = false;
+        this.wait = false;
 
+        this.router.navigateByUrl('/login');
+      }, 2500);
     })
       .catch((error) => {
+        this.wait = false;
         console.log("register fail", error);
       })
-   
-   
   }
+
+  async addUser(item: {}) {
+    await addDoc(this.userRef(), item).catch(
+      (err) => { console.error(err) }).then(
+        (docRef) => {
+          if (docRef) {
+            this.idDoc = docRef.id;           
+            this.updateGame(this.idDoc);
+          }
+        });
+  }
+
+  getSingleUserRef(docId: string) {
+    return doc(this.firestore, 'user', docId);
+  }
+
+
+  async updateGame(id: string) {
+    let docRef = this.getSingleUserRef(id)
+    await updateDoc(docRef, { "idDB": id }).catch(
+      (err) => { console.log(err); });
+  }
+
+
+  userRef() {
+    return collection(this.firestore, 'user');
+  }
+
 
   setPortraitPath(path: string) {
     this.user.iconPath = path;

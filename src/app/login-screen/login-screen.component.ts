@@ -27,8 +27,9 @@ export class LoginScreenComponent {
       let user = this.authService.getAuthServiceUser();
       let id = user._delegate.uid;
       console.log("user", id);
-      localStorage.setItem('uid', id)
-      this.route.navigateByUrl("/main");
+      localStorage.setItem('uid', id);
+      // this.route.navigateByUrl("/main");
+      this.route.navigateByUrl("/probe");
     })
       .catch((error) => {
         console.log("fail");

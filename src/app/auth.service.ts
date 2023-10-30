@@ -12,8 +12,8 @@ export class AuthService {
  constructor(private afAuth: AngularFireAuth) {
 
   this.sub = afAuth.authState.subscribe(user => {
-    this.user = user;
-    console.log("subscribed to",this.user);
+  this.user = user;
+  console.log("subscribed to",this.user);
   });
   }
 
@@ -22,14 +22,7 @@ export class AuthService {
   }
 
  async signUp(email: string, password: string) {
-    return this.afAuth.createUserWithEmailAndPassword(email, password)
-      .then(() => {
-        console.log("suggcessful register",this.user);
-
-      })
-      .catch((error) => {
-        console.log("register fail");
-      });
+    return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
   getAuthServiceUser(){

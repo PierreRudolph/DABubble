@@ -8,6 +8,7 @@ import { ImpressumComponent } from './impressum/impressum.component';
 import { CreateAccountMainComponent } from './create-account-main/create-account-main.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetComponent } from './reset/reset.component';
+import { MainProbeComponent } from './main-probe/main-probe.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
   {path: 'forget', component: ForgotPasswordComponent },
   {path: 'reset', component: ResetComponent },
   {path: '', component: MainPageComponent },
+  {path: 'probe', component: MainProbeComponent },
   {path: 'signup', component: CreateAccountMainComponent },// canActivate: [AuthGuardService] canaktivate hier nur zu Testzwecke
   {path: 'imprint', component: ImpressumComponent },
 ];
