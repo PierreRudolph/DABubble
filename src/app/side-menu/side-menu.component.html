@@ -3,23 +3,29 @@
         <div class="head">
             <img src="assets/img/workspace-logo.svg">
             <p class="workspace-name">Code learning</p>
-            <img class="edit-pencil" src="assets/icons/edit-pencil.svg">
+            <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
         </div>
 
         <div class="channelsPanel">
             <mat-accordion multi>
 
-                <mat-expansion-panel class="mat-elevation-z0" hideToggle multi>
+                <mat-expansion-panel class="mat-elevation-z0" (opened)="chPanelOpen=true" (closed)="chPanelOpen=false"
+                    hideToggle multi>
 
-                    <mat-expansion-panel-header style="box-shadow: none;">
+                    <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
                         <div class="panel-header">
-                            <img class="arrow-drop-down" src="assets/icons/arrow-drop-down.svg">
-                            <div>
-                                <img class="workspaces-icon" src="assets/icons/workspaces.svg">
-                                <span class="panel-headline">Channels</span>
+                            <div class="header-left">
+                                <img class="arrow-drop-down" [class.rotate]="chPanelOpen"
+                                    src="assets/icons/arrow-drop-down.svg">
+                                <div>
+                                    <img class="workspaces-icon" src="assets/icons/workspaces.svg">
+                                    <span class="panel-headline">Channels</span>
+                                </div>
+
                             </div>
-                            <img class="add-icon" src="assets/icons/add.svg">
+
                         </div>
+                        <img class="add-icon" src="assets/icons/add.svg">
                         <!--<mat-panel-description>
                             This is a summary of the content
                         </mat-panel-description>-->
@@ -29,9 +35,9 @@
 
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="mat-elevation-z0" (opened)="channelsPanelOpen = true"
+                <mat-expansion-panel class="mat-elevation-z0 mar-top " (opened)="channelsPanelOpen = true"
                     (closed)="channelsPanelOpen = false" hideToggle>
-                    <mat-expansion-panel-header>
+                    <mat-expansion-panel-header class="panel-sp">
                         <mat-panel-title>
                             Self aware panel
                         </mat-panel-title>

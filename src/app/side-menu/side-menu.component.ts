@@ -9,4 +9,5 @@ export class SideMenuComponent {
   showFiller: boolean | undefined;
   menuHidden: boolean | true | undefined;
   channelsPanelOpen: boolean | false | undefined;
+  chPanelOpen: boolean | undefined;
 }

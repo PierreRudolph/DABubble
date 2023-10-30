@@ -5,7 +5,6 @@
 }
 
 .sidenav {
-    background-color: white;
     display: flex;
     height: 100%;
     width: 370px;
@@ -92,9 +91,15 @@
 }
 
 .edit-pencil {
+    cursor: pointer;
 
     &:hover {
-        content: url('/assets/icons/edit-pencil-hover.svg');
+        content: url('/assets/icons/edit-pencil-square-hover.svg');
+    }
+
+    &:active {
+        content: url('/assets/icons/edit-pencil-square-click.svg');
+
     }
 }
 
@@ -102,7 +107,18 @@
     margin-top: 25px;
 }
 
+.mar-top {
+    margin-top: 25px;
+}
+
+.panel-sp {
+    &:hover {
+        background-color: white !important;
+    }
+}
+
 .panel-header {
+    cursor: default;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -113,21 +129,44 @@
         width: 121px;
         justify-content: space-between;
     }
+
+
+}
+
+.header-left {
+    cursor: pointer;
+
+    &:hover {
+        .arrow-drop-down {
+            content: url('/assets/icons/arrow-drop-down-hover.svg');
+        }
+
+        .panel-headline {
+            transition: all 225ms ease-in-out;
+            color: #7e83f5;
+        }
+
+        .workspaces-icon {
+            content: url('/assets/icons/workspaces-hover.svg');
+        }
+    }
+
 }
 
 .arrow-drop-down {
-    &:hover {
-        content: url('/assets/icons/arrow-drop-down-hover.svg');
-    }
+    transform: rotate(-90deg);
+}
+
+.rotate {
+    transform: rotate(0deg);
 }
 
 .workspaces-icon {
-
-
-    &:hover {
-        content: url('/assets/icons/workspaces-hover.svg');
-    }
+    margin-left: 20px;
+    margin-right: 10px;
 }
+
+
 
 .panel-headline {
     font-family: 'Nunito';
@@ -136,6 +175,8 @@
 }
 
 .add-icon {
+
+
     &:hover {
         content: url('/assets/icons/add-hover.svg');
     }
