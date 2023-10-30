@@ -9,8 +9,8 @@
         <div class="channelsPanel">
             <mat-accordion multi>
 
-                <mat-expansion-panel class="mat-elevation-z0" (opened)="chPanelOpen=true" (closed)="chPanelOpen=false"
-                    hideToggle multi>
+                <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding"
+                    (opened)="chPanelOpen=true" (closed)="chPanelOpen=false" hideToggle multi>
 
                     <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
                         <div class="panel-header">
@@ -31,11 +31,20 @@
                         </mat-panel-description>-->
                     </mat-expansion-panel-header>
 
-                    <p>This is the primary content of the panel.</p>
                     <div>
+
+                        <div class="created-channel">
+                            <img src="assets/icons/tag.svg">
+                            <span>Entwicklerteam</span>
+                        </div>
+
+                    </div>
+
+                    <div class="add-ch-div">
                         <img class="add-circle" src="assets/icons/add-circle.svg">
                         <span>Channel hinzufügen</span>
                     </div>
+
                 </mat-expansion-panel>
 
                 <mat-expansion-panel class="mat-elevation-z0 mar-top " (opened)="channelsPanelOpen = true"

@@ -21,6 +21,10 @@ body {
     background-color: rgb(236, 238, 254);
 }
 
+.remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body {
+    padding: 24px 30px;
+}
+
 .mat-body,
 .mat-body-2,
 .mat-typography .mat-body,
