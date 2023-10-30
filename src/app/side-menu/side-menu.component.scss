@@ -1,3 +1,11 @@
+.mat-expansion-panel-content {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: 'Nunito', sans-serif !important;
+    letter-spacing: .0178571429em;
+}
+
 .mat-drawer-div {
     background-color: #eceefe;
     height: calc(100vh - 170px);
@@ -179,5 +187,15 @@
 
     &:hover {
         content: url('/assets/icons/add-hover.svg');
+    }
+}
+
+.add-circle {
+    &:hover {
+        content: url('/assets/icons/add-circle-hover.svg');
+    }
+
+    &:active {
+        content: url('/assets/icons/add-circle-click.svg');
     }
 }
