@@ -25,6 +25,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { ResetComponent } from './reset/reset.component';
 import { MainProbeComponent } from './main-probe/main-probe.component';
 
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { MainProbeComponent } from './main-probe/main-probe.component';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideFirestore(() => getFirestore()),
     BrowserAnimationsModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatExpansionModule
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
