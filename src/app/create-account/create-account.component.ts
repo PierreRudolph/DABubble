@@ -38,6 +38,9 @@ export class CreateAccountComponent {
     "email":this.registerForm.value.email,
     "password":this.registerForm.value.password,
     "iconPath":"",
+    "status":"",
+    "uid":"",
+    "idDB":"",
      };
     this.user = new User(userInfo);
     this.userInfo = JSON.stringify(userInfo);

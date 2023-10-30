@@ -1,0 +1,15 @@
+<div class="userAll">
+    <div>
+        <div>Eingeloggter User</div>
+        <div>Name: {{user.name}}</div>
+        <div>Email: {{user.email}}</div>
+        <img src="{{user.iconPath}}">
+    </div>
+    <div *ngFor="let u of userList">
+        <div>Eingeloggter User</div>
+        <div>Name: {{u.name}}</div>
+        <div>Email: {{u.email}}</div>
+        <img src="{{u.iconPath}}">
+    </div>
+    
+</div>
