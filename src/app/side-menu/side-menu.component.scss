@@ -27,7 +27,7 @@
     position: absolute;
     left: 0px;
     top: 44%;
-    z-index: 9;
+    z-index: 1;
 
     button {
         cursor: pointer;
@@ -109,8 +109,9 @@
     }
 }
 
-.channelsPanel {
+.accordion-outer-div {
     margin-top: 25px;
+    position: relative;
 }
 
 .mar-top {
@@ -153,6 +154,10 @@
         .workspaces-icon {
             content: url('/assets/icons/workspaces-hover.svg');
         }
+
+        .account-icon {
+            content: url('/assets/icons/account-circle-hover.svg');
+        }
     }
 }
 
@@ -176,9 +181,17 @@
 }
 
 .add-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    z-index: 1;
 
     &:hover {
         content: url('/assets/icons/add-hover.svg');
+    }
+
+    &:active {
+        content: url('/assets/icons/add.svg');
     }
 }
 
@@ -189,6 +202,7 @@
     border-radius: 20px;
     transition: all 225ms ease-in-out;
     padding: 10px 0px;
+    margin: 10px 0px;
 
     img {
         margin-left: 20px;
@@ -257,4 +271,40 @@
 .add-circle {
     margin-left: 20px;
     margin-right: 10px;
+}
+
+.account-icon {
+    margin-left: 20px;
+    margin-right: 10px;
+}
+
+.contact-div {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    transition: all 225ms ease-in-out;
+    margin: 10px 0px;
+
+    img {
+        width: 50px;
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+
+    span {
+        font-size: 18px;
+    }
+
+    &:hover {
+        background-color: #eceefe;
+    }
+
+    &:active {
+        span {
+            transition: all 225ms ease-in-out;
+            color: #7e83f5;
+            font-weight: 700;
+        }
+    }
 }
