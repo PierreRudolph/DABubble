@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
-import {MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule} from '@angular/material/dialog';
+import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
@@ -20,14 +20,15 @@ export class MainProbeComponent {
   public choiceDialog: boolean = false;
   public profileOpen = false;
 
-  constructor(public authService: AuthService,public dialog: MatDialog) {
+  constructor(public authService: AuthService, public dialog: MatDialog) {
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
       // console.log("userAuth", this.userAuth);
       // console.log("userUid", this.userUid);
+      console.log("const mainProbe");
       this.unsub = this.subGameInfo();
-    }, 1000);
+    }, 2000);
   }
 
   subGameInfo() {
@@ -38,7 +39,7 @@ export class MainProbeComponent {
         let u = new User(elem.data())
         if (u.uid == this.userUid) {
           this.user = u;
-          this.user.status = "'aktiv";
+          this.user.status = "aktiv";
         }
         else { this.userList.push(u); }
       });
@@ -47,19 +48,52 @@ export class MainProbeComponent {
     });
   }
 
+  setUser(user: User) {
+    this.user = user;
+    console.log("received user",user);
+    // this.updateName(this.user.idDB, this.user.name);
+    // this.updateState(this.user.idDB, "email", this.user.email);
+    this.updateUser(this.user.idDB);
+  }
+
   userRef() {
     return collection(this.firestore, 'user');
   }
 
-  openProfil() {
+  openChoie() {
     this.choiceDialog = !this.choiceDialog;
-   }
+  }
 
-   openProfile(){   
-      this.profileOpen=true;
+  openProfile() {
+    this.choiceDialog = !this.choiceDialog;
+    this.profileOpen = true;
+  }
+
+  setOpen(open: boolean) {
+    this.profileOpen = open;
+  }
+
+  async logOut() {
+    this.user.status="inaktiv";
+     await this.updateUser(this.user.idDB);
+    let user = this.authService.getAuthServiceUser();
+    if (user) {
+      this.authService.logout();
+      console.log("userid is", user._delegate.uid);
     }
+  }
 
-     // async addUser(item: {}) {
+  getSingleUserRef(docId: string) {
+    return doc(this.firestore, 'user', docId);
+  }
+
+  async updateUser(id: string) {
+    let docRef = this.getSingleUserRef(id)
+    await updateDoc(docRef, this.user.toJSON()).catch(
+      (err) => { console.log(err); });
+  }
+
+  // async addUser(item: {}) {
   //   await addDoc(this.userRef(), item).catch(
   //     (err) => { console.error(err) }).then(
   //       (docRef) => {
@@ -69,20 +103,9 @@ export class MainProbeComponent {
   //         }
   //       });
   // }
-
-  // getSingleUserRef(docId: string) {
-  //   return doc(this.firestore, 'user', docId);
-  // }
+}
 
 
-  // async updateGame(id: string) {
-  //   let docRef = this.getSingleUserRef(id)
-  //   await updateDoc(docRef, { "idDB": id }).catch(
-  //     (err) => { console.log(err); });
-  // }
-   }
-
- 
 
 
 

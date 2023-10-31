@@ -1,8 +1,8 @@
-<div  class="profileContainer">
-    <div class="profileDialog">
-        <div class="firstLine" >
-            <div class="nunitoBlack fs24" >Profil</div>
-            <img  src="assets/img/close.svg">
+<div class="profileContainer">
+    <div class="profileDialog DNone">
+        <div class="firstLine">
+            <div class="nunitoBlack fs24">Profil</div>
+            <img (click)="closeDialog()" style="cursor: pointer;" src="assets/img/close.svg">
         </div>
         <div>
             <img class="imgProfile" src="{{user.iconPath}}">
@@ -11,5 +11,44 @@
             <div class="nunitoBlack fs32">{{user.name}}</div>
             <a class="edit">bearbeiten</a>
         </div>
+        <div class="styleState">
+            <div class="dot"></div>
+            <div class="state">{{user.status}}</div>
+        </div>
+        <div class="styleMail">
+            <img src="assets/img/mailBlack.svg">
+            <div>
+                <div class="nunitoBlack fs20">E-Mail-Adresse</div>
+                <div class="userMail">{{user.email}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="profileDialog">
+        <div class="firstLine">
+            <div class="nunitoBlack fs24">Profil</div>
+            <img (click)="closeDialog()" style="cursor: pointer;" src="assets/img/close.svg">
+        </div>
+        <div>
+            <img class="imgProfile" src="{{user.iconPath}}">
+        </div>
+        <div class="inputContainer" [formGroup]="registerForm" >
+            <div class="editLabel">
+                <img src="assets/img/accountNameIcon.svg">
+                <div class="nunitoBlack fs20">vollständiger Name</div>
+            </div>
+            <div class="editInput"><input formControlName="name" class="editInputField" placeholder="{{user.name}}" ></div>
+            <div class="editLabel">
+                <img src="assets/img/mailBlack.svg">
+                <div class="nunitoBlack fs20">E-Mail-Adresse</div>
+            </div>
+            <div class="editInput" ><input formControlName="email" class="editInputField" placeholder="{{user.email}}" >
+            </div>
+        </div>
+        <div class="buttonContainer">
+            <button class="btn cancel ">Abbrechen</button>
+            <button class="btn weiter" (click)="save()">Speichern</button>
+        </div>
+       
     </div>
 </div>
