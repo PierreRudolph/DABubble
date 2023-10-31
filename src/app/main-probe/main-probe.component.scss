@@ -16,13 +16,14 @@
     right: 50px;
     align-items: center;
     gap: 20px;
-    top: 50px;
+    top: 25px;
     color: var(--Black, #000);
     font-family: Nunito;
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
     line-height: normal;
+    width:fit-content;
 }
 
 .choiceDialog {
@@ -47,5 +48,6 @@
     font-style: normal;
     font-weight: 600;
     line-height: normal;
+    z-index: 2;
 }
 
