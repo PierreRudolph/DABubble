@@ -27,6 +27,7 @@ import { MainProbeComponent } from './main-probe/main-probe.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
+import { SideMenuThreadComponent } from './side-menu-thread/side-menu-thread.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
     ForgotPasswordComponent,
     ResetComponent,
     MainProbeComponent,
-    ProfileDialogComponent
+    ProfileDialogComponent,
+    SideMenuThreadComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,20 @@
 .main-page {
     display: flex;
-    height: 100%;
-    width: 100%;
+    width: calc(100vw - 50px);
+    height: calc(100vh - 195px);
+    margin-top: 170px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 25px;
 }
 
 .side-menu {
-    margin-top: 170px;
+    border-radius: 30px;
+}
+
+.main-content-div {
+    width: 100%;
+    background-color: white;
+    margin: 0px 20px;
     border-radius: 30px;
 }

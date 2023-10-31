@@ -1,12 +1,3 @@
-<div class="example-sidenav-content sidenav-content">
-    <img class="open-sidenav" *ngIf="!menuHidden" src="assets/icons/open-sidenav.svg">
-    <img class="close-sidenav" *ngIf="menuHidden" src="assets/icons/close-sidenav.svg">
-    <span *ngIf="menuHidden">Workspace-Menü schließen</span>
-    <span *ngIf="!menuHidden">Workspace-Menü öffnen</span>
-    <button type="button" mat-button (click)="drawer.toggle();menuHidden=!menuHidden">
-    </button>
-</div>
-
 <mat-drawer-container class="example-container mat-drawer-div" autosize>
     <mat-drawer #drawer class="example-sidenav sidenav" mode="side">
         <div class="head">
@@ -82,3 +73,12 @@
         </div>
     </mat-drawer>
 </mat-drawer-container>
+
+<div class="example-sidenav-content sidenav-content">
+    <img class="open-sidenav" *ngIf="!menuHidden" src="assets/icons/open-sidenav.svg">
+    <img class="close-sidenav" *ngIf="menuHidden" src="assets/icons/close-sidenav.svg">
+    <span *ngIf="menuHidden">Workspace-Menü schließen</span>
+    <span *ngIf="!menuHidden">Workspace-Menü öffnen</span>
+    <button type="button" mat-button (click)="drawer.toggle();menuHidden=!menuHidden">
+    </button>
+</div>
