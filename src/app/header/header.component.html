@@ -1,6 +1,7 @@
-<div class="headerContainer">
+<div class="headerContainer "
+    [class.padding-main-page]="router.url =='/'||router.url =='/imprint'||router.url =='/data-policy'">
     <div class="logoContainer">
-        <img src="assets/img/Logo.svg">
+        <img src="assets/img/logo.svg">
         <img src="assets/img/LogoName.svg">
     </div>
     <div [class.dNone]="router.url !='/login'" class="loginHeaderRight">

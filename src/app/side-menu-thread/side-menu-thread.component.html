@@ -1,16 +1,20 @@
-<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side" position="end">
-        <p>Auto-resizing sidenav</p>
-        <p>Lorem, ipsum dolor sit amet consectetur.</p>
-        <button mat-raised-button>
-            Toggle extra text
-        </button>
+<mat-drawer-container class="example-container mat-drawer-div">
+    <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end" opened>
+        <div class="sidenav-header">
+            <div>
+                <span class="sidenav-headline">Thread</span>
+                <img class="tag-icon" src="assets/icons/tag-hover.svg">
+                <span class="thread-name">Entwicklerteam</span>
+            </div>
+            <img class="close-icon" src="assets/img/close.svg">
+        </div>
+
     </mat-drawer>
 
-    <div class="example-sidenav-content">
+    <!-- <div class="example-sidenav-content">
         <button type="button" mat-button (click)="drawer.toggle()">
             Toggle sidenav
         </button>
-    </div>
+    </div> -->
 
 </mat-drawer-container>
