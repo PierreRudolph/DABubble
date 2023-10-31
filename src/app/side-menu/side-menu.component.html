@@ -1,3 +1,12 @@
+<div class="example-sidenav-content sidenav-content">
+    <img class="open-sidenav" *ngIf="!menuHidden" src="assets/icons/open-sidenav.svg">
+    <img class="close-sidenav" *ngIf="menuHidden" src="assets/icons/close-sidenav.svg">
+    <span *ngIf="menuHidden">Workspace-Menü schließen</span>
+    <span *ngIf="!menuHidden">Workspace-Menü öffnen</span>
+    <button type="button" mat-button (click)="drawer.toggle();menuHidden=!menuHidden">
+    </button>
+</div>
+
 <mat-drawer-container class="example-container mat-drawer-div" autosize>
     <mat-drawer #drawer class="example-sidenav sidenav" mode="side">
         <div class="head">
@@ -5,11 +14,11 @@
             <p class="workspace-name">Code learning</p>
             <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
         </div>
-
-        <div class="channelsPanel">
+        <div class="accordion-outer-div">
+            <img class="add-icon" src="assets/icons/add.svg">
             <mat-accordion multi>
 
-                <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding"
+                <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding pointer-ev"
                     (opened)="chPanelOpen=true" (closed)="chPanelOpen=false" hideToggle multi>
 
                     <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
@@ -21,56 +30,55 @@
                                     <img class="workspaces-icon" src="assets/icons/workspaces.svg">
                                     <span class="panel-headline">Channels</span>
                                 </div>
-
                             </div>
-
                         </div>
-                        <img class="add-icon" src="assets/icons/add.svg">
-                        <!--<mat-panel-description>
-                            This is a summary of the content
-                        </mat-panel-description>-->
                     </mat-expansion-panel-header>
-
                     <div>
-
+                        <!--Hier werden erstellte Channel reingerendert.-->
                         <div class="created-channel">
                             <img src="assets/icons/tag.svg">
                             <span>Entwicklerteam</span>
                         </div>
 
+                        <div class="created-channel">
+                            <img src="assets/icons/tag.svg">
+                            <span>Entwicklerteam</span>
+                        </div>
                     </div>
-
                     <div class="add-ch-div">
                         <img class="add-circle" src="assets/icons/add-circle.svg">
                         <span>Channel hinzufügen</span>
                     </div>
-
                 </mat-expansion-panel>
 
-                <mat-expansion-panel class="mat-elevation-z0 mar-top " (opened)="channelsPanelOpen = true"
-                    (closed)="channelsPanelOpen = false" hideToggle>
-                    <mat-expansion-panel-header class="panel-sp">
-                        <mat-panel-title>
-                            Self aware panel
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            Currently I am {{channelsPanelOpen ? 'open' : 'closed'}}
-                        </mat-panel-description>
+                <mat-expansion-panel class="mat-elevation-z0 mar-top remove-mat-expansion-panel-padding "
+                    (opened)="mesPanelOpen = true" (closed)="mesPanelOpen = false" hideToggle>
+                    <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
+                        <div class="panel-header">
+                            <div class="header-left">
+                                <img class="arrow-drop-down" [class.rotate]="mesPanelOpen"
+                                    src="assets/icons/arrow-drop-down.svg">
+                                <div>
+                                    <img class="account-icon" src="assets/icons/account-circle.svg">
+                                    <span class="panel-headline">Direktnachrichten</span>
+                                </div>
+                            </div>
+                        </div>
                     </mat-expansion-panel-header>
-                    <p>I'm visible because I am open</p>
+                    <div>
+                        <!--Hier werden die Kontakte reingerendert.-->
+                        <div class="contact-div">
+                            <img src="assets/img/ch3.svg">
+                            <span>Frederik Beck (Du)</span>
+                        </div>
+
+                        <div class="contact-div">
+                            <img src="assets/img/ch3.svg">
+                            <span>Frederik Beck (Du)</span>
+                        </div>
+                    </div>
                 </mat-expansion-panel>
             </mat-accordion>
         </div>
     </mat-drawer>
-
-
 </mat-drawer-container>
-
-<div class="example-sidenav-content sidenav-content">
-    <img class="open-sidenav" *ngIf="!menuHidden" src="assets/icons/open-sidenav.svg">
-    <img class="close-sidenav" *ngIf="menuHidden" src="assets/icons/close-sidenav.svg">
-    <span *ngIf="menuHidden">Workspace-Menü schließen</span>
-    <span *ngIf="!menuHidden">Workspace-Menü öffnen</span>
-    <button type="button" mat-button (click)="drawer.toggle();menuHidden=!menuHidden">
-    </button>
-</div>
