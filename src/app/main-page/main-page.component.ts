@@ -11,7 +11,6 @@ import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angu
 })
 export class MainPageComponent {
 
-  public idDoc = "";
   private userAuth: any; //authenticated user
   public user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
@@ -22,6 +21,7 @@ export class MainPageComponent {
   public profileOpen = false;
   public openChat = false;
   public otherChatUser: User = new User();
+  private currentTalkId: string = "";
 
   constructor(public authService: AuthService, public router: Router) {
     setTimeout(() => {
@@ -52,6 +52,7 @@ export class MainPageComponent {
       "member1DBid": this.user.idDB,
       "member2": this.otherChatUser.name,
       "member2DBid": this.otherChatUser.idDB,
+      "idDB": "",
       "communikation": [{
         "date": "heute",
         "messages": [{
@@ -61,6 +62,16 @@ export class MainPageComponent {
         }]
       }]
     }
+    this.addTalk(t);
+    // this.updateIDTalk(this.currentTalkId);
+    setTimeout(() => {
+      console.log("timeout");
+      this.updateIDTalk(this.currentTalkId);
+      let talk = this.user.talkID;
+      console.log("talk", talk);     
+      this.updateIDUser(this.user.idDB, "user", { "talkID": [this.currentTalkId] });
+      this.updateIDUser(this.otherChatUser.idDB, "user", { "talkID": [this.currentTalkId] });
+    }, 1000);
     console.log(t);
     return t;
   }
@@ -70,25 +81,30 @@ export class MainPageComponent {
     this.startTalk();
   }
 
-  async updateID(id: string, coll: string) {
+  async updateIDUser(id: string, coll: string, info: {}) {
     let docRef = doc(this.firestore, coll, id);
+    await updateDoc(docRef, info).catch(
+      (err) => { console.log(err); });
+  }
+  async updateIDTalk(id: string) {
+    let docRef = doc(this.firestore, 'talk', id);
     await updateDoc(docRef, { "idDB": id }).catch(
       (err) => { console.log(err); });
   }
 
 
   async addTalk(item: {}) {
-    await addDoc(this.userRef(), item).catch(
+    await addDoc(this.talkRef(), item).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
           if (docRef) {
-            this.idDoc = docRef.id;
-            this.updateID(this.idDoc, 'talk');
+            this.currentTalkId = docRef.id;
+
           }
         });
   }
 
- 
+
 
   subUserInfo() {
     let ref = this.userRef();

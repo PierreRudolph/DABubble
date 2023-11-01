@@ -5,7 +5,8 @@ export class User {
     iconPath: string;
     status:string;
     uid:string; 
-    idDB:string;  
+    idDB:string; 
+    talkID:string[] = []; 
    
 
     constructor(obj?: any) {
@@ -16,6 +17,7 @@ export class User {
         this.status   = obj ? obj.status : ''; 
         this.uid   = obj ? obj.uid : ''; 
         this.idDB   = obj ? obj.idDB : '';
+        this.talkID   = obj ? obj.talkID : [];
         
     }
 
@@ -28,6 +30,7 @@ export class User {
             "status":this.status,
             "uid":this.uid,
             "idDB":this.idDB,
+            "talkID":this.talkID,
         }
     }
 
