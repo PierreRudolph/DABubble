@@ -29,7 +29,7 @@ export class LoginScreenComponent {
       console.log("user", id);
       localStorage.setItem('uid', id);
       // this.route.navigateByUrl("/main");
-      this.route.navigateByUrl("/probe");
+      this.route.navigateByUrl("/main");
     })
       .catch((error) => {
         console.log("fail");
@@ -42,7 +42,7 @@ export class LoginScreenComponent {
         console.log("succesfully logged in with google", dat);
         localStorage.setItem('google', "loggedIn");
         // this.route.navigateByUrl("/login");
-        this.route.navigateByUrl("/probe");
+        this.route.navigateByUrl("/main");
       }).
       catch((err) => { });
   }

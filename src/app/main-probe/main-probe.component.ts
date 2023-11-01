@@ -4,6 +4,7 @@ import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angu
 import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-main-probe',
   templateUrl: './main-probe.component.html',
@@ -20,7 +21,7 @@ export class MainProbeComponent {
   public choiceDialog: boolean = false;
   public profileOpen = false;
 
-  constructor(public authService: AuthService, public dialog: MatDialog) {
+  constructor(public authService: AuthService, public dialog: MatDialog, public router:Router) {
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
@@ -78,7 +79,14 @@ export class MainProbeComponent {
      await this.updateUser(this.user.idDB);
     let user = this.authService.getAuthServiceUser();
     if (user) {
-      this.authService.logout();
+      this.authService.logout().then(() => {
+        console.log("logged out");
+        this.router.navigateByUrl("login");
+
+         })
+         .catch((error) => {
+           // An error occurred
+         });;
       console.log("userid is", user._delegate.uid);
     }
   }
