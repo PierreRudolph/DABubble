@@ -57,3 +57,67 @@ div {
         content: url('/assets/img/close-hover.svg');
     }
 }
+
+.sidenav-body {
+    height: 100%;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 70px;
+    flex-direction: column;
+}
+
+.thread-starter {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+    border-bottom: 1px solid #b7bade;
+    box-sizing: border-box;
+    padding-right: 20px;
+    padding-bottom: 25px;
+}
+
+.message-div {
+    width: 100%;
+    align-items: flex-start;
+
+    img {
+        width: 70px;
+        padding-right: 15px;
+    }
+}
+
+.message-inner-div {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.mes-name-clock {
+    justify-content: space-between;
+    width: 184px;
+    margin-bottom: 10px;
+}
+
+.mes-name {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.message {
+    background-color: #eceefe;
+    padding: 13px;
+    font-size: 18px;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+}
+
+.answer-counter {
+    position: absolute;
+    bottom: -9px;
+    left: 0px;
+    padding-right: 20px;
+    min-width: 107px;
+    background-color: white;
+    color: #b7bade;
+    font-size: 18px;
+
+}
