@@ -306,3 +306,18 @@
         }
     }
 }
+
+.stateDot{
+    width:10px;
+    height:10px;
+    border-radius: 100%;   
+    position:absolute;
+    background-color:#ADB0D9;
+    right:15px;
+    bottom:7px;
+    border:2px white solid;
+}
+
+.greenDot{
+    background-color:#92C83E;
+}

@@ -11,4 +11,6 @@ export class SideMenuComponent {
   mesPanelOpen: boolean | undefined;
   @Input() user:User = new User();
   @Input() userList=[this.user];
+
+ 
 }

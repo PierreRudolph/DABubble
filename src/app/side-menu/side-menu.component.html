@@ -58,13 +58,19 @@
                     </mat-expansion-panel-header>
                     <div>
                         <!--Hier werden die Kontakte reingerendert.-->
-                        <div class="contact-div">
-                            <img src="{{user.iconPath}}">
+                        <div class="contact-div">                           
+                            <div style="position: relative;">
+                                <img src="{{user.iconPath}}">
+                                <div [class.greenDot]="user.getAktive()" class="stateDot"></div>
+                               </div>
                             <span>{{user.name}} (Du)</span>
                         </div>
 
                         <div *ngFor="let u of userList" class="contact-div">
+                           <div style="position: relative;">
                             <img src="{{u.iconPath}}">
+                            <div  [class.greenDot]="u.getAktive()" class="stateDot"></div>
+                           </div>
                             <span>{{u.name}}</span>
                         </div>
                     </div>

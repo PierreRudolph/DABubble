@@ -30,4 +30,8 @@ export class User {
             "idDB":this.idDB,
         }
     }
+
+    getAktive(){
+        return this.status=="aktiv";
+    }
 }
