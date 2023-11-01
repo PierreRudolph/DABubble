@@ -59,13 +59,13 @@
                     <div>
                         <!--Hier werden die Kontakte reingerendert.-->
                         <div class="contact-div">
-                            <img src="assets/img/ch3.svg">
-                            <span>Frederik Beck (Du)</span>
+                            <img src="{{user.iconPath}}">
+                            <span>{{user.name}} (Du)</span>
                         </div>
 
-                        <div class="contact-div">
-                            <img src="assets/img/ch3.svg">
-                            <span>Frederik Beck (Du)</span>
+                        <div *ngFor="let u of userList" class="contact-div">
+                            <img src="{{u.iconPath}}">
+                            <span>{{u.name}}</span>
                         </div>
                     </div>
                 </mat-expansion-panel>

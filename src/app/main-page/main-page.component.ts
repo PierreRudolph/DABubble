@@ -48,7 +48,8 @@ export class MainPageComponent {
         }
         else { this.userList.push(u); }
       });
-      // console.log('logged in User', this.user);
+      console.log('logged in User', this.user);
+      console.log('UserList', this.userList);
       // console.log('gameData anzeigen', this.userList);
     });
   }
