@@ -1,5 +1,5 @@
 <div class="profileContainer">   
-    <div class="profileDialog DNone">
+    <div *ngIf="!edit" class="profileDialog ">
         <div class="firstLine">
             <div class="nunitoBlack fs24">Profil</div>
             <img (click)="closeDialog()" style="cursor: pointer;" src="assets/img/close.svg">
@@ -9,7 +9,7 @@
         </div>
         <div class="firstLine">
             <div class="nunitoBlack fs32">{{user.name}}</div>
-            <a class="edit">bearbeiten</a>
+            <a class="edit" (click)="editData()">bearbeiten</a>
         </div>
         <div class="styleState">
             <div class="dot"></div>
@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="profileDialog">
+    <div *ngIf="edit" class="profileDialog">
         <div class="firstLine">
             <div class="nunitoBlack fs24">Profil</div>
             <img (click)="closeDialog()" style="cursor: pointer;" src="assets/img/close.svg">

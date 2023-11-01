@@ -12,12 +12,17 @@ export class ProfileDialogComponent {
   @Input() user: User = new User();
   @Output() newItemEvent = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
+  public edit: boolean = false;
 
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    name: new FormControl('' )
+    name: new FormControl('')
   })
   constructor() { }
+
+  editData(){
+    this.edit = !this.edit;
+  }
 
   addNewItem(open: boolean) {
     this.newItemEvent.emit(open);
@@ -27,17 +32,17 @@ export class ProfileDialogComponent {
     this.addNewItem(false);
   }
 
-  save(){
+  save() {
     let n = this.registerForm.value.name;
-    let e = this.registerForm.value.email;   
-    let validMail = this.registerForm.valid;  
-    if(n!==""){
+    let e = this.registerForm.value.email;
+    let validMail = this.registerForm.valid;
+    if (n !== "") {
       this.user.name = n;
     }
-    if(e!=="" && validMail){
+    if (e !== "" && validMail) {
       this.user.email = e;
     }
-    console.log("user",this.user);
+    console.log("user", this.user);
     this.newItemEventUser.emit(this.user);
     this.closeDialog();
   }

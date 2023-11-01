@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject,Input } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
@@ -14,7 +14,8 @@ import { Router } from '@angular/router';
 export class MainDialogProfilComponent {
   public idDoc = "";
   private userAuth: any; //authenticated user
-  public user: User = new User();//authenticated user
+  // public user: User = new User();//authenticated user
+  @Input() user:User = new User();
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   private userUid: string = ""; //uid od the user
@@ -28,8 +29,8 @@ export class MainDialogProfilComponent {
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
       // console.log("userAuth", this.userAuth);
       // console.log("userUid", this.userUid);
-      console.log("const mainProbe");
-      this.unsub = this.subGameInfo();
+      // console.log("const mainProbe");
+      // this.unsub = this.subGameInfo();
     }, 2000);
   }
 
