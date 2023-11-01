@@ -1,6 +1,11 @@
 <div class="main-page">
-    <app-side-menu [user]="user" [userList]="userList" class="side-menu"></app-side-menu>
-    <div class="main-content-div"></div>
-    <app-side-menu-thread class="side-menu"></app-side-menu-thread>
+    <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)" [user]="user" 
+    [userList]="userList" class="side-menu"></app-side-menu>
+    <div class="main-content-div">
+      <div>
+        {{otherChatUser.name}}        
+      </div>
+    </div>
+    <app-side-menu-thread  class="side-menu"></app-side-menu-thread>
     <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
 </div>

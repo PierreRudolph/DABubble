@@ -13,43 +13,39 @@ import { Router } from '@angular/router';
 })
 export class MainDialogProfilComponent {
   public idDoc = "";
-  private userAuth: any; //authenticated user
+  // private userAuth: any; //authenticated user
   // public user: User = new User();//authenticated user
   @Input() user:User = new User();
   public firestore: Firestore = inject(Firestore);
   public userList: any;
-  private userUid: string = ""; //uid od the user
+  // private userUid: string = ""; //uid od the user
   private unsub: any;
   public choiceDialog: boolean = false;
   public profileOpen = false;
 
   constructor(public authService: AuthService, public dialog: MatDialog, public router:Router) {
-    setTimeout(() => {
-      this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
-      // console.log("userAuth", this.userAuth);
-      // console.log("userUid", this.userUid);
-      // console.log("const mainProbe");
-      // this.unsub = this.subGameInfo();
-    }, 2000);
+    // setTimeout(() => {
+    //   this.userAuth = this.authService.getAuthServiceUser();
+    //   this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";     
+    // }, 2000);
   }
 
-  subGameInfo() {
-    let ref = this.userRef();
-    return onSnapshot(ref, (list) => {
-      this.userList = [];
-      list.forEach(elem => {
-        let u = new User(elem.data())
-        if (u.uid == this.userUid) {
-          this.user = u;
-          this.user.status = "aktiv";
-        }
-        else { this.userList.push(u); }
-      });
-      // console.log('logged in User', this.user);
-      // console.log('gameData anzeigen', this.userList);
-    });
-  }
+  // subGameInfo() {
+  //   let ref = this.userRef();
+  //   return onSnapshot(ref, (list) => {
+  //     this.userList = [];
+  //     list.forEach(elem => {
+  //       let u = new User(elem.data())
+  //       if (u.uid == this.userUid) {
+  //         this.user = u;
+  //         this.user.status = "aktiv";
+  //       }
+  //       else { this.userList.push(u); }
+  //     });
+  //     // console.log('logged in User', this.user);
+  //     // console.log('gameData anzeigen', this.userList);
+  //   });
+  // }
 
   setUser(user: User) {
     this.user = user;

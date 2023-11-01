@@ -67,11 +67,11 @@
                         </div>
 
                         <div *ngFor="let u of userList" class="contact-div">
-                           <div style="position: relative;">
+                           <div style="position: relative;" (click)="openTalk(u)">
                             <img src="{{u.iconPath}}">
-                            <div  [class.greenDot]="u.getAktive()" class="stateDot"></div>
+                            <div  [class.greenDot]="u.getAktive()"  class="stateDot"></div>
                            </div>
-                            <span>{{u.name}}</span>
+                            <span (click)="openTalk(u)">{{u.name}}</span>
                         </div>
                     </div>
                 </mat-expansion-panel>
