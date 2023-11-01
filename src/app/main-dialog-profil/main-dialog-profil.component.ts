@@ -5,12 +5,13 @@ import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-main-probe',
-  templateUrl: './main-probe.component.html',
-  styleUrls: ['./main-probe.component.scss']
+  selector: 'app-main-dialog-profil',
+  templateUrl: './main-dialog-profil.component.html',
+  styleUrls: ['./main-dialog-profil.component.scss']
 })
-export class MainProbeComponent {
+export class MainDialogProfilComponent {
   public idDoc = "";
   private userAuth: any; //authenticated user
   public user: User = new User();//authenticated user
@@ -112,8 +113,3 @@ export class MainProbeComponent {
   //       });
   // }
 }
-
-
-
-
-

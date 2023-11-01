@@ -23,11 +23,11 @@ import { CreateAccountAvatarComponent } from './create-account-avatar/create-acc
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetComponent } from './reset/reset.component';
-import { MainProbeComponent } from './main-probe/main-probe.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { SideMenuThreadComponent } from './side-menu-thread/side-menu-thread.component';
+import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-profil.component';
 
 @NgModule({
   declarations: [
@@ -41,10 +41,10 @@ import { SideMenuThreadComponent } from './side-menu-thread/side-menu-thread.com
     CreateAccountMainComponent,
     CreateAccountAvatarComponent,
     ForgotPasswordComponent,
-    ResetComponent,
-    MainProbeComponent,
+    ResetComponent,   
     ProfileDialogComponent,
-    SideMenuThreadComponent
+    SideMenuThreadComponent,
+    MainDialogProfilComponent
   ],
   imports: [
     BrowserModule,
