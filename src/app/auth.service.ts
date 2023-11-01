@@ -39,13 +39,7 @@ export class AuthService {
   }
 
   logout() {
-    this.afAuth.signOut()
-      .then(() => {
-     console.log("logged out");
-      })
-      .catch((error) => {
-        // An error occurred
-      });
+    return this.afAuth.signOut();      
   }
  
   async logInWithGoogle(){

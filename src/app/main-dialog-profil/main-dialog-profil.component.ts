@@ -1,18 +1,21 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject,Input } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
+import { Router } from '@angular/router';
+
 @Component({
-  selector: 'app-main-probe',
-  templateUrl: './main-probe.component.html',
-  styleUrls: ['./main-probe.component.scss']
+  selector: 'app-main-dialog-profil',
+  templateUrl: './main-dialog-profil.component.html',
+  styleUrls: ['./main-dialog-profil.component.scss']
 })
-export class MainProbeComponent {
+export class MainDialogProfilComponent {
   public idDoc = "";
   private userAuth: any; //authenticated user
-  public user: User = new User();//authenticated user
+  // public user: User = new User();//authenticated user
+  @Input() user:User = new User();
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   private userUid: string = ""; //uid od the user
@@ -20,14 +23,14 @@ export class MainProbeComponent {
   public choiceDialog: boolean = false;
   public profileOpen = false;
 
-  constructor(public authService: AuthService, public dialog: MatDialog) {
+  constructor(public authService: AuthService, public dialog: MatDialog, public router:Router) {
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
       // console.log("userAuth", this.userAuth);
       // console.log("userUid", this.userUid);
-      console.log("const mainProbe");
-      this.unsub = this.subGameInfo();
+      // console.log("const mainProbe");
+      // this.unsub = this.subGameInfo();
     }, 2000);
   }
 
@@ -78,7 +81,14 @@ export class MainProbeComponent {
      await this.updateUser(this.user.idDB);
     let user = this.authService.getAuthServiceUser();
     if (user) {
-      this.authService.logout();
+      this.authService.logout().then(() => {
+        console.log("logged out");
+        this.router.navigateByUrl("login");
+
+         })
+         .catch((error) => {
+           // An error occurred
+         });;
       console.log("userid is", user._delegate.uid);
     }
   }
@@ -104,8 +114,3 @@ export class MainProbeComponent {
   //       });
   // }
 }
-
-
-
-
-
