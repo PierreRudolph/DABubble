@@ -6,7 +6,7 @@ export class User {
     status:string;
     uid:string; 
     idDB:string; 
-    talkID:string[] = []; 
+    talkID:{}[] = []; 
    
 
     constructor(obj?: any) {

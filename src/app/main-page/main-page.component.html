@@ -3,7 +3,13 @@
     [userList]="userList" class="side-menu"></app-side-menu>
     <div class="main-content-div">
       <div>
-        {{otherChatUser.name}}        
+        Chat mit {{otherChatUser.name}}        
+      </div>
+      <div>
+        <div >{{currentTalkData.communikation[0].date}}</div>
+        <div >{{currentTalkData.communikation[0].messages[0].name}}</div>
+        <div >{{currentTalkData.communikation[0].messages[0].time}}</div>
+        <div >{{currentTalkData.communikation[0].messages[0].message}}</div>
       </div>
     </div>
     <app-side-menu-thread  class="side-menu"></app-side-menu-thread>
