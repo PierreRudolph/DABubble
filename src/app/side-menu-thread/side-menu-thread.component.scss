@@ -69,20 +69,32 @@ div {
 .thread-starter {
     position: relative;
     width: 100%;
-    margin-top: 20px;
     border-bottom: 1px solid #b7bade;
     box-sizing: border-box;
-    padding-right: 20px;
-    padding-bottom: 25px;
 }
 
 .message-div {
     width: 100%;
     align-items: flex-start;
+    padding-bottom: 25px;
+    padding-right: 45px;
+    padding-top: 20px;
+    box-sizing: border-box;
 
     img {
         width: 70px;
         padding-right: 15px;
+    }
+}
+
+.message-div-right {
+    flex-direction: row-reverse;
+    padding-left: 45px;
+    padding-right: 0px;
+
+    img {
+        padding-right: 0px;
+        padding-left: 15px;
     }
 }
 
@@ -91,15 +103,33 @@ div {
     align-items: flex-start;
 }
 
+.message-inner-div {
+    align-items: flex-end;
+}
+
 .mes-name-clock {
     justify-content: space-between;
-    width: 184px;
     margin-bottom: 10px;
+
+    span:nth-of-type(2) {
+        color: #b7bade;
+    }
+}
+
+.mes-name-clock-right {
+    flex-direction: row-reverse;
+
 }
 
 .mes-name {
+    padding-right: 10px;
     font-size: 18px;
     font-weight: 700;
+}
+
+.mes-name-right {
+    padding-right: 0px;
+    padding-left: 10px;
 }
 
 .message {
@@ -108,6 +138,11 @@ div {
     font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
+}
+
+.message-right {
+    border-top-right-radius: 0px;
+    border-top-left-radius: 20px;
 }
 
 .answer-counter {
@@ -120,4 +155,11 @@ div {
     color: #b7bade;
     font-size: 18px;
 
+}
+
+.answers-div {
+    height: 100%;
+    margin-top: 30px;
+    align-items: flex-start;
+    flex-direction: column;
 }

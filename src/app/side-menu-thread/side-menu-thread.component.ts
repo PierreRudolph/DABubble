@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-menu-thread.component.scss']
 })
 export class SideMenuThreadComponent {
-
+  i: 10 | number | undefined;
 }
