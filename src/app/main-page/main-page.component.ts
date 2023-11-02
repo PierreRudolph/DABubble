@@ -23,7 +23,9 @@ export class MainPageComponent {
   public openChat = false;
   public otherChatUser: User = new User();
   private currentTalkId: string = "";
-  public currentTalkData:any = this.createEmptyTalk();
+  public currentTalkData: any = this.createEmptyTalk();
+  public text: string = "";
+  private communicationIndex = 0;
 
   constructor(public authService: AuthService, public router: Router) {
     setTimeout(() => {
@@ -52,13 +54,13 @@ export class MainPageComponent {
       "member1DBid": "",
       "member2": "",
       "member2DBid": "",
-      "idDB": "",      
+      "idDB": "",
       "communikation": [{
-        "date":"",
+        "date": "",
         "messages": [{
           "name": "",
           "time": "",
-          "message": " Hallo das hier ist die gespeicherte Nachricht",
+          "message": "",
         }]
       }]
     }
@@ -71,17 +73,31 @@ export class MainPageComponent {
       "member1DBid": this.user.idDB,
       "member2": this.otherChatUser.name,
       "member2DBid": this.otherChatUser.idDB,
-      "idDB": "",      
+      "idDB": "",
       "communikation": [{
-        "date": new Date().toString(),
+        "date": new Date(Date.now()).toLocaleString(),
         "messages": [{
-          "name": this.user.name,
-          "time": Date.now(),
-          "message": " Hallo das hier ist die gespeicherte Nachricht",
+          "name": "",
+          "time": "",
+          "message": "",
         }]
       }]
     }
-    return t;
+    return t; }
+
+   saveMessage() {
+    let mes = {
+      "name": this.user.name,
+      "time": new Date(Date.now()).toLocaleString(),
+      "message": this.text,
+    }
+    this.currentTalkData.communikation[this.communicationIndex].messages.push(mes);
+    console.log("log current data save", this.currentTalkData);
+    console.log("log currenttalk id ", this.currentTalkId);
+    setTimeout(() => {
+      this.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+    }, 500);
+    this.text = "";
   }
 
   startTalk(): {} {
@@ -89,61 +105,63 @@ export class MainPageComponent {
     this.addTalk(t);
 
     setTimeout(() => {
-      console.log("timeout");
 
       let talkUser = {
-        "cTalkID": this.currentTalkId,
+        "talkID": this.currentTalkId,
         "oUDbID": this.otherChatUser.idDB
       }// other user database id
       let talkOther = {
-        "cTalkID": this.currentTalkId,
+        "talkID": this.currentTalkId,
         "oUDbID": this.user.idDB
       }// other user database id
-      let uT= this.user.talkID;  //user talk    
+      let uT = this.user.talkID;  //user talk         
+      let oT = this.otherChatUser.talkID;  //other Talk
       uT.push(talkUser);
-      let oT= this.otherChatUser.talkID;  //other Talk  
       oT.push(talkOther);
       this.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
       this.updateDB(this.user.idDB, "user", { "talkID": uT });
       this.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
     }, 1000);
-    console.log(t);
     return t;
   }
 
   openTalk() {
     let dbIDOther = this.otherChatUser.idDB;
-    let talks = this.user.talkID;
-    console.log("idOther", dbIDOther);
-
+    let talks = this.user.talkID; // list of all the talks of the user   
     let exist = false;
     let talkId = "";
     talks.forEach(t => {
       let a: any;
       a = t;
-      console.log("a.oUDBI", a.oUDbID);
+      console.log("a.oUDBID", a.oUDbID);
       if (a.oUDbID === dbIDOther) {
         exist = true;
-        talkId = a.cTalkID;
+        talkId = a.talkID;
       }
     });
+
     if (exist) {
       this.openExistingTalk(talkId);
-     
+      this.currentTalkId = talkId;
     } else {
       console.log("open new talk", exist);
       this.startTalk();
     }
   }
-
-  
-
   openExistingTalk(talkId: string) {
-    console.log("existing talk is", talkId);   
+    console.log("existing talk is", talkId);
     this.getTalkById(talkId);
-    let a:any;
-    
-    console.log("curren talk data",this.currentTalkData.communikation[0].date);
+    setTimeout(() => {
+      let len = this.currentTalkData.communikation.length;
+      let date = this.currentTalkData.communikation[len - 1].date;
+
+      // if(new Date().getDay().toString() == Date.parse(date).getDay())
+      // {
+      //   console.log("current date equal",);
+      // }
+      console.log("date last", this.currentTalkData.communikation[len - 1].date);
+    }, 500);
+
   }
 
   setUser(user: User) {
@@ -168,8 +186,6 @@ export class MainPageComponent {
         });
   }
 
-
-
   subUserInfo() {
     let ref = this.userRef();
     return onSnapshot(ref, (list) => {
@@ -190,21 +206,21 @@ export class MainPageComponent {
 
   subTalkInfo() {
     let ref = this.talkRef();
-    return onSnapshot(ref, (list) => {    
+    return onSnapshot(ref, (list) => {
       list.forEach(elem => {
-        if(elem.id == this.currentTalkId){
-          this.currentTalkData = elem.data();         
+        if (elem.id == this.currentTalkId) {
+          this.currentTalkData = elem.data();
         }
       });
-      console.log("current talk",this.currentTalkData);
+      console.log("current talk", this.currentTalkData);
     });
   }
 
- async getTalkById(id:string){
+  async getTalkById(id: string) {
     const docRef = doc(this.firestore, "talk", id);
     let docSnap = await getDoc(docRef);
 
-    if (docSnap!=null) {
+    if (docSnap != null) {
       // console.log("Document data:",docSnap.data());
       this.currentTalkData = docSnap.data();
     } else {
@@ -212,8 +228,4 @@ export class MainPageComponent {
       console.log("No such document!");
     }
   }
-
-  
-
-
 }

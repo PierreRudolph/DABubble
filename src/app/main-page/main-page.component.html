@@ -5,12 +5,16 @@
       <div>
         Chat mit {{otherChatUser.name}}        
       </div>
-      <div>
-        <div >{{currentTalkData.communikation[0].date}}</div>
-        <div >{{currentTalkData.communikation[0].messages[0].name}}</div>
-        <div >{{currentTalkData.communikation[0].messages[0].time}}</div>
-        <div >{{currentTalkData.communikation[0].messages[0].message}}</div>
+      <div style="margin:20px" *ngFor="let c of this.currentTalkData.communikation,index as i">
+        <div >{{c.date}}</div>
+        <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">
+        <div >{{m.name}}</div>
+        <div >{{m.time}}</div>
+        <div >{{m.message}}</div>
+        </div>
       </div>
+      <textarea [(ngModel)]="text"></textarea>
+      <button (click)="saveMessage()">senden</button>
     </div>
     <app-side-menu-thread  class="side-menu"></app-side-menu-thread>
     <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
