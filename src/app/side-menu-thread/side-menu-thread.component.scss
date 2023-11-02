@@ -9,7 +9,7 @@
     height: 100%;
     width: 485px;
     border-radius: 30px;
-    padding: 37px 36px;
+    padding: 37px 0px;
 }
 
 .sidenav-header {
@@ -69,28 +69,45 @@ div {
 .thread-starter {
     position: relative;
     width: 100%;
-    border-bottom: 1px solid #b7bade;
+    flex-direction: column;
     box-sizing: border-box;
 }
 
 .message-div {
     width: 100%;
+    position: relative;
     align-items: flex-start;
-    padding-bottom: 25px;
-    padding-right: 45px;
-    padding-top: 20px;
     box-sizing: border-box;
+    transition: all 225ms ease-in-out;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    margin-top: 25px;
 
     img {
         width: 70px;
         padding-right: 15px;
     }
+
+    &:hover {
+        background-color: #eceefe;
+
+        .message {
+            background-color: white;
+        }
+
+        .add-reaction {
+            pointer-events: all;
+            opacity: 1;
+            right: 40px;
+        }
+    }
 }
 
 .message-div-right {
     flex-direction: row-reverse;
-    padding-left: 45px;
-    padding-right: 0px;
+
 
     img {
         padding-right: 0px;
@@ -103,7 +120,7 @@ div {
     align-items: flex-start;
 }
 
-.message-inner-div {
+.message-inner-div-right {
     align-items: flex-end;
 }
 
@@ -145,6 +162,100 @@ div {
     border-top-left-radius: 20px;
 }
 
+.reactions {
+    margin-top: 10px;
+
+    img {
+        width: 34px;
+    }
+}
+
+.reaction-emoji-counter {
+    cursor: pointer;
+    position: relative;
+    border: 1px solid #b7bade;
+    border-radius: 20px;
+    padding: 5px 10px;
+
+    img {
+        width: 24px;
+    }
+
+    &:hover {
+        .reactions-tooltip {
+            display: flex;
+        }
+    }
+}
+
+.reactions-tooltip {
+    display: none;
+    position: absolute;
+    width: max-content;
+    right: -160px;
+    top: -109px;
+    flex-direction: column;
+    background-color: #444df2;
+    border-radius: 30px;
+    border-bottom-left-radius: 0px;
+    padding: 15px 10px;
+
+    span {
+        color: white;
+        font-size: 16px;
+    }
+
+    img {
+        padding: 0px;
+        width: 30px;
+        margin-bottom: 8px;
+    }
+}
+
+.reactions-username {
+    span {
+        font-size: 18px;
+        font-weight: 700;
+    }
+
+    span:nth-of-type(2) {
+        padding-left: 7px;
+    }
+}
+
+.add-reaction {
+    cursor: pointer;
+    pointer-events: none;
+    transition: all 225ms ease-in-out;
+    opacity: 0;
+    position: absolute;
+    right: 0px;
+    top: 8px;
+    background-color: white;
+    border: 1px solid #b7bade;
+    border-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-right-radius: 0px;
+
+    img {
+        width: 40px;
+        padding: 0px 7px;
+    }
+
+    &:hover {
+        img {
+            content: url('/assets/icons/add-reaction-hover.svg');
+        }
+    }
+}
+
+.answer-counter-div {
+    margin-right: 65px;
+    margin-top: 15px;
+    border: 1px solid #b7bade;
+    width: 100%;
+}
+
 .answer-counter {
     position: absolute;
     bottom: -9px;
@@ -154,12 +265,11 @@ div {
     background-color: white;
     color: #b7bade;
     font-size: 18px;
-
+    padding-left: 20px;
 }
 
 .answers-div {
     height: 100%;
-    margin-top: 30px;
     align-items: flex-start;
     flex-direction: column;
 }

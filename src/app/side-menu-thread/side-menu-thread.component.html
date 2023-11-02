@@ -14,43 +14,64 @@
             <div class="thread-starter">
                 <!--Hier wird die Thread-starter Nachricht reingerendert-->
 
-                <div class="message-div" style="padding-top: 25px;">
+                <div class="message-div">
+                    <div class="add-reaction">
+                        <img src="assets/icons/add-reaction.svg">
+                    </div>
                     <img src="assets/img/ch4.svg">
-
                     <div class="message-inner-div">
-
                         <div class="mes-name-clock">
                             <span class="mes-name">Noah Braun</span>
                             <span>14:25 Uhr</span>
                         </div>
-
                         <diV class="message">
                             Welche Version ist aktuell von Angular?
                         </diV>
-
                     </div>
                 </div>
-                <span class="answer-counter">2 Antworten</span>
+
+                <div class="answer-counter-div">
+                    <span class="answer-counter">2 Antworten</span>
+                </div>
+
             </div>
 
             <div class="answers-div">
+
                 <div class="message-div">
+                    <div class="add-reaction">
+                        <img src="assets/icons/add-reaction.svg">
+                    </div>
                     <img src="assets/img/ch5.svg">
-
                     <div class="message-inner-div">
-
                         <div class="mes-name-clock">
                             <span class="mes-name">Sofia Müller</span>
                             <span>14:30 Uhr</span>
                         </div>
-
                         <diV class="message">
                             Ich habe die gleiche Frage. Ich habe gegoogelt und es scheint,
                             dass die aktuelle Version Angular 13 ist. Vielleicht weiß Frederik, ob es wahr ist.
                         </diV>
+                        <diV class="reactions">
 
+                            <div class="reaction-emoji-counter">
+
+                                <div class="reactions-tooltip">
+                                    <img src="assets/icons/emoji-nerd.svg">
+                                    <div class="reactions-username">
+                                        <span>Sofia Müller</span>
+                                        <span>und Du</span>
+                                    </div>
+                                    <span>hat reagiert</span>
+                                </div>
+                                <img src="assets/icons/emoji-nerd.svg">
+                                <span>1</span>
+                            </div>
+                            <img src="assets/icons/add-reaction.svg">
+                        </diV>
                     </div>
                 </div>
+
                 <!--Nachricht die von rechts angezeigt wird. Klassen mit dem beinamen right, richten die Nachricht nach rechts aus.-->
                 <div class="message-div message-div-right">
                     <img src="assets/img/ch3.svg">
@@ -65,11 +86,9 @@
                         <diV class="message message-right">
                             Ja das ist es.
                         </diV>
-
                     </div>
                 </div>
             </div>
-
         </div>
 
     </mat-drawer>

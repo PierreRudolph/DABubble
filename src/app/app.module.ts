@@ -28,7 +28,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { SideMenuThreadComponent } from './side-menu-thread/side-menu-thread.component';
 import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-profil.component';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +40,7 @@ import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-prof
     CreateAccountMainComponent,
     CreateAccountAvatarComponent,
     ForgotPasswordComponent,
-    ResetComponent,   
+    ResetComponent,
     ProfileDialogComponent,
     SideMenuThreadComponent,
     MainDialogProfilComponent
