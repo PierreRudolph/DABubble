@@ -16,6 +16,7 @@
 .main-content-div {
     width: 100%;
     background-color: white;
+    //margin-right: 20px; war zuviel abstand zur seite wenn thread geschlossen
     border-radius: 30px;
     display: flex;
     flex-direction: column;
@@ -41,7 +42,7 @@
     display: flex;
     gap: 10px;
     align-items: center;
-    width: 100%;
+    //width: 100%; verursacht overflow wenn thread geschlossen
     height: 60px;
     margin: 32px 45px 20px 45px;
     box-sizing: border-box;
@@ -90,12 +91,9 @@
 .mainFieldDirektMessage {
     display: flex;
     gap: 25px;
-    // justify-content: flex-end;
-    flex-direction: column;
-    height: 400px;
-    // max-height: 600px;
-    width: 100%;
-    box-sizing: border-box;
+    align-items: flex-end;
+    min-height: 400px;
+    //width: 100%; verusacht overflow wenn thread geschlossen
     margin-bottom: 24px;
     padding: 0 45px 0 45px;
 

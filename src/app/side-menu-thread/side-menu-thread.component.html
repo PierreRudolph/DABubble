@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container mat-drawer-div">
+<mat-drawer-container class="example-container mat-drawer-div" [class.margin-right]="this.drawer.opened==true">
     <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end" opened>
         <div class="sidenav-header">
             <div>
@@ -6,7 +6,7 @@
                 <img class="tag-icon" src="assets/icons/tag-hover.svg">
                 <span class="thread-name">Entwicklerteam</span>
             </div>
-            <img class="close-icon" src="assets/img/close.svg">
+            <img (click)="closeThread()" class="close-icon" src="assets/img/close.svg">
         </div>
 
         <div class="sidenav-body">
