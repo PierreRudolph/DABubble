@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatDrawer } from '@angular/material/sidenav';
 @Component({
   selector: 'app-side-menu-thread',
   templateUrl: './side-menu-thread.component.html',
@@ -6,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class SideMenuThreadComponent {
   i: 10 | number | undefined;
+
+  @ViewChild('drawer')
+  drawer!: MatDrawer;
+
+  closeThread() {
+    this.drawer.close();
+    console.log(this.drawer);
+  }
 }

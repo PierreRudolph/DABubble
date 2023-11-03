@@ -2,7 +2,8 @@
     position: relative;
     background-color: #eceefe;
     height: 100%;
-    width: 485px;
+    //width: 485px;
+    transition: all 225ms ease-in-out;
 }
 
 .sidenav {
@@ -207,6 +208,9 @@
 .add-reaction-icon {
     cursor: pointer;
     width: 34px;
+    background-color: white;
+    border-radius: 30px;
+    margin-left: 5px;
 
     &:hover {
         content: url('/assets/icons/add-reaction-hover.svg');
@@ -325,4 +329,8 @@
         border-radius: 20px;
         resize: none;
     }
+}
+
+.margin-right {
+    margin-left: 20px;
 }
