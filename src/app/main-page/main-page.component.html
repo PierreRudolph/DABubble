@@ -1,7 +1,7 @@
 <div class="main-page">
     <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)" [user]="user" 
     [userList]="userList" class="side-menu"></app-side-menu>
-    <div class="main-content-div">
+    <!-- <div class="main-content-div">
       <div>
         Chat mit {{otherChatUser.name}}        
       </div>
@@ -15,6 +15,36 @@
       </div>
       <textarea [(ngModel)]="text"></textarea>
       <button (click)="saveMessage()">senden</button>
+    </div> -->
+    <div class="main-content-div">    
+
+        <div class="direktMesHeader">
+          <div style="position: relative;width:fit-content;">
+            <img src="{{otherChatUser.iconPath}}">
+            <div  [class.greenDot]="otherChatUser.getAktive()"  class="stateDot"></div>         
+           </div> 
+           <div class="nunitoBlack">{{otherChatUser.name}}</div>  
+        </div>  
+        
+         <div class="mainFieldDirektMessage">
+         <img src="{{otherChatUser.iconPath}}"> <div class="nunitoBlack">{{otherChatUser.name}}</div>
+         </div>
+         <div class="nunitoBlack fs20 wei400" style="padding-left: 45px;">Diese Unterhaltung findet nur zwischen <span style="color:#535AF1;">@{{otherChatUser.name}}</span> und dir statt.</div>
+         <div class="textareaDirektMessage">
+          <textarea class="textAreaDirekt" [(ngModel)]="text"></textarea>
+          <img class="sendArrow"  (click)="saveMessage()" src="assets/img/sendArrow.svg">
+         </div>
+       
+        
+        <!-- <div >{{c.date}}</div>
+        <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">
+        <div >{{m.name}}</div>
+        <div >{{m.time}}</div>
+        <div >{{m.message}}</div> -->
+        
+      
+     
+      
     </div>
     <app-side-menu-thread  class="side-menu"></app-side-menu-thread>
     <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
