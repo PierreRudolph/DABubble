@@ -1,4 +1,5 @@
 .mat-drawer-div {
+    position: relative;
     background-color: #eceefe;
     height: 100%;
     width: 485px;
@@ -6,6 +7,7 @@
 
 .sidenav {
     display: flex;
+    align-items: center;
     height: 100%;
     width: 485px;
     border-radius: 30px;
@@ -26,12 +28,6 @@
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
 
 }
-
-div {
-    display: flex;
-    align-items: center;
-}
-
 
 .sidenav-headline {
     font-family: 'Nunito';
@@ -63,17 +59,25 @@ div {
     width: 100%;
     box-sizing: border-box;
     padding-top: 70px;
+    display: flex;
+    align-items: center;
     flex-direction: column;
 }
 
+
+
 .thread-starter {
+    display: flex;
+    align-items: center;
     position: relative;
     width: 100%;
+    display: flex;
     flex-direction: column;
     box-sizing: border-box;
 }
 
 .message-div {
+    display: flex;
     width: 100%;
     position: relative;
     align-items: flex-start;
@@ -164,6 +168,8 @@ div {
 
 .reactions {
     margin-top: 10px;
+    display: flex;
+    align-items: center;
 
     img {
         width: 34px;
@@ -176,6 +182,8 @@ div {
     border: 1px solid #b7bade;
     border-radius: 20px;
     padding: 5px 10px;
+    display: flex;
+    align-items: center;
 
     img {
         width: 24px;
@@ -190,6 +198,7 @@ div {
 
 .reactions-tooltip {
     display: none;
+    align-items: center;
     position: absolute;
     width: max-content;
     right: -160px;
@@ -224,6 +233,8 @@ div {
 }
 
 .add-reaction {
+    display: flex;
+    align-items: center;
     cursor: pointer;
     pointer-events: none;
     transition: all 225ms ease-in-out;
@@ -270,6 +281,26 @@ div {
 
 .answers-div {
     height: 100%;
+    display: flex;
     align-items: flex-start;
     flex-direction: column;
+}
+
+.textfield-div {
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    right: 20px;
+    height: 104px;
+    width: 444px;
+
+    textarea {
+        box-sizing: border-box;
+        height: 100%;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #b7bade;
+        border-radius: 20px;
+        resize: none;
+    }
 }
