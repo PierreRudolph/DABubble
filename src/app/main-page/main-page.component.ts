@@ -26,6 +26,8 @@ export class MainPageComponent {
   public currentTalkData: any = this.createEmptyTalk();
   public text: string = "";
   private communicationIndex = 0;
+  public exist = false;
+  public talkOpen: boolean = false;
 
   constructor(public authService: AuthService, public router: Router) {
     setTimeout(() => {
@@ -78,6 +80,7 @@ export class MainPageComponent {
         "date": this.parseDate(new Date(Date.now())),
         "messages": [{
           "name": "",
+          "iD": "",
           "time": "",
           "message": "",
         }]
@@ -89,43 +92,52 @@ export class MainPageComponent {
   saveMessage() {
     let mes = {
       "name": this.user.name,
+      "iD": this.user.name,
       "time": this.parseTime(new Date(Date.now())),
       "message": this.text,
     }
 
-    setTimeout(() => {
-      let len = this.currentTalkData.communikation.length;
-      let date = this.currentTalkData.communikation[len - 1].date;
+    console.log("open new talk", this.exist);
+    if (!this.exist) {
+      this.startTalk(mes);
+      this.exist = true;
+    }
+    else {
+      setTimeout(() => {
+        let len = this.currentTalkData.communikation.length;
+        let date = this.currentTalkData.communikation[len - 1].date;
 
-      if (date == this.parseDate(new Date(Date.now()))) {
-        this.currentTalkData.communikation[this.communicationIndex].messages.push(mes);       
-      }else{
-        let com={
-          "date": this.parseDate(new Date(Date.now())),
-          "messages": [mes]
+        if (date == this.parseDate(new Date(Date.now()))) {
+          this.currentTalkData.communikation[this.communicationIndex].messages.push(mes);
+        } else {
+          let com = {
+            "date": this.parseDate(new Date(Date.now())),
+            "messages": [mes]
+          }
+          this.currentTalkData.communikation.push(com);
         }
-        this.currentTalkData.communikation.push(com);
-      }
 
-    }, 225);
-   
+      }, 500);
+    }
+
     setTimeout(() => {
       this.updateDB(this.currentTalkId, "talk", this.currentTalkData);
-    }, 500);
+    }, 750);
     this.text = "";
   }
 
 
-  getIconFromName(name:string){
-    if(name==this.user.name){
+  getIconFromName(name: string) {
+    if (name == this.user.name) {
       return this.user.iconPath;
-    }else return this.otherChatUser.iconPath;
+    } else return this.otherChatUser.iconPath;
   }
 
-  startTalk(): {} {
-    let t = this.createNewTalk();
+  startTalk(talk: {}): {} {
+    let t: any = this.createNewTalk();
+    t.communikation[0].messages = [talk];
     this.addTalk(t);
-
+    
     setTimeout(() => {
 
       let talkUser = { //the id of the talk is saved in a List of the user
@@ -144,6 +156,8 @@ export class MainPageComponent {
       this.updateDB(this.user.idDB, "user", { "talkID": uT });
       this.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
     }, 1000);
+    this.currentTalkData = t;
+    console.log("current talk",this.currentTalkData);
     return t;
   }
 
@@ -162,34 +176,33 @@ export class MainPageComponent {
   }
 
   openTalk() {
-    let d = new Date(Date.now())// wieder löschen
-    console.log("time", this.parseTime(d));
+    this.exist = false;
+    this.talkOpen = true;
     let dbIDOther = this.otherChatUser.idDB;
     let talks = this.user.talkID; // list of all the talks of the user   
-    let exist = false;
+
     let talkId = "";
     talks.forEach(t => {
       let a: any;
       a = t;
       console.log("a.oUDBID", a.oUDbID);
       if (a.oUDbID === dbIDOther) {
-        exist = true;
+        this.exist = true;
         talkId = a.talkID;
       }
     });
 
-    if (exist) {
+    if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
-    } else {
-      console.log("open new talk", exist);
-      this.startTalk();
+    }else{
+      this.currentTalkData = this.createEmptyTalk();
     }
   }
 
   openExistingTalk(talkId: string) {
     console.log("existing talk is", talkId);
-    this.getTalkById(talkId);   
+    this.getTalkById(talkId);
 
   }
 

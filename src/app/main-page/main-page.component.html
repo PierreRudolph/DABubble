@@ -1,21 +1,6 @@
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)" [user]="user"
     [userList]="userList" class="side-menu"></app-side-menu>
-  <!-- <div class="main-content-div">
-      <div>
-        Chat mit {{otherChatUser.name}}        
-      </div>
-      <div style="margin:20px" *ngFor="let c of this.currentTalkData.communikation,index as i">
-        <div >{{c.date}}</div>
-        <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">
-        <div >{{m.name}}</div>
-        <div >{{m.time}}</div>
-        <div >{{m.message}}</div>
-        </div>
-      </div>
-      <textarea [(ngModel)]="text"></textarea>
-      <button (click)="saveMessage()">senden</button>
-    </div> -->
   <div class="main-content-div">
     <div class="direktMesHeader">
       <div style="position: relative;width:fit-content;">
@@ -24,41 +9,41 @@
       </div>
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
-
     <div style="padding-bottom: 30px;">
       <div class="mainFieldDirektMessage">
-        <div class="messageArea">
+        <div class="messageArea" *ngIf="talkOpen">
           <div style="margin:30px 20px 20px 20px" *ngFor="let c of this.currentTalkData.communikation,index as i">
-            <div style="position: relative;width:100%; margin-top: 15px;">
+            <div style="position: relative;width:100%; margin-top: 15px;" *ngIf="c.date!=''">
               <div class="sendDate">{{c.date}}</div>
               <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
             </div>
             <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">
-              <div style="display: flex;">
-               <img src="{{getIconFromName(m.name)}}">
-               <div style="display: flex;flex-direction: column;">
-                <div class="nunitoBlack fs18" >{{m.name}}</div>
-                <div class="time">{{m.time}}</div>
-                <div>{{m.message}}</div>
-               </div>
+              <div style="display: flex;" *ngIf="c.date!=''">
+                <img src="{{getIconFromName(m.name)}}">
+                <div style="display: flex;flex-direction: column;">
+                  <div class="nunitoBlack fs18">{{m.name}}</div>
+                  <div class="time">{{m.time}} Uhr</div>
+                  <div>{{m.message}}</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <!-- <div class="chatIconButtom">
+      <div *ngIf="!exist" class="chatIconButtom">
         <img src="{{otherChatUser.iconPath}}">
         <div class="nunitoBlack">{{otherChatUser.name}}</div>
       </div>
-      <div class="nunitoBlack fs20 wei400" style="padding-left: 45px; color:#686868">Diese Unterhaltung findet nur zwischen <span
-          style="color:#535AF1;">@{{otherChatUser.name}}</span> und dir statt.</div> -->
-      <div class="textareaDirektMessage">
+      <div *ngIf="!exist && talkOpen " class="nunitoBlack fs20 wei400" style="padding-left: 45px; color:#686868">Diese Unterhaltung findet nur
+        zwischen <span style="color:#535AF1;">@{{otherChatUser.name}}</span> und dir statt.
+      </div>
+      <div *ngIf="talkOpen" class="textareaDirektMessage">
         <textarea class="textAreaDirekt" [(ngModel)]="text"
           placeholder="Nachricht an {{otherChatUser.name}}"></textarea>
         <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
       </div>
     </div>
   </div>
-  <app-side-menu-thread  class="side-menu"></app-side-menu-thread>
+  <!-- <app-side-menu-thread  class="side-menu"></app-side-menu-thread> -->
   <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
 </div>
