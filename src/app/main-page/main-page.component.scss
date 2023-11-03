@@ -45,7 +45,7 @@
     //width: 100%; verursacht overflow wenn thread geschlossen
     height: 60px;
     padding: 32px 45px 20px 45px;
-
+    box-sizing: border-box;
 }
 
 .textAreaDirekt {
@@ -54,18 +54,38 @@
     padding: 20px;
     resize: none;
     width: 100%;
+    height: 150px;
     box-sizing: border-box;
 
     &:focus {
         outline: none;
     }
 
+    &::placeholder {
+        color: var(--Text-gray, #686868);
+        font-family: Nunito;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+}
+
+.time {
+    color: var(--Text-gray, #686868);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 }
 
 .textareaDirektMessage {
     margin-top: 50px;
     padding: 0 45px 0 45px;
     position: relative;
+    box-sizing: border-box;
 }
 
 .mainFieldDirektMessage {
@@ -84,4 +104,37 @@
     right: 55px;
     bottom: 10px;
     cursor: pointer;
+}
+
+.messageArea {
+    overflow-y: scroll;
+}
+
+.sendDate {
+
+    border-radius: 18px;
+    position: absolute;
+    width: 200px;
+    height: 36px;
+    top: calc(50% - 24px);
+    left: calc(50% - 100px);
+    border: solid 1px #ADB0D9;
+    color: var(--Black, #000);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.chatIconButtom {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    padding: 0 45px 0 45px;
+    margin-bottom: 20px;
 }
