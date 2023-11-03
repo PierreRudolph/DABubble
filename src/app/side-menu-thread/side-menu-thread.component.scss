@@ -92,11 +92,6 @@
     padding-bottom: 25px;
     margin-top: 25px;
 
-    img {
-        width: 70px;
-        padding-right: 15px;
-    }
-
     &:hover {
         background-color: #eceefe;
 
@@ -114,6 +109,11 @@
             right: 40px;
         }
     }
+}
+
+.char-img {
+    width: 70px;
+    padding-right: 15px;
 }
 
 .message-div-right {
@@ -179,10 +179,6 @@
     margin-top: 10px;
     display: flex;
     align-items: center;
-
-    img {
-        width: 34px;
-    }
 }
 
 .reaction-emoji-counter {
@@ -193,6 +189,9 @@
     padding: 5px 10px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    min-width: 45px;
 
     img {
         width: 24px;
@@ -202,6 +201,15 @@
         .reactions-tooltip {
             display: flex;
         }
+    }
+}
+
+.add-reaction-icon {
+    cursor: pointer;
+    width: 34px;
+
+    &:hover {
+        content: url('/assets/icons/add-reaction-hover.svg');
     }
 }
 
