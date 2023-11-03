@@ -25,6 +25,10 @@ body {
     padding: 5px 30px;
 }
 
+.mat-drawer-inner-container {
+    overflow: hidden !important;
+}
+
 .mat-body,
 .mat-body-2,
 .mat-typography .mat-body,
@@ -59,7 +63,7 @@ body {
     font-size: 32px;
 }
 
-.fs20{
+.fs20 {
     font-size: 20;
 }
 
