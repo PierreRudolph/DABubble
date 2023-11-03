@@ -115,6 +115,13 @@ export class MainPageComponent {
     this.text = "";
   }
 
+
+  getIconFromName(name:string){
+    if(name==this.user.name){
+      return this.user.iconPath;
+    }else return this.otherChatUser.iconPath;
+  }
+
   startTalk(): {} {
     let t = this.createNewTalk();
     this.addTalk(t);
