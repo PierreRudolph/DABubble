@@ -75,7 +75,7 @@ export class MainPageComponent {
       "member2DBid": this.otherChatUser.idDB,
       "idDB": "",
       "communikation": [{
-        "date": new Date(Date.now()).toLocaleString(),
+        "date": this.parseDate(new Date(Date.now())),
         "messages": [{
           "name": "",
           "time": "",
@@ -83,17 +83,32 @@ export class MainPageComponent {
         }]
       }]
     }
-    return t; }
+    return t;
+  }
 
-   saveMessage() {
+  saveMessage() {
     let mes = {
       "name": this.user.name,
-      "time": new Date(Date.now()).toLocaleString(),
+      "time": this.parseTime(new Date(Date.now())),
       "message": this.text,
     }
-    this.currentTalkData.communikation[this.communicationIndex].messages.push(mes);
-    console.log("log current data save", this.currentTalkData);
-    console.log("log currenttalk id ", this.currentTalkId);
+
+    setTimeout(() => {
+      let len = this.currentTalkData.communikation.length;
+      let date = this.currentTalkData.communikation[len - 1].date;
+
+      if (date == this.parseDate(new Date(Date.now()))) {
+        this.currentTalkData.communikation[this.communicationIndex].messages.push(mes);       
+      }else{
+        let com={
+          "date": this.parseDate(new Date(Date.now())),
+          "messages": [mes]
+        }
+        this.currentTalkData.communikation.push(com);
+      }
+
+    }, 225);
+   
     setTimeout(() => {
       this.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }, 500);
@@ -106,16 +121,16 @@ export class MainPageComponent {
 
     setTimeout(() => {
 
-      let talkUser = {
+      let talkUser = { //the id of the talk is saved in a List of the user
         "talkID": this.currentTalkId,
         "oUDbID": this.otherChatUser.idDB
       }// other user database id
-      let talkOther = {
+      let talkOther = {//the id of the talk is saved in a List of the other user
         "talkID": this.currentTalkId,
         "oUDbID": this.user.idDB
       }// other user database id
-      let uT = this.user.talkID;  //user talk         
-      let oT = this.otherChatUser.talkID;  //other Talk
+      let uT = this.user.talkID;  //user talkliste         
+      let oT = this.otherChatUser.talkID;  //other talklist
       uT.push(talkUser);
       oT.push(talkOther);
       this.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
@@ -125,7 +140,23 @@ export class MainPageComponent {
     return t;
   }
 
+  parseTime(dt: Date) {
+    let min = dt.getMinutes();
+    let hour = dt.getHours();
+    return hour + ":" + min;
+  }
+
+  parseDate(dt: Date) {
+    let day = dt.getDate();
+    let month = dt.getMonth() + 1;
+    let year = dt.getFullYear();
+
+    return day + "." + month + "." + year;
+  }
+
   openTalk() {
+    let d = new Date(Date.now())// wieder löschen
+    console.log("time", this.parseTime(d));
     let dbIDOther = this.otherChatUser.idDB;
     let talks = this.user.talkID; // list of all the talks of the user   
     let exist = false;
@@ -148,19 +179,10 @@ export class MainPageComponent {
       this.startTalk();
     }
   }
+
   openExistingTalk(talkId: string) {
     console.log("existing talk is", talkId);
-    this.getTalkById(talkId);
-    setTimeout(() => {
-      let len = this.currentTalkData.communikation.length;
-      let date = this.currentTalkData.communikation[len - 1].date;
-
-      // if(new Date().getDay().toString() == Date.parse(date).getDay())
-      // {
-      //   console.log("current date equal",);
-      // }
-      console.log("date last", this.currentTalkData.communikation[len - 1].date);
-    }, 500);
+    this.getTalkById(talkId);   
 
   }
 
@@ -198,9 +220,6 @@ export class MainPageComponent {
         }
         else { this.userList.push(u); }
       });
-      console.log('logged in User', this.user);
-      console.log('UserList', this.userList);
-      // console.log('gameData anzeigen', this.userList);
     });
   }
 
@@ -212,7 +231,6 @@ export class MainPageComponent {
           this.currentTalkData = elem.data();
         }
       });
-      console.log("current talk", this.currentTalkData);
     });
   }
 
