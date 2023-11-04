@@ -24,8 +24,7 @@ export class MainPageComponent {
   public otherChatUser: User = new User();
   private currentTalkId: string = "";
   public currentTalkData: any = this.createEmptyTalk();
-  public text: string = "";
-  private communicationIndex = 0;
+  public text: string = "";  
   public exist = false;
   public talkOpen: boolean = false;
 
@@ -89,13 +88,37 @@ export class MainPageComponent {
     return t;
   }
 
-  saveMessage() {
+  createMesssageFromText(text:string){
     let mes = {
       "name": this.user.name,
       "iD": this.user.name,
       "time": this.parseTime(new Date(Date.now())),
-      "message": this.text,
+      "message": text,
     }
+    return mes;
+  }
+
+  saveMessageExist(mes:{}){
+    setTimeout(() => {
+      let len = this.currentTalkData.communikation.length;
+      let date = this.currentTalkData.communikation[len - 1].date;
+      let today = this.parseDate(new Date(Date.now())) ;
+      if(date == today) {
+        console.log("same Day", date + " "  + today + " "+ len);          
+        this.currentTalkData.communikation[len-1].messages.push(mes);
+      } else {
+        let com = {
+          "date": this.parseDate(new Date(Date.now())),
+          "messages": [mes]
+        }
+        this.currentTalkData.communikation.push(com);
+      }
+    }, 500);
+  }
+
+  saveMessage() {
+    console.log("call save");
+    let mes = this.createMesssageFromText(this.text);
 
     console.log("open new talk", this.exist);
     if (!this.exist) {
@@ -103,21 +126,7 @@ export class MainPageComponent {
       this.exist = true;
     }
     else {
-      setTimeout(() => {
-        let len = this.currentTalkData.communikation.length;
-        let date = this.currentTalkData.communikation[len - 1].date;
-
-        if (date == this.parseDate(new Date(Date.now()))) {
-          this.currentTalkData.communikation[this.communicationIndex].messages.push(mes);
-        } else {
-          let com = {
-            "date": this.parseDate(new Date(Date.now())),
-            "messages": [mes]
-          }
-          this.currentTalkData.communikation.push(com);
-        }
-
-      }, 500);
+      this.saveMessageExist(mes);
     }
 
     setTimeout(() => {
@@ -134,12 +143,16 @@ export class MainPageComponent {
   }
 
   startTalk(talk: {}): {} {
+    console.log("call startTalk");
     let t: any = this.createNewTalk();
+    console.log("alfter create talk ",t);
     t.communikation[0].messages = [talk];
     this.addTalk(t);
-    
-    setTimeout(() => {
 
+    setTimeout(() => {
+      console.log("user ", this.user);
+      console.log("otheruser ", this.otherChatUser);
+      console.log("otheruser ", this.currentTalkId);
       let talkUser = { //the id of the talk is saved in a List of the user
         "talkID": this.currentTalkId,
         "oUDbID": this.otherChatUser.idDB
@@ -151,13 +164,13 @@ export class MainPageComponent {
       let uT = this.user.talkID;  //user talkliste         
       let oT = this.otherChatUser.talkID;  //other talklist
       uT.push(talkUser);
-      oT.push(talkOther);
-      this.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
+      oT.push(talkOther);    
       this.updateDB(this.user.idDB, "user", { "talkID": uT });
       this.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
     }, 1000);
+    t.idDB = this.currentTalkId;
     this.currentTalkData = t;
-    console.log("current talk",this.currentTalkData);
+    console.log("current talk", this.currentTalkData);
     return t;
   }
 
@@ -195,7 +208,7 @@ export class MainPageComponent {
     if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
-    }else{
+    } else {
       this.currentTalkData = this.createEmptyTalk();
     }
   }
@@ -212,18 +225,20 @@ export class MainPageComponent {
   }
 
   async updateDB(id: string, coll: string, info: {}) {
+    console.log("call update",info);
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).catch(
       (err) => { console.log(err); });
   }
 
   async addTalk(item: {}) {
+    console.log("call addTalk",item);
     await addDoc(this.talkRef(), item).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
           if (docRef) {
             this.currentTalkId = docRef.id;
-
+            this.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
           }
         });
   }
@@ -261,6 +276,7 @@ export class MainPageComponent {
     if (docSnap != null) {
       // console.log("Document data:",docSnap.data());
       this.currentTalkData = docSnap.data();
+      console.log("current alk data ");
     } else {
       // docSnap.data() will be undefined in this case
       console.log("No such document!");

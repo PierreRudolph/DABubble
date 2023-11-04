@@ -10,18 +10,15 @@
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
     <div style="padding-bottom: 30px;">
-      <div class="mainFieldDirektMessage">
+      <div class="mainFieldDirektMessage" *ngIf="exist">
         <div class="messageArea" *ngIf="talkOpen">
           <div style="margin:30px 20px 20px 20px" *ngFor="let c of this.currentTalkData.communikation,index as i">
-            <div style="position: relative;width:100%; margin-top: 15px;" *ngIf="c.date!=''">
+            <div class="dateIcon">
               <div class="sendDate">{{c.date}}</div>
               <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
             </div>
             <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">             
-              <div class="message-div" *ngIf="c.date!=''">
-                <!-- <div class="add-reaction">
-                    <img src="assets/icons/add-reaction.svg">
-                </div> -->
+              <div class="message-div" >              
                 <img src="{{getIconFromName(m.name)}}">
                 <div class="message-inner-div">
                     <div class="mes-name-clock">
@@ -60,6 +57,6 @@
       </div>
     </div>
   </div>
-  <app-side-menu-thread  class="side-menu"></app-side-menu-thread>
+  <app-side-menu-thread *ngIf="!openChat" class="side-menu"></app-side-menu-thread>
   <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
 </div>
