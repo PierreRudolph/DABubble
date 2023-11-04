@@ -60,6 +60,7 @@ export class MainPageComponent {
         "date": "",
         "messages": [{
           "name": "",
+          "iD":"",
           "time": "",
           "message": "",
         }]
@@ -88,10 +89,10 @@ export class MainPageComponent {
     return t;
   }
 
-  createMesssageFromText(text:string){
+  createMessageFromText(text:string){
     let mes = {
       "name": this.user.name,
-      "iD": this.user.name,
+      "iD": this.user.idDB,
       "time": this.parseTime(new Date(Date.now())),
       "message": text,
     }
@@ -118,7 +119,7 @@ export class MainPageComponent {
 
   saveMessage() {
     console.log("call save");
-    let mes = this.createMesssageFromText(this.text);
+    let mes = this.createMessageFromText(this.text);
 
     console.log("open new talk", this.exist);
     if (!this.exist) {
@@ -282,4 +283,9 @@ export class MainPageComponent {
       console.log("No such document!");
     }
   }
+
+  getFlip(m:any){     
+       return m.iD == this.user.idDB   
+  }
 }
+

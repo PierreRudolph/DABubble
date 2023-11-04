@@ -18,7 +18,7 @@
               <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
             </div>
             <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">             
-              <div class="message-div" >              
+              <div class="message-div" [class.messageFlip]="getFlip(m)" >              
                 <img src="{{getIconFromName(m.name)}}">
                 <div class="message-inner-div">
                     <div class="mes-name-clock">

@@ -160,6 +160,7 @@
     padding-top: 10px;
     padding-bottom: 25px;
     margin-top: 25px;
+    gap:25px;
 
     &:hover {
         background-color: #eceefe;
@@ -181,6 +182,25 @@
         .popUpMessage {
             display: flex;
         }
+    }
+}
+
+.messageFlip{
+    flex-direction: row-reverse;
+
+    .message{
+        border-radius: 30px;
+        border-top-right-radius: 0;
+        background-color: #797EF3;
+        color:white;
+    }
+    &:hover{
+        .message{
+            border-radius: 30px;
+            border-top-right-radius: 0;
+            background-color: #797EF3;
+            color:white;
+        } 
     }
 }
 
@@ -227,3 +247,4 @@
     display: none;
     background-color: white;
 }
+
