@@ -2,7 +2,7 @@
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)" [user]="user"
     [userList]="userList" class="side-menu"></app-side-menu>
   <div class="main-content-div">
-    <div class="direktMesHeader">
+    <div *ngIf="talkOpen" class="direktMesHeader">
       <div style="position: relative;width:fit-content;">
         <img src="{{otherChatUser.iconPath}}">
         <div [class.greenDot]="otherChatUser.getAktive()" class="stateDot"></div>
@@ -17,15 +17,31 @@
               <div class="sendDate">{{c.date}}</div>
               <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
             </div>
-            <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">
-              <div style="display: flex;" *ngIf="c.date!=''">
+            <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">             
+              <div class="message-div" *ngIf="c.date!=''">
+                <!-- <div class="add-reaction">
+                    <img src="assets/icons/add-reaction.svg">
+                </div> -->
                 <img src="{{getIconFromName(m.name)}}">
-                <div style="display: flex;flex-direction: column;">
-                  <div class="nunitoBlack fs18">{{m.name}}</div>
-                  <div class="time">{{m.time}} Uhr</div>
-                  <div>{{m.message}}</div>
+                <div class="message-inner-div">
+                    <div class="mes-name-clock">
+                        <span class="nunitoBlack">{{m.name}}</span>
+                        <span style="color:#b7bade">{{m.time}} Uhr</span>
+                    </div>
+                    <diV class="message">
+                      {{m.message}}
+                    </diV>
                 </div>
-              </div>
+                <div class="popUpMessage">
+                  <img src="assets/img/popUpHaken.svg">
+                  <img src="assets/img/popUpClaps.svg">
+                  <img src="assets/icons/add-reaction.svg">
+                  <img src="assets/img/comment.svg">
+                  <img src="assets/img/more_vert.svg">
+                </div>
+            </div>
+            <!-- message-div -->
+            
             </div>
           </div>
         </div>
