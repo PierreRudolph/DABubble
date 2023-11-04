@@ -240,11 +240,18 @@
     top: 10px;
     gap: 5px;
     border-radius: 25px;
-    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
     border: solid 1px #ADB0D9;
     padding: 3px 20px 3px 20px;
     width: fit-content;
     display: none;
     background-color: white;
+}
+
+.popUpFlip{
+    right:unset;
+    left:40px;
+    border-radius: 25px;
+    border-bottom-right-radius: 0;
 }
 

@@ -29,7 +29,7 @@
                       {{m.message}}
                     </diV>
                 </div>
-                <div class="popUpMessage">
+                <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
                   <img src="assets/img/popUpHaken.svg">
                   <img src="assets/img/popUpClaps.svg">
                   <img src="assets/icons/add-reaction.svg">
