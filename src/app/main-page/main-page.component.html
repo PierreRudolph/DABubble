@@ -3,7 +3,7 @@
     [userList]="userList" class="side-menu"></app-side-menu>
   <div class="main-content-div">
     <div *ngIf="talkOpen" class="direktMesHeader">
-      <div style="position: relative;width:fit-content;">
+      <div style="position: relative;width:70px;">
         <img src="{{otherChatUser.iconPath}}">
         <div [class.greenDot]="otherChatUser.getAktive()" class="stateDot"></div>
       </div>
