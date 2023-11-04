@@ -28,6 +28,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ProfileDialogComponent } from './profile-dialog/profile-dialog.component';
 import { SideMenuThreadComponent } from './side-menu-thread/side-menu-thread.component';
 import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-profil.component';
+import { CreateChannelDialogComponent } from './create-channel-dialog/create-channel-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +44,8 @@ import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-prof
     ResetComponent,
     ProfileDialogComponent,
     SideMenuThreadComponent,
-    MainDialogProfilComponent
+    MainDialogProfilComponent,
+    CreateChannelDialogComponent
   ],
   imports: [
     BrowserModule,
