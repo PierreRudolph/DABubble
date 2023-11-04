@@ -16,7 +16,6 @@ export class SideMenuComponent {
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-  //@ViewChild(CreateChannelDialogComponent) dialog!: CreateChannelDialogComponent
 
   constructor(public dialog: MatDialog) { }
 
@@ -32,8 +31,6 @@ export class SideMenuComponent {
 
   openDialog() {
     this.dialog.open(CreateChannelDialogComponent);
-    console.log(this.dialog);
-
   }
 
 }

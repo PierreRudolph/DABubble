@@ -3,3 +3,60 @@
     border-radius: 30px !important;
     border: 1px solid black;
 }
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    img {
+        cursor: pointer;
+
+        &:hover {
+            content: url('/assets/img/close-hover.svg');
+        }
+    }
+}
+
+.explanation {
+    margin: 20px 0px;
+    font-size: 18px;
+    font-family: 'Nunito';
+    line-height: 25px;
+}
+
+.input-field {
+    border: 1px solid #ADB0D9;
+    width: 100%;
+    padding: 18px 20px;
+    box-sizing: border-box;
+    border-radius: 40px;
+
+    &:hover {
+        border-color: #797EF3;
+    }
+
+    &:focus-visible {
+        outline: 1px solid #535AF1;
+    }
+}
+
+.third-headline-div {
+    display: flex;
+    align-items: center;
+
+    h2 {
+        margin-top: 16px;
+        margin-right: 7px;
+    }
+
+    span {
+        color: #686868;
+    }
+}
+
+.create-btn-div {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}

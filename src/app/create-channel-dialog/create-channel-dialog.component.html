@@ -1,27 +1,27 @@
 <div class="dialog-div">
 
-    <div>
-        <h1>Channel erstellen</h1>
-
+    <div class="dialog-header">
+        <span class="nunito fs24 wei700">Channel erstellen</span>
         <img mat-dialog-close src="assets/img/close.svg">
-
     </div>
-    <div>Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezigen sein
-        <br>#marketing zum Beispiel
-    </div>
-
-    <div>
-        <h2>Channel-Name</h2>
-        <input>
+    <div class="explanation">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezigen sein
+        #marketing zum Beispiel.
     </div>
 
     <div>
-        <diV>
-            <h2>Beschreibung</h2>
+        <h2 class=" fs18 wei700">Channel-Name</h2>
+        <input class="input-field" placeholder="#  z.B Kooperatinsprojekte">
+    </div>
+
+    <div>
+        <diV class="third-headline-div">
+            <h2 class="fs18 wei700">Beschreibung</h2>
             <span>(optional)</span>
         </diV>
 
-        <input>
+        <input class="input-field" placeholder="Dein Text hier">
     </div>
-    <div><button class="btn">Erstellen</button></div>
+    <div class="create-btn-div">
+        <button mat-dialog-close (click)="openDialog()" class="btn">Erstellen</button>
+    </div>
 </div>

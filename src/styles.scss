@@ -45,6 +45,14 @@ body {
     letter-spacing: .0178571429em;
 }
 
+.mat-h2,
+.mat-headline-6,
+.mat-typography .mat-h2,
+.mat-typography .mat-headline-6,
+.mat-typography h2 {
+    font-family: 'Nunito';
+}
+
 .nunito {
     font-family: 'Nunito';
 }
@@ -85,6 +93,11 @@ body {
 
 .wei400 {
     font-weight: 400;
+}
+
+.wei700 {
+    font-weight: 700;
+    ;
 }
 
 .btn {

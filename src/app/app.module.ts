@@ -29,6 +29,7 @@ import { ProfileDialogComponent } from './profile-dialog/profile-dialog.componen
 import { SideMenuThreadComponent } from './side-menu-thread/side-menu-thread.component';
 import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-profil.component';
 import { CreateChannelDialogComponent } from './create-channel-dialog/create-channel-dialog.component';
+import { AddPeopleDialogComponent } from './add-people-dialog/add-people-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +46,8 @@ import { CreateChannelDialogComponent } from './create-channel-dialog/create-cha
     ProfileDialogComponent,
     SideMenuThreadComponent,
     MainDialogProfilComponent,
-    CreateChannelDialogComponent
+    CreateChannelDialogComponent,
+    AddPeopleDialogComponent
   ],
   imports: [
     BrowserModule,
