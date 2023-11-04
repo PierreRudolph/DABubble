@@ -6,7 +6,7 @@
             <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
         </div>
         <div class="accordion-outer-div">
-            <img class="add-icon" src="assets/icons/add.svg">
+            <img (click)="openDialog()" class="add-icon" src="assets/icons/add.svg">
             <mat-accordion multi>
 
                 <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding pointer-ev"
@@ -58,19 +58,19 @@
                     </mat-expansion-panel-header>
                     <div>
                         <!--Hier werden die Kontakte reingerendert.-->
-                        <div class="contact-div">                           
+                        <div class="contact-div">
                             <div style="position: relative;">
                                 <img src="{{user.iconPath}}">
                                 <div [class.greenDot]="user.getAktive()" class="stateDot"></div>
-                               </div>
+                            </div>
                             <span>{{user.name}} (Du)</span>
                         </div>
 
                         <div *ngFor="let u of userList" class="contact-div">
-                           <div style="position: relative;" (click)="openTalk(u)">
-                            <img src="{{u.iconPath}}">
-                            <div  [class.greenDot]="u.getAktive()"  class="stateDot"></div>
-                           </div>
+                            <div style="position: relative;" (click)="openTalk(u)">
+                                <img src="{{u.iconPath}}">
+                                <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
+                            </div>
                             <span (click)="openTalk(u)">{{u.name}}</span>
                         </div>
                     </div>

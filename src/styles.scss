@@ -29,6 +29,10 @@ body {
     overflow: hidden !important;
 }
 
+.mat-mdc-dialog-surface {
+    border-radius: 30px !important;
+}
+
 .mat-body,
 .mat-body-2,
 .mat-typography .mat-body,
@@ -43,7 +47,6 @@ body {
 
 .nunito {
     font-family: 'Nunito';
-
 }
 
 .nunitoBlack {
@@ -66,7 +69,8 @@ body {
 .fs20 {
     font-size: 20px;
 }
-.fs14{
+
+.fs14 {
     font-size: 14px;
 }
 
@@ -84,6 +88,8 @@ body {
 }
 
 .btn {
+    background-color: #444DF2;
+    color: white;
     padding: 12px 25px 12px 25px;
     border-radius: 25px;
     font-family: Nunito;
@@ -93,6 +99,9 @@ body {
     line-height: normal;
     cursor: pointer;
 
+    &:hover {
+        background-color: #797EF3;
+    }
 }
 
 .dNone {
@@ -143,12 +152,12 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #ADB0D9 ;
+    box-shadow: inset 0 0 5px #ADB0D9;
     border-radius: 10px;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: #cbcdec ;
+    background: #cbcdec;
     border-radius: 10px;
 }
