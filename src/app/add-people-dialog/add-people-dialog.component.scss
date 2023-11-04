@@ -1,0 +1,52 @@
+.dialog-div {
+    width: 710px;
+    padding: 40px;
+    border-radius: 30px !important;
+    border: 1px solid black;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+        cursor: pointer;
+
+        &:hover {
+            content: url('/assets/img/close-hover.svg');
+        }
+    }
+}
+
+.checkbox-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60px;
+
+    input {
+        margin-right: 16px;
+        width: 20px;
+        height: 20px;
+        background-color: white;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid #ddd;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: pointer;
+    }
+
+    span {
+        font-size: 18px;
+    }
+}
+
+.create-btn-div {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+}
