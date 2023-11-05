@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./add-people-dialog.component.scss']
 })
 export class AddPeopleDialogComponent {
+  isChecked: boolean | undefined;
 
+  setValue() {
+    this.isChecked = !this.isChecked;
+  }
 }

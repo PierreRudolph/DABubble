@@ -26,23 +26,72 @@
     justify-content: space-between;
     height: 60px;
 
-    input {
-        margin-right: 16px;
-        width: 20px;
-        height: 20px;
-        background-color: white;
-        border-radius: 50%;
-        vertical-align: middle;
-        border: 1px solid #ddd;
-        appearance: none;
-        -webkit-appearance: none;
-        outline: none;
-        cursor: pointer;
+    label {
+        display: flex;
+        align-items: center;
     }
+}
 
-    span {
-        font-size: 18px;
+.container {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
     }
+}
+
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 25px;
+    width: 25px;
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+}
+
+.container:hover input~.checkmark {
+    border-color: grey;
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.container input:checked~.checkmark:after {
+    display: block;
+}
+
+.container .checkmark:after {
+    top: 4px;
+    left: 4px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background-color: #444DF2;
+}
+
+.input-text {
+    display: flex;
+    width: 100%;
+    margin-top: 25px;
+    border-radius: 30px;
+    border: 1px solid lightgray;
+    padding: 15px 20px;
+    box-sizing: border-box;
 }
 
 .create-btn-div {

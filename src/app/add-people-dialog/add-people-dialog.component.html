@@ -5,15 +5,21 @@
     </div>
 
     <div class="checkbox-div">
-        <div>
-            <input type="checkbox">
-            <span>Alle Mitglieder von OfficeTeam hinzufügen</span>
-        </div>
-        <div>
-            <input type="checkbox">
-            <span>Bestimmte Leute hinzfügen</span>
-        </div>
+
+        <label class="container">
+            <input name="add-people" type="radio" (change)="setValue()" checked>
+            <span class="checkmark"></span>
+            <span class="fs18 nunito">Alle Mitglieder von OfficeTeam hinzufügen</span>
+        </label>
+
+        <label class="container">
+            <input name="add-people" type="radio" (change)="setValue()">
+            <span class="checkmark"></span>
+            <span class="fs18 nunito">Bestimmte Leute hinzfügen</span>
+        </label>
+
     </div>
+    <input *ngIf="isChecked" class="input-text" type="text" placeholder="Name eingeben">
     <div class="create-btn-div">
         <button mat-dialog-close class="btn">Erstellen</button>
     </div>
