@@ -25,8 +25,10 @@ export class MainPageComponent {
   private currentTalkId: string = "";
   public currentTalkData: any = this.createEmptyTalk();
   public text: string = "";
+  public textEdit:string= "" ;
   public exist = false;
   public talkOpen: boolean = false;
+  public openEditDialog: boolean = false;
   public openEdit: boolean = false;
 
   constructor(public authService: AuthService, public router: Router) {
@@ -38,8 +40,13 @@ export class MainPageComponent {
     }, 2000);
   }
 
-openEditPopUp() {
+  openEditWindow(m:string) {
     this.openEdit = !this.openEdit;
+    this.textEdit = m;
+  }
+
+  openEditPopUp() {
+    this.openEditDialog = !this.openEditDialog;
   }
 
   userRef() {

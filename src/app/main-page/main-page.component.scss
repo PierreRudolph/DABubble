@@ -270,18 +270,29 @@
     line-height: normal;
     left: 200px;
     top: 65px;
-    width: 200px;
+    width: 250px;
     display: none;
+    cursor: pointer;
+
+    .editMessageT{
+        padding: 10px 20px 10px 20px;
+
+        &:hover{
+            border-radius: 30px;
+            color:#444DF2;
+            background-color: #eceefe;
+        }
+    }
 }
 
-.flipMessage{
-    border-radius: 25px;
-    border-top-right-radius: 0;
-    left:unset;
-    right: 30px;
-}
 
 
+// .flipMessage{
+//     border-radius: 25px;
+//     border-top-right-radius: 0;
+//     left:unset;
+//     right: 30px;
+// }
 
 .popUpIcons {
     cursor: pointer;

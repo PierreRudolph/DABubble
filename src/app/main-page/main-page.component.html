@@ -20,24 +20,29 @@
             <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">             
               <div class="message-div" [class.messageFlip]="getFlip(m)" >              
                 <img src="{{getIconFromName(m.name)}}">
-                <div class="message-inner-div">
+                <div class="message-inner-div" >
                     <div class="mes-name-clock">
                         <span class="nunitoBlack">{{m.name}}</span>
                         <span style="color:#b7bade">{{m.time}} Uhr</span>
                     </div>
-                    <diV class="message">
+                    <diV class="message" [class.dNone]="openEdit">
                       {{m.message}}
                     </diV>
+                    <div>
+                      <textarea [class.show]="openEdit" [class.dNone]="!openEdit" [(ngModel)]="textEdit" >{{m.message}}</textarea>
+                    </div>
                 </div>
-               <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(m)">
+               <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(m)"  [class.dNone]="openEdit">
                 <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
                   <img class="popUpIcons"src="assets/img/popUpHaken.svg">
                   <img class="popUpIcons"src="assets/img/popUpClaps.svg">
                   <img class="popUpIcons pad0"src="assets/icons/add-reaction.svg">
                   <img class="popUpIcons"src="assets/img/comment.svg">
-                  <img class="popUpIcons"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">                
+                  <img class="popUpIcons" [class.dNone]="!getFlip(m)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">                
                 </div>
-                <div class="editMessage" [class.flipMessage]="!getFlip(m)"  [class.show]="openEdit">Nachricht bearbeiten</div>
+                <div class="editMessage"   [class.show]="openEditDialog" (click)="openEditWindow(m.message)">
+                  <div class="editMessageT" >Nachricht bearbeiten</div>
+                </div>
                </div>
             </div>
             <!-- message-div -->
