@@ -14,19 +14,19 @@ export class CreateChannelDialogComponent {
   channelDescription: string = "";
   channelMembers: any = [];
 
-  constructor(public dialog: MatDialog) { }
-
+  constructor(public addPeopleDialog: MatDialog) { }
 
   onSubmit() {
-    this.createChannel();
+    this.createNewChannel();
+    this.openAddPeopleDialog();
     console.log(this.channel);
   }
 
-  openDialog() {
-    this.dialog.open(AddPeopleDialogComponent);
+  openAddPeopleDialog() {
+    this.addPeopleDialog.open(AddPeopleDialogComponent);
   }
 
-  createChannel() {
+  createNewChannel() {
     this.channel.name = this.channelName;
     this.channel.description = this.channelDescription;
     this.channel.members = this.channelMembers;

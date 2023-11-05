@@ -8,24 +8,24 @@
         #marketing zum Beispiel.
     </div>
 
-    <form (ngSubmit)="onSubmit()" #myForm="ngForm">
+    <form (ngSubmit)="onSubmit()" #channelForm="ngForm">
         <div>
-            <h2 class=" fs18 wei700">Channel-Name</h2>
+            <h2 class="fs18 wei700">Channel-Name</h2>
             <input name="channelName" class="input-field" [(ngModel)]="channelName"
                 placeholder="#  z.B Kooperatinsprojekte" required>
         </div>
 
         <div>
-            <diV class="third-headline-div">
+            <div class="third-headline-div">
                 <h2 class="fs18 wei700">Beschreibung</h2>
                 <span>(optional)</span>
-            </diV>
+            </div>
             <input name="channelDescription" class="input-field" [(ngModel)]="channelDescription"
                 placeholder="Dein Text hier">
         </div>
 
         <div class="create-btn-div">
-            <button [disabled]="!myForm.form.valid" type="submit" class="btn">Erstellen</button>
+            <button [disabled]="!channelForm.form.valid" mat-dialog-close type="submit" class="btn">Erstellen</button>
         </div>
     </form>
 </div>
