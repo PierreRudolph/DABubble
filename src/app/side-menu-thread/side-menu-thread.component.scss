@@ -2,7 +2,6 @@
     position: relative;
     background-color: #eceefe;
     height: 100%;
-    //width: 485px;
     transition: all 225ms ease-in-out;
 }
 
@@ -60,15 +59,13 @@
 .sidenav-body {
     overflow: auto;
     margin-top: 70px;
-    height: calc(100% - 180px);
+    height: calc(100% - 221px);
     width: 100%;
     box-sizing: border-box;
     display: flex;
     align-items: center;
     flex-direction: column;
 }
-
-
 
 .thread-starter {
     display: flex;
@@ -333,4 +330,61 @@
 
 .margin-right {
     margin-left: 20px;
+}
+
+.textareaDirektMessage {
+    padding: 0px 20px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.iconsTextArea {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 100%;
+
+    &:hover {
+        background-color: #ECEEFE;
+    }
+}
+
+.iconContainerTextArea {
+    position: absolute;
+    left: 35px;
+    bottom: 20px;
+    display: flex;
+    gap: 5px;
+
+}
+
+.textAreaDirekt {
+    border: #ADB0D9 solid 1px;
+    border-radius: 30px;
+    padding: 20px;
+    resize: none;
+    width: 100%;
+    height: 150px;
+    box-sizing: border-box;
+
+
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        color: var(--Text-gray, #686868);
+        font-family: Nunito;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+}
+
+.sendArrow {
+    position: absolute;
+    right: 55px;
+    bottom: 20px;
+    cursor: pointer;
 }

@@ -6,7 +6,7 @@
             <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
         </div>
         <div class="accordion-outer-div">
-            <img (click)="openDialog()" class="add-icon" src="assets/icons/add.svg">
+            <img (click)="openCreateChannelDialog()" class="add-icon" src="assets/icons/add.svg">
             <mat-accordion multi>
 
                 <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding pointer-ev"
@@ -36,7 +36,7 @@
                             <span>Entwicklerteam</span>
                         </div>
                     </div>
-                    <div class="add-ch-div">
+                    <div class="add-ch-div" (click)="openCreateChannelDialog()">
                         <img class="add-circle" src="assets/icons/add-circle.svg">
                         <span>Channel hinzufügen</span>
                     </div>

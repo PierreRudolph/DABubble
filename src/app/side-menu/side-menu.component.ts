@@ -29,7 +29,7 @@ export class SideMenuComponent {
     this.addNewItem(u);
   }
 
-  openDialog() {
+  openCreateChannelDialog() {
     this.dialog.open(CreateChannelDialogComponent);
   }
 

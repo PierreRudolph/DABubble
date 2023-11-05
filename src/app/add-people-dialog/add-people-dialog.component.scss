@@ -92,6 +92,14 @@
     border: 1px solid lightgray;
     padding: 15px 20px;
     box-sizing: border-box;
+
+    &:hover {
+        border-color: #797EF3;
+    }
+
+    &:focus-visible {
+        outline: 1px solid #535AF1;
+    }
 }
 
 .create-btn-div {

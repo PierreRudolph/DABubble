@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
+import { Channel } from 'src/moduls/channel.class';
 
 @Component({
   selector: 'app-create-channel-dialog',
@@ -8,9 +9,26 @@ import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog
   styleUrls: ['./create-channel-dialog.component.scss']
 })
 export class CreateChannelDialogComponent {
-  constructor(public dialog: MatDialog) { }
+  public channel: Channel = new Channel();
+  channelName: string = "";
+  channelDescription: string = "";
+  channelMembers: any = [];
 
-  openDialog() {
-    this.dialog.open(AddPeopleDialogComponent);
+  constructor(public addPeopleDialog: MatDialog) { }
+
+  onSubmit() {
+    this.createNewChannel();
+    this.openAddPeopleDialog();
+    console.log(this.channel);
+  }
+
+  openAddPeopleDialog() {
+    this.addPeopleDialog.open(AddPeopleDialogComponent);
+  }
+
+  createNewChannel() {
+    this.channel.name = this.channelName;
+    this.channel.description = this.channelDescription;
+    this.channel.members = this.channelMembers;
   }
 }
