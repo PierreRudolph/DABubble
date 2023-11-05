@@ -25,7 +25,7 @@ export class MainPageComponent {
   private currentTalkId: string = "";
   public currentTalkData: any = this.createEmptyTalk();
   public text: string = "";
-  public textEdit:string= "" ;
+  public textEdit: string = "";
   public exist = false;
   public talkOpen: boolean = false;
   public openEditDialog: boolean = false;
@@ -40,7 +40,7 @@ export class MainPageComponent {
     }, 2000);
   }
 
-  openEditWindow(m:string) {
+  openEditWindow(m: string) {
     this.openEdit = !this.openEdit;
     this.textEdit = m;
   }
