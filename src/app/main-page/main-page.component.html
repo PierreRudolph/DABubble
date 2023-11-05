@@ -18,21 +18,25 @@
               <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
             </div>
             <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">             
-              <div class="message-div" [class.messageFlip]="getFlip(m)" >              
+              <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">              
                 <img src="{{getIconFromName(m.name)}}">
                 <div class="message-inner-div" >
                     <div class="mes-name-clock">
                         <span class="nunitoBlack">{{m.name}}</span>
                         <span style="color:#b7bade">{{m.time}} Uhr</span>
                     </div>
-                    <diV class="message" [class.dNone]="openEdit">
+                    <diV class="message" [class.dNone]="m.edit">
                       {{m.message}}
                     </diV>
-                    <div>
-                      <textarea [class.show]="openEdit" [class.dNone]="!openEdit" [(ngModel)]="textEdit" >{{m.message}}</textarea>
+                    <div [class.dNone]="!m.edit">
+                      <textarea class="textAreaDirekt"  [(ngModel)]="textEdit" >{{m.message}}</textarea>
+                      <div class="editButtonContainer">
+                        <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
+                        <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
+                      </div>
                     </div>
                 </div>
-               <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(m)"  [class.dNone]="openEdit">
+               <div class="popUpMessageContainer"  [class.popUpFlipContainer]="getFlip(m)" >
                 <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
                   <img class="popUpIcons"src="assets/img/popUpHaken.svg">
                   <img class="popUpIcons"src="assets/img/popUpClaps.svg">
@@ -40,7 +44,7 @@
                   <img class="popUpIcons"src="assets/img/comment.svg">
                   <img class="popUpIcons" [class.dNone]="!getFlip(m)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">                
                 </div>
-                <div class="editMessage"   [class.show]="openEditDialog" (click)="openEditWindow(m.message)">
+                <div class="editMessage"   [class.show]="openEditDialog" (click)="openEditWindow(m)">
                   <div class="editMessageT" >Nachricht bearbeiten</div>
                 </div>
                </div>

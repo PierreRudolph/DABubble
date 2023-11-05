@@ -40,13 +40,24 @@ export class MainPageComponent {
     }, 2000);
   }
 
-  openEditWindow(m:string) {
-    this.openEdit = !this.openEdit;
-    this.textEdit = m;
+  openEditWindow(m:any) {
+    this.openEditDialog = !this.openEditDialog;
+    m.edit = true;
+    this.textEdit = m.message;
   }
+
+  closeEdit(m:any){
+    m.edit = false;
+     }
 
   openEditPopUp() {
     this.openEditDialog = !this.openEditDialog;
+  }
+
+  saveEdit(m:any){
+    m.edit = false;
+    m.message = this.textEdit;
+    this.updateDB(this.currentTalkId, "talk",this.currentTalkData )
   }
 
   userRef() {
@@ -73,6 +84,7 @@ export class MainPageComponent {
         "messages": [{
           "name": "",
           "iD": "",
+          "edit": false,
           "time": "",
           "message": "",
         }]
@@ -93,6 +105,7 @@ export class MainPageComponent {
         "messages": [{
           "name": "",
           "iD": "",
+          "edit": false,
           "time": "",
           "message": "",
         }]
@@ -105,6 +118,7 @@ export class MainPageComponent {
     let mes = {
       "name": this.user.name,
       "iD": this.user.idDB,
+      "edit": false,
       "time": this.parseTime(new Date(Date.now())),
       "message": text,
     }
@@ -299,5 +313,7 @@ export class MainPageComponent {
   getFlip(m: any) {
     return m.iD == this.user.idDB
   }
+
+
 }
 

@@ -56,6 +56,11 @@
     width: 100%;
     height: 150px;
     box-sizing: border-box;
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 
 
     &:focus {
@@ -209,11 +214,13 @@
 .message-inner-div {
     flex-direction: column;
     align-items: flex-start;
+    width:100%;
 }
 
 .message {
     background-color: #eceefe;
     padding: 13px;
+    width:fit-content;
     font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
@@ -240,6 +247,14 @@
     right: 40px;
     top: 10px;
     display: none;
+}
+
+.unHover {
+    &:hover {
+        .popUpMessageContainer {
+            display: none !important;
+        }
+    }
 }
 
 .popUpMessage {
@@ -274,12 +289,12 @@
     display: none;
     cursor: pointer;
 
-    .editMessageT{
+    .editMessageT {
         padding: 10px 20px 10px 20px;
 
-        &:hover{
+        &:hover {
             border-radius: 30px;
-            color:#444DF2;
+            color: #444DF2;
             background-color: #eceefe;
         }
     }
@@ -337,4 +352,11 @@
     display: flex;
     gap: 5px;
 
+}
+
+.editButtonContainer{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    gap:50px;
 }

@@ -160,6 +160,25 @@ body {
     }
 }
 
+.buttonLight {
+    background-color: #444DF2;
+    color: white;
+    border: none;
+    &:disabled{
+        cursor: unset;
+        background-color: gray;
+    }
+    
+}
+
+.butttonBlue{
+    color: #444DF2;
+    // color:red;
+    background-color: white;
+    border: 1px solid;
+
+}
+
 /* width */
 ::-webkit-scrollbar {
     width: 10px;
