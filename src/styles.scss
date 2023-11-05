@@ -120,6 +120,9 @@ body {
 .dNone {
     display: none !important;
 }
+.show{
+    display:unset!important;
+}
 
 .impData {
     display: flex;
