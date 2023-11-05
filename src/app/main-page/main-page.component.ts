@@ -24,9 +24,10 @@ export class MainPageComponent {
   public otherChatUser: User = new User();
   private currentTalkId: string = "";
   public currentTalkData: any = this.createEmptyTalk();
-  public text: string = "";  
+  public text: string = "";
   public exist = false;
   public talkOpen: boolean = false;
+  public openEdit: boolean = false;
 
   constructor(public authService: AuthService, public router: Router) {
     setTimeout(() => {
@@ -35,6 +36,10 @@ export class MainPageComponent {
       this.unsub = this.subUserInfo();
       this.unsubtalk = this.subTalkInfo();
     }, 2000);
+  }
+
+openEditPopUp() {
+    this.openEdit = !this.openEdit;
   }
 
   userRef() {
@@ -60,7 +65,7 @@ export class MainPageComponent {
         "date": "",
         "messages": [{
           "name": "",
-          "iD":"",
+          "iD": "",
           "time": "",
           "message": "",
         }]
@@ -89,7 +94,7 @@ export class MainPageComponent {
     return t;
   }
 
-  createMessageFromText(text:string){
+  createMessageFromText(text: string) {
     let mes = {
       "name": this.user.name,
       "iD": this.user.idDB,
@@ -99,14 +104,14 @@ export class MainPageComponent {
     return mes;
   }
 
-  saveMessageExist(mes:{}){
+  saveMessageExist(mes: {}) {
     setTimeout(() => {
       let len = this.currentTalkData.communikation.length;
       let date = this.currentTalkData.communikation[len - 1].date;
-      let today = this.parseDate(new Date(Date.now())) ;
-      if(date == today) {
-        console.log("same Day", date + " "  + today + " "+ len);          
-        this.currentTalkData.communikation[len-1].messages.push(mes);
+      let today = this.parseDate(new Date(Date.now()));
+      if (date == today) {
+        console.log("same Day", date + " " + today + " " + len);
+        this.currentTalkData.communikation[len - 1].messages.push(mes);
       } else {
         let com = {
           "date": this.parseDate(new Date(Date.now())),
@@ -146,7 +151,7 @@ export class MainPageComponent {
   startTalk(talk: {}): {} {
     console.log("call startTalk");
     let t: any = this.createNewTalk();
-    console.log("alfter create talk ",t);
+    console.log("alfter create talk ", t);
     t.communikation[0].messages = [talk];
     this.addTalk(t);
 
@@ -165,7 +170,7 @@ export class MainPageComponent {
       let uT = this.user.talkID;  //user talkliste         
       let oT = this.otherChatUser.talkID;  //other talklist
       uT.push(talkUser);
-      oT.push(talkOther);    
+      oT.push(talkOther);
       this.updateDB(this.user.idDB, "user", { "talkID": uT });
       this.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
     }, 1000);
@@ -226,14 +231,14 @@ export class MainPageComponent {
   }
 
   async updateDB(id: string, coll: string, info: {}) {
-    console.log("call update",info);
+    console.log("call update", info);
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).catch(
       (err) => { console.log(err); });
   }
 
   async addTalk(item: {}) {
-    console.log("call addTalk",item);
+    console.log("call addTalk", item);
     await addDoc(this.talkRef(), item).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
@@ -284,8 +289,8 @@ export class MainPageComponent {
     }
   }
 
-  getFlip(m:any){     
-       return m.iD == this.user.idDB   
+  getFlip(m: any) {
+    return m.iD == this.user.idDB
   }
 }
 

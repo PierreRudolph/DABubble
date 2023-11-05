@@ -29,13 +29,16 @@
                       {{m.message}}
                     </diV>
                 </div>
+               <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(m)">
                 <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
-                  <img src="assets/img/popUpHaken.svg">
-                  <img src="assets/img/popUpClaps.svg">
-                  <img src="assets/icons/add-reaction.svg">
-                  <img src="assets/img/comment.svg">
-                  <img src="assets/img/more_vert.svg">
+                  <img class="popUpIcons"src="assets/img/popUpHaken.svg">
+                  <img class="popUpIcons"src="assets/img/popUpClaps.svg">
+                  <img class="popUpIcons pad0"src="assets/icons/add-reaction.svg">
+                  <img class="popUpIcons"src="assets/img/comment.svg">
+                  <img class="popUpIcons"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">                
                 </div>
+                <div class="editMessage" [class.flipMessage]="!getFlip(m)"  [class.show]="openEdit">Nachricht bearbeiten</div>
+               </div>
             </div>
             <!-- message-div -->
             
@@ -54,6 +57,13 @@
         <textarea class="textAreaDirekt" [(ngModel)]="text"
           placeholder="Nachricht an {{otherChatUser.name}}"></textarea>
         <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
+        <div class="iconContainerTextArea" >
+          <img class="iconsTextArea"   src="assets/img/add.svg">
+          <div style="width:2px;background-color: #ADB0D9 ;" ></div>
+          <img class="iconsTextArea"  src="assets/img/smile.svg">
+          <img class="iconsTextArea" src="assets/img/alternate_email.svg">
+         
+        </div>
       </div>
     </div>
   </div>
