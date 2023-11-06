@@ -33,4 +33,6 @@ export class SideMenuComponent {
     this.dialog.open(CreateChannelDialogComponent);
   }
 
+  openThread(){}
+
 }

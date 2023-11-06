@@ -31,6 +31,7 @@ import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-prof
 import { CreateChannelDialogComponent } from './create-channel-dialog/create-channel-dialog.component';
 import { AddPeopleDialogComponent } from './add-people-dialog/add-people-dialog.component';
 import { PrivateMessageComponent } from './private-message/private-message.component';
+import { ThreadBasedChatComponent } from './thread-based-chat/thread-based-chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +50,8 @@ import { PrivateMessageComponent } from './private-message/private-message.compo
     MainDialogProfilComponent,
     CreateChannelDialogComponent,
     AddPeopleDialogComponent,
-    PrivateMessageComponent
+    PrivateMessageComponent,
+    ThreadBasedChatComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { ChatHepler } from 'src/moduls/chatHelper.class';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class PrivateMessageComponent {
   @Input() otherChatUser: User = new User();
   @Input() _setUser:boolean = false;
   private currentTalkId: string = "";
-  public currentTalkData: any = this.createEmptyTalk();
+  private chatHepler:ChatHepler= new ChatHepler();
+  public currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
   public textEdit: string = "";
   public exist = false;
@@ -83,54 +85,16 @@ export class PrivateMessageComponent {
     this.openChat = value;
   }
 
-  createEmptyTalk(): {} {
-    let t = {
-      "member1": "",
-      "member1DBid": "",
-      "member2": "",
-      "member2DBid": "",
-      "idDB": "",
-      "communikation": [{
-        "date": "",
-        "messages": [{
-          "name": "",
-          "iD": "",
-          "edit": false,
-          "time": "",
-          "message": "",
-        }]
-      }]
-    }
-    return t;
-  }
 
-  createNewTalk(): {} {
-    let t = {
-      "member1": this.user.name,
-      "member1DBid": this.user.idDB,
-      "member2": this.otherChatUser.name,
-      "member2DBid": this.otherChatUser.idDB,
-      "idDB": "",
-      "communikation": [{
-        "date": this.parseDate(new Date(Date.now())),
-        "messages": [{
-          "name": "",
-          "iD": "",
-          "edit": false,
-          "time": "",
-          "message": "",
-        }]
-      }]
-    }
-    return t;
-  }
+
+  
 
   createMessageFromText(text: string) {
     let mes = {
       "name": this.user.name,
       "iD": this.user.idDB,
       "edit": false,
-      "time": this.parseTime(new Date(Date.now())),
+      "time": this.chatHepler.parseTime(new Date(Date.now())),
       "message": text,
     }
     return mes;
@@ -140,13 +104,12 @@ export class PrivateMessageComponent {
     setTimeout(() => {
       let len = this.currentTalkData.communikation.length;
       let date = this.currentTalkData.communikation[len - 1].date;
-      let today = this.parseDate(new Date(Date.now()));
-      if (date == today) {
-        console.log("same Day", date + " " + today + " " + len);
+      let today = this.chatHepler.parseDate(new Date(Date.now()));
+      if (date == today) {       
         this.currentTalkData.communikation[len - 1].messages.push(mes);
       } else {
         let com = {
-          "date": this.parseDate(new Date(Date.now())),
+          "date": this.chatHepler.parseDate(new Date(Date.now())),
           "messages": [mes]
         }
         this.currentTalkData.communikation.push(com);
@@ -154,11 +117,9 @@ export class PrivateMessageComponent {
     }, 500);
   }
 
-  saveMessage() {
-    console.log("call save");
+  saveMessage() {   
     let mes = this.createMessageFromText(this.text);
-
-    console.log("open new talk", this.exist);
+  
     if (!this.exist) {
       this.startTalk(mes);
       this.exist = true;
@@ -198,34 +159,32 @@ export class PrivateMessageComponent {
   }
 
   startTalk(talk: {}): {} {
-    console.log("call startTalk");
-    let t: any = this.createNewTalk();
-    console.log("alfter create talk ", t);
+   
+    let t: any = this.chatHepler.createNewTalk(this.user,this.otherChatUser);
+  
     t.communikation[0].messages = [talk];
     this.addTalk(t);
-
     setTimeout(() => {
       this.startTalkInitialize();
     }, 1000);
     t.idDB = this.currentTalkId;
-    this.currentTalkData = t;
-    console.log("current talk", this.currentTalkData);
+    this.currentTalkData = t;   
     return t;
   }
 
-  parseTime(dt: Date) {
-    let min = dt.getMinutes();
-    let hour = dt.getHours();
-    return hour + ":" + min;
-  }
+  // parseTime(dt: Date) {
+  //   let min = dt.getMinutes();
+  //   let hour = dt.getHours();
+  //   return hour + ":" + min;
+  // }
 
-  parseDate(dt: Date) {
-    let day = dt.getDate();
-    let month = dt.getMonth() + 1;
-    let year = dt.getFullYear();
+  // parseDate(dt: Date) {
+  //   let day = dt.getDate();
+  //   let month = dt.getMonth() + 1;
+  //   let year = dt.getFullYear();
 
-    return day + "." + month + "." + year;
-  }
+  //   return day + "." + month + "." + year;
+  // }
 
   openTalk() {
     this.exist = false;
@@ -236,8 +195,7 @@ export class PrivateMessageComponent {
     let talkId = "";
     talks.forEach(t => {
       let a: any;
-      a = t;
-      console.log("a.oUDBID", a.oUDbID);
+      a = t;      
       if (a.oUDbID === dbIDOther) {
         this.exist = true;
         talkId = a.talkID;
@@ -248,14 +206,12 @@ export class PrivateMessageComponent {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
     } else {
-      this.currentTalkData = this.createEmptyTalk();
+      this.currentTalkData = this.chatHepler.createEmptyTalk();
     }
   }
 
-  openExistingTalk(talkId: string) {
-    console.log("existing talk is", talkId);
+  openExistingTalk(talkId: string) {   
     this.getTalkById(talkId);
-
   }
 
   setOtherUser(user: User) {
@@ -264,14 +220,14 @@ export class PrivateMessageComponent {
   }
 
   async updateDB(id: string, coll: string, info: {}) {
-    console.log("call update", info);
+   
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).catch(
       (err) => { console.log(err); });
   }
 
   async addTalk(item: {}) {
-    console.log("call addTalk", item);
+   
     await addDoc(this.talkRef(), item).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
@@ -316,10 +272,10 @@ export class PrivateMessageComponent {
     if (docSnap != null) {
       // console.log("Document data:",docSnap.data());
       this.currentTalkData = docSnap.data();
-      console.log("current alk data ");
+     
     } else {
       // docSnap.data() will be undefined in this case
-      console.log("No such document!");
+     
     }
   }
 

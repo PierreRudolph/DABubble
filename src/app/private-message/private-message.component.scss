@@ -20,9 +20,11 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
 .greenDot {
     background-color: #92C83E;
 }
+
 .textAreaDirekt {
     border: #ADB0D9 solid 1px;
     border-radius: 30px;
@@ -189,13 +191,13 @@
 .message-inner-div {
     flex-direction: column;
     align-items: flex-start;
-    width:100%;
+    width: 100%;
 }
 
 .message {
     background-color: #eceefe;
     padding: 13px;
-    width:fit-content;
+    width: fit-content;
     font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
@@ -211,6 +213,8 @@
 .mes-name-clock {
     display: flex;
     margin-bottom: 10px;
+    gap: 20px;
+    align-items: flex-end;
 
     span:nth-of-type(2) {
         color: #b7bade;
@@ -329,9 +333,9 @@
 
 }
 
-.editButtonContainer{
-    width:100%;
+.editButtonContainer {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
-    gap:50px;
+    gap: 50px;
 }

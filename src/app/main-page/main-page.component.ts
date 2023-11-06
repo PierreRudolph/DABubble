@@ -42,7 +42,6 @@ export class MainPageComponent {
   setOtherUser(user: User) {
     this.talkOpen = true;
     this.otherChatUser = user;
-    console.log(this.child);
     this.setUser = !this.setUser;
     this.child.setOtherUser(user);   
   }
