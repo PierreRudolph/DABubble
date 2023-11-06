@@ -28,7 +28,8 @@
                         <!--Hier werden erstellte Channel reingerendert.-->
                         <div class="created-channel" (click)="openThread()">
                             <img src="assets/icons/tag.svg">
-                            <span>Entwicklerteam </span>
+                            <!-- <span>Entwicklerteam </span> -->
+                            <span *ngIf="loaded" >{{getName(0)}} </span>
                         </div>
 
                         <div class="created-channel">

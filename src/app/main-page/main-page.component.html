@@ -1,6 +1,6 @@
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)" [user]="user"
-    [userList]="userList" class="side-menu"></app-side-menu>
+    [userList]="userList" class="side-menu" [threadList]="threadList"></app-side-menu>
   <div class="main-content-div">
     <div *ngIf="talkOpen" class="direktMesHeader">
       <div style="position: relative;width:70px;">

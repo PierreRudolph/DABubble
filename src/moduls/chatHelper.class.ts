@@ -42,6 +42,45 @@ export class ChatHepler{
         return t;
       }
 
+      createEmptyThread(): any {
+        console.log("call new Thread");
+        let t = {
+          "channel":
+          {
+            "name": "",
+            "idDB": "",
+            "description": "",
+            "members": [{
+              "memberName": "",
+              "memberID": "",
+            }]
+          },
+          "communikation": [
+            {
+              "date": "",
+              "threads": [
+                {
+                  "name": "",
+                  "iD": "", //of person that writes the message
+                  "edit": false,
+                  "time": "",
+                  "message": "",
+                  "answer": [
+                    {
+                      "name": "",
+                      "iD": "", //of person that writes the message
+                      "edit": false,
+                      "time": "",
+                      "message": "",
+                    }
+                  ]
+                }
+              ]
+            }]
+        }
+        return t;
+      }
+
       parseTime(dt: Date) {
         let min = dt.getMinutes();
         let hour = dt.getHours();
