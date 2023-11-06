@@ -25,7 +25,9 @@
         </div>
 
         <div class="create-btn-div">
-            <button [disabled]="!channelForm.form.valid" mat-dialog-close type="submit" class="btn">Erstellen</button>
+            <button [disabled]="!channelForm.form.valid" type="submit" class="btn">Erstellen</button>
         </div>
     </form>
 </div>
+<app-add-people-dialog class="add-people" [channel]="channel" [user]="user"
+    [userList]="userList"></app-add-people-dialog>

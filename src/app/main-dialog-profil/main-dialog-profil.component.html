@@ -1,7 +1,7 @@
 <div style="position: absolute;top:0; right:0;">
     <div class="profile">
         <div style="width:fit-content;white-space: nowrap">{{user.name}}</div>
-        <img src="{{user.iconPath}}">
+        <img style="max-width: 70px;" src="{{user.iconPath}}">
         <img style="cursor: pointer;" (click)="openChoie()" src="assets/img/arrowDown.svg">
     </div>
     <div *ngIf="choiceDialog" class="choiceDialog">
@@ -9,5 +9,6 @@
         <div style="cursor: pointer;" (click)="logOut()">Logout</div>
     </div>
     <div *ngIf="choiceDialog" class="dialogGrey" (click)="openChoie()"></div>
-    <app-profile-dialog  [user]="user" (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)"  *ngIf="profileOpen"></app-profile-dialog>
+    <app-profile-dialog [user]="user" (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)"
+        *ngIf="profileOpen"></app-profile-dialog>
 </div>

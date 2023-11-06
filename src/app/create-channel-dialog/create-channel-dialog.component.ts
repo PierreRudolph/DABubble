@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 import { Channel } from 'src/moduls/channel.class';
+import { User } from 'src/moduls/user.class';
 
 @Component({
   selector: 'app-create-channel-dialog',
@@ -13,8 +14,14 @@ export class CreateChannelDialogComponent {
   channelName: string = "";
   channelDescription: string = "";
   channelMembers: any = [];
+  @Input() user: User = new User();
+  @Input() userList = [this.user];
 
-  constructor(public addPeopleDialog: MatDialog) { }
+  constructor(public addPeopleDialog: MatDialog) {
+    setTimeout(() => {
+      console.log('userliste is', this.userList);
+    }, 5000);
+  }
 
   onSubmit() {
     this.createNewChannel();
