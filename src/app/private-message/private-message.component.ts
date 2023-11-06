@@ -1,4 +1,4 @@
-import { Component, inject ,Input,OnChanges, SimpleChanges} from '@angular/core';
+import { Component, inject ,Input,Output,EventEmitter} from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
@@ -31,6 +31,8 @@ export class PrivateMessageComponent {
   public talkOpen: boolean = false;
   public openEditDialog: boolean = false;
   public openEdit: boolean = false;
+  @Output() newItemEventUserList = new EventEmitter<any>();
+  @Output() newItemEventLoggedUser = new EventEmitter<any>();
 
 
   constructor(public authService: AuthService, public router: Router) {
@@ -43,12 +45,12 @@ export class PrivateMessageComponent {
     }, 2000);
   }
 
-  @Input() set setUser(value: boolean) {
-    console.log("changes")  ; 
-    this.openTalk();
-  }
  
-
+ 
+  addNewItem(userList: any) {
+    this.newItemEventUserList.emit(userList);
+    this.newItemEventLoggedUser.emit(this.user);   
+  }
   openEditWindow(m:any) {
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
@@ -292,6 +294,7 @@ export class PrivateMessageComponent {
         }
         else { this.userList.push(u); }
       });
+      this.addNewItem(this.userList);
     });
   }
 
