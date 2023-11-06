@@ -1,4 +1,4 @@
-import { Component, inject,Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
@@ -15,7 +15,7 @@ export class MainDialogProfilComponent {
   public idDoc = "";
   // private userAuth: any; //authenticated user
   // public user: User = new User();//authenticated user
-  @Input() user:User = new User();
+  @Input() user: User = new User();
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   // private userUid: string = ""; //uid od the user
@@ -23,33 +23,13 @@ export class MainDialogProfilComponent {
   public choiceDialog: boolean = false;
   public profileOpen = false;
 
-  constructor(public authService: AuthService, public dialog: MatDialog, public router:Router) {
-    // setTimeout(() => {
-    //   this.userAuth = this.authService.getAuthServiceUser();
-    //   this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";     
-    // }, 2000);
-  }
-
-  // subGameInfo() {
-  //   let ref = this.userRef();
-  //   return onSnapshot(ref, (list) => {
-  //     this.userList = [];
-  //     list.forEach(elem => {
-  //       let u = new User(elem.data())
-  //       if (u.uid == this.userUid) {
-  //         this.user = u;
-  //         this.user.status = "aktiv";
-  //       }
-  //       else { this.userList.push(u); }
-  //     });
-  //     // console.log('logged in User', this.user);
-  //     // console.log('gameData anzeigen', this.userList);
-  //   });
-  // }
+  constructor(public authService: AuthService, public dialog: MatDialog, public router: Router) {
+  
+  } 
 
   setUser(user: User) {
     this.user = user;
-    console.log("received user",user);
+    console.log("received user", user);
     // this.updateName(this.user.idDB, this.user.name);
     // this.updateState(this.user.idDB, "email", this.user.email);
     this.updateUser(this.user.idDB);
@@ -73,18 +53,19 @@ export class MainDialogProfilComponent {
   }
 
   async logOut() {
-    this.user.status="inaktiv";
-     await this.updateUser(this.user.idDB);
+    this.user.status = "inaktiv";
+    console.log("log out user data", this.user.idDB);
+    await this.updateUser(this.user.idDB);
     let user = this.authService.getAuthServiceUser();
     if (user) {
       this.authService.logout().then(() => {
         console.log("logged out");
         this.router.navigateByUrl("login");
 
-         })
-         .catch((error) => {
-           // An error occurred
-         });;
+      })
+        .catch((error) => {
+          // An error occurred
+        });;
       console.log("userid is", user._delegate.uid);
     }
   }
