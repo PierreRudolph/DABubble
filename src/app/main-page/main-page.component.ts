@@ -12,32 +12,110 @@ import { PrivateMessageComponent } from '../private-message/private-message.comp
 })
 export class MainPageComponent {
 
-  private userAuth: any; //authenticated user
+ 
   public user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
-  public userList: any;
-  private userUid: string = ""; //uid od the user
-  // private unsub: any;
-  // private unsubtalk: any;
+  public userList: any;  
   public choiceDialog: boolean = false;
   public profileOpen = false;
   public openChat = false;
-  public otherChatUser: User = new User();
-  // private currentTalkId: string = "";
-  // public currentTalkData: any = this.createEmptyTalk();
-  // public text: string = "";
-  // public textEdit: string = "";
+  public otherChatUser: User = new User(); 
   public exist = false;
   public talkOpen: boolean = false;
-  public openEditDialog: boolean = false;
-  public openEdit: boolean = false;
   public setUser: boolean = false;
+  public currentThreadId : string="";
+
+  
+
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
 
-  constructor(public authService: AuthService, public router: Router) {   
+  constructor(public authService: AuthService, public router: Router) {
+    let testThread = this.createEmptyThred();    
+    let descr = "Dieser Channel ist für alles rund um #dfsdf vorgesehen."+
+               "Hier kannst du zusammen mit deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen."; 
+    testThread.channel.description = descr; 
+    testThread.channel.name = "Entwicklerteam";
+    testThread.channel.members = [{
+      "memberName": "Julia Wessolleck",
+      "memberID": "L1epYhYXaDBVZEm1JJlB",
+    }]; 
+    console.log("testThread",testThread);
+    setTimeout(()=>{
+      this.addThread(testThread);
+    },3000);
+  } 
+
+  createEmptyThred():any {
+    let t = {
+      "channel":
+      {
+        "name": "",
+        "idDB":"",
+        "description": "",
+        "members": [{
+          "memberName": "",
+          "memberID": "",
+        }]
+      },
+      "communikation": [
+        {
+          "date": "",
+          "threads": [
+            {
+              "name": "",
+              "iD": "", //of person that writes the message
+              "edit": false,
+              "time": "",
+              "message": "",
+              "answer": [
+                {
+                  "name": "",
+                  "iD": "", //of person that writes the message
+                  "edit": false,
+                  "time": "",
+                  "message": "",
+                }
+              ]
+            }
+          ]
+        }]
+    }
+    return t;
   }
 
- 
+
+  async addThread(item: any) {
+   
+    await addDoc(this.threadRef(), item).catch(
+      (err) => { console.error(err) }).then(
+        (docRef) => {
+          if (docRef) {
+            this.currentThreadId = docRef.id;
+            let c =  
+            {
+              "name": item.channel.name,
+              "idDB":this.currentThreadId,
+              "description": item.channel.description,
+              "members": item.channel.members,
+            };           
+            console.log(c);
+            this.updateDB(this.currentThreadId, 'thread',{"channel":c} );
+          }
+        });
+  }
+
+  async updateDB(id: string, coll: string, info: {}) {
+   
+    let docRef = doc(this.firestore, coll, id);
+    await updateDoc(docRef, info).then(
+      ()=>{  console.log("update", id);}
+    ).catch(
+      (err) => { console.log(err); });
+  }
+
+  threadRef() {
+    return collection(this.firestore, 'thread');
+  }
 
   setOtherUser(user: User) {
     this.talkOpen = true;
@@ -58,6 +136,8 @@ export class MainPageComponent {
     this.user= u;
   }
 
+  
+  
 
 }
 

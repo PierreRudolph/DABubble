@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { User } from 'src/moduls/user.class';
 
 @Component({
   selector: 'app-thread-based-chat',
@@ -6,32 +7,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./thread-based-chat.component.scss']
 })
 export class ThreadBasedChatComponent {
+  @Input() userList: any;
+  @Input() user: User;
 
-  createEmptyThred() {
-    let t = {
-      "channel":
-      {
-        "name": "",
-        "description": "",
-        "members": [{
-          "memberName":"",
-          "memberID":"",
-        }] 
-      },
-      "communikation": [
-        {
-          "date": "",
-          "threds": [
-            {
-              "name": "",
-              "iD": "", //of person that writes the message
-              "edit": false,
-              "time": "",
-              "message": "",
-            }
-          ]
-        }]
-    }
-  }
+  
 
 }
