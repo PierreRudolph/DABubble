@@ -9,7 +9,8 @@
         <label class="container">
             <input name="add-people" type="radio" (change)="setValue()" checked>
             <span class="checkmark"></span>
-            <span class="fs18 nunito">Alle Mitglieder von OfficeTeam hinzufügen</span>
+            <span class="fs18 nunito">Alle Mitglieder von <span style="color: #7e83f5;">Code learning</span>
+                hinzufügen</span>
         </label>
 
         <label class="container">
@@ -19,7 +20,11 @@
         </label>
 
     </div>
-    <input *ngIf="isChecked" class="input-text" type="text" placeholder="Name eingeben">
+    <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
+        *ngIf="isChecked" class="input-text" type="text" placeholder="Name eingeben">
+
+    <div class="row" *ngFor="let e of filteredMembers"></div>
+
     <div class="create-btn-div">
         <button mat-dialog-close class="btn">Erstellen</button>
     </div>

@@ -214,13 +214,13 @@
 .message-inner-div {
     flex-direction: column;
     align-items: flex-start;
-    width:100%;
+    width: 100%;
 }
 
 .message {
     background-color: #eceefe;
     padding: 13px;
-    width:fit-content;
+    width: fit-content;
     font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
@@ -354,9 +354,9 @@
 
 }
 
-.editButtonContainer{
-    width:100%;
+.editButtonContainer {
+    width: 100%;
     display: flex;
     justify-content: flex-end;
-    gap:50px;
+    gap: 50px;
 }

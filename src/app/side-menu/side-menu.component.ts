@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from 'src/moduls/user.class';
 import { CreateChannelDialogComponent } from '../create-channel-dialog/create-channel-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -16,7 +16,6 @@ export class SideMenuComponent {
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEvent = new EventEmitter<boolean>();
 
-
   constructor(public dialog: MatDialog) { }
 
   addNewItem(user: User) {
@@ -32,5 +31,4 @@ export class SideMenuComponent {
   openCreateChannelDialog() {
     this.dialog.open(CreateChannelDialogComponent);
   }
-
 }
