@@ -1,0 +1,362 @@
+.main-page {
+    display: flex;
+    width: calc(100vw - 40px);
+    // width: fit-content;
+    height: calc(100vh - 140px);
+    margin-top: 115px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 25px;
+}
+
+.side-menu {
+    border-radius: 30px;
+}
+
+.main-content-div {
+    width: 100%;
+    background-color: white;
+    //margin-right: 20px; war zuviel abstand zur seite wenn thread geschlossen
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.stateDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    background-color: #ADB0D9;
+    right: 5px;
+    bottom: 7px;
+    border: 2px white solid;
+}
+
+.greenDot {
+    background-color: #92C83E;
+}
+
+.direktMesHeader {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    //width: 100%; verursacht overflow wenn thread geschlossen
+    height: 60px;
+    margin: 32px 45px 20px 45px;
+    box-sizing: border-box;
+}
+
+.textAreaDirekt {
+    border: #ADB0D9 solid 1px;
+    border-radius: 30px;
+    padding: 20px;
+    resize: none;
+    width: 100%;
+    height: 150px;
+    box-sizing: border-box;
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        color: var(--Text-gray, #686868);
+        font-family: Nunito;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+
+}
+
+.time {
+    color: var(--Text-gray, #686868);
+    font-family: Nunito;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.textareaDirektMessage {
+    margin-top: 50px;
+    padding: 0 45px 0 45px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.mainFieldDirektMessage {
+    display: flex;
+    gap: 25px;
+    align-items: flex-end;
+    height: 450px;
+    //width: 100%; verusacht overflow wenn thread geschlossen
+    margin-bottom: 24px;
+    padding: 0 45px 0 45px;
+
+}
+
+.sendArrow {
+    position: absolute;
+    right: 55px;
+    bottom: 10px;
+    cursor: pointer;
+}
+
+.messageArea {
+    overflow-y: scroll;
+    width: 100%;
+    height: 100%;
+
+}
+
+.sendDate {
+
+    border-radius: 18px;
+    position: absolute;
+    width: 200px;
+    height: 36px;
+    top: calc(50% - 24px);
+    left: calc(50% - 100px);
+    border: solid 1px #ADB0D9;
+    color: var(--Black, #000);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.chatIconButtom {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    padding: 0 45px 0 45px;
+    margin-bottom: 20px;
+}
+
+.dateIcon {
+    position: relative;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.message-div {
+    display: flex;
+    width: 100%;
+    position: relative;
+    align-items: flex-start;
+    box-sizing: border-box;
+    transition: all 225ms ease-in-out;
+    padding-right: 40px;
+    padding-left: 40px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    margin-top: 25px;
+    gap: 25px;
+
+    &:hover {
+        background-color: #eceefe;
+
+        .message {
+            background-color: white;
+        }
+
+        .message-right {
+            background-color: #444df2;
+        }
+
+        .add-reaction {
+            pointer-events: all;
+            opacity: 1;
+            right: 40px;
+        }
+
+        .popUpMessageContainer {
+            display: unset;
+        }
+    }
+}
+
+.messageFlip {
+    flex-direction: row-reverse;
+
+    .message {
+        border-radius: 30px;
+        border-top-right-radius: 0;
+        background-color: #797EF3;
+        color: white;
+    }
+
+    &:hover {
+        .message {
+            border-radius: 30px;
+            border-top-right-radius: 0;
+            background-color: #797EF3;
+            color: white;
+        }
+    }
+}
+
+.message-inner-div {
+    flex-direction: column;
+    align-items: flex-start;
+    width:100%;
+}
+
+.message {
+    background-color: #eceefe;
+    padding: 13px;
+    width:fit-content;
+    font-size: 18px;
+    border-radius: 20px;
+    border-top-left-radius: 0px;
+}
+
+.message-right {
+    color: white;
+    background-color: #444df2;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 20px;
+}
+
+.mes-name-clock {
+    display: flex;
+    margin-bottom: 10px;
+
+    span:nth-of-type(2) {
+        color: #b7bade;
+    }
+}
+
+.popUpMessageContainer {
+    position: absolute;
+    right: 40px;
+    top: 10px;
+    display: none;
+}
+
+.unHover {
+    &:hover {
+        .popUpMessageContainer {
+            display: none !important;
+        }
+    }
+}
+
+.popUpMessage {
+    display: flex;
+    gap: 5px;
+    border-radius: 25px;
+    border-bottom-left-radius: 0;
+    border: solid 1px #ADB0D9;
+    padding: 3px 20px 3px 20px;
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    align-items: center;
+}
+
+
+.editMessage {
+    position: absolute;
+    background-color: white;
+    padding: 10px 20px 10px 20px;
+    border-radius: 25px;
+    border-top-left-radius: 0;
+    color: var(--Black, #000);
+    font-family: Nunito;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    left: 200px;
+    top: 65px;
+    width: 250px;
+    display: none;
+    cursor: pointer;
+
+    .editMessageT {
+        padding: 10px 20px 10px 20px;
+
+        &:hover {
+            border-radius: 30px;
+            color: #444DF2;
+            background-color: #eceefe;
+        }
+    }
+}
+
+
+
+// .flipMessage{
+//     border-radius: 25px;
+//     border-top-right-radius: 0;
+//     left:unset;
+//     right: 30px;
+// }
+
+.popUpIcons {
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 100%;
+
+
+    &:hover {
+        background-color: #ECEEFE;
+    }
+}
+
+.pad0 {
+    padding: 0;
+}
+
+
+.popUpFlip {
+    border-radius: 25px;
+    border-bottom-right-radius: 0;
+}
+
+.popUpFlipContainer {
+    right: unset;
+    left: 40px;
+}
+
+.iconsTextArea {
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 100%;
+
+    &:hover {
+        background-color: #ECEEFE;
+    }
+}
+
+.iconContainerTextArea {
+    position: absolute;
+    left: 70px;
+    bottom: 20px;
+    display: flex;
+    gap: 5px;
+
+}
+
+.editButtonContainer{
+    width:100%;
+    display: flex;
+    justify-content: flex-end;
+    gap:50px;
+}

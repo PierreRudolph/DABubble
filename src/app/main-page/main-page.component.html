@@ -1,8 +1,8 @@
 <div class="main-page">
-  <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)" [user]="user"
+  <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)" [user]="user"
     [userList]="userList" class="side-menu"></app-side-menu>
-  <div class="main-content-div">
-    <div *ngIf="talkOpen" class="direktMesHeader">
+  <div class="main-content-div">   
+      <div *ngIf="talkOpen" class="direktMesHeader">
       <div style="position: relative;width:70px;">
         <img src="{{otherChatUser.iconPath}}">
         <div [class.greenDot]="otherChatUser.getAktive()" class="stateDot"></div>
@@ -10,7 +10,8 @@
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
     <div style="padding-bottom: 30px;">
-      <div class="mainFieldDirektMessage" *ngIf="exist">
+      <app-private-message [_setUser]="setUser"></app-private-message>
+      <!-- <div class="mainFieldDirektMessage" *ngIf="exist">
         <div class="messageArea" *ngIf="talkOpen">
           <div style="margin:30px 20px 20px 20px" *ngFor="let c of this.currentTalkData.communikation,index as i">
             <div class="dateIcon">
@@ -49,7 +50,7 @@
                 </div>
                </div>
             </div>
-            <!-- message-div -->
+             message-div 
             
             </div>
           </div>
@@ -73,7 +74,7 @@
           <img class="iconsTextArea" src="assets/img/alternate_email.svg">
          
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <app-side-menu-thread *ngIf="!openChat" class="side-menu"></app-side-menu-thread>
