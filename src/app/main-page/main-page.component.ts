@@ -26,10 +26,11 @@ export class MainPageComponent {
   public setUser: boolean = false;
   public currentThreadId: string = "";
   private chathelper: ChatHepler = new ChatHepler();
-  public threadList: any = this.chathelper.createEmptyThread();
+  public threadList: any = [this.chathelper.createEmptyThread()];
   public unsub: any;
   public number: number = 0;
   public channelOpen = false;
+  public textThread = "";
 
 
 
@@ -128,6 +129,27 @@ export class MainPageComponent {
 
   setLoggedInUser(u: any) {
     this.user = u;
+  }
+
+  sendQuestion(indexCannel:number, index: number) {
+    let thread = {
+      "name": this.user.name,
+      "iD": this.user.iconPath, //of person that writes the message
+      "edit": false,
+      "time": this.chathelper.parseTime,
+      "message": this.textThread,
+      "answer": [
+        {
+          "name": "",
+          "iD": "", //of person that writes the message
+          "edit": false,
+          "time": "",
+          "message": "",
+        }
+      ]
+    }
+    this.threadList[indexCannel].communikation[index].push(thread);
+    console.log("threadlist ", this.threadList);
   }
 
 

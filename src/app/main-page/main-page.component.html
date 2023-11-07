@@ -1,6 +1,7 @@
 <div class="main-page">
-  <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"  (newItemEventChanel)="setChannelNumber($event)" [user]="user"
-    [userList]="userList" class="side-menu" [threadList]="threadList"></app-side-menu>
+  <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
+    (newItemEventChanel)="setChannelNumber($event)" [user]="user" [userList]="userList" class="side-menu"
+    [threadList]="threadList"></app-side-menu>
   <div class="main-content-div">
     <div *ngIf="talkOpen" class="direktMesHeader">
       <div style="position: relative;width:70px;">
@@ -10,11 +11,17 @@
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
     <div style="padding-bottom: 30px;">
-    <div *ngIf="!channelOpen">
-      <app-private-message  (newItemEventUserList)="setUserList($event)"
-      (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
-    </div>
-        <div *ngIf="channelOpen">Channel open is {{number}}</div>
+      <div *ngIf="!channelOpen">
+        <app-private-message (newItemEventUserList)="setUserList($event)"
+          (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
+      </div>
+      <div *ngIf="channelOpen">Channel open is {{number}}
+        <div *ngFor="let t of threadList[number].communikation;  index as i">{{t[0].date}}
+          <div></div>
+          <textarea [(ngModel)]="textThread"></textarea>
+          <button (click)="sendQuestion(number,i)"> senden</button>
+        </div>
+      </div>
     </div>
   </div>
   <app-side-menu-thread *ngIf="!openChat" class="side-menu"></app-side-menu-thread>
