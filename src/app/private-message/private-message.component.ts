@@ -34,6 +34,7 @@ export class PrivateMessageComponent {
   public openEditDialog: boolean = false;
   public openEdit: boolean = false;
   showEmojis: boolean | undefined;
+
   @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
 

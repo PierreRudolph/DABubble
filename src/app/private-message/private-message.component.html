@@ -61,8 +61,8 @@
     <div style="width:2px;background-color: #ADB0D9 ;"></div>
     <img class="iconsTextArea" (click)="toggleEmojisDialog()" src="assets/img/smile.svg">
     <img class="iconsTextArea" src="assets/img/alternate_email.svg">
-    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
-      (emojiClick)="saveEmoji($event)">></emoji-mart>
+    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+      (darkMode)="false">></emoji-mart>
     <!-- (emojiSelect)="addEmoji($event)" -->
   </div>
 </div>
