@@ -1,14 +1,14 @@
 <div class="dialog-div">
 
-    <div class="dialog-header">
+    <div class="dialog-header" *ngIf="fristPage">
         <span class="nunito fs24 wei700">Channel erstellen</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
-    <div class="explanation">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezigen sein
+    <div  *ngIf="fristPage" class="explanation">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie themenbezigen sein
         #marketing zum Beispiel.
     </div>
 
-    <form (ngSubmit)="onSubmit()" #channelForm="ngForm">
+    <form  *ngIf="fristPage" (ngSubmit)="onSubmit()" #channelForm="ngForm">
         <div>
             <h2 class="fs18 wei700">Channel-Name</h2>
             <input name="channelName" class="input-field" [(ngModel)]="channelName"
@@ -17,7 +17,7 @@
 
         <div>
             <div class="third-headline-div">
-                <h2 class="fs18 wei700">Beschreibung</h2>
+                <h2 class="fs18 wei700">Beschreibung</h2>               
                 <span>(optional)</span>
             </div>
             <input name="channelDescription" class="input-field" [(ngModel)]="channelDescription"
@@ -28,6 +28,41 @@
             <button [disabled]="!channelForm.form.valid" type="submit" class="btn">Erstellen</button>
         </div>
     </form>
-</div>
-<app-add-people-dialog class="add-people" [channel]="channel" [user]="user"
-    [userList]="userList"></app-add-people-dialog>
+
+   
+    <div class="dialog-div-add" *ngIf="!fristPage">
+        <div class="dialog-header-add">
+            <span class="nunito fs24 wei700">Leute hinzufügen</span>
+            <img mat-dialog-close src="assets/img/close.svg">
+        </div>
+    
+        <div class="checkbox-div">
+    
+            <label class="container">
+                <input name="add-people" type="radio" (change)="setValue()" checked>
+                <span class="checkmark"></span>
+                <span class="fs18 nunito">Alle Mitglieder von <span style="color: #7e83f5;">Code learning</span>
+                    hinzufügen</span>
+            </label>
+    
+            <label class="container">
+                <input name="add-people" type="radio" (change)="setValue()">
+                <span class="checkmark"></span>
+                <span class="fs18 nunito">Bestimmte Leute hinzfügen</span>
+            </label>
+    
+        </div>
+        <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
+            *ngIf="isChecked" class="input-text" type="text" placeholder="Name eingeben">
+    
+        <div class="row" *ngFor="let e of filteredMembers"></div>
+    
+        <div class="create-btn-div">
+            <button mat-dialog-close class="btn">Erstellen</button>
+        </div>
+    </div>
+
+ </div> 
+<!-- <app-add-people-dialog class="add-people" [channel]="channel"></app-add-people-dialog> -->
+<!-- <app-add-people-dialog class="add-people" [channel]="channel" [user]="user"
+    [userList]="userList"></app-add-people-dialog> -->

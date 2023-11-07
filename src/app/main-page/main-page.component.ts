@@ -176,6 +176,7 @@ export class MainPageComponent {
   }
 
   answerThread(i: number, j: number) {
+    this.textThreadAnswer ="";
     this.answerOpen = !this.answerOpen;
     this.iEdit = i;
     this.jEdit = j;
@@ -236,13 +237,13 @@ export class MainPageComponent {
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThread,
       "answer": [
-        {
-          "name": "",
-          "iD": "", //of person that writes the message
-          "edit": false,
-          "time": "",
-          "message": "",
-        }
+        // {
+        //   "name": "",
+        //   "iD": "", //of person that writes the message
+        //   "edit": false,
+        //   "time": "",
+        //   "message": "",
+        // }
       ]
     }
 

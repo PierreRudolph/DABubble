@@ -11,8 +11,8 @@ export class AddPeopleDialogComponent {
   isChecked: boolean | undefined;
   //membersList: any = ['Elias', 'Brigitte', 'Thorben'];
   searchedMembers: Array<string> = [];
-  @Input() user: User = new User();
-  @Input() userList = [this.user];
+  public user: User = new User();
+  public userList = [this.user];
   @Input() channel: Channel = new Channel();
   searchText: any;
   filteredMembers: any;

@@ -47,7 +47,15 @@ export class SideMenuComponent {
          }
 
   openCreateChannelDialog() {
-    this.dialog.open(CreateChannelDialogComponent);
+    // this.dialog.open(CreateChannelDialogComponent);
+    // this.dialog.componentInstance();
+    let dialogRef = this.dialog.open(CreateChannelDialogComponent);
+    dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
+    dialogRef.componentInstance.userList = this.userList;//Kopie
+    dialogRef.componentInstance.dialogReference=dialogRef;
+    dialogRef.afterClosed().subscribe(result => {
+    
+    });
   }
 
   openChannel(n: number) {
