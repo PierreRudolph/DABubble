@@ -15,7 +15,7 @@
         <app-private-message (newItemEventUserList)="setUserList($event)"
           (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
       </div>
-      <div *ngIf="channelOpen">Channel open is {{number}}
+      <div *ngIf="channelOpen" style="border:2px solid black; height:700px;overflow-y: scroll;">Channel open is {{number}}
         <div *ngFor="let c of threadList[number].communikation;  index as i" style="margin:50px 10px 0 10px;">
 
           {{this.threadList[number].communikation[i].date}}
