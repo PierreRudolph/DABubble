@@ -24,41 +24,53 @@
                   </div>
                 </div>
             </div>
-           <div class="popUpMessageContainer"  [class.popUpFlipContainer]="getFlip(m)" >
+            <diV class="message" [class.dNone]="m.edit">
+              {{m.message}}
+            </diV>
+            <div [class.dNone]="!m.edit">
+              <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}</textarea>
+              <div class="editButtonContainer">
+                <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
+                <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
+              </div>
+            </div>
+          </div>
+          <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(m)">
             <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
-              <img class="popUpIcons"src="assets/img/popUpHaken.svg">
-              <img class="popUpIcons"src="assets/img/popUpClaps.svg">
-              <img class="popUpIcons pad0"src="assets/icons/add-reaction.svg">
-              <img class="popUpIcons"src="assets/img/comment.svg">
-              <img class="popUpIcons" [class.dNone]="!getFlip(m)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">                
+              <img class="popUpIcons" src="assets/img/popUpHaken.svg">
+              <img class="popUpIcons" src="assets/img/popUpClaps.svg">
+              <img class="popUpIcons pad0" src="assets/icons/add-reaction.svg">
+              <img class="popUpIcons" src="assets/img/comment.svg">
+              <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
+                src="assets/img/more_vert.svg">
             </div>
-            <div class="editMessage"   [class.show]="openEditDialog" (click)="openEditWindow(m)">
-              <div class="editMessageT" >Nachricht bearbeiten</div>
+            <div class="editMessage" [class.show]="openEditDialog" (click)="openEditWindow(m)">
+              <div class="editMessageT">Nachricht bearbeiten</div>
             </div>
-           </div>
+          </div>
         </div>
         <!-- message-div -->
-        
-        </div>
+
       </div>
     </div>
   </div>
-  <div *ngIf="!exist" class="chatIconButtom">
-    <img style="width:65px;height:auto;border-radius: 100%;" src="{{otherChatUser.iconPath}}">
-    <div class="nunitoBlack">{{otherChatUser.name}}</div>
+</div>
+<div *ngIf="!exist" class="chatIconButtom">
+  <img style="width:65px;height:auto;border-radius: 100%;" src="{{otherChatUser.iconPath}}">
+  <div class="nunitoBlack">{{otherChatUser.name}}</div>
+</div>
+<div *ngIf="!exist && talkOpen " class="nunitoBlack fs20 wei400" style="padding-left: 45px; color:#686868">Diese
+  Unterhaltung findet nur
+  zwischen <span style="color:#535AF1;">@{{otherChatUser.name}}</span> und dir statt.
+</div>
+<div *ngIf="talkOpen" class="textareaDirektMessage">
+  <textarea class="textAreaDirekt" [(ngModel)]="text" placeholder="Nachricht an {{otherChatUser.name}}"></textarea>
+  <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
+  <div class="iconContainerTextArea">
+    <img class="iconsTextArea" src="assets/img/add.svg">
+    <div style="width:2px;background-color: #ADB0D9 ;"></div>
+    <img class="iconsTextArea" src="assets/img/smile.svg">
+    <img class="iconsTextArea" src="assets/img/alternate_email.svg">
+
   </div>
-  <div *ngIf="!exist && talkOpen " class="nunitoBlack fs20 wei400" style="padding-left: 45px; color:#686868">Diese Unterhaltung findet nur
-    zwischen <span style="color:#535AF1;">@{{otherChatUser.name}}</span> und dir statt.
-  </div>
-  <div *ngIf="talkOpen" class="textareaDirektMessage">
-    <textarea class="textAreaDirekt" [(ngModel)]="text"
-      placeholder="Nachricht an {{otherChatUser.name}}"></textarea>
-    <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
-    <div class="iconContainerTextArea" >
-      <img class="iconsTextArea"   src="assets/img/add.svg">
-      <div style="width:2px;background-color: #ADB0D9 ;" ></div>
-      <img class="iconsTextArea"  src="assets/img/smile.svg">
-      <img class="iconsTextArea" src="assets/img/alternate_email.svg">
-     
-    </div>
-  </div>
+</div>

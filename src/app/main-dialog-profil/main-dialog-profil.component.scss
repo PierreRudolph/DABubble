@@ -23,7 +23,7 @@
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    width:fit-content;
+    width: fit-content;
 }
 
 .choiceDialog {
@@ -34,7 +34,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap:20px;
+    gap: 20px;
     border-radius: 30px;
     border-top-right-radius: 0;
     background-color: white;
@@ -51,15 +51,26 @@
     z-index: 3;
 }
 
-.dialogGrey{
-    background-color: rgba(0,0,0,0.4);
+.dialogGrey {
+    background-color: rgba(0, 0, 0, 0.4);
     position: absolute;
-    top:0;
-    bottom:0;   
-    right:0;
+    top: 0;
+    bottom: 0;
+    right: 0;
     z-index: 2;
-    height:100vh;
+    height: 100vh;
     width: 100vw;
-    
+
 }
 
+@media (min-width:470px) {
+    .profile {
+        div {
+            display: none;
+        }
+
+        img:nth-of-type(2) {
+            display: none;
+        }
+    }
+}

@@ -1,11 +1,10 @@
 .headerContainer {
     display: flex;
-    justify-content: space-between;
     position: absolute;
     top: 0px;
     width: 100vw;
     box-sizing: border-box;
-    padding: 50px 75px 0 75px;    
+    padding: 50px 75px 0 75px;
 }
 
 .padding-main-page {
@@ -20,6 +19,40 @@
     align-items: center;
     gap: 16px;
 
+}
+
+.search-input {
+    position: relative;
+    width: 990px;
+    margin-left: 122px;
+
+    input {
+        width: 100%;
+        height: 100%;
+        padding: 18px 45px;
+        box-sizing: border-box;
+        border-radius: 40px;
+        border: none;
+        color: #686868;
+        font-size: 24px;
+
+        &:focus-visible {
+            outline: none;
+        }
+    }
+
+    img {
+        cursor: pointer;
+        position: absolute;
+        right: 35px;
+        top: 16px;
+    }
+
+    &:focus-within {
+        img {
+            content: url('/assets/icons/search-focus.svg');
+        }
+    }
 }
 
 .loginHeaderRight {
@@ -38,4 +71,20 @@
     color: #797EF3;
     text-decoration: none;
     padding: 10px;
+}
+
+@media (min-width:470px) {
+    .logoContainer {
+        img:nth-child(1) {
+            height: 45px;
+        }
+
+        img:nth-child(2) {
+            height: 20px;
+        }
+    }
+
+    .search-input {
+        display: none;
+    }
 }
