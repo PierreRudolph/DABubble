@@ -31,7 +31,7 @@ export class MainPageComponent {
   public number: number = 0;
   public channelOpen = false;
   public textThread = "";
-
+  public load = false;
 
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -50,12 +50,16 @@ export class MainPageComponent {
     // setTimeout(()=>{
     //   this.addThread(testThread);
     // },3000);
+
     this.unsub = this.subUserInfo();
+    ;
   }
 
   setChannelNumber(number: number) {
     this.number = number;
     this.channelOpen = true;
+    this.currentThreadId = this.threadList[number].channel.idDB;
+    console.log("current thread number is", this.currentThreadId);
   }
 
   setOtherUser(user: User) {
@@ -74,14 +78,30 @@ export class MainPageComponent {
   subUserInfo() {
     let ref = this.threadRef();
     return onSnapshot(ref, (list) => {
-      this.threadList = [];
+      // this.threadList = [];
+      let th: any = []
       list.forEach(elem => {
-        this.threadList.push(elem.data());
+        // this.threadList.push(elem.data());
+        th.push(elem.data());
       });
+      this.threadList = th;
       // this.addNewItem(this.userList);
+
       console.log("threadlist", this.threadList);
     });
 
+  }
+
+  threadDate(number: number, index: number) {
+    let date = this.threadList[number].communikation[index].date
+    // console.log("thread", this.threadList[number].communikation[index].date);
+    return date;
+  }
+
+  threadData(number: number, index: number, indexTh: number, dataName: string) {
+    let data = this.threadList[number].communikation[index].threads[indexTh][dataName];
+    // console.log("thread", this.threadList[number].communikation[index].threads[indexTh][dataName]);
+    return data;
   }
 
   async addThread(item: any) {
@@ -131,12 +151,12 @@ export class MainPageComponent {
     this.user = u;
   }
 
-  sendQuestion(indexCannel:number, index: number) {
+  sendQuestion(indexCannel: number, index: number) {
     let thread = {
       "name": this.user.name,
-      "iD": this.user.iconPath, //of person that writes the message
+      "iD": this.user.idDB, //of person that writes the message
       "edit": false,
-      "time": this.chathelper.parseTime,
+      "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThread,
       "answer": [
         {
@@ -148,12 +168,12 @@ export class MainPageComponent {
         }
       ]
     }
-    this.threadList[indexCannel].communikation[index].push(thread);
-    console.log("threadlist ", this.threadList);
+    this.threadList[indexCannel].communikation[index].threads.push(thread);
+    console.log("threadlID ", this.currentThreadId);
+    let th = this.threadList[indexCannel].communikation;    
+    console.log("upload data ", th);
+    this.updateDB(this.currentThreadId,"thread",{"communikation": th});    
+   
   }
-
-
-
-
 }
 
