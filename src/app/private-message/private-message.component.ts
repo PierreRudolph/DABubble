@@ -1,4 +1,4 @@
-import { Component, inject ,Input,Output,EventEmitter} from '@angular/core';
+import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
@@ -23,9 +23,9 @@ export class PrivateMessageComponent {
   public profileOpen = false;
   public openChat = false;
   @Input() otherChatUser: User = new User();
-  @Input() _setUser:boolean = false;
+  @Input() _setUser: boolean = false;
   private currentTalkId: string = "";
-  private chatHepler:ChatHepler= new ChatHepler();
+  private chatHepler: ChatHepler = new ChatHepler();
   public currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
   public textEdit: string = "";
@@ -44,33 +44,34 @@ export class PrivateMessageComponent {
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
       this.unsub = this.subUserInfo();
       this.unsubtalk = this.subTalkInfo();
-    }, 2000);
+    
+    }, 1000);
   }
 
- 
- 
+
+
   addNewItem(userList: any) {
     this.newItemEventUserList.emit(userList);
-    this.newItemEventLoggedUser.emit(this.user);   
+    this.newItemEventLoggedUser.emit(this.user);
   }
-  openEditWindow(m:any) {
+  openEditWindow(m: any) {
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
     this.textEdit = m.message;
   }
 
-  closeEdit(m:any){
+  closeEdit(m: any) {
     m.edit = false;
-     }
+  }
 
   openEditPopUp() {
     this.openEditDialog = !this.openEditDialog;
   }
 
-  saveEdit(m:any){
+  saveEdit(m: any) {
     m.edit = false;
     m.message = this.textEdit;
-    this.updateDB(this.currentTalkId, "talk",this.currentTalkData )
+    this.updateDB(this.currentTalkId, "talk", this.currentTalkData)
   }
 
   userRef() {
@@ -87,7 +88,7 @@ export class PrivateMessageComponent {
 
 
 
-  
+
 
   createMessageFromText(text: string) {
     let mes = {
@@ -105,7 +106,7 @@ export class PrivateMessageComponent {
       let len = this.currentTalkData.communikation.length;
       let date = this.currentTalkData.communikation[len - 1].date;
       let today = this.chatHepler.parseDate(new Date(Date.now()));
-      if (date == today) {       
+      if (date == today) {
         this.currentTalkData.communikation[len - 1].messages.push(mes);
       } else {
         let com = {
@@ -117,9 +118,9 @@ export class PrivateMessageComponent {
     }, 500);
   }
 
-  saveMessage() {   
+  saveMessage() {
     let mes = this.createMessageFromText(this.text);
-  
+
     if (!this.exist) {
       this.startTalk(mes);
       this.exist = true;
@@ -141,7 +142,7 @@ export class PrivateMessageComponent {
     } else return this.otherChatUser.iconPath;
   }
 
-  startTalkInitialize(){    
+  startTalkInitialize() {
     let talkUser = { //the id of the talk is saved in a List of the user
       "talkID": this.currentTalkId,
       "oUDbID": this.otherChatUser.idDB
@@ -159,16 +160,16 @@ export class PrivateMessageComponent {
   }
 
   startTalk(talk: {}): {} {
-   
-    let t: any = this.chatHepler.createNewTalk(this.user,this.otherChatUser);
-  
+
+    let t: any = this.chatHepler.createNewTalk(this.user, this.otherChatUser);
+
     t.communikation[0].messages = [talk];
     this.addTalk(t);
     setTimeout(() => {
       this.startTalkInitialize();
-    }, 1000);
+    }, 2000);
     t.idDB = this.currentTalkId;
-    this.currentTalkData = t;   
+    this.currentTalkData = t;
     return t;
   }
 
@@ -195,7 +196,7 @@ export class PrivateMessageComponent {
     let talkId = "";
     talks.forEach(t => {
       let a: any;
-      a = t;      
+      a = t;
       if (a.oUDbID === dbIDOther) {
         this.exist = true;
         talkId = a.talkID;
@@ -210,24 +211,25 @@ export class PrivateMessageComponent {
     }
   }
 
-  openExistingTalk(talkId: string) {   
+  openExistingTalk(talkId: string) {
     this.getTalkById(talkId);
   }
 
   setOtherUser(user: User) {
     this.otherChatUser = user;
     this.openTalk();
+    setTimeout(() => { this.openTalk() },1500);
   }
 
   async updateDB(id: string, coll: string, info: {}) {
-   
+
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).catch(
       (err) => { console.log(err); });
   }
 
   async addTalk(item: {}) {
-   
+
     await addDoc(this.talkRef(), item).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
@@ -272,10 +274,10 @@ export class PrivateMessageComponent {
     if (docSnap != null) {
       // console.log("Document data:",docSnap.data());
       this.currentTalkData = docSnap.data();
-     
+
     } else {
       // docSnap.data() will be undefined in this case
-     
+
     }
   }
 

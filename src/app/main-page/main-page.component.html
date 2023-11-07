@@ -1,5 +1,5 @@
 <div class="main-page">
-  <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)" [user]="user"
+  <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"  (newItemEventChanel)="setChannelNumber($event)" [user]="user"
     [userList]="userList" class="side-menu" [threadList]="threadList"></app-side-menu>
   <div class="main-content-div">
     <div *ngIf="talkOpen" class="direktMesHeader">
@@ -10,8 +10,11 @@
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
     <div style="padding-bottom: 30px;">
-      <app-private-message [_setUser]="setUser" (newItemEventUserList)="setUserList($event)"
-        (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
+    <div *ngIf="!channelOpen">
+      <app-private-message  (newItemEventUserList)="setUserList($event)"
+      (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
+    </div>
+        <div *ngIf="channelOpen">Channel open is {{number}}</div>
     </div>
   </div>
   <app-side-menu-thread *ngIf="!openChat" class="side-menu"></app-side-menu-thread>

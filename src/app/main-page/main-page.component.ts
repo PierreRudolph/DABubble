@@ -25,16 +25,18 @@ export class MainPageComponent {
   public talkOpen: boolean = false;
   public setUser: boolean = false;
   public currentThreadId: string = "";
-  private chathelper : ChatHepler = new ChatHepler();
+  private chathelper: ChatHepler = new ChatHepler();
   public threadList: any = this.chathelper.createEmptyThread();
   public unsub: any;
+  public number: number = 0;
+  public channelOpen = false;
 
 
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
 
   constructor(public authService: AuthService, public router: Router) {
-    // let testThread = this.createEmptyThred();    
+    // let testThread = this.chathelper.createEmptyThread();    
     // let descr = "Dieser Channel ist für alles rund um #dfsdf vorgesehen."+
     //            "Hier kannst du zusammen mit deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen."; 
     // testThread.channel.description = descr; 
@@ -50,7 +52,23 @@ export class MainPageComponent {
     this.unsub = this.subUserInfo();
   }
 
- 
+  setChannelNumber(number: number) {
+    this.number = number;
+    this.channelOpen = true;
+  }
+
+  setOtherUser(user: User) {
+    this.talkOpen = true;
+    this.channelOpen = false;
+    console.log("exist", this.exist);
+
+    setTimeout(() => {
+      this.otherChatUser = user;
+      this.setUser = !this.setUser;
+      this.child.setOtherUser(user);
+    }, 500);
+
+  }
 
   subUserInfo() {
     let ref = this.threadRef();
@@ -98,12 +116,7 @@ export class MainPageComponent {
     return collection(this.firestore, 'thread');
   }
 
-  setOtherUser(user: User) {
-    this.talkOpen = true;
-    this.otherChatUser = user;
-    this.setUser = !this.setUser;
-    this.child.setOtherUser(user);
-  }
+
 
   setOpen(value: boolean) {
     this.openChat = value;
