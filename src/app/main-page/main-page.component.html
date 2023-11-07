@@ -16,10 +16,10 @@
           (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
       </div>
       <div *ngIf="channelOpen">Channel open is {{number}}
-        <div *ngFor="let c of threadList[number].communikation;  index as i">
+        <div *ngFor="let c of threadList[number].communikation;  index as i" style="margin:50px 10px 0 10px;">
 
           {{this.threadList[number].communikation[i].date}}
-          <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j">
+          <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j" style="margin:30px">
             <!-- <div *ngFor="let t of c[i].threads;  index as j"> -->
             {{this.threadList[number].communikation[i].threads[j].name}}<br>
             {{this.threadList[number].communikation[i].threads[j].time}}<br>
@@ -28,6 +28,12 @@
             <!-- {{this.threadList[number].communikation[1].threads[0].name}}<br>
             {{this.threadList[number].communikation[1].threads[0].time}}<br>
             {{this.threadList[number].communikation[1].threads[0].message}}<br> -->
+            <button (click)="editThread(i,j)">Edit</button>
+            <div *ngIf="getEdit(i,j)">
+              <textarea  [(ngModel)]="textThreadEdit"></textarea>
+              <button (click)="saveEdit(number)"> senden</button>
+            </div>
+
           </div>
           <div>
 

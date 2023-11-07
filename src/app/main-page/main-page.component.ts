@@ -31,7 +31,11 @@ export class MainPageComponent {
   public number: number = 0;
   public channelOpen = false;
   public textThread = "";
+  public textThreadEdit = "";
   public load = false;
+  private iEdit = 0;
+  private jEdit = 0;
+  private editT = false;
 
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -92,17 +96,17 @@ export class MainPageComponent {
 
   }
 
-  threadDate(number: number, index: number) {
-    let date = this.threadList[number].communikation[index].date
-    // console.log("thread", this.threadList[number].communikation[index].date);
-    return date;
-  }
+  // threadDate(number: number, index: number) {
+  //   let date = this.threadList[number].communikation[index].date
+  //   // console.log("thread", this.threadList[number].communikation[index].date);
+  //   return date;
+  // }
 
-  threadData(number: number, index: number, indexTh: number, dataName: string) {
-    let data = this.threadList[number].communikation[index].threads[indexTh][dataName];
-    // console.log("thread", this.threadList[number].communikation[index].threads[indexTh][dataName]);
-    return data;
-  }
+  // threadData(number: number, index: number, indexTh: number, dataName: string) {
+  //   let data = this.threadList[number].communikation[index].threads[indexTh][dataName];
+  //   // console.log("thread", this.threadList[number].communikation[index].threads[indexTh][dataName]);
+  //   return data;
+  // }
 
   async addThread(item: any) {
 
@@ -151,11 +155,29 @@ export class MainPageComponent {
     this.user = u;
   }
 
+  editThread(i: number, j: number) {
+    this.editT = !this.editT;
+    this.iEdit = i;
+    this.jEdit = j;
+    this.textThreadEdit = this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message;
+  }
+
+  saveEdit(num: number) {
+    console.log("Mess", this.threadList[num].communikation[this.iEdit].threads[this.jEdit].message );
+    this.threadList[num].communikation[this.iEdit].threads[this.jEdit].message = this.textThreadEdit;
+    console.log("Mess", this.threadList[num].communikation[this.iEdit].threads[this.jEdit].message );
+    this.updateDB(this.currentThreadId,'thread',{"communikation":this.threadList[num].communikation });  
+    this.editT = !this.editT; 
+  }
+
+  getEdit(i: number, j: number) {
+    return (this.editT && (this.iEdit == i) && (this.jEdit == j))
+  }
+
   sendQuestion(indexCannel: number) {
     let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
-    let today = this.chathelper.parseDate(new Date(Date.now()))
-    console.log("Last date", lastdate + " " + today);
+    let today = this.chathelper.parseDate(new Date(Date.now()));
 
     let thread = {
       "name": this.user.name,
@@ -175,21 +197,21 @@ export class MainPageComponent {
     }
 
     if (today == lastdate) {
-      // this.threadList[indexCannel].communikation[index].threads.push(thread); 
-      // let th = this.threadList[indexCannel].communikation;    
-      // console.log("upload data ", th);
-      // this.updateDB(this.currentThreadId,"thread",{"communikation": th});
+      this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(thread);
+      let th = this.threadList[indexCannel].communikation;
+      console.log("upload data ", th);
+      this.updateDB(this.currentThreadId, "thread", { "communikation": th });
     }
     else {
       let c = {
         "date": today,
         "threads": [thread]
       }
-
       this.threadList[indexCannel].communikation.push(c);
       this.updateDB(this.currentThreadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
     }
-
   }
+
+
 }
 
