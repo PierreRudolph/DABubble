@@ -151,7 +151,12 @@ export class MainPageComponent {
     this.user = u;
   }
 
-  sendQuestion(indexCannel: number, index: number) {
+  sendQuestion(indexCannel: number) {
+    let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
+    let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
+    let today = this.chathelper.parseDate(new Date(Date.now()))
+    console.log("Last date", lastdate + " " + today);
+
     let thread = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
@@ -168,12 +173,23 @@ export class MainPageComponent {
         }
       ]
     }
-    this.threadList[indexCannel].communikation[index].threads.push(thread);
-    console.log("threadlID ", this.currentThreadId);
-    let th = this.threadList[indexCannel].communikation;    
-    console.log("upload data ", th);
-    this.updateDB(this.currentThreadId,"thread",{"communikation": th});    
-   
+
+    if (today == lastdate) {
+      // this.threadList[indexCannel].communikation[index].threads.push(thread); 
+      // let th = this.threadList[indexCannel].communikation;    
+      // console.log("upload data ", th);
+      // this.updateDB(this.currentThreadId,"thread",{"communikation": th});
+    }
+    else {
+      let c = {
+        "date": today,
+        "threads": [thread]
+      }
+
+      this.threadList[indexCannel].communikation.push(c);
+      this.updateDB(this.currentThreadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
+    }
+
   }
 }
 

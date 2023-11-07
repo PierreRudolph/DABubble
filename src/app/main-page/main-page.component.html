@@ -16,21 +16,27 @@
           (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
       </div>
       <div *ngIf="channelOpen">Channel open is {{number}}
-        <div *ngFor="let t of threadList[number].communikation;  index as i"
-          style="display: flex;flex-direction: column;">
-          <!-- {{t[0].date}} -->
-         <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j">
-          {{threadDate(number,i)}}<br>
-          {{threadData(number, i,i, 'name')}}<br>
-          {{threadData(number, i,j, 'time')}}<br>
-          {{threadData(number, i,j, 'message')}}
-         </div>
+        <div *ngFor="let c of threadList[number].communikation;  index as i">
+
+          {{this.threadList[number].communikation[i].date}}
+          <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j">
+            <!-- <div *ngFor="let t of c[i].threads;  index as j"> -->
+            {{this.threadList[number].communikation[i].threads[j].name}}<br>
+            {{this.threadList[number].communikation[i].threads[j].time}}<br>
+            {{this.threadList[number].communikation[i].threads[j].message}}<br>
+          
+            <!-- {{this.threadList[number].communikation[1].threads[0].name}}<br>
+            {{this.threadList[number].communikation[1].threads[0].time}}<br>
+            {{this.threadList[number].communikation[1].threads[0].message}}<br> -->
+          </div>
           <div>
 
           </div>
-          <textarea [(ngModel)]="textThread"></textarea>
-          <button (click)="sendQuestion(number,i)"> senden</button>
+
         </div>
+        <!-- {{this.threadList[number].communikation[1].threads[0].message}}<br> -->
+        <textarea [(ngModel)]="textThread"></textarea>
+        <button (click)="sendQuestion(number)"> senden</button>
       </div>
     </div>
   </div>
