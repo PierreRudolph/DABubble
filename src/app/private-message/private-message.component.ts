@@ -71,7 +71,7 @@ export class PrivateMessageComponent {
   saveEdit(m: any) {
     m.edit = false;
     m.message = this.textEdit;
-    this.updateDB(this.currentTalkId, "talk", this.currentTalkData)
+    this.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
   userRef() {
