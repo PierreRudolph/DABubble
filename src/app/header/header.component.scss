@@ -74,6 +74,11 @@
 }
 
 @media (min-width:470px) {
+    .headerContainer {
+        padding: 15px 16px;
+        padding-bottom: 0px;
+    }
+
     .logoContainer {
         img:nth-child(1) {
             height: 45px;

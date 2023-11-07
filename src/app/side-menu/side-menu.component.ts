@@ -9,7 +9,7 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
-  menuHidden: boolean | true | undefined;
+  menuHidden: boolean | false | undefined;
   chPanelOpen: boolean | undefined;
   mesPanelOpen: boolean | undefined;
   private chathelper: ChatHepler = new ChatHepler();

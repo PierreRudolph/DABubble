@@ -1,5 +1,5 @@
-<mat-drawer-container class="example-container mat-drawer-div" [class.mar-right-20]="menuHidden">
-    <mat-drawer #drawer class="example-sidenav sidenav" mode="side">
+<mat-drawer-container class="example-container mat-drawer-div" [class.mar-right-20]="!menuHidden">
+    <mat-drawer #drawer class="example-sidenav sidenav" mode="side" opened>
         <div class="head">
             <img src="assets/img/workspace-logo.svg">
             <p class="workspace-name">Code learning</p>
@@ -29,7 +29,7 @@
                         <div class="created-channel" (click)="openChannel(0)">
                             <img src="assets/icons/tag.svg">
                             <!-- <span>Entwicklerteam </span> -->
-                            <span *ngIf="loaded" >{{getName(0)}} </span>
+                            <span *ngIf="loaded">{{getName(0)}} </span>
                         </div>
 
                         <div class="created-channel" (click)="openChannel(1)">
@@ -83,10 +83,10 @@
 </mat-drawer-container>
 
 <div class="example-sidenav-content sidenav-content">
-    <img class="open-sidenav" *ngIf="!menuHidden" src="assets/icons/open-sidenav.svg">
-    <img class="close-sidenav" *ngIf="menuHidden" src="assets/icons/close-sidenav.svg">
-    <span *ngIf="menuHidden">Workspace-Menü schließen</span>
-    <span *ngIf="!menuHidden">Workspace-Menü öffnen</span>
+    <img class="open-sidenav" *ngIf="menuHidden" src="assets/icons/open-sidenav.svg">
+    <img class="close-sidenav" *ngIf="!menuHidden" src="assets/icons/close-sidenav.svg">
+    <span *ngIf="!menuHidden">Workspace-Menü schließen</span>
+    <span *ngIf="menuHidden">Workspace-Menü öffnen</span>
     <button type="button" mat-button (click)="drawer.toggle();menuHidden=!menuHidden">
     </button>
 </div>
