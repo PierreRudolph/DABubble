@@ -72,3 +72,19 @@
     text-decoration: none;
     padding: 10px;
 }
+
+@media (min-width:470px) {
+    .logoContainer {
+        img:nth-child(1) {
+            height: 45px;
+        }
+
+        img:nth-child(2) {
+            height: 20px;
+        }
+    }
+
+    .search-input {
+        display: none;
+    }
+}
