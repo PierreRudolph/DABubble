@@ -73,23 +73,23 @@
     padding: 10px;
 }
 
-@media (min-width:470px) {
-    .headerContainer {
-        padding: 15px 16px;
-        padding-bottom: 0px;
-    }
+// @media (min-width:470px) {
+//     .headerContainer {
+//         padding: 15px 16px;
+//         padding-bottom: 0px;
+//     }
 
-    .logoContainer {
-        img:nth-child(1) {
-            height: 45px;
-        }
+//     .logoContainer {
+//         img:nth-child(1) {
+//             height: 45px;
+//         }
 
-        img:nth-child(2) {
-            height: 20px;
-        }
-    }
+//         img:nth-child(2) {
+//             height: 20px;
+//         }
+//     }
 
-    .search-input {
-        display: none;
-    }
-}
+//     .search-input {
+//         display: none;
+//     }
+// }
