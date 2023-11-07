@@ -1,10 +1,10 @@
-import { Component, inject, Input, Output, EventEmitter } from '@angular/core';
+import { Component, inject, Input, Output, EventEmitter, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
-
+import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 
 @Component({
   selector: 'app-private-message',
@@ -28,14 +28,17 @@ export class PrivateMessageComponent {
   private chatHepler: ChatHepler = new ChatHepler();
   public currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
+  //public textArea: any;
   public textEdit: string = "";
   public exist = false;
   public talkOpen: boolean = false;
   public openEditDialog: boolean = false;
   public openEdit: boolean = false;
+  showEmojis: boolean | undefined;
   @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
 
+  @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router) {
     setTimeout(() => {
@@ -44,11 +47,9 @@ export class PrivateMessageComponent {
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";
       this.unsub = this.subUserInfo();
       this.unsubtalk = this.subTalkInfo();
-    
+
     }, 1000);
   }
-
-
 
   addNewItem(userList: any) {
     this.newItemEventUserList.emit(userList);
@@ -218,7 +219,7 @@ export class PrivateMessageComponent {
   setOtherUser(user: User) {
     this.otherChatUser = user;
     this.openTalk();
-    setTimeout(() => { this.openTalk() },1500);
+    setTimeout(() => { this.openTalk() }, 1500);
   }
 
   async updateDB(id: string, coll: string, info: {}) {
@@ -285,5 +286,22 @@ export class PrivateMessageComponent {
     return m.iD == this.user.idDB
   }
 
+
+  addEmoji(selected: Emoji) {
+    const emoji: string = (selected.emoji as any).native;
+    const input = this.textArea.nativeElement;
+    input.focus();
+
+    if (document.execCommand) { // document.execCommand is absolute but it //add support for undo redo and insert emoji at carrot position
+      //any one has better solution ?
+
+      var event = new Event('input');
+      document.execCommand('insertText', false, emoji);
+      return;
+    }
+    // insert emoji on carrot position
+    const [start, end] = [input.selectionStart, input.selectionEnd];
+    input.setRangeText(emoji, start, end, 'end');
+  }
 
 }
