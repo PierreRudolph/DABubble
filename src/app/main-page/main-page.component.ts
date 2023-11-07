@@ -32,10 +32,15 @@ export class MainPageComponent {
   public channelOpen = false;
   public textThread = "";
   public textThreadEdit = "";
+  public textThreadAnswer = "";
+  public textThreadAnswerEdit = "";
   public load = false;
-  private iEdit = 0;
+  private iEdit = 0; //indizierung für Bearbeitung der Threads
   private jEdit = 0;
+  private aAnswer = 0;
   private editT = false;
+  private editA = false;
+  private answerOpen = false;
 
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -155,6 +160,14 @@ export class MainPageComponent {
     this.user = u;
   }
 
+  editThreadAnswer(i: number, j: number, aIndex: number) {
+    this.editA = !this.editA;
+    this.iEdit = i;
+    this.jEdit = j;
+    this.aAnswer = aIndex;
+    this.textThreadAnswerEdit = this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[aIndex].message;
+  }
+
   editThread(i: number, j: number) {
     this.editT = !this.editT;
     this.iEdit = i;
@@ -162,16 +175,53 @@ export class MainPageComponent {
     this.textThreadEdit = this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message;
   }
 
-  saveEdit(num: number) {
-    console.log("Mess", this.threadList[num].communikation[this.iEdit].threads[this.jEdit].message );
-    this.threadList[num].communikation[this.iEdit].threads[this.jEdit].message = this.textThreadEdit;
-    console.log("Mess", this.threadList[num].communikation[this.iEdit].threads[this.jEdit].message );
-    this.updateDB(this.currentThreadId,'thread',{"communikation":this.threadList[num].communikation });  
-    this.editT = !this.editT; 
+  answerThread(i: number, j: number) {
+    this.answerOpen = !this.answerOpen;
+    this.iEdit = i;
+    this.jEdit = j;
+
+  }
+
+  saveEdit() {
+    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message);
+    this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message = this.textThreadEdit;
+    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message);
+    this.updateDB(this.currentThreadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    this.editT = !this.editT;
+  }
+
+  saveAnswer() {
+    let answ = {
+      "name": this.user.name,
+      "iD": this.user.idDB, //of person that writes the message
+      "edit": false,
+      "time": this.chathelper.parseTime(new Date(Date.now())),
+      "message": this.textThreadAnswer,
+    }
+    this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer.push(answ);
+    console.log("Antwort", answ);
+    console.log("comunikation", this.threadList[this.number].communikation[this.iEdit]);
+    this.updateDB(this.currentThreadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    this.answerOpen = !this.answerOpen;
+  }
+
+  saveEditAnswer() {
+    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[this.aAnswer].message);
+    this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[this.aAnswer].message = this.textThreadAnswerEdit;
+    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[this.aAnswer].message);
+    this.updateDB(this.currentThreadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    this.editA = !this.editA;
   }
 
   getEdit(i: number, j: number) {
     return (this.editT && (this.iEdit == i) && (this.jEdit == j))
+  }
+  getAnswer(i: number, j: number) {
+    return (this.answerOpen && (this.iEdit == i) && (this.jEdit == j))
+  }
+
+  getEditAnswer(i: number, j: number,aIndex:number) {
+    return (this.editA && (this.iEdit == i) && (this.jEdit == j)&& (this.aAnswer == aIndex));
   }
 
   sendQuestion(indexCannel: number) {

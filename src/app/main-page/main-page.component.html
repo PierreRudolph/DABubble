@@ -24,14 +24,31 @@
             {{this.threadList[number].communikation[i].threads[j].name}}<br>
             {{this.threadList[number].communikation[i].threads[j].time}}<br>
             {{this.threadList[number].communikation[i].threads[j].message}}<br>
-          
-            <!-- {{this.threadList[number].communikation[1].threads[0].name}}<br>
-            {{this.threadList[number].communikation[1].threads[0].time}}<br>
-            {{this.threadList[number].communikation[1].threads[0].message}}<br> -->
-            <button (click)="editThread(i,j)">Edit</button>
+
+            <div *ngFor="let ans of threadList[number].communikation[i].threads[j].answer;  index as aIndex" style="margin:20px;">
+             <div>
+              Antwort {{aIndex+1}}<br>
+              {{this.threadList[number].communikation[i].threads[j].answer[aIndex].name}}<br>
+              {{this.threadList[number].communikation[i].threads[j].answer[aIndex].time}}<br>
+              {{this.threadList[number].communikation[i].threads[j].answer[aIndex].message}}<br> 
+             </div>
+             <button (click)="editThreadAnswer(i,j,aIndex)">Edit Anwort</button> 
+            <div *ngIf ="getEditAnswer(i,j,aIndex)">
+              <textarea  [(ngModel)]="textThreadAnswerEdit"></textarea>  
+              <button (click)="saveEditAnswer()">save</button>
+            </div>
+            </div>
+            <div style="display: flex;gap:30px ;">
+              <button (click)="editThread(i,j)">Edit</button>
+              <button (click)="answerThread(i,j)">antworten</button>
+            </div>
             <div *ngIf="getEdit(i,j)">
-              <textarea  [(ngModel)]="textThreadEdit"></textarea>
-              <button (click)="saveEdit(number)"> senden</button>
+              <textarea [(ngModel)]="textThreadEdit"></textarea>
+              <button (click)="saveEdit()"> senden</button>
+            </div>
+            <div *ngIf="getAnswer(i,j)">
+              <textarea [(ngModel)]="textThreadAnswer"></textarea>
+              <button (click)="saveAnswer()"> anworten</button>
             </div>
 
           </div>
