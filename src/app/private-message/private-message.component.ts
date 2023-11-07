@@ -28,7 +28,6 @@ export class PrivateMessageComponent {
   private chatHepler: ChatHepler = new ChatHepler();
   public currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
-  //public textArea: any;
   public textEdit: string = "";
   public exist = false;
   public talkOpen: boolean = false;
@@ -121,7 +120,7 @@ export class PrivateMessageComponent {
 
   saveMessage() {
     let mes = this.createMessageFromText(this.text);
-
+    console.log(mes)
     if (!this.exist) {
       this.startTalk(mes);
       this.exist = true;
@@ -286,22 +285,36 @@ export class PrivateMessageComponent {
     return m.iD == this.user.idDB
   }
 
-
-  addEmoji(selected: Emoji) {
-    const emoji: string = (selected.emoji as any).native;
-    const input = this.textArea.nativeElement;
-    input.focus();
-
-    if (document.execCommand) { // document.execCommand is absolute but it //add support for undo redo and insert emoji at carrot position
-      //any one has better solution ?
-
-      var event = new Event('input');
-      document.execCommand('insertText', false, emoji);
-      return;
-    }
-    // insert emoji on carrot position
-    const [start, end] = [input.selectionStart, input.selectionEnd];
-    input.setRangeText(emoji, start, end, 'end');
+  saveEmoji(e: { emoji: { unified: string; }; }) {
+    let unicodeCode: string = e.emoji.unified;
+    let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+    this.text += emoji;
+    console.log(emoji);
+    this.toggleEmojisDialog();
   }
+
+  toggleEmojisDialog() {
+    this.showEmojis = !this.showEmojis;
+  }
+
+  // addEmoji(selected: Emoji) {
+  //   const emoji: string = (selected.emoji as any).native;
+  //   const input = this.textArea.nativeElement;
+  //   input.focus();
+  //   console.log(emoji)
+  //   //this.emojiPicker_open = false;
+  //   //let unicodeCode: string = selected.emoji.unified;
+  //   //let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+  //   // if (document.execCommand) { // document.execCommand is absolute but it //add support for undo redo and insert emoji at carrot position
+  //   //   //any one has better solution ?
+
+  //   //   var event = new Event('input');
+  //   //   document.execCommand('insertText', false, emoji);
+  //   //   return;
+  //   // }
+  //   // insert emoji on carrot position
+  //   const [start, end] = [input.selectionStart, input.selectionEnd];
+  //   input.setRangeText(emoji, start, end, 'end');
+  // }
 
 }
