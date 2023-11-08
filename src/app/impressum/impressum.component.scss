@@ -1,0 +1,32 @@
+.imprint-div {
+    width: 606px;
+    height: 470px;
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    gap: 30px;
+    box-sizing: border-box;
+
+    img {
+        cursor: pointer;
+    }
+
+    h1 {
+        color: #444DF2;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    h2 {
+        color: #444DF2;
+        font-size: 46px;
+        font-weight: 700;
+
+    }
+
+    span {
+        font-size: 20px;
+    }
+}

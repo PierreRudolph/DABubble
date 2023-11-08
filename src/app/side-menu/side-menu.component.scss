@@ -213,6 +213,9 @@
 
     span {
         font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &:hover {
@@ -221,6 +224,7 @@
         img {
             content: url('/assets/icons/tag-hover.svg');
         }
+
     }
 
     &:active {
