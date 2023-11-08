@@ -1,14 +1,16 @@
 .dialog-div {
     padding: 40px;
     border-radius: 30px !important;
-    border: 1px solid black;
+    // border: 1px solid black;
 }
 
 .dialog-div-add {
     width: 710px;
     padding: 40px;
+    // min-height: 500px;
     border-radius: 30px !important;
-    
+
+
 }
 
 .dialog-header-add {
@@ -58,6 +60,7 @@
     font-family: 'Nunito';
     line-height: 25px;
 }
+
 .container {
     cursor: pointer;
     display: block;
@@ -110,7 +113,7 @@
     background-color: #444DF2;
 }
 
-.input-text {
+.inputText {
     display: flex;
     width: 100%;
     margin-top: 25px;
@@ -126,6 +129,63 @@
     &:focus-visible {
         outline: 1px solid #535AF1;
     }
+}
+
+.portraitChannel {
+    position: relative;
+
+    img {
+        width: 55px;
+        height: 55px;
+        border-radius: 100%;
+    }
+
+}
+
+.addedMember{
+    display: flex;
+    gap:5px;
+    padding: 5px;
+    border: 1px solid #cbcdec;
+    border-radius: 10px;
+}
+
+.dot {
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    background-color: gray;
+    position: absolute;
+    right: -4px;
+    bottom: 8px;
+    border: 1px solid white;
+}
+
+.green {
+    background-color: #92C83E;
+}
+
+.row {
+
+    display: flex;
+    gap: 30px;
+    align-items: center;
+
+    &:hover {
+        background-color: #cbcdec;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+
+}
+
+.popUp {
+    position: absolute;
+    border: 1px solid lightgray;
+    border-radius: 30px;
+    border-top-left-radius: 0;
+    padding: 30px;
+    background-color: white;
 }
 
 .input-field {

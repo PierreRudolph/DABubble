@@ -33,7 +33,10 @@ body {
 
 .mat-mdc-dialog-surface {
     border-radius: 30px !important;
+    overflow-y:unset!important;
 }
+
+
 
 .mat-body,
 .mat-body-2,

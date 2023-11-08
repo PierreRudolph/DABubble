@@ -28,6 +28,7 @@ export class CreateChannelDialogComponent {
   searchText: any;
 
   public filteredMembers: User[] = [];
+  public currentlyAddedUser:User[]=[];
 
   constructor(public addPeopleDialog: MatDialog) {
     // setTimeout(() => {
@@ -36,14 +37,42 @@ export class CreateChannelDialogComponent {
 
   }
 
+  addMember(u:User){
+    // console.log("added Member ",u);
+    // let m = {
+    //   "memberName": u.name,
+    //   "memberID": u.idDB,
+    // };
+    // this.channel.members.push(m);
+    // console.log("this channel",this.channel);
+    this.currentlyAddedUser.push(u);
+    console.log("currently users",this.currentlyAddedUser);
+  }
+
+  deleteUser(us:User){
+    let array:User[]=[];
+    this.currentlyAddedUser.forEach((u)=>{
+      if(u.idDB!=us.idDB)
+      {
+        array.push(u);
+      }
+    });
+    this.currentlyAddedUser = array;
+  }
+ 
+
+  isPopUpOpen() {  
+    return this.filteredMembers.length > 0;
+  }
+
   filterMember() {
     let filterValue = this.searchText.toLowerCase();
-    console.log("filtered Value",filterValue);
+    console.log("filtered Value", filterValue);
     this.filteredMembers = []
     this.userList.forEach((u) => {
       if ((filterValue != "")) {
         let n = u.name;
-        console.log("name low ",n.toLowerCase() + " "+ filterValue);
+        console.log("name low ", n.toLowerCase() + " " + filterValue);
         if (n.toLowerCase().includes(filterValue)) {
           this.filteredMembers.push(u);
         }
@@ -51,7 +80,7 @@ export class CreateChannelDialogComponent {
     });
     if ((filterValue != "")) {
       let n = this.user.name;
-      console.log("name low ",n.toLowerCase() + " "+ filterValue);
+      console.log("name low ", n.toLowerCase() + " " + filterValue);
       if (n.toLowerCase().includes(filterValue)) {
         this.filteredMembers.push(this.user);
       }
@@ -77,13 +106,17 @@ export class CreateChannelDialogComponent {
       this.userList.forEach((u) => {
         memberList.push({ "memberName": u.name, "memberID": u.idDB });
       });
-
-      console.log("memberlist", memberList);
-      this.channel.members = memberList;
-      console.log("channel", this.channel);
-      this.channelJSON = this.channel.toJSON();
-      this.closeDialog();
+     
+    }else{
+      this.currentlyAddedUser.forEach((us)=>{
+      memberList.push({ "memberName": us.name, "memberID": us.idDB });
+      });
     }
+    console.log("memberlist", memberList);
+    this.channel.members = memberList;
+    console.log("channel", this.channel);
+    this.channelJSON = this.channel.toJSON();
+    this.closeDialog();
 
   }
 
