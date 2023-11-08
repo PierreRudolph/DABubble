@@ -60,7 +60,7 @@ export class MainPageComponent {
     //   this.addThread(testThread);
     // },3000);
 
-    this.unsub = this.subUserInfo();
+    // this.unsub = this.subUserInfo();
     ;
   }
 
@@ -84,22 +84,22 @@ export class MainPageComponent {
 
   }
 
-  subUserInfo() {
-    let ref = this.threadRef();
-    return onSnapshot(ref, (list) => {
-      // this.threadList = [];
-      let th: any = []
-      list.forEach(elem => {
-        // this.threadList.push(elem.data());
-        th.push(elem.data());
-      });
-      this.threadList = th;
-      // this.addNewItem(this.userList);
+  // subUserInfo() {
+  //   let ref = this.threadRef();
+  //   return onSnapshot(ref, (list) => {
+  //     // this.threadList = [];
+  //     let th: any = []
+  //     list.forEach(elem => {
+  //       // this.threadList.push(elem.data());
+  //       th.push(elem.data());
+  //     });
+  //     this.threadList = th;
+  //     // this.addNewItem(this.userList);
 
-      console.log("threadlist", this.threadList);
-    });
+  //     console.log("threadlist", this.threadList);
+  //   });
 
-  }
+  // }
 
   // threadDate(number: number, index: number) {
   //   let date = this.threadList[number].communikation[index].date
@@ -113,24 +113,29 @@ export class MainPageComponent {
   //   return data;
   // }
 
-  async addThread(item: any) {
+  // async addThread(item: any) {
 
-    await addDoc(this.threadRef(), item).catch(
-      (err) => { console.error(err) }).then(
-        (docRef) => {
-          if (docRef) {
-            this.currentThreadId = docRef.id;
-            let c =
-            {
-              "name": item.channel.name,
-              "idDB": this.currentThreadId,
-              "description": item.channel.description,
-              "members": item.channel.members,
-            };
-            console.log(c);
-            this.updateDB(this.currentThreadId, 'thread', { "channel": c });
-          }
-        });
+  //   await addDoc(this.threadRef(), item).catch(
+  //     (err) => { console.error(err) }).then(
+  //       (docRef) => {
+  //         if (docRef) {
+  //           this.currentThreadId = docRef.id;
+  //           let c =
+  //           {
+  //             "name": item.channel.name,
+  //             "idDB": this.currentThreadId,
+  //             "description": item.channel.description,
+  //             "members": item.channel.members,
+  //           };
+  //           console.log(c);
+  //           this.updateDB(this.currentThreadId, 'thread', { "channel": c });
+  //         }
+  //       });
+  // }
+
+  setThreadList(list: any) {
+    this.threadList = list;
+    console.log("threadlist in main", this.threadList);
   }
 
   async updateDB(id: string, coll: string, info: {}) {
@@ -176,7 +181,7 @@ export class MainPageComponent {
   }
 
   answerThread(i: number, j: number) {
-    this.textThreadAnswer ="";
+    this.textThreadAnswer = "";
     this.answerOpen = !this.answerOpen;
     this.iEdit = i;
     this.jEdit = j;
@@ -221,8 +226,8 @@ export class MainPageComponent {
     return (this.answerOpen && (this.iEdit == i) && (this.jEdit == j))
   }
 
-  getEditAnswer(i: number, j: number,aIndex:number) {
-    return (this.editA && (this.iEdit == i) && (this.jEdit == j)&& (this.aAnswer == aIndex));
+  getEditAnswer(i: number, j: number, aIndex: number) {
+    return (this.editA && (this.iEdit == i) && (this.jEdit == j) && (this.aAnswer == aIndex));
   }
 
   sendQuestion(indexCannel: number) {
@@ -257,10 +262,11 @@ export class MainPageComponent {
       let c = {
         "date": today,
         "threads": [thread]
-      }
+      }     
       this.threadList[indexCannel].communikation.push(c);
       this.updateDB(this.currentThreadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
     }
+    this.textThread = "";
   }
 
 

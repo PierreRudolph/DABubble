@@ -24,19 +24,19 @@
                             </div>
                         </div>
                     </mat-expansion-panel-header>
-                    <div>
+                    <div *ngFor="let ch of threadList, index as c">
                         <!--Hier werden erstellte Channel reingerendert.-->
-                        <div class="created-channel" (click)="openChannel(0)">
+                        <div class="created-channel" (click)="openChannel(c)">
                             <img src="assets/icons/tag.svg">
                             <!-- <span>Entwicklerteam </span> -->
-                            <span *ngIf="loaded">{{getName(0)}} </span>
+                            <span *ngIf="loaded">{{getName(c)}} </span>
                         </div>
 
-                        <div class="created-channel" (click)="openChannel(1)">
+                        <!-- <div class="created-channel" (click)="openChannel(1)">
                             <img src="assets/icons/tag.svg">
-                            <!-- <span>Entwicklerteam</span> -->
-                            <!-- <span *ngIf="loaded" >{{getName(1)}} </span> -->
-                        </div>
+                            <span>Entwicklerteam</span>
+                            <span *ngIf="loaded" >{{getName(1)}} </span>
+                        </div> -->
                     </div>
                     <div class="add-ch-div" (click)="openCreateChannelDialog()">
                         <img class="add-circle" src="assets/icons/add-circle.svg">

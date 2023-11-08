@@ -2,7 +2,7 @@ export class Channel {
     name: string;
     idDB: string;
     description: string;
-    members: [];
+    members: {}[];
 
     constructor(obj?: any) {
         this.name = obj ? obj.name : '';
