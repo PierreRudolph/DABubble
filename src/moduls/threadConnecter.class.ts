@@ -9,4 +9,10 @@ export class ThreadConnector {
         this.thIndex= tI; //threadIndex
     }
 
+    setValue(cN:number,ci:number,tI:number){
+        this.chNum  = cN;   //channelindex
+        this.coIndex= ci; // communikation index
+        this.thIndex= tI;
+    }
+
 }

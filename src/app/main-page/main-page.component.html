@@ -66,6 +66,6 @@
       </div>
     </div>
   </div>
-  <app-side-menu-thread *ngIf="!openChat" class="side-menu"></app-side-menu-thread>
+  <app-side-menu-thread *ngIf="openChat" class="side-menu" [threadList]="threadList" [user]="user"  [threadC]="threadC" [userList]="userList"></app-side-menu-thread>
   <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
 </div>

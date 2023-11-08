@@ -6,6 +6,7 @@ import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } fro
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
+import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.component';
 
 @Component({
   selector: 'app-main-page',
@@ -43,9 +44,10 @@ export class MainPageComponent {
   private editT = false;
   private editA = false;
   private answerOpen = false;
-  public threadC: ThreadConnector = new ThreadConnector(0,0,0);
+  public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
+  // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router) {
     // let testThread = this.chathelper.createEmptyThread();    
@@ -66,8 +68,15 @@ export class MainPageComponent {
     ;
   }
 
-  openThisThread(n:number,i:number,j:number){
-    console.log("number:"+n + " communikation:"+ i + "  ThreadIndex:"+ j);
+  openThisThread(n: number, i: number, j: number) {
+    console.log("number:" + n + " communikation:" + i + "  ThreadIndex:" + j);
+    this.threadC.setValue(n, i, j);
+    this.openChat = true;
+    // setTimeout(()=>{
+    //   this.threadWindow.showNUm();
+    // },500);
+    // this.threadWindow.showNUm();
+   
   }
 
   setChannelNumber(number: number) {
@@ -265,13 +274,13 @@ export class MainPageComponent {
       this.updateDB(this.currentThreadId, "thread", { "communikation": th });
     }
     else {
-      if(this.threadList[indexCannel].communikation[communikationLastIndex].date==""){
-        this.threadList[indexCannel].communikation=[];
+      if (this.threadList[indexCannel].communikation[communikationLastIndex].date == "") {
+        this.threadList[indexCannel].communikation = [];
       }
       let c = {
         "date": today,
         "threads": [thread]
-      }     
+      }
       this.threadList[indexCannel].communikation.push(c);
       this.updateDB(this.currentThreadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
     }

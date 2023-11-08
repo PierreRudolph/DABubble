@@ -91,7 +91,7 @@ export class SideMenuComponent {
 
   addNewItem(user: User) {
     this.newItemEventUser.emit(user);
-    this.newItemEvent.emit(true);
+    this.newItemEvent.emit(false);
   }
 
   openTalk(u: User) {
