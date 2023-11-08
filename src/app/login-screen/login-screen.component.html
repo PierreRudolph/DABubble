@@ -1,34 +1,45 @@
-<div class="logInDialog" [formGroup]="registerForm">
-    <h1 class="nunito headline">Anmeldung</h1>
-    <p class="nunito loginDis">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
-    
-       <div class="input">
-        <img src="assets/img/mail.svg">  
-        <input formControlName="email" placeholder="beispielname@email.com">
-       </div>
-       <div class="input">
-        <img src="assets/img/lock.svg">  
-        <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password">
-       </div>
-       <a routerLink="/forget" class="pwForget">Passwort vergessen?</a>
-    
-       <div style="position: relative;">
-        <div class="or">ODER</div>
-        <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none">
-            <path d="M500 1H0" stroke="#ADB0D9"/>
-           </svg>
-       </div>
-     <button  (click)="logInWithGoogle()" class="googleLoginButt">
-        <img src="assets/img/Google.svg"> 
-       Anmeldung mit Google
-     </button>
-     <div style="display: flex; gap:30px;">
-        <button class="btn buttonLight" [disabled]="registerForm.invalid" (click)="login()">Anmelden</button>
-        <button class="btn butttonBlue" (click)="getCuttenUser()">vorläufig logout</button>
-     </div> 
+<div class="intro">
+   <div class="logo-outer-div">
+      <div class="logoContainer">
+         <div>
+            <img class="shrink-logo" src="assets/img/logo.svg">
+         </div>
+         <span class="logo-name">DABubble</span>
       </div>
-    <div class="impData">
-        <a routerLink="/imprint" target="_blank" >Impressum</a>
-        <a href="">Datenschutz</a>
-     </div>
-    
+   </div>
+</div>
+
+<div class="logInDialog" [formGroup]="registerForm">
+   <h1 class="nunito headline">Anmeldung</h1>
+   <p class="nunito loginDis">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
+
+   <div class="input">
+      <img src="assets/img/mail.svg">
+      <input formControlName="email" placeholder="beispielname@email.com">
+   </div>
+   <div class="input">
+      <img src="assets/img/lock.svg">
+      <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password">
+   </div>
+   <a routerLink="/forget" class="pwForget">Passwort vergessen?</a>
+
+   <div style="position: relative;">
+      <div class="or">ODER</div>
+      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none">
+         <path d="M500 1H0" stroke="#ADB0D9" />
+      </svg>
+   </div>
+   <button (click)="logInWithGoogle()" class="googleLoginButt">
+      <img src="assets/img/Google.svg">
+      Anmeldung mit Google
+   </button>
+   <div style="display: flex; gap:30px;">
+      <button class="btn buttonLight" [disabled]="registerForm.invalid" (click)="login()">Anmelden</button>
+      <button class="btn butttonBlue" (click)="getCuttenUser()">vorläufig logout</button>
+   </div>
+</div>
+
+<div class="impData">
+   <a routerLink="/imprint" target="_blank">Impressum</a>
+   <a href="">Datenschutz</a>
+</div>

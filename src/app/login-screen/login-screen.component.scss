@@ -75,8 +75,6 @@
     font-weight: 400;
     line-height: normal;
     padding: 15px;
-
-
 }
 
 .googleLoginButt {
@@ -101,7 +99,130 @@
     line-height: 120%;
 }
 
+.intro {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    z-index: 1;
+    background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
+    animation: fade-out 300ms ease-out 1900ms forwards;
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+        position: unset;
+    }
+}
+
+.logo-outer-div {
+    position: absolute;
+    left: calc(50% - 345px);
+    top: calc(50% - 112px);
+    display: flex;
+    justify-content: center;
+    width: 700px;
+    animation: fade-position 1s cubic-bezier(0, 0, 0.565, 1.000)1s both;
+}
+
+@keyframes fade-position {
+    50% {
+        left: calc(50% - 345px);
+        top: calc(50% - 112px);
+    }
+
+    100% {
+        left: 54px;
+        top: -28px;
+    }
+}
+
+.logoContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 224px;
+    justify-content: flex-start;
+    z-index: 1;
+    animation: logo-animation 600ms ease-out 500ms forwards;
+
+    div {
+        display: flex;
+        align-items: center;
+        z-index: 1;
+        padding: 20px;
+    }
+}
+
+@keyframes logo-animation {
+    0% {
+        width: 224px;
+    }
+
+    49% {
+        width: 690px;
+    }
+
+    100% {
+        width: 690px;
+    }
+}
+
+.shrink-logo {
+    height: 184px;
+    animation: shrink-logo-animation 1s cubic-bezier(0, 0, 0.565, 1.000)1s both;
+}
+
+@keyframes shrink-logo-animation {
+    55% {
+        width: 184px;
+    }
+
+    100% {
+        width: 70px;
+    }
+}
+
+.logo-name {
+    position: absolute;
+    left: 224px;
+    font-size: 90px;
+    font-weight: 700;
+    color: white;
+    overflow: hidden;
+    width: 0px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    animation: logo-name-animation 1200ms ease-out 800ms forwards;
+}
 
 
+@keyframes logo-name-animation {
+    0% {
+        width: 0px;
+    }
 
+    49% {
+        width: 440px;
+    }
 
+    55% {
+        left: 224px;
+        font-size: 90px;
+        width: 440px;
+    }
+
+    100% {
+        left: 105px;
+        font-size: 34px;
+        width: 165px;
+    }
+}
