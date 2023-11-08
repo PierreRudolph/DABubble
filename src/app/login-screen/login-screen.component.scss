@@ -75,8 +75,6 @@
     font-weight: 400;
     line-height: normal;
     padding: 15px;
-
-
 }
 
 .googleLoginButt {
@@ -101,7 +99,151 @@
     line-height: 120%;
 }
 
+.intro {
+    position: absolute;
+    height: 100vh;
+    width: 100vw;
+    z-index: 1;
+    background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
+    animation-name: fade-out;
+    animation-delay: 1900ms;
+    animation-duration: 300ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+}
 
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
 
+    to {
+        opacity: 0;
+    }
+}
 
+.logo-outer-div {
+    position: absolute;
+    left: calc(50% - 345px);
+    top: calc(50% - 112px);
+    display: flex;
+    justify-content: center;
+    width: 700px;
+}
 
+.fade-in {
+    animation: fade-in 1s cubic-bezier(0, 0, 0.565, 1.000)1s both;
+}
+
+.logoContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 224px;
+    justify-content: flex-start;
+    z-index: 1;
+    animation-name: logo-animation;
+    animation-delay: 500ms;
+    animation-duration: 600ms;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-out;
+
+    div {
+        display: flex;
+        align-items: center;
+        z-index: 1;
+        padding: 20px;
+    }
+
+    span {
+        position: absolute;
+        left: 224px;
+        font-size: 90px;
+        font-weight: 700;
+        color: white;
+        overflow: hidden;
+        width: 0px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        animation-name: logo-name-animation;
+        animation-delay: 800ms;
+        animation-duration: 1200ms;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease-out;
+    }
+}
+
+.shrink-logo {
+    height: 184px;
+    animation: shrink-logo-ani 1s cubic-bezier(0, 0, 0.565, 1.000)1s both;
+}
+
+@keyframes fade-in {
+    50% {
+        left: calc(50% - 345px);
+        top: calc(50% - 112px);
+    }
+
+    100% {
+        left: 54px;
+        top: -28px;
+    }
+}
+
+@keyframes logo-animation {
+    0% {
+        width: 224px;
+    }
+
+    49% {
+        width: 690px;
+    }
+
+    100% {
+        width: 690px;
+    }
+}
+
+@keyframes logo-name-animation {
+    0% {
+        width: 0px;
+    }
+
+    49% {
+        width: 440px;
+    }
+
+    55% {
+        left: 224px;
+        font-size: 90px;
+        width: 440px;
+    }
+
+    100% {
+        left: 105px;
+        font-size: 34px;
+        width: 165px;
+    }
+}
+
+@keyframes shrink-logo-ani {
+    55% {
+        width: 184px;
+    }
+
+    100% {
+        width: 70px;
+    }
+}
+
+@keyframes shrink-name-ani {
+    55% {
+        font-size: 90px;
+    }
+
+    100% {
+        font-size: 24px;
+    }
+}

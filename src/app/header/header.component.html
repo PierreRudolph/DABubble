@@ -1,12 +1,13 @@
 <div class="headerContainer "
-    [class.padding-main-page]="router.url =='/'||router.url =='/imprint'||router.url =='/data-policy'">
+    [class.padding-main-page]="router.url =='/'||router.url =='/imprint'||router.url =='/data-policy'"
+    [class.space-betw]="router.url=='/login'">
 
     <div class="logoContainer">
         <img src="assets/img/logo.svg">
         <img src="assets/img/LogoName.svg">
     </div>
 
-    <div class="search-input">
+    <div *ngIf="router.url=='/'||router.url=='/main'" class="search-input">
         <input type="text" placeholder="Code learning durchsuchen">
         <img src="assets/icons/search.svg">
     </div>
