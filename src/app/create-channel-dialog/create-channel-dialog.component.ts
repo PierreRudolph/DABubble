@@ -11,6 +11,7 @@ import { User } from 'src/moduls/user.class';
 })
 export class CreateChannelDialogComponent {
   public channel: Channel = new Channel();
+  public channelJSON={};
   channelName: string = "";
   channelDescription: string = "";
   channelMembers: any = [];
@@ -28,9 +29,9 @@ export class CreateChannelDialogComponent {
   filteredMembers: any;
 
   constructor(public addPeopleDialog: MatDialog) {
-    setTimeout(() => {
-      console.log('userliste is', this.userList);
-    }, 5000);
+    // setTimeout(() => {
+    //   console.log('userliste is', this.userList);
+    // }, 5000);
   }
 
   onSubmit() {
@@ -40,15 +41,39 @@ export class CreateChannelDialogComponent {
     this.fristPage = false;
   }
 
-  openAddPeopleDialog() {
-    this.addPeopleDialog.open(AddPeopleDialogComponent);
-    let dialogRef = this.addPeopleDialog.open(AddPeopleDialogComponent);
-    dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
-    dialogRef.componentInstance.userList = this.userList;//Kopie   
-    dialogRef.afterClosed().subscribe(result => {
-      this.fristPage = true;
-    });
+  make() {
+    console.log("click");
+    this.fristPage = true;
+    let radioBAll: any = document.getElementById("allMember");
+    let memberList = [];
+    if (radioBAll.checked) {
+      memberList.push({ "memberName": this.user.name, "memberID": this.user.idDB });
+      this.userList.forEach((u) => {
+        memberList.push({ "memberName": u.name, "memberID": u.idDB });
+      });
+
+      console.log("memberlist", memberList);
+      this.channel.members = memberList;
+      console.log("channel", this.channel);
+      this.channelJSON= this.channel.toJSON();
+      this.closeDialog();
+    }
+
   }
+
+  closeDialog(){
+    this.dialogReference.close(this.channelJSON);
+  }
+
+  // openAddPeopleDialog() {
+  //   this.addPeopleDialog.open(AddPeopleDialogComponent);
+  //   let dialogRef = this.addPeopleDialog.open(AddPeopleDialogComponent);
+  //   dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
+  //   dialogRef.componentInstance.userList = this.userList;//Kopie   
+  //   dialogRef.afterClosed().subscribe(result => {
+
+  //   });
+  // }
 
   createNewChannel() {
     this.channel.name = this.channelName;

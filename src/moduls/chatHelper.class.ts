@@ -1,4 +1,8 @@
+import { Firestore, doc, updateDoc } from "@angular/fire/firestore";
+import {  inject } from '@angular/core';
+
 export class ChatHepler{
+  public firestore: Firestore= inject(Firestore);
 
     createEmptyTalk(): {} {
         let t = {
@@ -41,6 +45,16 @@ export class ChatHepler{
         }
         return t;
       }
+
+      async updateDB(id: string, coll: string, info: {}) {
+
+        let docRef = doc(this.firestore, coll, id);
+        await updateDoc(docRef, info).then(
+          () => { console.log("update", id); }
+        ).catch(
+          (err) => { console.log(err); });
+      }
+    
 
       createEmptyThread(): any {
         console.log("call new Thread");

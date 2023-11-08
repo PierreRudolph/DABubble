@@ -39,7 +39,7 @@
         <div class="checkbox-div">
     
             <label class="container">
-                <input name="add-people" type="radio" (change)="setValue()" checked>
+                <input id="allMember" name="add-people" type="radio" (change)="setValue()" checked>
                 <span class="checkmark"></span>
                 <span class="fs18 nunito">Alle Mitglieder von <span style="color: #7e83f5;">Code learning</span>
                     hinzufügen</span>
@@ -58,7 +58,7 @@
         <div class="row" *ngFor="let e of filteredMembers"></div>
     
         <div class="create-btn-div">
-            <button mat-dialog-close class="btn">Erstellen</button>
+            <button  (click)="make()"  class="btn">Erstellen</button>
         </div>
     </div>
 
