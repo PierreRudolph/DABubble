@@ -11,7 +11,7 @@ import { User } from 'src/moduls/user.class';
 })
 export class CreateChannelDialogComponent {
   public channel: Channel = new Channel();
-  public channelJSON={};
+  public channelJSON = {};
   channelName: string = "";
   channelDescription: string = "";
   channelMembers: any = [];
@@ -26,12 +26,38 @@ export class CreateChannelDialogComponent {
 
   // @Input() channel: Channel = new Channel();
   searchText: any;
-  filteredMembers: any;
+
+  public filteredMembers: User[] = [];
 
   constructor(public addPeopleDialog: MatDialog) {
     // setTimeout(() => {
     //   console.log('userliste is', this.userList);
     // }, 5000);
+
+  }
+
+  filterMember() {
+    let filterValue = this.searchText.toLowerCase();
+    console.log("filtered Value",filterValue);
+    this.filteredMembers = []
+    this.userList.forEach((u) => {
+      if ((filterValue != "")) {
+        let n = u.name;
+        console.log("name low ",n.toLowerCase() + " "+ filterValue);
+        if (n.toLowerCase().includes(filterValue)) {
+          this.filteredMembers.push(u);
+        }
+      }
+    });
+    if ((filterValue != "")) {
+      let n = this.user.name;
+      console.log("name low ",n.toLowerCase() + " "+ filterValue);
+      if (n.toLowerCase().includes(filterValue)) {
+        this.filteredMembers.push(this.user);
+      }
+    }
+
+    console.log("filtered Member List", this.filteredMembers);
   }
 
   onSubmit() {
@@ -55,13 +81,13 @@ export class CreateChannelDialogComponent {
       console.log("memberlist", memberList);
       this.channel.members = memberList;
       console.log("channel", this.channel);
-      this.channelJSON= this.channel.toJSON();
+      this.channelJSON = this.channel.toJSON();
       this.closeDialog();
     }
 
   }
 
-  closeDialog(){
+  closeDialog() {
     this.dialogReference.close(this.channelJSON);
   }
 
@@ -90,19 +116,21 @@ export class CreateChannelDialogComponent {
   // }
 
   searchKey(data: string) {
-    console.log(data)
-    setTimeout(() => {
-      console.log('userliste is', this.userList)
-      console.log(this.channel);
-    }, 5000);
+    this.searchText = data;
+    this.filterMember();
+    // console.log(data)
+    // setTimeout(() => {
+    //   console.log('userliste is', this.userList)
+    //   console.log(this.channel);
+    // }, 5000);
 
     //this.searchText = data;
     //this.search();
   }
 
-  search() {
-    this.filteredMembers = this.searchText === "" ? this.userList : this.userList.filter((element) => {
-      return element.name.toLowerCase() == this.searchText.toLowerCase();
-    });
-  }
+  // search() {
+  //   this.filteredMembers = this.searchText === "" ? this.userList : this.userList.filter((element) => {
+  //     return element.name.toLowerCase() == this.searchText.toLowerCase();
+  //   });
+  // }
 }

@@ -55,7 +55,9 @@
         <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
             *ngIf="isChecked" class="input-text" type="text" placeholder="Name eingeben">
     
-        <div class="row" *ngFor="let e of filteredMembers"></div>
+        <div class="row" *ngFor="let e of filteredMembers">
+            {{e.name}}
+        </div>
     
         <div class="create-btn-div">
             <button  (click)="make()"  class="btn">Erstellen</button>

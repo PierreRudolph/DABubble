@@ -51,8 +51,8 @@ export class SideMenuComponent {
     let ch = this.chathelper.createEmptyThread();
     ch.channel = this.madeChannel;
     let channelId = "";
-    ch.communikation[0].threads=[];
-    console.log("new thread ",ch);
+    ch.communikation[0].threads = [];
+    console.log("new thread ", ch);
     await addDoc(this.threadRef(), ch).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
@@ -63,13 +63,13 @@ export class SideMenuComponent {
               "idDB": channelId,
               "description": this.madeChannel.description,
               "members": this.madeChannel.members,
-            }   
-                       
+            }
+
             console.log("show c", c);
             this.chathelper.updateDB(channelId, 'thread', { "channel": c });
           }
         });
-
+   
   }
 
   subChannelList() {
@@ -110,7 +110,7 @@ export class SideMenuComponent {
       console.log("muss noch erstellt werden");
       console.log("result", result);
       this.madeChannel = result;
-      if (result != undefined) { this.addChannel(); }
+      if (result!="") { this.addChannel(); }
 
     });
   }
