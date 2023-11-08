@@ -5,6 +5,7 @@ import { User } from 'src/moduls/user.class';
 import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
+import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 
 @Component({
   selector: 'app-main-page',
@@ -27,21 +28,22 @@ export class MainPageComponent {
   public currentThreadId: string = "";
   private chathelper: ChatHepler = new ChatHepler();
   public threadList: any = [this.chathelper.createEmptyThread()];
-  public unsub: any;
-  public number: number = 0;
   public channelOpen = false;
   public textThread = "";
   public textThreadEdit = "";
   public textThreadAnswer = "";
   public textThreadAnswerEdit = "";
   public load = false;
+  //-----------------
+  public number: number = 0;
   private iEdit = 0; //indizierung für Bearbeitung der Threads
   private jEdit = 0;
   private aAnswer = 0;
+  //-----------------------
   private editT = false;
   private editA = false;
   private answerOpen = false;
-
+  public threadC: ThreadConnector = new ThreadConnector(0,0,0);
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
 
@@ -62,6 +64,10 @@ export class MainPageComponent {
 
     // this.unsub = this.subUserInfo();
     ;
+  }
+
+  openThisThread(n:number,i:number,j:number){
+    console.log("number:"+n + " communikation:"+ i + "  ThreadIndex:"+ j);
   }
 
   setChannelNumber(number: number) {
@@ -259,6 +265,9 @@ export class MainPageComponent {
       this.updateDB(this.currentThreadId, "thread", { "communikation": th });
     }
     else {
+      if(this.threadList[indexCannel].communikation[communikationLastIndex].date==""){
+        this.threadList[indexCannel].communikation=[];
+      }
       let c = {
         "date": today,
         "threads": [thread]
