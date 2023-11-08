@@ -101,8 +101,10 @@
 
 .intro {
     position: absolute;
-    height: 100vh;
-    width: 100vw;
+    top: 0px;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
     z-index: 1;
     background: linear-gradient(1.46deg, #313AE6 1.22%, #797EF3 98.76%);
     animation: fade-out 300ms ease-out 1900ms forwards;
