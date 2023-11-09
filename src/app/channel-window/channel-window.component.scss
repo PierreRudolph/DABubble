@@ -326,6 +326,34 @@
     }
 }
 
+.answers-info {
+    display: flex;
+    margin-top: 10px;
+}
+
+.answers-counter {
+    cursor: pointer;
+    color: #444df2;
+    font-size: 18px;
+    margin-right: 20px;
+
+    span:nth-of-type(1) {
+        padding-right: 5px;
+    }
+
+    &:hover {
+        font-weight: 700;
+    }
+}
+
+.last-answer {
+    color: grey;
+
+    span:nth-of-type(1) {
+        padding-right: 5px;
+    }
+
+}
 
 .textAreaDirekt {
     border: #ADB0D9 solid 1px;
@@ -387,4 +415,31 @@
     display: flex;
     gap: 5px;
 
+}
+
+.sendDate {
+    border-radius: 18px;
+    position: absolute;
+    width: 200px;
+    height: 36px;
+    top: calc(50% - 20px);
+    left: calc(50% - 100px);
+    border: solid 1px #ADB0D9;
+    color: var(--Black, #000);
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.dateIcon {
+    position: relative;
+    width: calc(100% - 80px);
+    margin-top: 15px;
+    margin-left: 40px;
 }
