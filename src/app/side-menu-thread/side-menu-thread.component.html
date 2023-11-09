@@ -101,10 +101,10 @@
             <div class="iconContainerTextArea">
                 <img class="iconsTextArea" src="assets/img/add.svg">
                 <div style="width:2px;background-color: #ADB0D9 ;"></div>
-                <img class="iconsTextArea" (click)="toggleEmojisDialog(0)" src="assets/img/smile.svg">
+                <img class="iconsTextArea" (click)="toggleEmojisDialogTA()" src="assets/img/smile.svg">
                 <img class="iconsTextArea" src="assets/img/alternate_email.svg">                
             </div>
-            <emoji-mart class="emojiDivTA" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmojiTextArea($event)"
+            <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…" (emojiClick)="saveEmojiTextArea($event)"
                 (darkMode)="false"></emoji-mart>
          </div>
         </div>

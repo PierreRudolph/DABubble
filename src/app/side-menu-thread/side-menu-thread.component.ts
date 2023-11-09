@@ -22,7 +22,8 @@ export class SideMenuThreadComponent {
   public editA = false;
   public editAIndex = 0;
   private answerIndex = 0;
-  showEmojis: boolean | undefined;
+  showEmojis: boolean | undefined; 
+  showEmojisTA: boolean | undefined;
   emojiText: string = "";
 
   @ViewChild('drawer')
@@ -185,6 +186,11 @@ export class SideMenuThreadComponent {
   toggleEmojisDialog(aIndex: number) {
     this.showEmojis = !this.showEmojis;
     this.answerIndex = aIndex;
+  }
+
+  toggleEmojisDialogTA() {
+    this.showEmojisTA = !this.showEmojisTA;
+   
   }
 
   showEmoji(aIndex: number) {
