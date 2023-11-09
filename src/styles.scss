@@ -33,10 +33,8 @@ body {
 
 .mat-mdc-dialog-surface {
     border-radius: 30px !important;
-    overflow-y:unset!important;
+    overflow-y: unset !important;
 }
-
-
 
 .mat-body,
 .mat-body-2,
@@ -99,9 +97,12 @@ body {
     font-weight: 400;
 }
 
+.wei600 {
+    font-weight: 600;
+}
+
 .wei700 {
     font-weight: 700;
-    ;
 }
 
 .btn {
