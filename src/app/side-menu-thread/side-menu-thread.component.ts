@@ -16,7 +16,9 @@ export class SideMenuThreadComponent {
   private chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
-
+  public textThreadEdit = "";
+  public textThreadAnswer = "";
+  public textThreadAnswerEdit = "";
 
   @ViewChild('drawer')
   drawer!: MatDrawer;
@@ -40,23 +42,47 @@ export class SideMenuThreadComponent {
 
   getImagePortrait(index: number) {
     let id = this.getAnswerData(index, 'iD');
-    let path = "";
-    console.log("userList thread ",this.userList + " id:"+id);
+    let path = "";   
     this.userList.forEach((u) => {
       if (u.idDB == id) {
         path= u.iconPath;
       }
     });
     if(this.user.idDB==id)
-    {path= this.user.iconPath;}
-    console.log("path ",path);
+    {path= this.user.iconPath;}  
     return path;
   }
 
-  // showNUm() {
-  //   console.log(" Output thread number:" + this.threadC.chNum + " communikation:" + this.threadC.coIndex + "  ThreadIndex:" + this.threadC.thIndex);
-  //   console.log(this.threadC);
-  //   console.log(this.threadList);
+  saveAnswer() {
+    let n = this.threadC.chNum;
+    let i = this.threadC.coIndex;
+    let j = this.threadC.thIndex;
+    let threadId = this.threadList[n].channel.idDB;
+    console.log("threadId", threadId)
+    let answ = {
+      "name": this.user.name,
+      "iD": this.user.idDB, //of person that writes the message
+      "edit": false,
+      "time": this.chathelper.parseTime(new Date(Date.now())),
+      "message": this.textThreadAnswer,
+    }
+    this.threadList[n].communikation[i].threads[j].answer.push(answ);
+    console.log("Antwort", answ);
+    console.log("comunikation", this.threadList[n].communikation[i]);
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
+    this.textThreadAnswer="";
+  }
 
+  fromLoggedInUser(answer:any){
+      let uId= this.user.idDB;
+      let aId = answer.iD;     
+      return (uId==aId);
+  }
+
+  // answerThread(i: number, j: number) {
+  //   this.textThreadAnswer = "";
+  //   // this.answerOpen = !this.answerOpen;
+  //   this.threadC.setValueIJ(i,j);
   // }
+
 }

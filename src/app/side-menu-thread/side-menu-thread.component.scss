@@ -265,17 +265,31 @@
     border-radius: 25px;
     border-bottom-right-radius: 25px;
     border-bottom-right-radius: 0px;
+    padding: 5px;
 
     img {
         width: 40px;
         padding: 0px 7px;
     }
+}
+
+.menu {
+    width: 40px!important;
+    height: 40px!important;
+    border-radius: 100%;
+    box-sizing: border-box;
 
     &:hover {
-        img {
-            content: url('/assets/icons/add-reaction-hover.svg');
-        }
+        background-color: #ECEEFE;
     }
+}
+
+.changeFace {
+
+    &:hover {
+        content: url('/assets/icons/add-reaction-hover.svg');
+    }
+
 }
 
 .answer-counter-div {

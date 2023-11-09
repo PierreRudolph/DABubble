@@ -1,5 +1,5 @@
 <mat-drawer-container class="example-container mat-drawer-div" [class.margin-right]="this.drawer.opened==true">
-    <mat-drawer #drawer  class="example-sidenav sidenav" mode="side" position="end" opened>
+    <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end" opened>
         <div class="sidenav-header">
             <div>
                 <span class="sidenav-headline">Thread</span>
@@ -21,8 +21,10 @@
                     <img src="assets/img/ch4.svg">
                     <div class="message-inner-div">
                         <div class="mes-name-clock">
-                            <span class="mes-name">{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
-                            <span>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].time}} Uhr</span>
+                            <span
+                                class="mes-name">{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
+                            <span>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].time}}
+                                Uhr</span>
                         </div>
                         <diV class="message">
                             {{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].message}}
@@ -38,17 +40,19 @@
 
             <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
                 <!--Hier werden die Antworten des Threads reingerendert-->
-                <div class="message-div">
+                <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
                     <div class="add-reaction">
-                        <img src="assets/icons/add-reaction.svg">
+                        <img class="changeFace" src="assets/icons/add-reaction.svg">
+                        <img class="menu" src="assets/img/more_vert.svg">
                     </div>
                     <img class="char-img" src="{{getImagePortrait(aIndex)}}">
-                    <div class="message-inner-div">
-                        <div class="mes-name-clock">
-                            <span class="mes-name">{{getAnswerData(aIndex,'name')}}</span>
+                    <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
+                        <div class="mes-name-clock" [class.mes-name-clock-right]="fromLoggedInUser(answ)">
+                            <span class="mes-name"
+                                [class.mes-name-right]="fromLoggedInUser(answ)">{{getAnswerData(aIndex,'name')}}</span>
                             <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
                         </div>
-                        <diV class="message">
+                        <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
                             {{getAnswerData(aIndex,'message')}}
                         </diV>
                         <diV class="reactions">
@@ -67,6 +71,7 @@
                                 <span>1</span>
                             </div>
                             <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
+                            
                         </diV>
                     </div>
                 </div>
@@ -196,8 +201,8 @@
             <textarea placeholder="Antworten..."></textarea>
         </div> -->
         <div class="textareaDirektMessage">
-            <textarea class="textAreaDirekt" placeholder="Antworten..."></textarea>
-            <img class="sendArrow" src="assets/img/sendArrow.svg">
+            <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt" placeholder="Antworten..."></textarea>
+            <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
             <div class="iconContainerTextArea">
                 <img class="iconsTextArea" src="assets/img/add.svg">
                 <div style="width:2px;background-color: #ADB0D9 ;"></div>

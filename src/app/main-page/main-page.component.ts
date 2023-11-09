@@ -50,32 +50,13 @@ export class MainPageComponent {
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router) {
-    // let testThread = this.chathelper.createEmptyThread();    
-    // let descr = "Dieser Channel ist für alles rund um #dfsdf vorgesehen."+
-    //            "Hier kannst du zusammen mit deinem Team Meetings abhalten, Dokumente teilen und Entscheidungen treffen."; 
-    // testThread.channel.description = descr; 
-    // testThread.channel.name = "Entwicklerteam";
-    // testThread.channel.members = [{
-    //   "memberName": "Julia Wessolleck",
-    //   "memberID": "L1epYhYXaDBVZEm1JJlB",
-    // }]; 
-    // console.log("testThread",testThread);
-    // setTimeout(()=>{
-    //   this.addThread(testThread);
-    // },3000);
 
-    // this.unsub = this.subUserInfo();
-    ;
   }
 
   openThisThread(n: number, i: number, j: number) {
     console.log("number:" + n + " communikation:" + i + "  ThreadIndex:" + j);
     this.threadC.setValue(n, i, j);
-    this.openChat = true;
-    // setTimeout(()=>{
-    //   this.threadWindow.showNUm();
-    // },500);
-    // this.threadWindow.showNUm();
+    this.openChat = true; 
    
   }
 
@@ -195,12 +176,11 @@ export class MainPageComponent {
     this.textThreadEdit = this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message;
   }
 
-  answerThread(i: number, j: number) {
+  answerThread(i: number, j: number) { //später löschen
     this.textThreadAnswer = "";
     this.answerOpen = !this.answerOpen;
     this.iEdit = i;
     this.jEdit = j;
-
   }
 
   saveEdit() {
@@ -211,7 +191,7 @@ export class MainPageComponent {
     this.editT = !this.editT;
   }
 
-  saveAnswer() {
+  saveAnswer() {  //löschen später
     let answ = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
