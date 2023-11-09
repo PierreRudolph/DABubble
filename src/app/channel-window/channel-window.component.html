@@ -1,0 +1,87 @@
+<div class="channel-outer-div">
+    <div class="channel-header">
+
+        <div class="channel-header-left">
+            <img class="tag-icon" src="assets/icons/tag.svg">
+            <span>Entwicklerteam</span>
+            <img class="arrow-down" src="assets/img/arrowDown.svg">
+        </div>
+
+        <div class="channel-header-right">
+            <div class="added-members">
+                <img src="assets/img/ch1.svg">
+                <img src="assets/img/ch2.svg">
+                <img src="assets/img/ch3.svg">
+                <span>3</span>
+            </div>
+            <img class="add-people" src="assets/icons/add-people.svg">
+        </div>
+    </div>
+
+    <div class="channel-body">
+        <div class="message-div">
+            <div class="add-reaction">
+                <img src="assets/icons/add-reaction.svg">
+            </div>
+            <img src="assets/img/ch5.svg">
+            <div class="message-inner-div">
+                <div class="mes-name-clock">
+                    <span class="mes-name">Sofia Müller</span>
+                    <span>14:30 Uhr</span>
+                </div>
+                <diV class="message">
+                    Ich habe die gleiche Frage. Ich habe gegoogelt und es scheint,
+                    dass die aktuelle Version Angular 13 ist. Vielleicht weiß Frederik, ob es wahr ist.
+                </diV>
+                <diV class="reactions">
+
+                    <div class="reaction-emoji-counter">
+
+                        <div class="reactions-tooltip">
+                            <img src="assets/icons/emoji-nerd.svg">
+                            <div class="reactions-username">
+                                <span>Sofia Müller</span>
+                                <span>und Du</span>
+                            </div>
+                            <span>hat reagiert</span>
+                        </div>
+                        <img src="assets/icons/emoji-nerd.svg">
+                        <span>1</span>
+                    </div>
+                    <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
+                </diV>
+            </div>
+        </div>
+
+        <div class="message-div message-div-right">
+            <img src="assets/img/ch3.svg">
+
+            <div class="message-inner-div message-inner-div-right">
+
+                <div class="mes-name-clock mes-name-clock-right">
+                    <span class="mes-name mes-name-right">Frederik Beck</span>
+                    <span>15:06 Uhr</span>
+                </div>
+
+                <diV class="message message-right">
+                    Ja das ist es.
+                </diV>
+            </div>
+        </div>
+    </div>
+
+    <div class="textareaDirektMessage">
+        <textarea class="textAreaDirekt" [(ngModel)]="textThread" placeholder="Nachricht an (Channel-name)"></textarea>
+        <img class="sendArrow" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
+        <div class="iconContainerTextArea">
+            <img class="iconsTextArea" src="assets/img/add.svg">
+            <div style="width:2px;background-color: #ADB0D9 ;"></div>
+            <img class="iconsTextArea" (click)="toggleEmojisDialog()" src="assets/img/smile.svg">
+            <img class="iconsTextArea" src="assets/img/alternate_email.svg">
+
+            <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+                (darkMode)="false">></emoji-mart>
+            <!-- (emojiSelect)="addEmoji($event)" -->
+        </div>
+    </div>
+</div>

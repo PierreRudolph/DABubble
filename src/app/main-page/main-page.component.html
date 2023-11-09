@@ -10,18 +10,24 @@
       </div>
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
+
+
+
     <div style="padding-bottom: 30px;">
+
       <div *ngIf="!channelOpen">
         <app-private-message (newItemEventUserList)="setUserList($event)"
           (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
       </div>
-      <div *ngIf="channelOpen" style="border:2px solid black;">Channel open is
+
+      <div style="border: 2px solid black;" *ngIf="channelOpen">Channel open is
         {{this.threadList[number].channel.name}}
         <div style=" height:700px;overflow-y: scroll;">
           <div *ngFor="let c of threadList[number].communikation;  index as i" style="margin:50px 10px 0 10px;">
 
             {{this.threadList[number].communikation[i].date}}
-            <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j" style="margin:30px;cursor: pointer;" (click)="openThisThread(number,i,j)">
+            <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j"
+              style="margin:30px;cursor: pointer;" (click)="openThisThread(number,i,j)">
               <!-- <div *ngFor="let t of c[i].threads;  index as j"> -->
               {{this.threadList[number].communikation[i].threads[j].name}}<br>
               {{this.threadList[number].communikation[i].threads[j].time}}<br>
@@ -64,8 +70,11 @@
         <textarea [(ngModel)]="textThread"></textarea>
         <button (click)="sendQuestion(number)"> senden</button>
       </div>
+
     </div>
+
   </div>
-  <app-side-menu-thread *ngIf="openChat" class="side-menu" [threadList]="threadList" [user]="user"  [threadC]="threadC" [userList]="userList"></app-side-menu-thread>
+  <app-side-menu-thread *ngIf="openChat" class="side-menu" [threadList]="threadList" [user]="user" [threadC]="threadC"
+    [userList]="userList"></app-side-menu-thread>
   <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
 </div>

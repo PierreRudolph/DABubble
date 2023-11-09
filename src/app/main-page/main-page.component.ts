@@ -46,6 +46,7 @@ export class MainPageComponent {
   private answerOpen = false;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
 
+
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
@@ -56,8 +57,8 @@ export class MainPageComponent {
   openThisThread(n: number, i: number, j: number) {
     console.log("number:" + n + " communikation:" + i + "  ThreadIndex:" + j);
     this.threadC.setValue(n, i, j);
-    this.openChat = true; 
-   
+    this.openChat = true;
+
   }
 
   setChannelNumber(number: number) {
