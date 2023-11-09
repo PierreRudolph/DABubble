@@ -34,6 +34,7 @@ export class PrivateMessageComponent {
   public openEditDialog: boolean = false;
   public openEdit: boolean = false;
   showEmojis: boolean | undefined;
+  showEmojisEdit: boolean | undefined;
 
   @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -289,13 +290,28 @@ export class PrivateMessageComponent {
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    this.text += emoji;
+    if (this.showEmojis) {
+      this.text += emoji;
+      this.toggleEmojisDialog();
+    }
+    if (this.showEmojisEdit) {
+      this.textEdit += emoji;
+      this.toggleEmojisDialogEdit()
+    }
     console.log(emoji);
-    this.toggleEmojisDialog();
+
+    console.log("show emoji", e);
+    console.log("show emoji", emoji);
   }
+
+
 
   toggleEmojisDialog() {
     this.showEmojis = !this.showEmojis;
+  }
+
+  toggleEmojisDialogEdit() {
+    this.showEmojisEdit = !this.showEmojisEdit;
   }
 
   // addEmoji(selected: Emoji) {

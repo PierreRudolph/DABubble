@@ -18,7 +18,7 @@
                     <div class="add-reaction">
                         <img src="assets/icons/add-reaction.svg">
                     </div>
-                    <img src="assets/img/ch4.svg">
+                    <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;" src="{{  getIconPathQuestionUser()}}">
                     <div class="message-inner-div">
                         <div class="mes-name-clock">
                             <span
@@ -57,7 +57,7 @@
                         </diV>
                         <diV class="reactions">
 
-                            <div class="reaction-emoji-counter">
+                            <div class="reaction-emoji-counter" *ngIf="showSmielie(aIndex)">
 
                                 <div class="reactions-tooltip">
                                     <img src="assets/icons/emoji-nerd.svg">
@@ -67,8 +67,8 @@
                                     </div>
                                     <span>hat reagiert</span>
                                 </div>
-                                <img src="assets/icons/emoji-nerd.svg">
-                                <span>1</span>
+                                <img style="margin-right: 5px;" src="assets/icons/emoji-nerd.svg">
+                                <span>{{getAnswerData(aIndex, 'smile')}}</span>
                             </div>
                             <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
                             
@@ -201,7 +201,7 @@
             <textarea placeholder="Antworten..."></textarea>
         </div> -->
         <div class="textareaDirektMessage">
-            <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt" placeholder="Antworten..."></textarea>
+            <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18" placeholder="Antworten..."></textarea>
             <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
             <div class="iconContainerTextArea">
                 <img class="iconsTextArea" src="assets/img/add.svg">

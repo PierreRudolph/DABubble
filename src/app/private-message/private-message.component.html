@@ -17,7 +17,13 @@
               {{m.message}}
             </diV>
             <div [class.dNone]="!m.edit">
-              <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}</textarea>
+              <div style="position:relative">
+                <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
+                <img (click)="toggleEmojisDialogEdit()" class="smileEdit"  src="assets/img/smile.svg">
+                <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+                (darkMode)="false"></emoji-mart>
+              </div>        
+             
               <div class="editButtonContainer">
                 <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
                 <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
@@ -62,7 +68,7 @@
     <img class="iconsTextArea" (click)="toggleEmojisDialog()" src="assets/img/smile.svg">
     <img class="iconsTextArea" src="assets/img/alternate_email.svg">
     <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
-      (darkMode)="false">></emoji-mart>
+      (darkMode)="false"></emoji-mart>
     <!-- (emojiSelect)="addEmoji($event)" -->
   </div>
 </div>
