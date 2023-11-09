@@ -17,7 +17,11 @@
               {{m.message}}
             </diV>
             <div [class.dNone]="!m.edit">
-              <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}</textarea>
+              <div style="position:relative">
+                <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
+                <img class="smileEdit"  src="assets/img/smile.svg">
+              </div>        
+             
               <div class="editButtonContainer">
                 <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
                 <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>

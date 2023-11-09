@@ -42,6 +42,22 @@ export class SideMenuThreadComponent {
     return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n];
   }
 
+  showSmielie(index: number){
+   return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
+  }
+
+  getIconPathQuestionUser(){
+    let id=  this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
+    let path = "";
+    this.userList.forEach((u) => {
+      if (u.idDB == id) {
+        path = u.iconPath;
+      }
+    });
+    if (this.user.idDB == id) { path = this.user.iconPath; }
+    return path;
+  }
+
   getImagePortrait(index: number) {
     let id = this.getAnswerData(index, 'iD');
     let path = "";
@@ -64,6 +80,7 @@ export class SideMenuThreadComponent {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
       "edit": false,
+      "smile":0,
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,
     }

@@ -196,6 +196,7 @@ export class MainPageComponent {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
       "edit": false,
+      "smile":0,
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,
     }
@@ -234,16 +235,11 @@ export class MainPageComponent {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
       "edit": false,
+      "smile":0,
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThread,
       "answer": [
-        // {
-        //   "name": "",
-        //   "iD": "", //of person that writes the message
-        //   "edit": false,
-        //   "time": "",
-        //   "message": "",
-        // }
+      
       ]
     }
 
