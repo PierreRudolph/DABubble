@@ -28,6 +28,12 @@ export class SideMenuThreadComponent {
   @ViewChild('drawer')
   drawer!: MatDrawer;
 
+  constructor(){
+    setTimeout(()=>{
+      console.log("this user is",this.user);
+    },500);
+  }
+
   closeThread() {
     this.drawer.close();
     console.log(this.drawer);
@@ -150,12 +156,7 @@ export class SideMenuThreadComponent {
 
   }
 
-  // markSmile(sm:any){
-  //   // console.log("sm",sm); 
-  //   // console.log("sIndex",this.isUserInSmile(sm.users));   
-  //   return this.isUserInSmile(sm.users);
-
-  // }
+ 
 
   isUserInSmile(us: any[]) {
     let ret = false;
@@ -211,5 +212,20 @@ export class SideMenuThreadComponent {
     });  
     return uList;
   } 
+
+  saveEmojiTextArea(e: { emoji: { unified: string; }; }) {
+    let unicodeCode: string = e.emoji.unified;
+    let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+    if (this.showEmojis) {
+      this.textThreadAnswer += emoji;
+      this.toggleEmojisDialog(0);
+    }
+    
+    console.log(emoji);
+
+    console.log("show emoji", e);
+    console.log("show emoji", emoji);
+  }
+
 
 }
