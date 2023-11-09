@@ -18,7 +18,8 @@
                     <div class="add-reaction">
                         <img src="assets/icons/add-reaction.svg">
                     </div>
-                    <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;" src="{{  getIconPathQuestionUser()}}">
+                    <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;"
+                        src="{{  getIconPathQuestionUser()}}">
                     <div class="message-inner-div">
                         <div class="mes-name-clock">
                             <span
@@ -38,12 +39,13 @@
 
             </div>
 
-            <div  class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
+            <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
                 <!--Hier werden die Antworten des Threads reingerendert-->
                 <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
                     <div class="add-reaction">
                         <img class="changeFace" src="assets/icons/add-reaction.svg">
-                        <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg" (click)="openAnswerMode(answ,aIndex)">
+                        <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg"
+                            (click)="openAnswerMode(answ,aIndex)">
                     </div>
                     <img class="char-img" src="{{getImagePortrait(aIndex)}}">
                     <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
@@ -67,11 +69,19 @@
                                     </div>
                                     <span>hat reagiert</span>
                                 </div>
-                                <img style="margin-right: 5px;" src="assets/icons/emoji-nerd.svg">
-                                <span>{{getAnswerData(aIndex, 'smile')}}</span>
+                                <!-- <img style="margin-right: 5px;" src="assets/icons/emoji-nerd.svg">
+                                <span>{{getAnswerData(aIndex, 'smile')}}</span> -->
+                                <!-- <div>{{emojiText}}</div> -->
+                                <div style="display:flex;gap:3px">
+                                    <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex" class="reactIcons">
+                                        {{s.icon}}
+                                        {{s.users.length}}
+                                    </div>
+                                </div>
                             </div>
-                            <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
-                            
+                            <img (click)="toggleEmojisDialog()" class="add-reaction-icon" src="assets/icons/add-reaction.svg">
+                            <emoji-mart class="emojiDiv" *ngIf="showEmoji(aIndex)" title="Pick your emoji…"
+                                (emojiClick)="saveEmoji($event,aIndex)" (darkMode)="false"></emoji-mart>
                         </diV>
                     </div>
                 </div>
@@ -201,7 +211,8 @@
             <textarea placeholder="Antworten..."></textarea>
         </div> -->
         <div class="textareaDirektMessage">
-            <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18" placeholder="Antworten..."></textarea>
+            <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
+                placeholder="Antworten..."></textarea>
             <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
             <div class="iconContainerTextArea">
                 <img class="iconsTextArea" src="assets/img/add.svg">

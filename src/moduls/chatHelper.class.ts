@@ -78,7 +78,12 @@ export class ChatHepler{
                   "name": "",
                   "iD": "", //of person that writes the message
                   "edit": false,
-                  "smile":0,
+                  "smile": [
+                    {
+                      "icon":"",
+                      "users":""
+                    }
+                  ],
                   "time": "",
                   "message": "",
                   "answer": [
@@ -86,7 +91,14 @@ export class ChatHepler{
                       "name": "",
                       "iD": "", //of person that writes the message
                       "edit": false,
-                      "smile":0,
+                      "smile": [
+                        {
+                          "icon":"",
+                          "users":[
+                            {"id":""}
+                          ]
+                        }
+                      ],
                       "time": "",
                       "message": "",
                     }

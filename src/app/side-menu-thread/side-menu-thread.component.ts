@@ -21,6 +21,9 @@ export class SideMenuThreadComponent {
   // public textThreadAnswerEdit = "";
   public editA = false;
   public editAIndex = 0;
+  private answerIndex = 0;
+  showEmojis: boolean | undefined;
+  emojiText: string = "";
 
   @ViewChild('drawer')
   drawer!: MatDrawer;
@@ -42,12 +45,16 @@ export class SideMenuThreadComponent {
     return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n];
   }
 
-  showSmielie(index: number){
-   return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
+  setAnswerData(index: number, n: string, m: any) {
+    this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n] = m;
   }
 
-  getIconPathQuestionUser(){
-    let id=  this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
+  showSmielie(index: number) {// ändern
+    return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
+  }
+
+  getIconPathQuestionUser() {
+    let id = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
     let path = "";
     this.userList.forEach((u) => {
       if (u.idDB == id) {
@@ -80,11 +87,13 @@ export class SideMenuThreadComponent {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
       "edit": false,
-      "smile":0,
+      "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,
     }
-    if (this.editA) { this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer; }
+    if (this.editA) {
+      this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
+    }
     else {
       this.threadList[n].communikation[i].threads[j].answer.push(answ);
     }
@@ -108,10 +117,69 @@ export class SideMenuThreadComponent {
     return (uId == aId);
   }
 
-  // answerThread(i: number, j: number) {
-  //   this.textThreadAnswer = "";
-  //   // this.answerOpen = !this.answerOpen;
-  //   this.threadC.setValueIJ(i,j);
-  // }
+  saveEmoji(e: { emoji: { unified: string; }; }, index: number) {
+    let unicodeCode: string = e.emoji.unified;
+    let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    // this.emojiText += emoji;//löschen
+
+    let sm = this.getAnswerData(index, 'smile');
+    console.log("smile", sm);
+    let smileIndex =this.smileInAnswer(emoji,sm); 
+    if(smileIndex==-1){
+      let icon = {
+        "icon": emoji,
+        "users": [
+          { "id": this.user.idDB }
+        ]       
+      };
+      sm.push(icon);
+    }else{
+     let usersIcon =  sm[smileIndex].users;
+     console.log("Icon exist",this.getIndexUserSmile(usersIcon));
+     if(!this.getIndexUserSmile(usersIcon))  {
+      sm[smileIndex].users.push( { "id": this.user.idDB });     
+     }   
+    }   
+   
+    this.setAnswerData(index, 'smile', sm);
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+    this.toggleEmojisDialog();
+    // console.log("anser", this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index]);
+    this.answerIndex = index;
+
+  }
+
+  getIndexUserSmile(us:any[]){
+    let ret=false;
+    us.forEach((u)=>{
+      if(u.id ==this.user.idDB){
+        ret=true;
+      }
+    });
+
+    return ret;
+  }
+
+  smileInAnswer(emoji: any, sm: any[]) {
+    let b = -1;
+    let i = -1;    
+    sm.forEach((s) => { 
+      i++;   
+      if (s.icon == emoji) {
+        b = i;
+      }
+    });
+    return b;
+  }
+
+
+  toggleEmojisDialog() {
+    this.showEmojis = !this.showEmojis;
+  }
+
+  showEmoji(aIndex: number) {
+    return (this.answerIndex === aIndex) && this.showEmojis;
+  }
 
 }
