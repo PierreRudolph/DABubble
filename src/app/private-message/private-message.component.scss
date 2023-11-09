@@ -12,7 +12,8 @@
 .smileEdit{
     position:absolute;
     left:15px;
-    bottom:20px; 
+    bottom:20px;
+    cursor: pointer; 
 }
 
 
@@ -80,9 +81,9 @@
     display: flex;
     gap: 25px;
     align-items: flex-end;
-    height: 450px;
+    height: 470px;
     //width: 100%; verusacht overflow wenn thread geschlossen
-    margin-bottom: 24px;
+    // margin-bottom: 24px;
     padding: 0 45px 0 45px;
 
 }
@@ -348,4 +349,14 @@
 .emoji-div {
     position: absolute;
     bottom: 135px;
+
+}
+
+.emoji-div-Edit {
+    position: absolute;
+    bottom: 50px;
+    left:50px;
+    z-index: 3;
+    
+    
 }
