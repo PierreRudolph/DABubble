@@ -73,138 +73,21 @@
                                 <span>{{getAnswerData(aIndex, 'smile')}}</span> -->
                                 <!-- <div>{{emojiText}}</div> -->
                                 <div style="display:flex;gap:3px">
-                                    <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex" class="reactIcons">
+                                    <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
+                                     class="reactIcons" [class.lila]="isUserInSmile(s.users)" (click)="removeSmile(aIndex,sIndex)">
                                         {{s.icon}}
                                         {{s.users.length}}
                                     </div>
                                 </div>
                             </div>
-                            <img (click)="toggleEmojisDialog()" class="add-reaction-icon" src="assets/icons/add-reaction.svg">
+                            <img (click)="toggleEmojisDialog(aIndex)" class="add-reaction-icon" src="assets/icons/add-reaction.svg">
                             <emoji-mart class="emojiDiv" *ngIf="showEmoji(aIndex)" title="Pick your emoji…"
-                                (emojiClick)="saveEmoji($event,aIndex)" (darkMode)="false"></emoji-mart>
+                                (emojiClick)="saveEmoji($event)" (darkMode)="false"></emoji-mart>
+                             
                         </diV>
                     </div>
-                </div>
-
-                <!-- <div class="message-div">
-                    <div class="add-reaction">
-                        <img src="assets/icons/add-reaction.svg">
-                    </div>
-                    <img src="assets/img/ch5.svg">
-                    <div class="message-inner-div">
-                        <div class="mes-name-clock">
-                            <span class="mes-name">Sofia Müller</span>
-                            <span>14:30 Uhr</span>
-                        </div>
-                        <diV class="message">
-                            Ich habe die gleiche Frage. Ich habe gegoogelt und es scheint,
-                            dass die aktuelle Version Angular 13 ist. Vielleicht weiß Frederik, ob es wahr ist.
-                        </diV>
-                        <diV class="reactions">
-
-                            <div class="reaction-emoji-counter">
-
-                                <div class="reactions-tooltip">
-                                    <img src="assets/icons/emoji-nerd.svg">
-                                    <div class="reactions-username">
-                                        <span>Sofia Müller</span>
-                                        <span>und Du</span>
-                                    </div>
-                                    <span>hat reagiert</span>
-                                </div>
-                                <img src="assets/icons/emoji-nerd.svg">
-                                <span>1</span>
-                            </div>
-                            <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
-                        </diV>
-                    </div>
-                </div>
-
-
-                <div class="message-div">
-                    <div class="add-reaction">
-                        <img src="assets/icons/add-reaction.svg">
-                    </div>
-                    <img src="assets/img/ch5.svg">
-                    <div class="message-inner-div">
-                        <div class="mes-name-clock">
-                            <span class="mes-name">Sofia Müller</span>
-                            <span>14:30 Uhr</span>
-                        </div>
-                        <diV class="message">
-                            Ich habe die gleiche Frage. Ich habe gegoogelt und es scheint,
-                            dass die aktuelle Version Angular 13 ist. Vielleicht weiß Frederik, ob es wahr ist.
-                        </diV>
-                        <diV class="reactions">
-
-                            <div class="reaction-emoji-counter">
-
-                                <div class="reactions-tooltip">
-                                    <img src="assets/icons/emoji-nerd.svg">
-                                    <div class="reactions-username">
-                                        <span>Sofia Müller</span>
-                                        <span>und Du</span>
-                                    </div>
-                                    <span>hat reagiert</span>
-                                </div>
-                                <img src="assets/icons/emoji-nerd.svg">
-                                <span>1</span>
-                            </div>
-                            <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
-                        </diV>
-                    </div>
-                </div>
-
-                <div class="message-div">
-                    <div class="add-reaction">
-                        <img src="assets/icons/add-reaction.svg">
-                    </div>
-                    <img src="assets/img/ch5.svg">
-                    <div class="message-inner-div">
-                        <div class="mes-name-clock">
-                            <span class="mes-name">Sofia Müller</span>
-                            <span>14:30 Uhr</span>
-                        </div>
-                        <diV class="message">
-                            Ich habe die gleiche Frage. Ich habe gegoogelt und es scheint,
-                            dass die aktuelle Version Angular 13 ist. Vielleicht weiß Frederik, ob es wahr ist.
-                        </diV>
-                        <diV class="reactions">
-
-                            <div class="reaction-emoji-counter">
-
-                                <div class="reactions-tooltip">
-                                    <img src="assets/icons/emoji-nerd.svg">
-                                    <div class="reactions-username">
-                                        <span>Sofia Müller</span>
-                                        <span>und Du</span>
-                                    </div>
-                                    <span>hat reagiert</span>
-                                </div>
-                                <img src="assets/icons/emoji-nerd.svg">
-                                <span>1</span>
-                            </div>
-                            <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
-                        </diV>
-                    </div>
-                </div> -->
-
-                <!--Nachricht die von rechts angezeigt wird. Klassen mit dem beinamen right, richten die Nachricht nach rechts aus.-->
-                <!-- <div class="message-div message-div-right">
-                    <img src="assets/img/ch3.svg">
-
-                    <div class="message-inner-div message-inner-div-right">
-
-                        <div class="mes-name-clock mes-name-clock-right">
-                            <span class="mes-name mes-name-right">Frederik Beck</span>
-                            <span>15:06 Uhr</span>
-                        </div>
-
-                        <diV class="message message-right">
-                            Ja das ist es.
-                        </diV>
-                    </div>
-                </div> -->
+                </div> 
+                <!-- end answer              -->
             </div>
         </div>
         <!-- <div class="textfield-div">

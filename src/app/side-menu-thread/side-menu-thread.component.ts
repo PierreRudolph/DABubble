@@ -117,44 +117,51 @@ export class SideMenuThreadComponent {
     return (uId == aId);
   }
 
-  saveEmoji(e: { emoji: { unified: string; }; }, index: number) {
+  saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     let threadId = this.threadList[this.threadC.chNum].channel.idDB;
     // this.emojiText += emoji;//löschen
-
-    let sm = this.getAnswerData(index, 'smile');
+    console.log("answerIndex", this.answerIndex);
+    let sm = this.getAnswerData(this.answerIndex, 'smile');
     console.log("smile", sm);
-    let smileIndex =this.smileInAnswer(emoji,sm); 
-    if(smileIndex==-1){
+    let smileIndex = this.smileInAnswer(emoji, sm);
+    if (smileIndex == -1) {
       let icon = {
         "icon": emoji,
         "users": [
           { "id": this.user.idDB }
-        ]       
+        ]
       };
       sm.push(icon);
-    }else{
-     let usersIcon =  sm[smileIndex].users;
-     console.log("Icon exist",this.getIndexUserSmile(usersIcon));
-     if(!this.getIndexUserSmile(usersIcon))  {
-      sm[smileIndex].users.push( { "id": this.user.idDB });     
-     }   
-    }   
-   
-    this.setAnswerData(index, 'smile', sm);
+    } else {
+      let usersIcon = sm[smileIndex].users;
+      console.log("Icon exist", this.isUserInSmile(usersIcon));
+      if (!this.isUserInSmile(usersIcon)) {
+        sm[smileIndex].users.push({ "id": this.user.idDB });
+      }
+    }
+
+    this.setAnswerData(this.answerIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
-    this.toggleEmojisDialog();
+    this.toggleEmojisDialog(this.answerIndex);
     // console.log("anser", this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index]);
-    this.answerIndex = index;
+
 
   }
 
-  getIndexUserSmile(us:any[]){
-    let ret=false;
-    us.forEach((u)=>{
-      if(u.id ==this.user.idDB){
-        ret=true;
+  // markSmile(sm:any){
+  //   // console.log("sm",sm); 
+  //   // console.log("sIndex",this.isUserInSmile(sm.users));   
+  //   return this.isUserInSmile(sm.users);
+
+  // }
+
+  isUserInSmile(us: any[]) {
+    let ret = false;
+    us.forEach((u) => {
+      if (u.id == this.user.idDB) {
+        ret = true;
       }
     });
 
@@ -163,9 +170,9 @@ export class SideMenuThreadComponent {
 
   smileInAnswer(emoji: any, sm: any[]) {
     let b = -1;
-    let i = -1;    
-    sm.forEach((s) => { 
-      i++;   
+    let i = -1;
+    sm.forEach((s) => {
+      i++;
       if (s.icon == emoji) {
         b = i;
       }
@@ -174,12 +181,35 @@ export class SideMenuThreadComponent {
   }
 
 
-  toggleEmojisDialog() {
+  toggleEmojisDialog(aIndex: number) {
     this.showEmojis = !this.showEmojis;
+    this.answerIndex = aIndex;
   }
 
   showEmoji(aIndex: number) {
     return (this.answerIndex === aIndex) && this.showEmojis;
   }
+  removeSmile(aIndex: number, sIndex:number) {
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    let userSmiles = this.getAnswerData(aIndex, 'smile');
+    let newUserList=this.removeUser(userSmiles[sIndex].users)
+    userSmiles[sIndex].users = newUserList; 
+    if( userSmiles[sIndex].users.length ==0 )
+    {
+      userSmiles.splice(sIndex, 1);
+    }
+    this.setAnswerData(aIndex,'smile', userSmiles) ;
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+  }
+
+  removeUser(userL:any[]){
+    let uList:any[]=[]
+    userL.forEach((ul)=>{
+      if(ul.id!=this.user.idDB){
+        uList.push(ul);
+      }
+    });  
+    return uList;
+  } 
 
 }
