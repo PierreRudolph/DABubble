@@ -18,7 +18,9 @@ export class SideMenuThreadComponent {
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   public textThreadEdit = "";
   public textThreadAnswer = "";
-  public textThreadAnswerEdit = "";
+  // public textThreadAnswerEdit = "";
+  public editA = false;
+  public editAIndex = 0;
 
   @ViewChild('drawer')
   drawer!: MatDrawer;
@@ -42,14 +44,13 @@ export class SideMenuThreadComponent {
 
   getImagePortrait(index: number) {
     let id = this.getAnswerData(index, 'iD');
-    let path = "";   
+    let path = "";
     this.userList.forEach((u) => {
       if (u.idDB == id) {
-        path= u.iconPath;
+        path = u.iconPath;
       }
     });
-    if(this.user.idDB==id)
-    {path= this.user.iconPath;}  
+    if (this.user.idDB == id) { path = this.user.iconPath; }
     return path;
   }
 
@@ -66,17 +67,28 @@ export class SideMenuThreadComponent {
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,
     }
-    this.threadList[n].communikation[i].threads[j].answer.push(answ);
+    if (this.editA) { this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer; }
+    else {
+      this.threadList[n].communikation[i].threads[j].answer.push(answ);
+    }
+
     console.log("Antwort", answ);
     console.log("comunikation", this.threadList[n].communikation[i]);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
-    this.textThreadAnswer="";
+    this.textThreadAnswer = "";
+    this.editA = false;
   }
 
-  fromLoggedInUser(answer:any){
-      let uId= this.user.idDB;
-      let aId = answer.iD;     
-      return (uId==aId);
+  openAnswerMode(ans: any, index: number) {
+    this.editA = true;
+    this.textThreadAnswer = ans.message;
+    this.editAIndex = index;
+  }
+
+  fromLoggedInUser(answer: any) {
+    let uId = this.user.idDB;
+    let aId = answer.iD;
+    return (uId == aId);
   }
 
   // answerThread(i: number, j: number) {
