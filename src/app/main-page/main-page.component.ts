@@ -48,6 +48,7 @@ export class MainPageComponent {
 
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
+  @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router) {
@@ -61,11 +62,16 @@ export class MainPageComponent {
 
   }
 
+  setOpenValue(e: boolean) {
+    this.openChat = e;
+  }
+
   setChannelNumber(number: number) {
     this.number = number;
     this.channelOpen = true;
     this.currentThreadId = this.threadList[number].channel.idDB;
     console.log("current thread number is", this.currentThreadId);
+    console.log("Threadli st", this.threadList);
   }
 
   setOtherUser(user: User) {
@@ -197,7 +203,7 @@ export class MainPageComponent {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
       "edit": false,
-      "smile":[],
+      "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,
     }
@@ -236,11 +242,11 @@ export class MainPageComponent {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
       "edit": false,
-      "smile":[],
+      "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThread,
       "answer": [
-      
+
       ]
     }
 
@@ -262,6 +268,13 @@ export class MainPageComponent {
       this.updateDB(this.currentThreadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
     }
     this.textThread = "";
+  }
+
+  setThreadC(c: ThreadConnector) {
+    this.threadC = c;
+    this.openChat = true;
+    this.childSideThread.drawer.open()
+
   }
 
 

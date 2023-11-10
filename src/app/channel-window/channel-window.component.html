@@ -3,7 +3,7 @@
         <div class="dialog-header">
             <div>
                 <img src="assets/icons/tag.svg">
-                <span class="fs24 wei700">Entwicklerteam</span>
+                <span class="fs24 wei700">{{this.threadList[number].channel.name}}</span>
             </div>
             <img mat-dialog-close style="cursor: pointer;" src="assets/img/close.svg">
         </div>
@@ -15,7 +15,7 @@
             </div>
             <div>
                 <img src="assets/icons/tag.svg">
-                <span class="fs18">Entwicklerteam</span>
+                <span class="fs18">{{this.threadList[number].channel.name}}</span>
             </div>
         </div>
 
@@ -45,35 +45,42 @@
 
     <div class="channel-header-left" mat-button (click)="openDialog(matDialog)">
         <img class="tag-icon" src="assets/icons/tag.svg">
-        <span>Entwicklerteam</span>
+        <span>{{this.threadList[number].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
     </div>
 
     <div class="channel-header-right">
         <div class="added-members">
-            <img src="assets/img/ch1.svg">
+            <!-- <img src="assets/img/ch1.svg">
             <img src="assets/img/ch2.svg">
-            <img src="assets/img/ch3.svg">
-            <span>3</span>
+            <img src="assets/img/ch3.svg"> -->
+            <div *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)" >
+                <img style="width:40px;height:40px" src="{{getIconPathQuestionUser(m.memberID)}}">
+            </div>
+            <span>{{this.threadList[number].channel.members.length}}</span>
         </div>
         <img class="add-people" src="assets/icons/add-people.svg">
     </div>
 </div>
 
 <div class="channel-body">
-    <div class="message-div">
+    <div class="message-div" *ngFor="let com of this.threadList[number].communikation, index as i ">
+        <div class="dateIcon">
+            <div class="sendDate">{{this.threadList[number].communikation[i].date}}</div>
+            <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
+        </div>
         <div class="add-reaction">
             <img src="assets/icons/add-reaction.svg">
         </div>
+       <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;">
         <img src="assets/img/ch5.svg">
-        <div class="message-inner-div">
+        <div class="message-inner-div" *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
             <div class="mes-name-clock">
-                <span class="mes-name">Sofia Müller</span>
-                <span>14:30 Uhr</span>
+                <span class="mes-name">{{thread.name}}</span>
+                <span>{{thread.time}} Uhr</span>
             </div>
             <diV class="message">
-                Ich habe die gleiche Frage. Ich habe gegoogelt und es scheint,
-                dass die aktuelle Version Angular 13 ist. Vielleicht weiß Frederik, ob es wahr ist.
+                {{thread.message}}
             </diV>
             <diV class="reactions">
 
@@ -94,25 +101,26 @@
             </diV>
 
             <div class="answers-info">
-                <div class="answers-counter">
-                    <span>2</span>
+                <div class="answers-counter" (click)="openThisThread(number,i,j)">
+                    <span> {{thread.answer.length}}</span>
                     <span>Antworten</span>
                 </div>
 
                 <div class="last-answer">
                     <span>Letzte Antwort</span>
-                    <span>14:56</span>
+                    <span>{{getTimeLastAnswer(thread)}}</span>
                 </div>
 
             </div>
 
         </div>
+       </div>
     </div>
-    <div class="dateIcon">
+    <!-- <div class="dateIcon">
         <div class="sendDate">5.11.2522</div>
         <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
-    </div>
-    <div class="message-div message-div-right">
+    </div> -->
+    <!-- <div class="message-div message-div-right">
         <img src="assets/img/ch3.svg">
 
         <div class="message-inner-div message-inner-div-right">
@@ -126,7 +134,7 @@
                 Ja das ist es.
             </diV>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <div class="textareaDirektMessage">
