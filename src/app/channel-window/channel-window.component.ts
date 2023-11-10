@@ -61,4 +61,16 @@ export class ChannelWindowComponent {
 
   }
 
+  getIconPathQuestionUser(id:string) {
+  
+    let path = "";
+    this.userList.forEach((u) => {
+      if (u.idDB == id) {
+        path = u.iconPath;
+      }
+    });
+    if (this.user.idDB == id) { path = this.user.iconPath; }
+    return path;
+  }
+
 }
