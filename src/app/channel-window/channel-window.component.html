@@ -1,6 +1,49 @@
+<ng-template #matDialog>
+    <div class="edit-channel-dialog">
+        <div class="dialog-header">
+            <div>
+                <img src="assets/icons/tag.svg">
+                <span class="fs24 wei700">Entwicklerteam</span>
+            </div>
+            <img mat-dialog-close style="cursor: pointer;" src="assets/img/close.svg">
+        </div>
+
+        <div class="channel-name-outer-div">
+            <div class="channel-sub-headlines">
+                <span class="fs18 wei700">Channel-Name</span>
+                <span class="fs18 wei600">Bearbeiten</span>
+            </div>
+            <div>
+                <img src="assets/icons/tag.svg">
+                <span class="fs18">Entwicklerteam</span>
+            </div>
+        </div>
+
+        <div class="channel-description-outer-div">
+
+            <div class="channel-sub-headlines">
+                <span class="fs18 wei700">Beschreibung</span>
+                <span class="fs18 wei600">Bearbeiten</span>
+            </div>
+
+            <span class="fs18">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos iusto numquam, exercitationem
+                asperiores et rem vitae non consequuntur soluta saepe natus tenetur esse enim. Amet laudantium saepe in
+                voluptas voluptatibus.
+            </span>
+            <div class="border-div"></div>
+            <span class="fs18 wei700">Erstellt von</span>
+            <span class="channel-creater-name">Noah Braun</span>
+        </div>
+        <div class="btn-div">
+            <button class="btn">Channel verlassen</button>
+        </div>
+    </div>
+</ng-template>
+
 <div class="channel-header">
 
-    <div class="channel-header-left">
+    <div class="channel-header-left" mat-button (click)="openDialog(matDialog)">
         <img class="tag-icon" src="assets/icons/tag.svg">
         <span>Entwicklerteam</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">

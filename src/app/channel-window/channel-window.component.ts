@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, TemplateRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-channel-window',
@@ -8,8 +9,13 @@ import { Component } from '@angular/core';
 export class ChannelWindowComponent {
   public textThread = "";
   public number: number = 0;
-
   showEmojis: boolean | undefined;
+
+  constructor(public dialog: MatDialog) { }
+
+  openDialog(matDialogRef: TemplateRef<any>) {
+    this.dialog.open(matDialogRef, { panelClass: 'dialog-bor-to-le-none' });
+  }
 
   sendQuestion(n: number) {
 
