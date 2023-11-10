@@ -42,6 +42,8 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router) {
+    console.log("current", this.currentTalkData);
+    this.currentTalkData.communikation = [];
     setTimeout(() => {
       console.log("call construktor");
       this.userAuth = this.authService.getAuthServiceUser();
@@ -97,6 +99,7 @@ export class PrivateMessageComponent {
       "name": this.user.name,
       "iD": this.user.idDB,
       "edit": false,
+      "smile": [],
       "time": this.chatHepler.parseTime(new Date(Date.now())),
       "message": text,
     }
@@ -172,24 +175,12 @@ export class PrivateMessageComponent {
     }, 2000);
     t.idDB = this.currentTalkId;
     this.currentTalkData = t;
+    console.log("communikation Talk",this.currentTalkData);
     return t;
   }
 
-  // parseTime(dt: Date) {
-  //   let min = dt.getMinutes();
-  //   let hour = dt.getHours();
-  //   return hour + ":" + min;
-  // }
-
-  // parseDate(dt: Date) {
-  //   let day = dt.getDate();
-  //   let month = dt.getMonth() + 1;
-  //   let year = dt.getFullYear();
-
-  //   return day + "." + month + "." + year;
-  // }
-
   openTalk() {
+    console.log("openTalk");
     this.exist = false;
     this.talkOpen = true;
     let dbIDOther = this.otherChatUser.idDB;
@@ -199,6 +190,7 @@ export class PrivateMessageComponent {
     talks.forEach(t => {
       let a: any;
       a = t;
+      console.log(" dbIDOther ",dbIDOther + "  a.oUDbID:"+a.oUDbID);
       if (a.oUDbID === dbIDOther) {
         this.exist = true;
         talkId = a.talkID;
@@ -206,10 +198,14 @@ export class PrivateMessageComponent {
     });
 
     if (this.exist) {
+      console.log("talk exist");
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
     } else {
-      this.currentTalkData = this.chatHepler.createEmptyTalk();
+      console.log("not exist");
+      this.currentTalkData = this.chatHepler.createEmptyTalk()
+      this.currentTalkData.communikation = [];//---------------------------
+      console.log("xurrent data ", this.currentTalkData);
     }
   }
 
@@ -219,8 +215,13 @@ export class PrivateMessageComponent {
 
   setOtherUser(user: User) {
     this.otherChatUser = user;
+    console.log("data", this.currentTalkData);
     this.openTalk();
-    setTimeout(() => { this.openTalk() }, 1500);
+    // setTimeout(() => {
+    //   console.log("open talk again");
+    //   this.openTalk()
+    // },
+    //   1500);
   }
 
   async updateDB(id: string, coll: string, info: {}) {
@@ -264,9 +265,11 @@ export class PrivateMessageComponent {
       list.forEach(elem => {
         if (elem.id == this.currentTalkId) {
           this.currentTalkData = elem.data();
+          console.log("curretn talk sub", this.currentTalkData);
         }
       });
     });
+
   }
 
   async getTalkById(id: string) {
