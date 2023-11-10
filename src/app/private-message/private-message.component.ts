@@ -217,11 +217,11 @@ export class PrivateMessageComponent {
     this.otherChatUser = user;
     console.log("data", this.currentTalkData);
     this.openTalk();
-    // setTimeout(() => {
-    //   console.log("open talk again");
-    //   this.openTalk()
-    // },
-    //   1500);
+    setTimeout(() => {
+      console.log("open talk again");
+      this.openTalk()
+    },
+      1500);
   }
 
   async updateDB(id: string, coll: string, info: {}) {
