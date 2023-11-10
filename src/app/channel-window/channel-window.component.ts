@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { User } from 'src/moduls/user.class';
+import { EditChannelComponent } from '../edit-channel/edit-channel.component';
 
 @Component({
   selector: 'app-channel-window',
@@ -28,18 +29,6 @@ export class ChannelWindowComponent {
 
   openDialog(matDialogRef: TemplateRef<any>) {
     this.dialog.open(matDialogRef, { panelClass: 'dialog-bor-to-le-none' });
-
-  }
-
-  getIconPathQuestionUser(userId: string) {
-    let path = "";
-    this.userList.forEach((u) => {
-      if (u.idDB == userId) {
-        path = u.iconPath;
-      }
-    });
-    if (this.user.idDB == userId) { path = this.user.iconPath; }
-    return path;
   }
 
   sendQuestion(n: number) {
