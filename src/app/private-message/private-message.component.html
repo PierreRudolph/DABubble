@@ -5,7 +5,7 @@
         <div class="sendDate">{{c.date}}</div>
         <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
       </div>
-      <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages">
+      <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
         <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
           <img style="width: 70px;" src="{{getIconFromName(m.name)}}">
           <div class="message-inner-div">
@@ -13,20 +13,24 @@
               <span class="nunitoBlack">{{m.name}}</span>
               <span style="color:#b7bade">{{m.time}} Uhr</span>
             </div>
-            <diV class="message" [class.dNone]="m.edit">
+            <div class="message" [class.dNone]="m.edit">
               {{m.message}}
-            </diV>
-            <div>
-              Smilies
+            </div>
+            <div style="display:flex;gap:5px; margin-top:10px">
+              <div class="reactIcons" [class.lila]="smileHelper.isUserInSmile(sFace.users,user)"
+                *ngFor="let sFace of m.smile, index as sIndex" (click)="removeSmile(mIndex,sIndex)">
+                {{sFace.icon}}
+                {{sFace.users.length}}
+              </div>
             </div>
             <div [class.dNone]="!m.edit">
               <div style="position:relative">
                 <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
-                <img (click)="toggleEmojisDialogEdit()" class="smileEdit"  src="assets/img/smile.svg">
-                <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
-                (darkMode)="false"></emoji-mart>
-              </div>        
-             
+                <img (click)="toggleEmojisDialogEdit()" class="smileEdit" src="assets/img/smile.svg">
+                <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit" title="Pick your emoji…"
+                  (emojiClick)="saveEmoji($event)" (darkMode)="false"></emoji-mart>
+              </div>
+
               <div class="editButtonContainer">
                 <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
                 <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
@@ -37,7 +41,8 @@
             <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
               <img class="popUpIcons" src="assets/img/popUpHaken.svg">
               <img class="popUpIcons" src="assets/img/popUpClaps.svg">
-              <img class="popUpIcons pad0" src="assets/icons/add-reaction.svg">
+              <img class="popUpIcons pad0" (click)="toggleEmojisDialogComment(i,mIndex)"
+                src="assets/icons/add-reaction.svg">
               <img class="popUpIcons" src="assets/img/comment.svg">
               <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
                 src="assets/img/more_vert.svg">
@@ -46,6 +51,8 @@
               <div class="editMessageT">Nachricht bearbeiten</div>
             </div>
           </div>
+          <emoji-mart class="emojiDivComment" *ngIf="isEmojisCommentShown(mIndex)" title="Pick your emoji…"
+            (emojiClick)="saveEmojiComment($event)" (darkMode)="false"></emoji-mart>
         </div>
         <!-- message-div -->
 

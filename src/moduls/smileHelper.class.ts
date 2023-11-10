@@ -22,7 +22,12 @@ export class SmileHelper{
         return uList;
       }
 
-
+/**
+ * 
+ * @param emoji {}  is the given emoji in the iconarray
+ * @param sm    JSON Array of the smile {"icon"}
+ * @returns    -1 it is not in there or index
+ */
       smileInAnswer(emoji: any, sm: any[]) {
         let b = -1;
         let i = -1;

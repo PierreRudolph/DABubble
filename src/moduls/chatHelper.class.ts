@@ -20,8 +20,9 @@ export class ChatHepler{
               "smile": [
                 {
                   "icon":"",
-                  "users1ID":"",
-                  "users2ID":"",                                     
+                  "users":[
+                    {"id":""}
+                  ]                                   
                 }
               ],
               "time": "",
