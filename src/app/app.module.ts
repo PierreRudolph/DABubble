@@ -34,6 +34,7 @@ import { PrivateMessageComponent } from './private-message/private-message.compo
 import { ThreadBasedChatComponent } from './thread-based-chat/thread-based-chat.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ChannelWindowComponent } from './channel-window/channel-window.component';
+import { EditChannelComponent } from './edit-channel/edit-channel.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,7 +55,8 @@ import { ChannelWindowComponent } from './channel-window/channel-window.componen
     AddPeopleDialogComponent,
     PrivateMessageComponent,
     ThreadBasedChatComponent,
-    ChannelWindowComponent
+    ChannelWindowComponent,
+    EditChannelComponent
   ],
   imports: [
     BrowserModule,
