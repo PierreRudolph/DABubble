@@ -10,7 +10,8 @@ export class ChannelWindowComponent {
   public textThread = "";
   public number: number = 0;
   showEmojis: boolean | undefined;
-
+  chanNamOnEdit: boolean | false;
+  chanDescOnEdit: boolean | false;
   constructor(public dialog: MatDialog) { }
 
   openDialog(matDialogRef: TemplateRef<any>) {
@@ -21,6 +22,28 @@ export class ChannelWindowComponent {
 
   }
 
+  editChannelName() {
+    this.toggleChanNameOnEdit();
+  }
+
+  saveNewChannelName() {
+    this.toggleChanNameOnEdit();
+  }
+
+  toggleChanNameOnEdit() {
+    this.chanNamOnEdit = !this.chanNamOnEdit;
+  }
+
+  editChannelDesc() {
+    this.toggleChanDescOnEdit();
+  }
+  saveNewChannelDesc() {
+    this.toggleChanDescOnEdit();
+  }
+
+  toggleChanDescOnEdit() {
+    this.chanDescOnEdit = !this.chanDescOnEdit;
+  }
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
