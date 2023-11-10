@@ -273,7 +273,7 @@ export class MainPageComponent {
   setThreadC(c: ThreadConnector) {
     this.threadC = c;
     this.openChat = true;
-    this.childSideThread.drawer.open()
+  setTimeout(()=>{  this.childSideThread.drawer.open();},250);
 
   }
 
