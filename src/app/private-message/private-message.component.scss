@@ -357,6 +357,22 @@
     bottom: 50px;
     left:50px;
     z-index: 3;
-    
-    
+        
+}
+
+.emojiDivComment{
+    position: absolute;
+    bottom: -150px;
+    left:200px;
+}
+
+.reactIcons{
+    padding:3px;
+    border: 1px solid #7e83f5;
+    border-radius: 100%;
+    cursor: pointer;
+}
+
+.lila{
+   background-color: #cbcdec;
 }
