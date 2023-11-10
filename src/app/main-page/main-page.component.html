@@ -11,9 +11,9 @@
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
 
-    <!-- <app-channel-window class="channel-window"></app-channel-window> -->
+    <app-channel-window class="channel-window"></app-channel-window>
 
-    <div style="padding-bottom: 30px;">
+    <div style="padding-bottom: 30px; display: none;">
 
       <div *ngIf="!channelOpen">
         <app-private-message (newItemEventUserList)="setUserList($event)"

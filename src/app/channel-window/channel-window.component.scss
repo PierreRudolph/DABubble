@@ -443,3 +443,81 @@
     margin-top: 15px;
     margin-left: 40px;
 }
+
+.edit-channel-dialog {
+    padding: 35px;
+    max-width: 872px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.mat-mdc-dialog-surface {
+    border-top-left-radius: 0px !important;
+}
+
+.dialog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    div {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 223px;
+
+        img {
+            width: 30px;
+        }
+    }
+}
+
+.channel-name-outer-div {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ADB0D9;
+
+    div:nth-of-type(2) {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+}
+
+.channel-sub-headlines {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    span:nth-of-type(2) {
+        cursor: pointer;
+        color: #535AF1;
+    }
+}
+
+.channel-description-outer-div {
+    display: flex;
+    flex-direction: column;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ADB0D9;
+}
+
+.channel-creater-name {
+    font-size: 24px;
+    color: #535AF1;
+}
+
+.btn-div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}

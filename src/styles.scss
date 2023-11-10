@@ -36,6 +36,10 @@ body {
     overflow-y: unset !important;
 }
 
+.dialog-bor-to-le-none .mat-mdc-dialog-surface {
+    border-top-left-radius: 0px !important;
+}
+
 .mat-body,
 .mat-body-2,
 .mat-typography .mat-body,
@@ -155,7 +159,7 @@ body {
     cursor: pointer;
 }
 
-.weiter {
+.butttonBlue {
     background-color: #444DF2;
     color: white;
     border: none;
