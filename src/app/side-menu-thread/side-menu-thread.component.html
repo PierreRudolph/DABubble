@@ -74,7 +74,7 @@
                                 <!-- <div>{{emojiText}}</div> -->
                                 <div style="display:flex;gap:3px">
                                     <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
-                                     class="reactIcons" [class.lila]="isUserInSmile(s.users)" (click)="removeSmile(aIndex,sIndex)">
+                                     class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)" (click)="removeSmile(aIndex,sIndex)">
                                         {{s.icon}}
                                         {{s.users.length}}
                                     </div>

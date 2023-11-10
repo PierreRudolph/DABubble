@@ -25,7 +25,7 @@ export class MainPageComponent {
   public otherChatUser: User = new User();
   public exist = false;
   public talkOpen: boolean = false;
-  public setUser: boolean = false;
+  // public setUser: boolean = false;
   public currentThreadId: string = "";
   private chathelper: ChatHepler = new ChatHepler();
   public threadList: any = [this.chathelper.createEmptyThread()];
@@ -75,7 +75,7 @@ export class MainPageComponent {
 
     setTimeout(() => {
       this.otherChatUser = user;
-      this.setUser = !this.setUser;
+      // this.setUser = !this.setUser;
       this.child.setOtherUser(user);
     }, 500);
 

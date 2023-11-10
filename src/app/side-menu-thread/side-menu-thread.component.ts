@@ -1,6 +1,7 @@
 import { Component, Input, ViewChild } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
+import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { User } from 'src/moduls/user.class';
 @Component({
@@ -22,17 +23,19 @@ export class SideMenuThreadComponent {
   public editA = false;
   public editAIndex = 0;
   private answerIndex = 0;
-  showEmojis: boolean | undefined; 
+  public smileHelper: SmileHelper = new SmileHelper();
+
+  showEmojis: boolean | undefined;
   showEmojisTA: boolean | undefined;
   emojiText: string = "";
 
   @ViewChild('drawer')
   drawer!: MatDrawer;
 
-  constructor(){
-    setTimeout(()=>{
-      console.log("this user is",this.user);
-    },500);
+  constructor() {
+    setTimeout(() => {
+      console.log("this user is", this.user);
+    }, 500);
   }
 
   closeThread() {
@@ -131,8 +134,8 @@ export class SideMenuThreadComponent {
     // this.emojiText += emoji;//löschen
     console.log("answerIndex", this.answerIndex);
     let sm = this.getAnswerData(this.answerIndex, 'smile');
-    console.log("smile", sm);
-    let smileIndex = this.smileInAnswer(emoji, sm);
+  
+    let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
       let icon = {
         "icon": emoji,
@@ -143,45 +146,16 @@ export class SideMenuThreadComponent {
       sm.push(icon);
     } else {
       let usersIcon = sm[smileIndex].users;
-      console.log("Icon exist", this.isUserInSmile(usersIcon));
-      if (!this.isUserInSmile(usersIcon)) {
+      
+      if (!this.smileHelper.isUserInSmile(usersIcon,this.user)) {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
     }
-
     this.setAnswerData(this.answerIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
     this.toggleEmojisDialog(this.answerIndex);
-    // console.log("anser", this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index]);
-
-
+   
   }
-
- 
-
-  isUserInSmile(us: any[]) {
-    let ret = false;
-    us.forEach((u) => {
-      if (u.id == this.user.idDB) {
-        ret = true;
-      }
-    });
-
-    return ret;
-  }
-
-  smileInAnswer(emoji: any, sm: any[]) {
-    let b = -1;
-    let i = -1;
-    sm.forEach((s) => {
-      i++;
-      if (s.icon == emoji) {
-        b = i;
-      }
-    });
-    return b;
-  }
-
 
   toggleEmojisDialog(aIndex: number) {
     this.showEmojis = !this.showEmojis;
@@ -190,34 +164,23 @@ export class SideMenuThreadComponent {
 
   toggleEmojisDialogTA() {
     this.showEmojisTA = !this.showEmojisTA;
-   
+
   }
 
   showEmoji(aIndex: number) {
     return (this.answerIndex === aIndex) && this.showEmojis;
   }
-  removeSmile(aIndex: number, sIndex:number) {
+  removeSmile(aIndex: number, sIndex: number) {
     let threadId = this.threadList[this.threadC.chNum].channel.idDB;
     let userSmiles = this.getAnswerData(aIndex, 'smile');
-    let newUserList=this.removeUser(userSmiles[sIndex].users)
-    userSmiles[sIndex].users = newUserList; 
-    if( userSmiles[sIndex].users.length ==0 )
-    {
+    let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users,this.user)
+    userSmiles[sIndex].users = newUserList;
+    if (userSmiles[sIndex].users.length == 0) {
       userSmiles.splice(sIndex, 1);
     }
-    this.setAnswerData(aIndex,'smile', userSmiles) ;
+    this.setAnswerData(aIndex, 'smile', userSmiles);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
-  }
-
-  removeUser(userL:any[]){
-    let uList:any[]=[]
-    userL.forEach((ul)=>{
-      if(ul.id!=this.user.idDB){
-        uList.push(ul);
-      }
-    });  
-    return uList;
-  } 
+  }  
 
   saveEmojiTextArea(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
@@ -225,13 +188,6 @@ export class SideMenuThreadComponent {
     if (this.showEmojis) {
       this.textThreadAnswer += emoji;
       this.toggleEmojisDialog(0);
-    }
-    
-    console.log(emoji);
-
-    console.log("show emoji", e);
-    console.log("show emoji", emoji);
+    }   
   }
-
-
 }

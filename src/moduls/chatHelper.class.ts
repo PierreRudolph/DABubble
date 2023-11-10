@@ -17,6 +17,13 @@ export class ChatHepler{
               "name": "",
               "iD": "",
               "edit": false,
+              "smile": [
+                {
+                  "icon":"",
+                  "users1ID":"",
+                  "users2ID":"",                                     
+                }
+              ],
               "time": "",
               "message": "",
             }]
@@ -38,7 +45,13 @@ export class ChatHepler{
               "name": "",
               "iD": "",
               "edit": false,
-              "smile":0,
+              "smile": [
+                {
+                  "icon":"",
+                  "users1ID":"",
+                  "users2ID":"",                                     
+                }
+              ],
               "time": "",
               "message": "",
             }]

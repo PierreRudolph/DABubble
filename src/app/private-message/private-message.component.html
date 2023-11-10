@@ -16,6 +16,9 @@
             <diV class="message" [class.dNone]="m.edit">
               {{m.message}}
             </diV>
+            <div>
+              Smilies
+            </div>
             <div [class.dNone]="!m.edit">
               <div style="position:relative">
                 <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
