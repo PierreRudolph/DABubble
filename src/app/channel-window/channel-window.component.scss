@@ -61,6 +61,12 @@
     z-index:3;
 }
 
+.emoji-div{
+    position: absolute;
+    left:170px;
+    bottom: 0;
+}
+
 .reactIcons{
     padding:3px;
     border: 1px solid #7e83f5;
@@ -408,6 +414,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    position: relative;
 
 
     &:focus {

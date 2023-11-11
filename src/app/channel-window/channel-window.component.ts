@@ -16,8 +16,8 @@ export class ChannelWindowComponent {
   showEmojis: boolean | undefined;
   showEmojisTread: boolean | undefined;
   private chathelper: ChatHepler = new ChatHepler();
-  private threadIndex: number;
-  private commIndex: number;
+  private threadIndex: number=0;
+  private commIndex: number = 0;
 
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
@@ -47,19 +47,20 @@ export class ChannelWindowComponent {
   }
 
   setTreadData(index: number, n: string, m: any) {
-    this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex][n] = m;
+    this.threadList[this.threadC.chNum].communikation[this.commIndex].threads[index][n] = m;
   }
   getTreadData(index: number, n: string) {
-    return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex][n];
+    return this.threadList[this.threadC.chNum].communikation[this.commIndex].threads[index][n];
   }
 
-  removeSmile(tIndex: number) {
+  removeSmileComment(cIndex:number,tIndex: number,sIndex:number) {
     let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    this.commIndex=cIndex;   
     let userSmiles = this.getTreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[tIndex].users, this.user)
-    userSmiles[tIndex].users = newUserList;
-    if (userSmiles[tIndex].users.length == 0) {
-      userSmiles.splice(tIndex, 1);
+    userSmiles[sIndex].users = newUserList;
+    if (userSmiles[sIndex].users.length == 0) {
+      userSmiles.splice(sIndex, 1);
     }
     this.setTreadData(tIndex, 'smile', userSmiles);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
@@ -167,7 +168,7 @@ export class ChannelWindowComponent {
 
   toggleEmojisThread(cIndex:number,tIndex: number) {
     this.showEmojisTread = !this.showEmojisTread;
-    console.log("set index" + tIndex +"this.threadIndex");
+    console.log("cIndex:" + cIndex +"   tIndex:" + tIndex);
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
   }
