@@ -27,8 +27,7 @@ export class ChannelWindowComponent {
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   public smileHelper: SmileHelper = new SmileHelper();
-  editChanPosLeft: string = '445px';
-
+  private editChanPosLeft: string = '445px';
 
 
   constructor(public dialog: MatDialog) {
@@ -40,17 +39,20 @@ export class ChannelWindowComponent {
   }
 
   openEditChannelDialog() {
-    if (this.menuHidden) {
-      this.editChanPosLeft = '60px';
-    } else {
-      this.editChanPosLeft = '445px';
-    }
-    console.log('menuHidden ist', this.menuHidden)
+    this.setEditChanPos();
     this.toggleEditChanBol();
     this.dialog.open(EditChannelComponent, { panelClass: 'dialog-bor-to-le-none', position: { left: this.editChanPosLeft, top: '190px' } })
       .afterClosed().subscribe(() => {
         this.toggleEditChanBol();
       });
+  }
+
+  setEditChanPos() {
+    if (this.menuHidden) {
+      this.editChanPosLeft = '60px';
+    } else {
+      this.editChanPosLeft = '445px';
+    }
   }
 
   toggleEditChanBol() {
