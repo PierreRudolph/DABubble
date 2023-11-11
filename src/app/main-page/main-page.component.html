@@ -16,13 +16,14 @@
       [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
       [menuHidden]="this.menuHidden"></app-channel-window>
 
-
-    <div style="padding-bottom: 30px;display: none;">
-
       <div *ngIf="!channelOpen">
         <app-private-message (newItemEventUserList)="setUserList($event)"
           (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
       </div>
+      
+    <div style="padding-bottom: 30px;display: none;">
+
+      
 
       <div style="border: 2px solid black;" *ngIf="channelOpen">Channel open is
         {{this.threadList[number].channel.name}}
