@@ -58,6 +58,7 @@ export class MainPageComponent {
 
   setMenuHidden(h: boolean) {
     this.menuHidden = h;
+    console.log("value is", h);
   }
 
   openThisThread(n: number, i: number, j: number) {
@@ -65,6 +66,10 @@ export class MainPageComponent {
     this.threadC.setValue(n, i, j);
     this.openChat = true;
 
+  }
+
+  giveValue(v: number) {
+    console.log(v);
   }
 
   setOpenValue(e: boolean) {
