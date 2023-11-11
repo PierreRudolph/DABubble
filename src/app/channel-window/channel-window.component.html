@@ -72,9 +72,11 @@
         <div class="add-reaction">
             <img src="assets/icons/add-reaction.svg">
         </div>
-       <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;">
-        <img src="assets/img/ch5.svg">
-        <div class="message-inner-div" *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
+       <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;flex-direction: column;width:100%">
+        
+        <div class="message-inner-div" [class.messageInnerDivRight]="fromLoggedInUser(thread)" *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
+            <img src="{{getIconPathQuestionUser(thread.iD)}}">
+          <div style="display: flex; flex-direction: column;">
             <div class="mes-name-clock">
                 <span class="mes-name">{{thread.name}}</span>
                 <span>{{thread.time}} Uhr</span>
@@ -121,6 +123,7 @@
                 </div>
 
             </div>
+          </div>
 
         </div>
        </div>
