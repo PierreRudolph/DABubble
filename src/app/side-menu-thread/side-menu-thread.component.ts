@@ -42,8 +42,8 @@ export class SideMenuThreadComponent {
   closeThread() {
     this.drawer.close();
     console.log(this.drawer);
-    
-    setTimeout(() => { 
+
+    setTimeout(() => {
       //  this.newSetOpen.emit(false);
       //  this.drawer.open() 
     }, 300);
@@ -191,9 +191,8 @@ export class SideMenuThreadComponent {
   saveEmojiTextArea(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    if (this.showEmojis) {
-      this.textThreadAnswer += emoji;
-      this.toggleEmojisDialog(0);
-    }
+
+    this.textThreadAnswer += emoji;
+    this.showEmojisTA = false;
   }
 }
