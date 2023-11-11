@@ -119,14 +119,12 @@ export class SideMenuComponent {
   openChannel(n: number) {
     this.newItemEvent.emit(false);
     this.newItemEventChanel.emit(n);
-
   }
 
 
   toggleDrawer() {
     this.menuHidden = !this.menuHidden;
     this.newItemEventMenuHidden.emit(this.menuHidden);
-    console.log('side menuHidden ist', this.menuHidden);
   }
 }
 
