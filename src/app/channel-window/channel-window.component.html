@@ -43,7 +43,8 @@
 
 <div class="channel-header">
 
-    <div class="channel-header-left" mat-button >
+    <div class="channel-header-left" [class.hold-hover-style-after-click]="editDialogOpen" mat-button
+        (click)="openDialog()">
         <img class="tag-icon" src="assets/icons/tag.svg">
         <span>{{this.threadList[number].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
@@ -54,7 +55,7 @@
             <!-- <img src="assets/img/ch1.svg">
             <img src="assets/img/ch2.svg">
             <img src="assets/img/ch3.svg"> -->
-            <div *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)" >
+            <div *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)">
                 <img style="width:40px;height:40px" src="{{getIconPathQuestionUser(m.memberID)}}">
             </div>
             <span>{{this.threadList[number].channel.members.length}}</span>
@@ -72,17 +73,18 @@
         <div class="add-reaction">
             <img src="assets/icons/add-reaction.svg">
         </div>
-       <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;">
-        <img src="assets/img/ch5.svg">
-        <div class="message-inner-div" *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
-            <div class="mes-name-clock">
-                <span class="mes-name">{{thread.name}}</span>
-                <span>{{thread.time}} Uhr</span>
-            </div>
-            <diV class="message">
-                {{thread.message}}
-            </diV>
-            <diV class="reactions">
+        <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;">
+            <img src="assets/img/ch5.svg">
+            <div class="message-inner-div"
+                *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
+                <div class="mes-name-clock">
+                    <span class="mes-name">{{thread.name}}</span>
+                    <span>{{thread.time}} Uhr</span>
+                </div>
+                <diV class="message">
+                    {{thread.message}}
+                </diV>
+                <diV class="reactions">
 
                 <!-- <div class="reaction-emoji-counter">
 
@@ -96,36 +98,26 @@
                     </div>
                     <img src="assets/icons/emoji-nerd.svg">
                     <span>1</span>
-                </div>-->
-                <div style="display:flex;gap:3px">
-                    <div *ngFor="let t of getTreadData(j, 'smile'); index as tIndex"
-                     class="reactIcons" [class.lila]="smileHelper.isUserInSmile(t.users,user)" (click)="removeSmile(tIndex)">
-                        {{t.icon}}
-                        {{t.users.length}}
-                    </div>
                 </div>
-                <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg"> 
-                <emoji-mart class="emojiDiv" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
-                (emojiClick)="saveEmojiComment($event)" (darkMode)="false"></emoji-mart>
+                <img class="add-reaction-icon" src="assets/icons/add-reaction.svg">
             </diV>
 
-            <div class="answers-info">
-                <div class="answers-counter" (click)="openThisThread(number,i,j)">
-                    <span> {{thread.answer.length}}</span>
-                    <span>Antworten</span>
-                </div>
+                <div class="answers-info">
+                    <div class="answers-counter" (click)="openThisThread(number,i,j)">
+                        <span> {{thread.answer.length}}</span>
+                        <span>Antworten</span>
+                    </div>
 
-                <div class="last-answer">
-                    <span>Letzte Antwort</span>
-                    <span>{{getTimeLastAnswer(thread)}}</span>
-                </div>
+                    <div class="last-answer">
+                        <span>Letzte Antwort</span>
+                        <span>{{getTimeLastAnswer(thread)}}</span>
+                    </div>
 
-            </div>
+                </div>
 
         </div>
        </div>
-    </div> 
-    <!-- Eine Frage Ende -->
+    </div>
     <!-- <div class="dateIcon">
         <div class="sendDate">5.11.2522</div>
         <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>

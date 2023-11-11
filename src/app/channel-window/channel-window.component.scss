@@ -72,6 +72,24 @@
 }
 
 
+.hold-hover-style-after-click {
+    background-color: #ECEEFE;
+
+    span {
+        font-size: 24px;
+        font-weight: 700;
+        color: #7e83f5;
+    }
+
+    .tag-icon {
+        content: url('/assets/icons/tag-hover.svg');
+    }
+
+    .arrow-down {
+        content: url('/assets/img/arrow-down-hover.svg');
+    }
+}
+
 .tag-icon {
     width: 32px;
 }
