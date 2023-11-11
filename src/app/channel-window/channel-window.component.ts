@@ -4,6 +4,7 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { User } from 'src/moduls/user.class';
 import { EditChannelComponent } from '../edit-channel/edit-channel.component';
+import { SmileHelper } from 'src/moduls/smileHelper.class';
 
 @Component({
   selector: 'app-channel-window',
@@ -12,14 +13,20 @@ import { EditChannelComponent } from '../edit-channel/edit-channel.component';
 })
 export class ChannelWindowComponent {
   public textThread = "";
-  @Input() number: number = 0;
   showEmojis: boolean | undefined;
+  showEmojisTread: boolean | undefined;
   private chathelper: ChatHepler = new ChatHepler();
+  private threadIndex: number;
+  private commIndex: number;
+
+  @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
   @Input() userList: User[];
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
+  public smileHelper: SmileHelper = new SmileHelper();
+
   constructor(public dialog: MatDialog) {
     console.log("threadlist channel", this.threadList);
     setTimeout(() => {
@@ -39,6 +46,56 @@ export class ChannelWindowComponent {
     this.toggleEmojisDialog();
   }
 
+  setTreadData(index: number, n: string, m: any) {
+    this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex][n] = m;
+  }
+  getTreadData(index: number, n: string) {
+    return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex][n];
+  }
+
+  removeSmile(tIndex: number) {
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    let userSmiles = this.getTreadData(tIndex, 'smile');
+    let newUserList = this.smileHelper.removeUser(userSmiles[tIndex].users, this.user)
+    userSmiles[tIndex].users = newUserList;
+    if (userSmiles[tIndex].users.length == 0) {
+      userSmiles.splice(tIndex, 1);
+    }
+    this.setTreadData(tIndex, 'smile', userSmiles);
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+  }
+
+
+  saveEmojiComment(e: { emoji: { unified: string; }; }) {
+    let unicodeCode: string = e.emoji.unified;
+    let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    // this.emojiText += emoji;//löschen 
+    let sm = this.getTreadData(this.threadIndex, 'smile');
+
+    let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
+    if (smileIndex == -1) {
+      let icon = {
+        "icon": emoji,
+        "users": [
+          { "id": this.user.idDB }
+        ]
+      };
+      sm.push(icon);
+    } else {
+      let usersIcon = sm[smileIndex].users;
+
+      if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
+        sm[smileIndex].users.push({ "id": this.user.idDB });
+      }
+    }
+
+    this.setTreadData(this.threadIndex, 'smile', sm);
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+    this.showEmojisTread = !this.showEmojisTread;
+  }
+
+
   toggleEmojisDialog() {
     this.showEmojis = !this.showEmojis;
   }
@@ -57,8 +114,8 @@ export class ChannelWindowComponent {
 
   }
 
-  getIconPathQuestionUser(id:string) {
-  
+  getIconPathQuestionUser(id: string) {
+
     let path = "";
     this.userList.forEach((u) => {
       if (u.idDB == id) {
@@ -73,7 +130,7 @@ export class ChannelWindowComponent {
     let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
-    let threadId=this.threadList[indexCannel].channel.idDB; 
+    let threadId = this.threadList[indexCannel].channel.idDB;
 
     let thread = {
       "name": this.user.name,
@@ -105,6 +162,19 @@ export class ChannelWindowComponent {
       this.chathelper.updateDB(threadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
     }
     this.textThread = "";
+  }
+
+
+  toggleEmojisThread(cIndex:number,tIndex: number) {
+    this.showEmojisTread = !this.showEmojisTread;
+    console.log("set index" + tIndex +"this.threadIndex");
+    this.threadIndex = tIndex;
+    this.commIndex = cIndex;
+  }
+
+  isThreadEmojiShown(cIndex:number,tIndex: number) {
+    // console.log("tIndex", tIndex + " threadIndex "+this.threadIndex);
+    return ((this.showEmojisTread) && (this.threadIndex == tIndex)&& (this.commIndex == cIndex));
   }
 
 }
