@@ -11,7 +11,7 @@ import { Firestore, addDoc, collection, onSnapshot } from '@angular/fire/firesto
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
-  menuHidden: any | false;
+  public menuHidden: boolean;
   chPanelOpen: boolean | undefined;
   mesPanelOpen: boolean | undefined;
   public firestore: Firestore = inject(Firestore);
@@ -19,6 +19,7 @@ export class SideMenuComponent {
   @Input() user: User = new User();
   @Input() userList = [this.user];
   public threadList = [{ "channel": { "name": "channelname" } }]// [this.chathelper.createEmptyThread()];
+  @Output() newItemEventMenuHidden = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEventChanel = new EventEmitter<any>();
   @Output() newItemEvent = new EventEmitter<boolean>();
@@ -115,11 +116,14 @@ export class SideMenuComponent {
     });
   }
 
-
-
   openChannel(n: number) {
     this.newItemEvent.emit(false);
     this.newItemEventChanel.emit(n);
   }
 
+
+  toggleDrawer() {
+    this.menuHidden = !this.menuHidden;
+    this.newItemEventMenuHidden.emit(true);
+  }
 }

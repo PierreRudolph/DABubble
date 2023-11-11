@@ -35,6 +35,7 @@ export class MainPageComponent {
   public textThreadAnswer = "";
   public textThreadAnswerEdit = "";
   public load = false;
+  public menuHidden: boolean = true;
   //-----------------
   public number: number = 0;
   private iEdit = 0; //indizierung für Bearbeitung der Threads
@@ -53,6 +54,10 @@ export class MainPageComponent {
 
   constructor(public authService: AuthService, public router: Router) {
 
+  }
+
+  setMenuHidden(h: boolean) {
+    this.menuHidden = h;
   }
 
   openThisThread(n: number, i: number, j: number) {
@@ -273,7 +278,7 @@ export class MainPageComponent {
   setThreadC(c: ThreadConnector) {
     this.threadC = c;
     this.openChat = true;
-  setTimeout(()=>{  this.childSideThread.drawer.open();},250);
+    setTimeout(() => { this.childSideThread.drawer.open(); }, 250);
 
   }
 

@@ -10,9 +10,10 @@
       </div>
       <div class="nunitoBlack">{{otherChatUser.name}}</div>
     </div>
-   
-    <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number" [user]="user"
-    [userList]="userList"  (newItemEventChannel)="setThreadC($event)"></app-channel-window>
+
+    <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
+      [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
+      (newItemEventMenuHidden)="setMenuHidden($event)"></app-channel-window>
 
     <div style="padding-bottom: 30px;display: none;">
 
@@ -76,6 +77,6 @@
 
   </div>
   <app-side-menu-thread *ngIf="openChat" class="side-menu" [threadList]="threadList" [user]="user" [threadC]="threadC"
-    [userList]="userList"  (newSetOpen)="setOpenValue($event)"></app-side-menu-thread>
+    [userList]="userList" (newSetOpen)="setOpenValue($event)"></app-side-menu-thread>
   <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
 </div>

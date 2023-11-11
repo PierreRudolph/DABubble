@@ -87,6 +87,6 @@
     <img class="close-sidenav" *ngIf="!menuHidden" src="assets/icons/close-sidenav.svg">
     <span *ngIf="!menuHidden">Workspace-Menü schließen</span>
     <span *ngIf="menuHidden">Workspace-Menü öffnen</span>
-    <button type="button" mat-button (click)="drawer.toggle();menuHidden=!menuHidden">
+    <button type="button" mat-button (click)="toggleDrawer();drawer.toggle()">
     </button>
 </div>

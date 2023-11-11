@@ -22,6 +22,7 @@ export class ChannelWindowComponent {
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
   @Input() userList: User[];
+  //@Input() menuHidden: boolean;
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
 
 
@@ -29,6 +30,8 @@ export class ChannelWindowComponent {
     console.log("threadlist channel", this.threadList);
     setTimeout(() => {
       console.log("threadlist channel", this.threadList);
+
+
     }, 500);
   }
 
