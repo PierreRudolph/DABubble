@@ -1,4 +1,4 @@
-import { Component, inject, OnChanges, ViewChild } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
@@ -35,7 +35,7 @@ export class MainPageComponent {
   public textThreadAnswer = "";
   public textThreadAnswerEdit = "";
   public load = false;
-  public menuHidden: boolean = true;
+  public menuHidden: boolean;
   //-----------------
   public number: number = 0;
   private iEdit = 0; //indizierung für Bearbeitung der Threads

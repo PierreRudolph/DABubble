@@ -119,7 +119,7 @@ export class SideMenuComponent {
   openChannel(n: number) {
     this.newItemEvent.emit(false);
     this.newItemEventChanel.emit(n);
-  
+
   }
 
 

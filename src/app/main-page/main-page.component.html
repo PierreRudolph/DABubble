@@ -14,7 +14,7 @@
 
     <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
       [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
-      (menuHidden)="menuHidden"></app-channel-window>
+      (menuHidden)="this.menuHidden"></app-channel-window>
 
 
     <div style="padding-bottom: 30px;display: none;">
