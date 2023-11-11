@@ -181,8 +181,7 @@
 
 .reaction-emoji-counter {
     cursor: pointer;
-    position: relative;
-    border: 1px solid #b7bade;
+    position: relative;    
     border-radius: 20px;
     padding: 5px 10px;
     display: flex;
@@ -415,9 +414,10 @@
 }
 
 .reactIcons{
-    padding:3px;
+    padding: 3px 10px 3px 10px;
     border: 1px solid #7e83f5;
-    border-radius: 100%;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
 .lila{

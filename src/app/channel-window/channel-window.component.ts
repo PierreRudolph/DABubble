@@ -68,14 +68,14 @@ export class ChannelWindowComponent {
   }
 
   setTreadData(index: number, n: string, m: any) {
-    this.threadList[this.threadC.chNum].communikation[this.commIndex].threads[index][n] = m;
+    this.threadList[this.number].communikation[this.commIndex].threads[index][n] = m;
   }
   getTreadData(index: number, n: string) {
-    return this.threadList[this.threadC.chNum].communikation[this.commIndex].threads[index][n];
+    return this.threadList[this.number].communikation[this.commIndex].threads[index][n];
   }
 
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    let threadId = this.threadList[this.number].channel.idDB;
     this.commIndex = cIndex;
     let userSmiles = this.getTreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[tIndex].users, this.user)
@@ -84,14 +84,14 @@ export class ChannelWindowComponent {
       userSmiles.splice(sIndex, 1);
     }
     this.setTreadData(tIndex, 'smile', userSmiles);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
 
 
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    let threadId = this.threadList[this.number].channel.idDB;
     // this.emojiText += emoji;//löschen 
     let sm = this.getTreadData(this.threadIndex, 'smile');
 
@@ -113,7 +113,7 @@ export class ChannelWindowComponent {
     }
 
     this.setTreadData(this.threadIndex, 'smile', sm);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
     this.showEmojisTread = !this.showEmojisTread;
   }
 
@@ -134,6 +134,12 @@ export class ChannelWindowComponent {
     // this.openChat = true;
     this.newItemEventChannel.emit(this.threadC);
 
+  }
+
+  fromLoggedInUser(thread: any) {
+    let uId = this.user.idDB;
+    let aId = thread.iD;
+    return (uId == aId);
   }
 
   getIconPathQuestionUser(id: string) {

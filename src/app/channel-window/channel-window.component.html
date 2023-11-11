@@ -1,7 +1,49 @@
+<ng-template #matDialog>
+    <div class="edit-channel-dialog">
+        <div class="dialog-header">
+            <div>
+                <img src="assets/icons/tag.svg">
+                <span class="fs24 wei700">{{this.threadList[number].channel.name}}</span>
+            </div>
+            <img mat-dialog-close style="cursor: pointer;" src="assets/img/close.svg">
+        </div>
+
+        <div class="channel-name-outer-div">
+            <div class="channel-sub-headlines">
+                <span class="fs18 wei700">Channel-Name</span>
+                <span class="fs18 wei600">Bearbeiten</span>
+            </div>
+            <div>
+                <img src="assets/icons/tag.svg">
+                <span class="fs18">{{this.threadList[number].channel.name}}</span>
+            </div>
+        </div>
+
+        <div class="channel-description-outer-div">
+
+            <div class="channel-sub-headlines">
+                <span class="fs18 wei700">Beschreibung</span>
+                <span class="fs18 wei600">Bearbeiten</span>
+            </div>
+
+            <span class="fs18">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos iusto numquam, exercitationem
+                asperiores et rem vitae non consequuntur soluta saepe natus tenetur esse enim. Amet laudantium saepe in
+                voluptas voluptatibus.
+            </span>
+            <div class="border-div"></div>
+            <span class="fs18 wei700">Erstellt von</span>
+            <span class="channel-creater-name">Noah Braun</span>
+        </div>
+        <div class="btn-div">
+            <button class="btn">Channel verlassen</button>
+        </div>
+    </div>
+</ng-template>
+
 <div class="channel-header">
 
-    <div class="channel-header-left" [class.holdHoverStyleAfterClick]="editChannelOpen"
-        (click)="openEditChannelDialog()" mat-button>
+    <div class="channel-header-left" mat-button >
         <img class="tag-icon" src="assets/icons/tag.svg">
         <span>{{this.threadList[number].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
@@ -12,7 +54,7 @@
             <!-- <img src="assets/img/ch1.svg">
             <img src="assets/img/ch2.svg">
             <img src="assets/img/ch3.svg"> -->
-            <div *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)">
+            <div *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)" >
                 <img style="width:40px;height:40px" src="{{getIconPathQuestionUser(m.memberID)}}">
             </div>
             <span>{{this.threadList[number].channel.members.length}}</span>
@@ -30,20 +72,21 @@
         <div class="add-reaction">
             <img src="assets/icons/add-reaction.svg">
         </div>
-        <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;">
-            <img src="assets/img/ch5.svg">
-            <div class="message-inner-div"
-                *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
-                <div class="mes-name-clock">
-                    <span class="mes-name">{{thread.name}}</span>
-                    <span>{{thread.time}} Uhr</span>
-                </div>
-                <diV class="message">
-                    {{thread.message}}
-                </diV>
-                <diV class="reactions">
+       <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;flex-direction: column;width:100%">
+        
+        <div class="message-inner-div" [class.messageInnerDivRight]="fromLoggedInUser(thread)" *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
+            <img src="{{getIconPathQuestionUser(thread.iD)}}">
+          <div style="display: flex; flex-direction: column;">
+            <div class="mes-name-clock">
+                <span class="mes-name">{{thread.name}}</span>
+                <span>{{thread.time}} Uhr</span>
+            </div>
+            <diV class="message">
+                {{thread.message}}
+            </diV>
+            <diV class="reactions">
 
-                    <!-- <div class="reaction-emoji-counter">
+                <!-- <div class="reaction-emoji-counter">
 
                     <div class="reactions-tooltip">
                         <img src="assets/icons/emoji-nerd.svg">
@@ -56,36 +99,35 @@
                     <img src="assets/icons/emoji-nerd.svg">
                     <span>1</span>
                 </div>-->
-                    <div style="display:flex;gap:3px">
-                        <div *ngFor="let t of thread.smile; index as sIndex" class="reactIcons"
-                            [class.lila]="smileHelper.isUserInSmile(t.users,user)"
-                            (click)="removeSmileComment(i,j,sIndex)">
-                            {{t.icon}}
-                            {{t.users.length}}
-                        </div>
+                <div style="display:flex;gap:3px">
+                    <div *ngFor="let t of thread.smile; index as sIndex"
+                     class="reactIcons" [class.lila]="smileHelper.isUserInSmile(t.users,user)" (click)="removeSmileComment(i,j,sIndex)">
+                        {{t.icon}}
+                        {{t.users.length}}
                     </div>
-                    <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
-                        src="assets/icons/add-reaction.svg">
-                    <emoji-mart class="emojiDiv" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
-                        (emojiClick)="saveEmojiComment($event)" (darkMode)="false"></emoji-mart>
-                </diV>
+                </div>
+                <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg"> 
+                <emoji-mart class="emojiDiv" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
+                (emojiClick)="saveEmojiComment($event)" (darkMode)="false"></emoji-mart>
+            </diV>
 
-                <div class="answers-info">
-                    <div class="answers-counter" (click)="openThisThread(number,i,j)">
-                        <span> {{thread.answer.length}}</span>
-                        <span>Antworten</span>
-                    </div>
+            <div class="answers-info">
+                <div class="answers-counter" (click)="openThisThread(number,i,j)">
+                    <span> {{thread.answer.length}}</span>
+                    <span>Antworten</span>
+                </div>
 
-                    <div class="last-answer">
-                        <span>Letzte Antwort</span>
-                        <span>{{getTimeLastAnswer(thread)}}</span>
-                    </div>
-
+                <div class="last-answer">
+                    <span>Letzte Antwort</span>
+                    <span>{{getTimeLastAnswer(thread)}}</span>
                 </div>
 
             </div>
+          </div>
+
         </div>
-    </div>
+       </div>
+    </div> 
     <!-- Eine Frage Ende -->
     <!-- <div class="dateIcon">
         <div class="sendDate">5.11.2522</div>
@@ -115,9 +157,9 @@
         <img class="iconsTextArea" src="assets/img/add.svg">
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
         <img class="iconsTextArea" (click)="toggleEmojisDialog()" src="assets/img/smile.svg">
-        <img class="iconsTextArea" src="assets/img/alternate_email.svg">
+        <img class="iconsTextArea" src="assets/img/alternate_email.svg">      
         <!-- (emojiSelect)="addEmoji($event)" -->
     </div>
     <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
-        (darkMode)="false"></emoji-mart>
+    (darkMode)="false"></emoji-mart>
 </div>
