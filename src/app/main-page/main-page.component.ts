@@ -58,7 +58,7 @@ export class MainPageComponent {
 
   setMenuHidden(h: boolean) {
     this.menuHidden = h;
-    console.log("value is", h);
+    console.log("menuHidden is", h);
   }
 
   openThisThread(n: number, i: number, j: number) {

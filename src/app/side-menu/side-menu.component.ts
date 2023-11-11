@@ -126,6 +126,7 @@ export class SideMenuComponent {
   toggleDrawer() {
     this.menuHidden = !this.menuHidden;
     this.newItemEventMenuHidden.emit(this.menuHidden);
+    console.log('side menuHidden ist', this.menuHidden);
   }
 }
 
