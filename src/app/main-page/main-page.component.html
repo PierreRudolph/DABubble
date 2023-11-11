@@ -1,6 +1,6 @@
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
-    (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)" [user]="user"
+    (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)" (newItemEventMenuHidden)="setMenuHidden($event)" [user]="user"
     [userList]="userList" class="side-menu"></app-side-menu>
   <div class="main-content-div">
     <div *ngIf="talkOpen" class="direktMesHeader">
@@ -12,8 +12,8 @@
     </div>
 
     <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
-      [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
-      (newItemEventMenuHidden)="setMenuHidden($event)"></app-channel-window>
+      [user]="user" [userList]="userList"  (newItemEventChannel)="setThreadC($event)" (menuHidden)="menuHidden"></app-channel-window>
+     
 
     <div style="padding-bottom: 30px;display: none;">
 

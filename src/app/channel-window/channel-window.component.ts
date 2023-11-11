@@ -23,6 +23,7 @@ export class ChannelWindowComponent {
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
   @Input() userList: User[];
+  @Input() menuHidden: boolean = false;
   //@Input() menuHidden: boolean;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
