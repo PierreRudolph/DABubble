@@ -11,7 +11,7 @@ import { Firestore, addDoc, collection, onSnapshot } from '@angular/fire/firesto
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
-  public menuHidden: boolean;
+  public menuHidden: boolean | true;
   chPanelOpen: boolean | undefined;
   mesPanelOpen: boolean | undefined;
   public firestore: Firestore = inject(Firestore);
@@ -119,12 +119,14 @@ export class SideMenuComponent {
   openChannel(n: number) {
     this.newItemEvent.emit(false);
     this.newItemEventChanel.emit(n);
-  
+
   }
 
 
   toggleDrawer() {
     this.menuHidden = !this.menuHidden;
-    this.newItemEventMenuHidden.emit(true);
+    this.newItemEventMenuHidden.emit(this.menuHidden);
+    console.log('side menuHidden ist', this.menuHidden);
   }
 }
+

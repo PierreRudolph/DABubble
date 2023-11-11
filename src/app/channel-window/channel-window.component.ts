@@ -18,28 +18,43 @@ export class ChannelWindowComponent {
   private chathelper: ChatHepler = new ChatHepler();
   private threadIndex: number = 0;
   private commIndex: number = 0;
-
+  editChannelOpen: boolean | false;
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
   @Input() userList: User[];
-  @Input() menuHidden: boolean = false;
-  //@Input() menuHidden: boolean;
+  @Input() menuHidden: boolean;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   public smileHelper: SmileHelper = new SmileHelper();
+  editChanPosLeft: string = '445px';
+
+
 
   constructor(public dialog: MatDialog) {
     console.log("threadlist channel", this.threadList);
     setTimeout(() => {
       console.log("threadlist channel", this.threadList);
 
-
     }, 500);
   }
 
-  openDialog(matDialogRef: TemplateRef<any>) {
-    this.dialog.open(matDialogRef, { panelClass: 'dialog-bor-to-le-none' });
+  openEditChannelDialog() {
+    if (this.menuHidden) {
+      this.editChanPosLeft = '60px';
+    } else {
+      this.editChanPosLeft = '445px';
+    }
+    console.log('menuHidden ist', this.menuHidden)
+    this.toggleEditChanBol();
+    this.dialog.open(EditChannelComponent, { panelClass: 'dialog-bor-to-le-none', position: { left: this.editChanPosLeft, top: '190px' } })
+      .afterClosed().subscribe(() => {
+        this.toggleEditChanBol();
+      });
+  }
+
+  toggleEditChanBol() {
+    this.editChannelOpen = !this.editChannelOpen;
   }
 
   saveEmoji(e: { emoji: { unified: string; }; }) {
