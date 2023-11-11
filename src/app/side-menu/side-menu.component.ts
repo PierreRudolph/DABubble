@@ -11,7 +11,7 @@ import { Firestore, addDoc, collection, onSnapshot } from '@angular/fire/firesto
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
-  menuHidden: boolean | false | undefined;
+  menuHidden: any | false;
   chPanelOpen: boolean | undefined;
   mesPanelOpen: boolean | undefined;
   public firestore: Firestore = inject(Firestore);
@@ -69,7 +69,7 @@ export class SideMenuComponent {
             this.chathelper.updateDB(channelId, 'thread', { "channel": c });
           }
         });
-   
+
   }
 
   subChannelList() {
@@ -110,7 +110,7 @@ export class SideMenuComponent {
       console.log("muss noch erstellt werden");
       console.log("result", result);
       this.madeChannel = result;
-      if (result!="") { this.addChannel(); }
+      if (result != "") { this.addChannel(); }
 
     });
   }

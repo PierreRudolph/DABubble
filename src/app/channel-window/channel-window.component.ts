@@ -1,4 +1,4 @@
-import { Component, TemplateRef } from '@angular/core';
+import { Component, } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { EditChannelComponent } from '../edit-channel/edit-channel.component';
 
@@ -11,11 +11,17 @@ export class ChannelWindowComponent {
   public textThread = "";
   public number: number = 0;
   showEmojis: boolean | undefined;
+  editDialogOpen: boolean | undefined;
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog) {
 
+  }
   openDialog() {
-    this.dialog.open(EditChannelComponent, { panelClass: 'dialog-bor-to-le-none' });
+    this.dialog.open(EditChannelComponent, { panelClass: 'dialog-bor-to-le-none', position: { left: '445px', top: '190px' } })
+      .afterClosed().subscribe(() => {
+        this.editDialogOpen = !this.editDialogOpen;
+      });
+    this.editDialogOpen = !this.editDialogOpen;
   }
 
   sendQuestion(n: number) {
