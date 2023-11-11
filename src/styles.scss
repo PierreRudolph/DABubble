@@ -36,8 +36,12 @@ body {
     overflow-y: unset !important;
 }
 
-.dialog-bor-to-le-none .mat-mdc-dialog-surface {
+.dialogBorToLeNone .mat-mdc-dialog-surface {
     border-top-left-radius: 0px !important;
+}
+
+.dialogBorToReNone .mat-mdc-dialog-surface {
+    border-top-right-radius: 0px !important;
 }
 
 .mat-body,

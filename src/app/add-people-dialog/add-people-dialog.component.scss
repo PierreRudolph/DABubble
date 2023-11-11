@@ -1,8 +1,6 @@
 .dialog-div {
-    width: 710px;
+    width: 515px;
     padding: 40px;
-    border-radius: 30px !important;
-    border: 1px solid black;
 }
 
 .dialog-header {
@@ -20,71 +18,15 @@
     }
 }
 
-.checkbox-div {
+.channelName {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    height: 60px;
-
-    label {
-        display: flex;
-        align-items: center;
-    }
+    align-items: center;
+    font-size: 18px;
+    color: #797EF3;
+    gap: 10px;
 }
 
-.container {
-    cursor: pointer;
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-
-    input {
-        position: absolute;
-        opacity: 0;
-        cursor: pointer;
-        height: 0;
-        width: 0;
-    }
-}
-
-.checkmark {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    border: 1px solid lightgrey;
-    border-radius: 50%;
-}
-
-.container:hover input~.checkmark {
-    border-color: grey;
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.container input:checked~.checkmark:after {
-    display: block;
-}
-
-.container .checkmark:after {
-    top: 4px;
-    left: 4px;
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    background-color: #444DF2;
-}
-
-.input-text {
+.inputText {
     display: flex;
     width: 100%;
     margin-top: 25px;
@@ -102,8 +44,88 @@
     }
 }
 
-.create-btn-div {
+.addBtnDiv {
     display: flex;
     justify-content: flex-end;
     margin-top: 16px;
+}
+
+.addedMember {
+    display: flex;
+    gap: 5px;
+    padding: 5px;
+    border: 1px solid #cbcdec;
+    border-radius: 10px;
+}
+
+.dot {
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    background-color: gray;
+    position: absolute;
+    right: -4px;
+    bottom: 8px;
+    border: 1px solid white;
+}
+
+.green {
+    background-color: #92C83E;
+}
+
+.row {
+
+    display: flex;
+    gap: 30px;
+    align-items: center;
+
+    &:hover {
+        background-color: #cbcdec;
+        border-radius: 30px;
+        cursor: pointer;
+    }
+
+}
+
+.popUp {
+    position: absolute;
+    border: 1px solid lightgray;
+    border-radius: 30px;
+    border-top-left-radius: 0;
+    padding: 30px;
+    background-color: white;
+}
+
+.input-field {
+    border: 1px solid #ADB0D9;
+    width: 100%;
+    padding: 18px 20px;
+    box-sizing: border-box;
+    border-radius: 40px;
+
+    &:hover {
+        border-color: #797EF3;
+    }
+
+    &:focus-visible {
+        outline: 1px solid #535AF1;
+    }
+}
+
+.third-headline-div {
+    display: flex;
+    align-items: center;
+
+    h2 {
+        margin-top: 16px;
+        margin-right: 7px;
+    }
+
+    span {
+        color: #686868;
+    }
+}
+
+.add-people {
+    display: none;
 }

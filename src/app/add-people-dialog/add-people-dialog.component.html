@@ -3,29 +3,34 @@
         <span class="nunito fs24 wei700">Leute hinzufügen</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
-
-    <div class="checkbox-div">
-
-        <label class="container">
-            <input name="add-people" type="radio" (change)="setValue()" checked>
-            <span class="checkmark"></span>
-            <span class="fs18 nunito">Alle Mitglieder von <span style="color: #7e83f5;">Code learning</span>
-                hinzufügen</span>
-        </label>
-
-        <label class="container">
-            <input name="add-people" type="radio" (change)="setValue()">
-            <span class="checkmark"></span>
-            <span class="fs18 nunito">Bestimmte Leute hinzfügen</span>
-        </label>
-
+    <div class="channelName">
+        <img src="assets/icons/tag-hover.svg">
+        <span>{{channel.name}}</span>
     </div>
-    <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
-        *ngIf="isChecked" class="input-text" type="text" placeholder="Name eingeben">
 
-    <div class="row" *ngFor="let e of filteredMembers"></div>
+    <div style="position: relative;">
+        <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
+            class="inputText" type="text" placeholder="Name eingeben">
+        <div style="display: flex; gap:10px">
+            <div class="addedMember" *ngFor="let cu of currentlyAddedUser">
+                <img style="width:20px;height:20px" src="{{cu.iconPath}}">
+                <div class="nunitoBlack fs14 wei400">{{cu.name}}</div>
+                <img style="width:20px;height:20px;cursor: pointer;" (click)="deleteUser(cu)"
+                    src="assets/img/close.svg">
+            </div>
+        </div>
+        <div *ngIf="isPopUpOpen()" class="popUp">
+            <div class="row" (click)="addMember(e)" *ngFor="let e of filteredMembers">
+                <div class="portraitChannel">
+                    <img style="width: 40px;" src="{{e.iconPath}}">
+                    <div class="dot" [class.green]="e.status=='aktiv'"></div>
+                </div>
+                <div class="nunitoBlack fs18 wei400">{{e.name}}</div>
+            </div>
+        </div>
+    </div>
 
-    <div class="create-btn-div">
-        <button mat-dialog-close class="btn">Erstellen</button>
+    <div class="addBtnDiv">
+        <button mat-dialog-close class="btn" (click)="make()" disabled>Hinzufügen</button>
     </div>
 </div>

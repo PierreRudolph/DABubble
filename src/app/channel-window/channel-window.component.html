@@ -1,6 +1,6 @@
 <div class="channel-header">
 
-    <div class="channel-header-left" [class.holdHoverStyleAfterClick]="editChannelOpen" mat-button
+    <div class="channel-header-left" [class.hoverStyleHeaderLeft]="editChannelOpen" mat-button
         (click)="openEditChannelDialog()">
         <img class="tag-icon" src="assets/icons/tag.svg">
         <span>{{this.threadList[number].channel.name}}</span>
@@ -17,7 +17,8 @@
             </div>
             <span>{{this.threadList[number].channel.members.length}}</span>
         </div>
-        <img class="add-people" src="assets/icons/add-people.svg">
+        <img class="add-people" (click)="openAddPeopleDialog()" [class.hoverStyleAddPeople]="addPeopleOpen"
+            src="assets/icons/add-people.svg">
     </div>
 </div>
 

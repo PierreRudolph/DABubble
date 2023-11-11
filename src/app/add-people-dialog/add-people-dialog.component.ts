@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Channel } from 'src/moduls/channel.class';
 import { User } from 'src/moduls/user.class';
 
@@ -8,37 +9,103 @@ import { User } from 'src/moduls/user.class';
   styleUrls: ['./add-people-dialog.component.scss']
 })
 export class AddPeopleDialogComponent {
-  isChecked: boolean | undefined;
-  //membersList: any = ['Elias', 'Brigitte', 'Thorben'];
-  searchedMembers: Array<string> = [];
+  public searchedMembers: Array<string> = [];
   public user: User = new User();
   public userList = [this.user];
-  @Input() channel: Channel = new Channel();
-  searchText: any;
-  filteredMembers: any;
+  public searchText: any;
+  public channel: any;
+  public channelJSON = {};
+  public filteredMembers: User[] = [];
+  public currentlyAddedUser: User[] = [];
+  public fristPage = true;
+  public dialogReference: MatDialogRef<AddPeopleDialogComponent>;
 
-  setValue() {
-    this.isChecked = !this.isChecked;
+  constructor(public addPeopleDialog: MatDialog) {
+    setTimeout(() => {
+      console.log(this.channel);
+      console.log('userlist ist', this.userList);
+    }, 1000);
+
   }
 
-  // ngOnInit(): void {
-  //   this.search();
-  // }
+  addMember(u: User) {
+    this.currentlyAddedUser.push(u);
+    console.log("currently users", this.currentlyAddedUser);
+  }
+
+  deleteUser(us: User) {
+    let array: User[] = [];
+    this.currentlyAddedUser.forEach((u) => {
+      if (u.idDB != us.idDB) {
+        array.push(u);
+      }
+    });
+    this.currentlyAddedUser = array;
+  }
+
+
+  isPopUpOpen() {
+    return this.filteredMembers.length > 0;
+  }
+
+  filterMember() {
+    let filterValue = this.searchText.toLowerCase();
+    console.log("filtered Value", filterValue);
+    this.filteredMembers = []
+    this.userList.forEach((u) => {
+      if ((filterValue != "")) {
+        let n = u.name;
+        console.log("name low ", n.toLowerCase() + " " + filterValue);
+        if (n.toLowerCase().includes(filterValue)) {
+          this.filteredMembers.push(u);
+        }
+      }
+    });
+    if ((filterValue != "")) {
+      let n = this.user.name;
+      console.log("name low ", n.toLowerCase() + " " + filterValue);
+      if (n.toLowerCase().includes(filterValue)) {
+        this.filteredMembers.push(this.user);
+      }
+    }
+
+    console.log("filtered Member List", this.filteredMembers);
+  }
+
+  onSubmit() {
+    this.fristPage = false;
+  }
+
+  make() {
+    console.log("click");
+    this.fristPage = true;
+    let radioBAll: any = document.getElementById("allMember");
+    let memberList = [];
+    if (radioBAll.checked) {
+      memberList.push({ "memberName": this.user.name, "memberID": this.user.idDB });
+      this.userList.forEach((u) => {
+        memberList.push({ "memberName": u.name, "memberID": u.idDB });
+      });
+
+    } else {
+      this.currentlyAddedUser.forEach((us) => {
+        memberList.push({ "memberName": us.name, "memberID": us.idDB });
+      });
+    }
+    console.log("memberlist", memberList);
+    this.channel.members = memberList;
+    console.log("channel", this.channel);
+    this.channelJSON = this.channel.toJSON();
+    this.closeDialog();
+  }
 
   searchKey(data: string) {
-    console.log(data)
-    setTimeout(() => {
-      console.log('userliste is', this.userList)
-      console.log(this.channel);
-    }, 5000);
+    this.searchText = data;
+    this.filterMember();
 
-    //this.searchText = data;
-    //this.search();
   }
 
-  search() {
-    this.filteredMembers = this.searchText === "" ? this.userList : this.userList.filter((element) => {
-      return element.name.toLowerCase() == this.searchText.toLowerCase();
-    });
+  closeDialog() {
+    this.dialogReference.close(this.channelJSON);
   }
 }

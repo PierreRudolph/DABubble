@@ -5,6 +5,7 @@ import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { User } from 'src/moduls/user.class';
 import { EditChannelComponent } from '../edit-channel/edit-channel.component';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
+import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 
 @Component({
   selector: 'app-channel-window',
@@ -18,7 +19,8 @@ export class ChannelWindowComponent {
   private chathelper: ChatHepler = new ChatHepler();
   private threadIndex: number = 0;
   private commIndex: number = 0;
-  editChannelOpen: boolean | false;
+  public editChannelOpen: boolean | false;
+  public addPeopleOpen: boolean | false;
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
@@ -34,14 +36,13 @@ export class ChannelWindowComponent {
     console.log("threadlist channel", this.threadList);
     setTimeout(() => {
       console.log("threadlist channel", this.threadList);
-
     }, 500);
   }
 
   openEditChannelDialog() {
     this.setEditChanPos();
     this.toggleEditChanBol();
-    this.dialog.open(EditChannelComponent, { panelClass: 'dialog-bor-to-le-none', position: { left: this.editChanPosLeft, top: '190px' } })
+    this.dialog.open(EditChannelComponent, { panelClass: 'dialogBorToLeNone', position: { left: this.editChanPosLeft, top: '190px' } })
       .afterClosed().subscribe(() => {
         this.toggleEditChanBol();
       });
@@ -205,4 +206,27 @@ export class ChannelWindowComponent {
     return ((this.showEmojisTread) && (this.threadIndex == tIndex) && (this.commIndex == cIndex));
   }
 
+
+  openAddPeopleDialog() {
+    this.toggleAddPplChanBol();
+    let dialogRef = this.dialog.open(AddPeopleDialogComponent);
+    dialogRef.addPanelClass('dialogBorToReNone');
+    dialogRef.updatePosition({ right: '65px', top: '190px' });
+    let instance = dialogRef.componentInstance;
+    instance.user = new User(this.user.toJSON());
+    instance.channel = this.threadList[this.number].channel;
+    instance.userList = this.userList;
+    dialogRef.afterClosed().subscribe(() => {
+      this.toggleAddPplChanBol();
+    })
+    // this.dialog.open(AddPeopleDialogComponent, { panelClass: 'dialogBorToReNone', position: { right: '65px', top: '190px' } })
+    //   .afterClosed().subscribe(() => {
+    //     this.toggleAddPplChanBol();
+    //   });
+
+  }
+
+  toggleAddPplChanBol() {
+    this.addPeopleOpen = !this.addPeopleOpen;
+  }
 }

@@ -67,7 +67,7 @@
     bottom: 0;
 }
 
-.reactIcons { 
+.reactIcons {
     padding: 3px 10px 3px 10px;
     border: 1px solid #7e83f5;
     border-radius: 20px;
@@ -78,7 +78,7 @@
     background-color: #cbcdec;
 }
 
-.holdHoverStyleAfterClick {
+.hoverStyleHeaderLeft {
     background-color: #ECEEFE;
 
     span {
@@ -166,6 +166,10 @@
     }
 }
 
+.hoverStyleAddPeople {
+    content: url('/assets/icons/add-people-hover.svg');
+}
+
 .channel-body {
     height: calc(100% - 315px);
     margin-top: 115px;
@@ -215,16 +219,17 @@
 .messageInnerDivRight {
     flex-direction: row-reverse;
 
-  .message{
-    background-color: #444df2!important;;
-    color: white;
-    border-radius: 30px;
-    border-top-right-radius: 0px;
-  }
+    .message {
+        background-color: #444df2 !important;
+        ;
+        color: white;
+        border-radius: 30px;
+        border-top-right-radius: 0px;
+    }
 
     &:hover {
         background-color: #444df2;
-        
+
     }
 }
 
