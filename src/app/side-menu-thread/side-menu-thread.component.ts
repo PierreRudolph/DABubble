@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
@@ -17,6 +17,7 @@ export class SideMenuThreadComponent {
   private chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
+  @Output() newSetOpen = new EventEmitter<boolean>();
   public textThreadEdit = "";
   public textThreadAnswer = "";
   // public textThreadAnswerEdit = "";
@@ -41,6 +42,11 @@ export class SideMenuThreadComponent {
   closeThread() {
     this.drawer.close();
     console.log(this.drawer);
+    
+    setTimeout(() => { 
+      //  this.newSetOpen.emit(false);
+      //  this.drawer.open() 
+    }, 300);
   }
 
   getAnswerLength() {
@@ -134,7 +140,7 @@ export class SideMenuThreadComponent {
     // this.emojiText += emoji;//löschen
     console.log("answerIndex", this.answerIndex);
     let sm = this.getAnswerData(this.answerIndex, 'smile');
-  
+
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
       let icon = {
@@ -146,15 +152,15 @@ export class SideMenuThreadComponent {
       sm.push(icon);
     } else {
       let usersIcon = sm[smileIndex].users;
-      
-      if (!this.smileHelper.isUserInSmile(usersIcon,this.user)) {
+
+      if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
     }
     this.setAnswerData(this.answerIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
     this.toggleEmojisDialog(this.answerIndex);
-   
+
   }
 
   toggleEmojisDialog(aIndex: number) {
@@ -173,14 +179,14 @@ export class SideMenuThreadComponent {
   removeSmile(aIndex: number, sIndex: number) {
     let threadId = this.threadList[this.threadC.chNum].channel.idDB;
     let userSmiles = this.getAnswerData(aIndex, 'smile');
-    let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users,this.user)
+    let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
     userSmiles[sIndex].users = newUserList;
     if (userSmiles[sIndex].users.length == 0) {
       userSmiles.splice(sIndex, 1);
     }
     this.setAnswerData(aIndex, 'smile', userSmiles);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
-  }  
+  }
 
   saveEmojiTextArea(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
@@ -188,6 +194,6 @@ export class SideMenuThreadComponent {
     if (this.showEmojis) {
       this.textThreadAnswer += emoji;
       this.toggleEmojisDialog(0);
-    }   
+    }
   }
 }
