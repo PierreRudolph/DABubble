@@ -277,7 +277,7 @@ export class ChannelWindowComponent {
     let dialogRef = this.dialog.open(ChannelMembersComponent);
     this.setChannelMembersDialogPos(dialogRef);
     this.setChannelMembersValues(dialogRef);
-    this.subscribeMembersChannelDialog(dialogRef);
+    this.subscribeChannelMembersDialog(dialogRef);
     console.log('channelMembersOpen ist', this.channelMembersOpen)
   }
 
@@ -291,10 +291,14 @@ export class ChannelWindowComponent {
     instance.user = new User(this.user.toJSON());
     instance.channel = this.threadList[this.number].channel;
     instance.userList = this.userList;
+    instance.dialogRef = dialogRef;
   }
 
-  subscribeMembersChannelDialog(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-    dialogRef.afterClosed().subscribe(() => {
+  subscribeChannelMembersDialog(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.openAddPeopleDialog();
+      }
       this.toggleChannelMembersBol();
     })
   }
