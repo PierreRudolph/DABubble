@@ -8,7 +8,8 @@
     </div>
 
     <div class="channel-header-right">
-        <div class="added-members">
+        <div class="added-members" (click)="openChannelMembersDialog()"
+            [class.hoverStyleChannelMembers]="channelMembersOpen" mat-button>
             <!-- <img src="assets/img/ch1.svg">
             <img src="assets/img/ch2.svg">
             <img src="assets/img/ch3.svg"> -->
@@ -18,7 +19,7 @@
             <span>{{this.threadList[number].channel.members.length}}</span>
         </div>
         <img class="add-people" (click)="openAddPeopleDialog()" [class.hoverStyleAddPeople]="addPeopleOpen"
-            src="assets/icons/add-people.svg">
+            src="assets/icons/add-people.svg" mat-button>
     </div>
 </div>
 
