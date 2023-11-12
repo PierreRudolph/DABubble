@@ -255,38 +255,6 @@
     align-items: center;
 }
 
-
-.editMessage {
-    position: absolute;
-    background-color: white;
-    padding: 10px 20px 10px 20px;
-    border-radius: 25px;
-    border-top-left-radius: 0;
-    color: var(--Black, #000);
-    font-family: Nunito;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-    left: 200px;
-    top: 65px;
-    width: 250px;
-    display: none;
-    cursor: pointer;
-
-    .editMessageT {
-        padding: 10px 20px 10px 20px;
-
-        &:hover {
-            border-radius: 30px;
-            color: #444DF2;
-            background-color: #eceefe;
-        }
-    }
-}
-
-
-
 // .flipMessage{
 //     border-radius: 25px;
 //     border-top-right-radius: 0;

@@ -30,7 +30,7 @@ export class ChannelWindowComponent {
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   public smileHelper: SmileHelper = new SmileHelper();
   private editChanPosLeft: string = '445px';
-
+  public openEditDialog: boolean = false;
 
   constructor(public dialog: MatDialog) {
     console.log("threadlist channel", this.threadList);
@@ -42,11 +42,11 @@ export class ChannelWindowComponent {
   openEditChannelDialog() {
     this.setEditChanPos();
     this.toggleEditChanBol();
-    let dialogRef= this.dialog.open(EditChannelComponent, { panelClass: 'dialogBorToLeNone', position: { left: this.editChanPosLeft, top: '190px' } });
+    let dialogRef = this.dialog.open(EditChannelComponent, { panelClass: 'dialogBorToLeNone', position: { left: this.editChanPosLeft, top: '190px' } });
     dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
     dialogRef.afterClosed().subscribe(() => {
-        this.toggleEditChanBol();
-      });
+      this.toggleEditChanBol();
+    });
   }
 
   // dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
@@ -254,5 +254,19 @@ export class ChannelWindowComponent {
 
   toggleAddPplChanBol() {
     this.addPeopleOpen = !this.addPeopleOpen;
+  }
+
+  getFlip(m: any) {    
+    return m.iD == this.user.idDB;
+  }
+
+  openEditWindow(m: any) {
+    console.log("open edit window");
+    this.openEditDialog = !this.openEditDialog;
+    m.edit = true;
+    // this.textEdit = m.message;
+  }
+  openEditPopUp(){
+    this.openEditDialog = !this.openEditDialog;
   }
 }

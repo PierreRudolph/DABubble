@@ -35,6 +35,18 @@
 
             <div class="message-inner-div" [class.messageInnerDivRight]="fromLoggedInUser(thread)"
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
+                <div class="popUpMessageContainer" [class.popUpFlipContainer]="!getFlip(j)">
+                    <div class="popUpMessage" [class.popUpFlip]="!getFlip(j)">
+                    
+                      <img class="popUpIcons pad0" src="assets/icons/add-reaction.svg">
+                        <!-- (click)="toggleEmojisDialogComment(i,mIndex)" -->
+                
+                      <img class="popUpIcons" [class.dNone]="getFlip(j)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">
+                    </div>
+                    <div class="editMessage "  [class.show]="openEditDialog" (click)="openEditWindow(j)">
+                      <div class="editMessageT">Nachricht bearbeiten</div>
+                    </div>
+                  </div>
                 <img src="{{getIconPathQuestionUser(thread.iD)}}">
                 <div style="display: flex; flex-direction: column;">
                     <div class="mes-name-clock">
