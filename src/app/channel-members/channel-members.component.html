@@ -7,18 +7,18 @@
 
         <div class="contactDiv">
             <div style="position: relative;">
-                <img src="{{user.iconPath}}">
+                <img src="{{getIcon(user.idDB)}}">
                 <div [class.greenDot]="user.getAktive()" class="stateDot"></div>
             </div>
             <span>{{user.name}} (Du)</span>
         </div>
 
-        <div *ngFor="let u of userList" class="contactDiv">
-            <div style="position: relative;">
-                <img src="{{u.iconPath}}">
-                <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
+        <div *ngFor="let u of channel.members" class="contactDiv" >
+            <div style="position: relative;" *ngIf="!isMe(u)">
+                <img src="{{getIcon(u.memberID)}}">
+                <div [class.greenDot]="getAktive(u)" class="stateDot"></div>
             </div>
-            <span>{{u.name}}</span>
+            <span *ngIf="!isMe(u)">{{u.memberName}}</span>
         </div>
 
     </div>

@@ -224,6 +224,7 @@ export class ChannelWindowComponent {
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);
     dialogRef.componentInstance.channel = this.threadList[this.number];//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
+    dialogRef.componentInstance.user = this.user;//Kopie
     // dialogRef.afterClosed().subscribe(() => {
     //     this.toggleEditChanBol();
     //   });
@@ -278,6 +279,9 @@ export class ChannelWindowComponent {
     this.setChannelMembersDialogPos(dialogRef);
     this.setChannelMembersValues(dialogRef);
     this.subscribeChannelMembersDialog(dialogRef);
+    dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
+    dialogRef.componentInstance.userList = this.userList;//Kopie
+    dialogRef.componentInstance.user = this.user;//Kopie
     console.log('channelMembersOpen ist', this.channelMembersOpen)
   }
 
