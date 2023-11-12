@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Channel } from 'src/moduls/channel.class';
+import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
 
 @Component({
@@ -14,12 +15,16 @@ export class AddPeopleDialogComponent {
   public user: User = new User();
   public userList = [this.user];
   public searchText: any;
-  public channel: Channel;
+  // public channel: Channel;
   public channelJSON = {};
   public filteredMembers: User[] = [];
   public currentlyAddedUser: User[] = [];
   public fristPage = true;
   public dialogReference: MatDialogRef<AddPeopleDialogComponent>;
+
+  private chathelper: ChatHepler = new ChatHepler();
+  public channel: any = this.chathelper.createEmptyThread();
+
 
   constructor(public addPeopleDialog: MatDialog) {
     setTimeout(() => {
@@ -30,8 +35,19 @@ export class AddPeopleDialogComponent {
   }
 
   addMember(u: User) {
-    this.currentlyAddedUser.push(u);
-    console.log("currently users", this.currentlyAddedUser);
+    let inList = false;  // "strict": false, in compileoptions
+    console.log("actua member", this.channel.members);
+    this.channel.members.forEach(ul => {
+      if (ul.memberID == u.idDB) { inList = true };
+    });
+    if (!inList) {
+      this.currentlyAddedUser.push(u);
+      console.log("currently users", this.currentlyAddedUser);
+    }
+    else {
+      console.log("Uster ist bereits in der Liste");
+    }
+   
   }
 
   deleteUser(us: User) {
@@ -81,18 +97,12 @@ export class AddPeopleDialogComponent {
 
   make() {
     console.log("click");
-    this.fristPage = true;
-    let memberList: { memberName: string; memberID: string; }[] = [];
-
+    this.fristPage = true;  
     this.currentlyAddedUser.forEach((us) => {
-      memberList.push({ "memberName": us.name, "memberID": us.idDB });
+      this.channel.members.push({ "memberName": us.name, "memberID": us.idDB });
     });
-
-    console.log("memberlist", memberList);
-    this.channel.members = memberList;
-    console.log("channel", this.channel);
-    this.channelJSON = this.channel.toJSON();
-    this.closeDialog();
+    console.log("channel ", this.channel);
+    this.chathelper.updateDB(this.channel.idDB,"thread",{"channel":this.channel});   
   }
 
   searchKey(data: string) {
@@ -100,6 +110,8 @@ export class AddPeopleDialogComponent {
     this.filterMember();
 
   }
+
+
 
   closeDialog() {
     this.dialogReference.close(this.channelJSON);

@@ -3,7 +3,7 @@
     <div class="dialog-header">
         <div>
             <img src="assets/icons/tag.svg">
-            <span class="fs24 wei700">Entwicklerteam</span>
+            <span class="fs24 wei700">{{channel.name}}</span>
         </div>
         <img mat-dialog-close style="cursor: pointer;" src="assets/img/close.svg">
     </div>
@@ -15,7 +15,7 @@
 
     <div class="new-chan-name-input-div" *ngIf="chanNamOnEdit">
         <img src="assets/icons/tag.svg">
-        <input placeholder="Entwicklerteam">
+        <input id="nameChannel" placeholder="{{channel.name}}">
     </div>
 
     <div class="channel-name-outer-div" *ngIf="!chanNamOnEdit">
@@ -27,7 +27,7 @@
 
         <div>
             <img src="assets/icons/tag.svg">
-            <span class="fs18">Entwicklerteam</span>
+            <span class="fs18">{{channel.name}}</span>
         </div>
 
     </div>
@@ -36,7 +36,7 @@
             <span class="fs18 wei700">Beschreibung</span>
             <span class="fs18 wei600" (click)="saveNewChannelDesc()">Speichern</span>
         </div>
-        <input class="new-chan-desc-input" *ngIf="chanDescOnEdit" placeholder="Dein Text hier">
+        <input id="description" class="new-chan-desc-input" *ngIf="chanDescOnEdit" placeholder=" {{channel.description}}">
         <div class="border-div border-div-editing" *ngIf="chanDescOnEdit"></div>
         <span class="fs18 wei700" *ngIf="chanDescOnEdit">Erstellt von</span>
         <span class="channel-creater-name" *ngIf="chanDescOnEdit">Noah Braun</span>
@@ -48,12 +48,11 @@
             <span class="fs18 wei600" (click)="editChannelDesc()">Bearbeiten</span>
         </div>
         <span class="fs18">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos iusto numquam, exercitationem
-            asperiores et rem vitae non consequuntur
+            {{channel.description}}
         </span>
         <div class="border-div"></div>
         <span class="fs18 wei700">Erstellt von</span>
-        <span class="channel-creater-name">Noah Braun</span>
+        <span class="channel-creater-name"> {{channel.creator}}</span>
     </div>
 
     <div class="btn-div">

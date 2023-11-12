@@ -44,11 +44,21 @@ export class ChannelWindowComponent {
   openEditChannelDialog() {
     this.setEditChanPos();
     this.toggleEditChanBol();
-    this.dialog.open(EditChannelComponent, { panelClass: 'dialogBorToLeNone', position: { left: this.editChanPosLeft, top: '190px' } })
-      .afterClosed().subscribe(() => {
+    let dialogRef= this.dialog.open(EditChannelComponent, { panelClass: 'dialogBorToLeNone', position: { left: this.editChanPosLeft, top: '190px' } });
+    dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
+    dialogRef.afterClosed().subscribe(() => {
         this.toggleEditChanBol();
       });
   }
+
+  // dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
+  //   dialogRef.componentInstance.userList = this.userList;//Kopie
+  //   dialogRef.componentInstance.dialogReference = dialogRef;
+  //   dialogRef.afterClosed().subscribe(result => {      
+  //     this.madeChannel = result;
+  //     if (result != "") { this.addChannel(); }
+
+  //   });
 
   setEditChanPos() {
     if (this.menuHidden) {
@@ -212,6 +222,11 @@ export class ChannelWindowComponent {
   openAddPeopleDialog() {
     this.toggleAddPplChanBol();
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);
+    dialogRef.componentInstance.channel = this.threadList[this.number];//Kopie
+    dialogRef.componentInstance.userList = this.userList;//Kopie
+    // dialogRef.afterClosed().subscribe(() => {
+    //     this.toggleEditChanBol();
+    //   });
     this.setAddPplDialogPos(dialogRef);
     this.setAddPplDialogValues(dialogRef);
     this.subscribeAddPplDialog(dialogRef);
