@@ -1,9 +1,9 @@
-.dialog-div {
+.dialogDiv {
     width: 415px;
     padding: 40px;
 }
 
-.dialog-header {
+.dialogHeader {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -18,7 +18,11 @@
     }
 }
 
-.add-members {
+.members {
+    gap: 13px;
+}
+
+.addMembers {
     cursor: pointer;
     transition: all 225ms ease-in;
     width: 282px;
@@ -36,4 +40,50 @@
             content: url('/assets/icons/add-people-hover.svg');
         }
     }
+}
+
+.contactDiv {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    transition: all 225ms ease-in-out;
+    margin: 10px 0px;
+
+    img {
+        width: 50px;
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+
+    span {
+        font-size: 18px;
+    }
+
+    &:hover {
+        background-color: #eceefe;
+    }
+
+    &:active {
+        span {
+            transition: all 225ms ease-in-out;
+            color: #7e83f5;
+            font-weight: 700;
+        }
+    }
+}
+
+.stateDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    background-color: #ADB0D9;
+    right: 15px;
+    bottom: 7px;
+    border: 2px white solid;
+}
+
+.greenDot {
+    background-color: #92C83E;
 }

@@ -1,12 +1,28 @@
-<div class="dialog-div">
-    <div class="dialog-header">
+<div class="dialogDiv">
+    <div class="dialogHeader">
         <span class="nunito fs24 wei700">Mitglieder</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
     <div class="members">
 
+        <div class="contactDiv">
+            <div style="position: relative;">
+                <img src="{{user.iconPath}}">
+                <div [class.greenDot]="user.getAktive()" class="stateDot"></div>
+            </div>
+            <span>{{user.name}} (Du)</span>
+        </div>
+
+        <div *ngFor="let u of userList" class="contactDiv">
+            <div style="position: relative;">
+                <img src="{{u.iconPath}}">
+                <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
+            </div>
+            <span>{{u.name}}</span>
+        </div>
+
     </div>
-    <div class="add-members" (click)="addMembersAction()">
+    <div class="addMembers" (click)="addMembersAction()">
         <img src="assets/icons/add-people.svg">
         <span class="fs18">Mitglieder hinzufügen</span>
     </div>
