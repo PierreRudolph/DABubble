@@ -351,8 +351,8 @@ export class PrivateMessageComponent {
   }  
 
 
-  isEmojisCommentShown(index: number) {
-    return this.showEmojisComment && (index == this.emojiMessageIndex)
+  isEmojisCommentShown(i:number,index: number) {
+    return this.showEmojisComment && (index == this.emojiMessageIndex)&&(i ==this.communikationIndex);
   }
 
   toggleEmojisDialog() {
@@ -363,7 +363,7 @@ export class PrivateMessageComponent {
     this.showEmojisEdit = !this.showEmojisEdit;
   }
 
-  toggleEmojisDialogComment(i:number,mIndex: number) {
+  toggleEmojisDialogComment(i:number,mIndex: number) {   
     this.showEmojisComment = !this.showEmojisComment;
     this.communikationIndex = i;
     this.emojiMessageIndex = mIndex;

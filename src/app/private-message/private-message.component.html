@@ -39,11 +39,11 @@
           </div>
           <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(m)">
             <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
-              <img class="popUpIcons" src="assets/img/popUpHaken.svg">
-              <img class="popUpIcons" src="assets/img/popUpClaps.svg">
+              <!-- <img class="popUpIcons" src="assets/img/popUpHaken.svg">
+              <img class="popUpIcons" src="assets/img/popUpClaps.svg"> -->
               <img class="popUpIcons pad0" (click)="toggleEmojisDialogComment(i,mIndex)"
                 src="assets/icons/add-reaction.svg">
-              <img class="popUpIcons" src="assets/img/comment.svg">
+              <!-- <img class="popUpIcons" src="assets/img/comment.svg"> -->
               <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
                 src="assets/img/more_vert.svg">
             </div>
@@ -51,7 +51,7 @@
               <div class="editMessageT">Nachricht bearbeiten</div>
             </div>
           </div>
-          <emoji-mart class="emojiDivComment" *ngIf="isEmojisCommentShown(mIndex)" title="Pick your emoji…"
+          <emoji-mart class="emojiDivComment" *ngIf="isEmojisCommentShown(i,mIndex)" title="Pick your emoji…"
             (emojiClick)="saveEmojiComment($event)" (darkMode)="false"></emoji-mart>
         </div>
         <!-- message-div -->
