@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Channel } from 'src/moduls/channel.class';
 import { User } from 'src/moduls/user.class';
@@ -8,12 +8,13 @@ import { User } from 'src/moduls/user.class';
   templateUrl: './add-people-dialog.component.html',
   styleUrls: ['./add-people-dialog.component.scss']
 })
+
 export class AddPeopleDialogComponent {
   public searchedMembers: Array<string> = [];
   public user: User = new User();
   public userList = [this.user];
   public searchText: any;
-  public channel: any;
+  public channel: Channel;
   public channelJSON = {};
   public filteredMembers: User[] = [];
   public currentlyAddedUser: User[] = [];
@@ -52,6 +53,7 @@ export class AddPeopleDialogComponent {
     let filterValue = this.searchText.toLowerCase();
     console.log("filtered Value", filterValue);
     this.filteredMembers = []
+
     this.userList.forEach((u) => {
       if ((filterValue != "")) {
         let n = u.name;
@@ -61,6 +63,7 @@ export class AddPeopleDialogComponent {
         }
       }
     });
+
     if ((filterValue != "")) {
       let n = this.user.name;
       console.log("name low ", n.toLowerCase() + " " + filterValue);
@@ -79,19 +82,12 @@ export class AddPeopleDialogComponent {
   make() {
     console.log("click");
     this.fristPage = true;
-    let radioBAll: any = document.getElementById("allMember");
-    let memberList = [];
-    if (radioBAll.checked) {
-      memberList.push({ "memberName": this.user.name, "memberID": this.user.idDB });
-      this.userList.forEach((u) => {
-        memberList.push({ "memberName": u.name, "memberID": u.idDB });
-      });
+    let memberList: { memberName: string; memberID: string; }[] = [];
 
-    } else {
-      this.currentlyAddedUser.forEach((us) => {
-        memberList.push({ "memberName": us.name, "memberID": us.idDB });
-      });
-    }
+    this.currentlyAddedUser.forEach((us) => {
+      memberList.push({ "memberName": us.name, "memberID": us.idDB });
+    });
+
     console.log("memberlist", memberList);
     this.channel.members = memberList;
     console.log("channel", this.channel);

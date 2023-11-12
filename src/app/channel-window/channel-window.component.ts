@@ -1,5 +1,5 @@
 import { Component, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { User } from 'src/moduls/user.class';
@@ -210,21 +210,32 @@ export class ChannelWindowComponent {
   openAddPeopleDialog() {
     this.toggleAddPplChanBol();
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);
+    this.setAddPplDialogPos(dialogRef);
+    this.setAddPplDialogValues(dialogRef);
+    this.subscribeAddPplDialog(dialogRef);
+  }
+
+
+  setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
     dialogRef.updatePosition({ right: '65px', top: '190px' });
+  }
+
+
+  setAddPplDialogValues(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     let instance = dialogRef.componentInstance;
     instance.user = new User(this.user.toJSON());
     instance.channel = this.threadList[this.number].channel;
     instance.userList = this.userList;
+  }
+
+
+  subscribeAddPplDialog(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.afterClosed().subscribe(() => {
       this.toggleAddPplChanBol();
     })
-    // this.dialog.open(AddPeopleDialogComponent, { panelClass: 'dialogBorToReNone', position: { right: '65px', top: '190px' } })
-    //   .afterClosed().subscribe(() => {
-    //     this.toggleAddPplChanBol();
-    //   });
-
   }
+
 
   toggleAddPplChanBol() {
     this.addPeopleOpen = !this.addPeopleOpen;
