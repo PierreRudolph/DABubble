@@ -258,7 +258,7 @@ export class ChannelWindowComponent {
     this.addPeopleOpen = !this.addPeopleOpen;
   }
 
-  getFlip(m: any) {    
+  getFlip(m: any) {
     return m.iD == this.user.idDB;
   }
 
@@ -268,38 +268,38 @@ export class ChannelWindowComponent {
     m.edit = true;
     // this.textEdit = m.message;
   }
-  openEditPopUp(){
+  openEditPopUp() {
     this.openEditDialog = !this.openEditDialog;
- 
-}
- // openChannelMembersDialog() {
-  //   this.toggleChannelMembersBol();
-  //   let dialogRef = this.dialog.open(ChannelMembersComponent);
-  //   this.setChannelMembersDialogPos(dialogRef);
-  //   this.setChannelMembersValues(dialogRef);
-  //   this.subscribeMembersChannelDialog(dialogRef);
-  //   console.log('channelMembersOpen ist', this.channelMembersOpen)
-  // }
 
-  // setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-  //   dialogRef.addPanelClass('dialogBorToReNone');
-  //   dialogRef.updatePosition({ right: '165px', top: '190px' });
-  // }
+  }
+  openChannelMembersDialog() {
+    this.toggleChannelMembersBol();
+    let dialogRef = this.dialog.open(ChannelMembersComponent);
+    this.setChannelMembersDialogPos(dialogRef);
+    this.setChannelMembersValues(dialogRef);
+    this.subscribeMembersChannelDialog(dialogRef);
+    console.log('channelMembersOpen ist', this.channelMembersOpen)
+  }
 
-  // setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-  //   let instance = dialogRef.componentInstance;
-  //   instance.user = new User(this.user.toJSON());
-  //   instance.channel = this.threadList[this.number].channel;
-  //   instance.userList = this.userList;
-  // }
+  setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
+    dialogRef.addPanelClass('dialogBorToReNone');
+    dialogRef.updatePosition({ right: '165px', top: '190px' });
+  }
 
-  // subscribeMembersChannelDialog(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.toggleChannelMembersBol();
-  //   })
-  // }
+  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
+    let instance = dialogRef.componentInstance;
+    instance.user = new User(this.user.toJSON());
+    instance.channel = this.threadList[this.number].channel;
+    instance.userList = this.userList;
+  }
 
-  // toggleChannelMembersBol() {
-  //   this.channelMembersOpen = !this.channelMembersOpen;
-  // }
+  subscribeMembersChannelDialog(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
+    dialogRef.afterClosed().subscribe(() => {
+      this.toggleChannelMembersBol();
+    })
+  }
+
+  toggleChannelMembersBol() {
+    this.channelMembersOpen = !this.channelMembersOpen;
+  }
 }
