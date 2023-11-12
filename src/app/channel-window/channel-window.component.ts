@@ -24,6 +24,7 @@ export class ChannelWindowComponent {
   public editChannelOpen: boolean | false;
   public addPeopleOpen: boolean | false;
   public channelMembersOpen: boolean | false;
+  public smileEdit = false;
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
@@ -286,10 +287,24 @@ export class ChannelWindowComponent {
     m.edit = false;
     this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
     let threadIndex = this.threadList[this.number].channel.idDB;
-    console.log("threadIndex",threadIndex);
-    console.log("message",this.threadList[this.number].communikation[cIndex].threads[tIndex].message);
-    console.log("textEdit",this.textEdit +" cIndex:"+cIndex+ "  tIndex"+tIndex);
+    console.log("threadIndex", threadIndex);
+    console.log("message", this.threadList[this.number].communikation[cIndex].threads[tIndex].message);
+    console.log("textEdit", this.textEdit + " cIndex:" + cIndex + "  tIndex" + tIndex);
     this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
+  }
+
+  toggleEmojisDialogEdit(cIndex: number, tIndex: number) {
+    this.threadIndex = tIndex;
+    this.commIndex = cIndex;
+    this.smileEdit = !this.smileEdit;
+  }
+
+  saveEmojiEdit(e: { emoji: { unified: string; }; }) {
+    let unicodeCode: string = e.emoji.unified;
+    let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+    this.textEdit += emoji;
+    console.log(emoji);
+    this.smileEdit = !this.smileEdit;
   }
 
   openEditWindow(m: any) {

@@ -39,8 +39,8 @@
                 <div class="popUpMessageContainer" [class.popUpFlipContainer]="!getFlip(j)">
                     <div class="popUpMessage" [class.popUpFlip]="!getFlip(j)">
                     
-                      <img class="popUpIcons pad0" src="assets/icons/add-reaction.svg">
-                        <!-- (click)="toggleEmojisDialogComment(i,mIndex)" -->
+                      <img class="popUpIcons pad0"  (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">
+                        
                 
                       <img class="popUpIcons" [class.dNone]="getFlip(j)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">
                     </div>
@@ -61,9 +61,9 @@
                     <div [class.dNone]="!thread.edit" style="width:100%">
                         <div style="position:relative">
                           <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                          <!-- <img (click)="toggleEmojisDialogEdit()" class="smileEdit" src="assets/img/smile.svg">
-                          <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit" title="Pick your emoji…"
-                            (emojiClick)="saveEmoji($event)" (darkMode)="false"></emoji-mart> -->
+                          <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit" src="assets/img/smile.svg">
+                          <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
+                            (emojiClick)="saveEmojiEdit($event)" (darkMode)="false"></emoji-mart>
                         </div>
           
                         <div class="editButtonContainer">
@@ -83,7 +83,7 @@
                         </div>
                         <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
                             src="assets/icons/add-reaction.svg">
-                        <emoji-mart class="emojiDiv" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
+                        <emoji-mart class="emojiDiv" style="left:-300px;bottom:-200px;" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
                             (emojiClick)="saveEmojiComment($event)" (darkMode)="false"></emoji-mart>
                     </diV>
 
