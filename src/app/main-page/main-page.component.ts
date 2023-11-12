@@ -35,7 +35,7 @@ export class MainPageComponent {
   public textThreadAnswer = "";
   public textThreadAnswerEdit = "";
   public load = false;
-  public menuHidden: boolean;
+  public sideMenuHidden: boolean;
   //-----------------
   public number: number = 0;
   private iEdit = 0; //indizierung für Bearbeitung der Threads
@@ -56,8 +56,8 @@ export class MainPageComponent {
 
   }
 
-  setMenuHidden(h: boolean) {
-    this.menuHidden = h;
+  setSideMenuHidden(h: boolean) {
+    this.sideMenuHidden = h;
   }
 
   openThisThread(n: number, i: number, j: number) {

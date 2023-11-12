@@ -18,6 +18,7 @@ export class SideMenuThreadComponent {
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newSetOpen = new EventEmitter<boolean>();
+  @Output() newItemEventOpenChat = new EventEmitter<boolean>();
   public textThreadEdit = "";
   public textThreadAnswer = "";
   // public textThreadAnswerEdit = "";
@@ -25,7 +26,7 @@ export class SideMenuThreadComponent {
   public editAIndex = 0;
   private answerIndex = 0;
   public smileHelper: SmileHelper = new SmileHelper();
-
+  public openChat: boolean;
   showEmojis: boolean | undefined;
   showEmojisTA: boolean | undefined;
   emojiText: string = "";
@@ -42,6 +43,8 @@ export class SideMenuThreadComponent {
   closeThread() {
     this.drawer.close();
     console.log(this.drawer);
+    this.openChat = false;
+    this.newItemEventOpenChat.emit(this.openChat);
 
     setTimeout(() => {
       //  this.newSetOpen.emit(false);
