@@ -15,6 +15,7 @@ import { ChannelMembersComponent } from '../channel-members/channel-members.comp
 })
 export class ChannelWindowComponent {
   public textThread = "";
+  public textEdit = ""
   showEmojis: boolean | undefined;
   showEmojisTread: boolean | undefined;
   private chathelper: ChatHepler = new ChatHepler();
@@ -277,11 +278,25 @@ export class ChannelWindowComponent {
     return m.iD == this.user.idDB;
   }
 
+  closeEdit(m: any) {
+    m.edit = false;
+  }
+
+  saveEdit(m: any, cIndex: number, tIndex: number) {
+    m.edit = false;
+    this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
+    let threadIndex = this.threadList[this.number].channel.idDB;
+    console.log("threadIndex",threadIndex);
+    console.log("message",this.threadList[this.number].communikation[cIndex].threads[tIndex].message);
+    console.log("textEdit",this.textEdit +" cIndex:"+cIndex+ "  tIndex"+tIndex);
+    this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
+  }
+
   openEditWindow(m: any) {
     console.log("open edit window");
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
-    // this.textEdit = m.message;
+    this.textEdit = m.message;
   }
   openEditPopUp() {
     this.openEditDialog = !this.openEditDialog;

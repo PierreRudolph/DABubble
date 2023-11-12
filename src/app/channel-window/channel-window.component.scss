@@ -330,12 +330,30 @@
     padding-left: 10px;
 }
 
+.editButtonContainer {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 50px;
+}
+
+.messageDataPart{
+    display: flex;
+    align-items: flex-end;
+    padding-top: 30px;
+    gap:30px;
+    flex-direction: column;
+    width:100%;
+    align-items: flex-end;
+}
+
 .message {
     background-color: #eceefe;
     padding: 13px;
     font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
+    width:fit-content;
 }
 
 .message-right {

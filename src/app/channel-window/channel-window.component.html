@@ -32,7 +32,7 @@
         <div class="add-reaction">
             <img src="assets/icons/add-reaction.svg">
         </div>
-        <div style="display: flex;align-items: self-start;padding-top: 30px;gap:30px;flex-direction: column;width:100%">
+        <div class="messageDataPart" >
 
             <div class="message-inner-div" [class.messageInnerDivRight]="fromLoggedInUser(thread)"
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
@@ -44,34 +44,35 @@
                 
                       <img class="popUpIcons" [class.dNone]="getFlip(j)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">
                     </div>
-                    <div class="editMessage "  [class.show]="openEditDialog" (click)="openEditWindow(j)">
+                    <div class="editMessage "  [class.show]="openEditDialog" (click)="openEditWindow(thread)">
                       <div class="editMessageT">Nachricht bearbeiten</div>
                     </div>
                   </div>
                 <img src="{{getIconPathQuestionUser(thread.iD)}}">
-                <div style="display: flex; flex-direction: column;">
+                <div style="display: flex; flex-direction: column; width:100%;align-items: flex-end;">
                     <div class="mes-name-clock">
                         <span class="mes-name">{{thread.name}}</span>
                         <span>{{thread.time}} Uhr</span>
                     </div>
-                    <diV class="message">
+                    <diV class="message" [class.dNone]="thread.edit">
                         {{thread.message}}
+
                     </diV>
-                    <diV class="reactions">
-
-                        <!-- <div class="reaction-emoji-counter">
-
-                    <div class="reactions-tooltip">
-                        <img src="assets/icons/emoji-nerd.svg">
-                        <div class="reactions-username">
-                            <span>Sofia Müller</span>
-                            <span>und Du</span>
+                    <div [class.dNone]="!thread.edit" style="width:100%">
+                        <div style="position:relative">
+                          <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{thread.message}}  </textarea>
+                          <!-- <img (click)="toggleEmojisDialogEdit()" class="smileEdit" src="assets/img/smile.svg">
+                          <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit" title="Pick your emoji…"
+                            (emojiClick)="saveEmoji($event)" (darkMode)="false"></emoji-mart> -->
                         </div>
-                        <span>hat reagiert</span>
-                    </div>
-                    <img src="assets/icons/emoji-nerd.svg">
-                    <span>1</span>
-                </div>-->
+          
+                        <div class="editButtonContainer">
+                          <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
+                          <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
+                        </div>
+                      </div>
+                    <diV class="reactions" [class.dNone]="thread.edit">                       
+
                         <div style="display:flex;gap:3px">
                             <div *ngFor="let t of thread.smile; index as sIndex" class="reactIcons"
                                 [class.lila]="smileHelper.isUserInSmile(t.users,user)"
