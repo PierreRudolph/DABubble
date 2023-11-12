@@ -11,4 +11,8 @@ export class ChannelMembersComponent {
   public user: User = new User();
   public userList = [this.user];
   public channel: Channel;
+
+  addMembersAction() {
+
+  }
 }
