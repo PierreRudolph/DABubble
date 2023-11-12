@@ -75,7 +75,7 @@ export class ChatHepler{
         console.log("call new Thread");
         let t = {
           "channel":
-          {
+          { "creator":"",
             "name": "",
             "idDB": "",
             "description": "",

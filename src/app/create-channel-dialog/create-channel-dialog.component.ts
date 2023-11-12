@@ -71,21 +71,18 @@ export class CreateChannelDialogComponent {
     this.filteredMembers = []
     this.userList.forEach((u) => {
       if ((filterValue != "")) {
-        let n = u.name;
-        console.log("name low ", n.toLowerCase() + " " + filterValue);
+        let n = u.name;        
         if (n.toLowerCase().includes(filterValue)) {
           this.filteredMembers.push(u);
         }
       }
     });
     if ((filterValue != "")) {
-      let n = this.user.name;
-      console.log("name low ", n.toLowerCase() + " " + filterValue);
+      let n = this.user.name;     
       if (n.toLowerCase().includes(filterValue)) {
         this.filteredMembers.push(this.user);
       }
     }
-
     console.log("filtered Member List", this.filteredMembers);
   }
 
@@ -151,14 +148,7 @@ export class CreateChannelDialogComponent {
   searchKey(data: string) {
     this.searchText = data;
     this.filterMember();
-    // console.log(data)
-    // setTimeout(() => {
-    //   console.log('userliste is', this.userList)
-    //   console.log(this.channel);
-    // }, 5000);
-
-    //this.searchText = data;
-    //this.search();
+   
   }
 
   // search() {

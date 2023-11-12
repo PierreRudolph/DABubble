@@ -107,9 +107,7 @@ export class SideMenuComponent {
     dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
     dialogRef.componentInstance.dialogReference = dialogRef;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("muss noch erstellt werden");
-      console.log("result", result);
+    dialogRef.afterClosed().subscribe(result => {      
       this.madeChannel = result;
       if (result != "") { this.addChannel(); }
 
