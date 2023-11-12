@@ -27,11 +27,14 @@ export class ChannelWindowComponent {
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
   @Input() userList: User[];
-  @Input() menuHidden: boolean;
+  @Input() sideMenuHidden: boolean;
+  @Input() openChat: boolean;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   public smileHelper: SmileHelper = new SmileHelper();
   private editChanPosLeft: string = '445px';
+  private membersDialogPosRight = '110px';
+  private addMembersDialogPosRight = '60px';
   public openEditDialog: boolean = false;
 
   constructor(public dialog: MatDialog) {
@@ -61,10 +64,20 @@ export class ChannelWindowComponent {
   //   });
 
   setEditChanPos() {
-    if (this.menuHidden) {
+    if (this.sideMenuHidden) {
       this.editChanPosLeft = '60px';
     } else {
       this.editChanPosLeft = '445px';
+    }
+  }
+
+  setMembersAndAddMembersPos() {
+    if (this.openChat) {
+      this.membersDialogPosRight = '615px';
+      this.addMembersDialogPosRight = '565px';
+    } else {
+      this.membersDialogPosRight = '110px';
+      this.addMembersDialogPosRight = '60px';
     }
   }
 
@@ -221,6 +234,7 @@ export class ChannelWindowComponent {
 
   openAddPeopleDialog() {
     this.toggleAddPplChanBol();
+    this.setMembersAndAddMembersPos();
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);
     dialogRef.componentInstance.channel = this.threadList[this.number];//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
@@ -236,7 +250,7 @@ export class ChannelWindowComponent {
 
   setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    dialogRef.updatePosition({ right: '65px', top: '190px' });
+    dialogRef.updatePosition({ right: this.addMembersDialogPosRight, top: '190px' });
   }
 
 
@@ -275,6 +289,7 @@ export class ChannelWindowComponent {
   }
   openChannelMembersDialog() {
     this.toggleChannelMembersBol();
+    this.setMembersAndAddMembersPos();
     let dialogRef = this.dialog.open(ChannelMembersComponent);
     this.setChannelMembersDialogPos(dialogRef);
     this.setChannelMembersValues(dialogRef);
@@ -287,7 +302,7 @@ export class ChannelWindowComponent {
 
   setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    dialogRef.updatePosition({ right: '165px', top: '190px' });
+    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: '190px' });
   }
 
   setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {

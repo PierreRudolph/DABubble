@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container mat-drawer-div" [class.mar-right-20]="!menuHidden">
+<mat-drawer-container class="example-container mat-drawer-div" [class.mar-right-20]="!sideMenuHidden">
     <mat-drawer #drawer class="example-sidenav sidenav" mode="side" opened>
         <div class="head">
             <img src="assets/img/workspace-logo.svg">
@@ -83,10 +83,10 @@
 </mat-drawer-container>
 
 <div class="example-sidenav-content sidenav-content">
-    <img class="open-sidenav" *ngIf="menuHidden" src="assets/icons/open-sidenav.svg">
-    <img class="close-sidenav" *ngIf="!menuHidden" src="assets/icons/close-sidenav.svg">
-    <span *ngIf="!menuHidden">Workspace-Menü schließen</span>
-    <span *ngIf="menuHidden">Workspace-Menü öffnen</span>
+    <img class="open-sidenav" *ngIf="sideMenuHidden" src="assets/icons/open-sidenav.svg">
+    <img class="close-sidenav" *ngIf="!sideMenuHidden" src="assets/icons/close-sidenav.svg">
+    <span *ngIf="!sideMenuHidden">Workspace-Menü schließen</span>
+    <span *ngIf="sideMenuHidden">Workspace-Menü öffnen</span>
     <button type="button" mat-button (click)="toggleDrawer();drawer.toggle()">
     </button>
 </div>

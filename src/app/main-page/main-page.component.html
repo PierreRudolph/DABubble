@@ -1,7 +1,7 @@
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)"
-    (newItemEventMenuHidden)="setMenuHidden($event)" [user]="user" [userList]="userList"
+    (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList"
     class="side-menu"></app-side-menu>
   <div class="main-content-div">
     <div *ngIf="talkOpen" class="direktMesHeader">
@@ -14,16 +14,16 @@
 
     <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
       [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
-      [menuHidden]="this.menuHidden"></app-channel-window>
+      [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"></app-channel-window>
 
-      <div *ngIf="!channelOpen">
-        <app-private-message (newItemEventUserList)="setUserList($event)"
-          (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
-      </div>
-      
+    <div *ngIf="!channelOpen">
+      <app-private-message (newItemEventUserList)="setUserList($event)"
+        (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
+    </div>
+
     <div style="padding-bottom: 30px;display: none;">
 
-      
+
 
       <div style="border: 2px solid black;" *ngIf="channelOpen">Channel open is
         {{this.threadList[number].channel.name}}
@@ -80,6 +80,7 @@
 
   </div>
   <app-side-menu-thread *ngIf="openChat" class="side-menu" [threadList]="threadList" [user]="user" [threadC]="threadC"
-    [userList]="userList" (newSetOpen)="setOpenValue($event)"></app-side-menu-thread>
+    [userList]="userList" (newSetOpen)="setOpenValue($event)"
+    (newItemEventOpenChat)="setOpenValue($event)"></app-side-menu-thread>
   <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
 </div>
