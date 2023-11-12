@@ -6,6 +6,7 @@ import { User } from 'src/moduls/user.class';
 import { EditChannelComponent } from '../edit-channel/edit-channel.component';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
+import { ChannelMembersComponent } from '../channel-members/channel-members.component';
 
 @Component({
   selector: 'app-channel-window',
@@ -21,6 +22,7 @@ export class ChannelWindowComponent {
   private commIndex: number = 0;
   public editChannelOpen: boolean | false;
   public addPeopleOpen: boolean | false;
+  public channelMembersOpen: boolean | false;
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
@@ -268,5 +270,36 @@ export class ChannelWindowComponent {
   }
   openEditPopUp(){
     this.openEditDialog = !this.openEditDialog;
-  }
+ 
+}
+ // openChannelMembersDialog() {
+  //   this.toggleChannelMembersBol();
+  //   let dialogRef = this.dialog.open(ChannelMembersComponent);
+  //   this.setChannelMembersDialogPos(dialogRef);
+  //   this.setChannelMembersValues(dialogRef);
+  //   this.subscribeMembersChannelDialog(dialogRef);
+  //   console.log('channelMembersOpen ist', this.channelMembersOpen)
+  // }
+
+  // setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
+  //   dialogRef.addPanelClass('dialogBorToReNone');
+  //   dialogRef.updatePosition({ right: '165px', top: '190px' });
+  // }
+
+  // setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
+  //   let instance = dialogRef.componentInstance;
+  //   instance.user = new User(this.user.toJSON());
+  //   instance.channel = this.threadList[this.number].channel;
+  //   instance.userList = this.userList;
+  // }
+
+  // subscribeMembersChannelDialog(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.toggleChannelMembersBol();
+  //   })
+  // }
+
+  // toggleChannelMembersBol() {
+  //   this.channelMembersOpen = !this.channelMembersOpen;
+  // }
 }

@@ -1,0 +1,39 @@
+.dialog-div {
+    width: 415px;
+    padding: 40px;
+}
+
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+        cursor: pointer;
+
+        &:hover {
+            content: url('/assets/img/close-hover.svg');
+        }
+    }
+}
+
+.add-members {
+    cursor: pointer;
+    transition: all 225ms ease-in;
+    width: 282px;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    padding: 12px 29px;
+    gap: 10px;
+
+    &:hover {
+        background-color: #ECEEFE;
+        color: #7e83f5;
+
+        img {
+            content: url('/assets/icons/add-people-hover.svg');
+        }
+    }
+}
