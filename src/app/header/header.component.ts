@@ -17,20 +17,31 @@ export class HeaderComponent {
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
   public userInfos: any[] = [];
-  text = "Julia";
+  public text = "";
 
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
- 
-  
+
+
   constructor(public router: Router) {
-    setTimeout(() => {
-      this.searchChannelNames(this.text);
-      this.searchProfiles(this.text);    
-      this.searchChannelMessages(this.text);
-      // this.searchProfiles("Jul");    
-      // this.searchChannelMessages("Taylor ");
-    }, 5000);
+    // setTimeout(() => {
+    //   this.searchChannelNames(this.text);
+    //   this.searchProfiles(this.text);    
+    //   this.searchChannelMessages(this.text);
+    //   // this.searchProfiles("Jul");    
+    //   // this.searchChannelMessages("Taylor ");
+    // }, 5000);
+  }
+
+  showPop(){
+  return this.text!="";
+  }
+
+  searchKey(text:string) {
+    this.text = text;
+    this.searchChannelNames(this.text);
+    this.searchProfiles(this.text);
+    this.searchChannelMessages(this.text);
   }
 
   searchChannelNames(text: string) {
@@ -48,11 +59,11 @@ export class HeaderComponent {
     this.threadTitleDec = output;
   }
 
-  callOpenChan(n:number){
+  callOpenChan(n: number) {
     this.callOpenChannel.emit(n);
   }
 
-  callOpenT(u:User) {
+  callOpenT(u: User) {
     this.callOpenTalk.emit(u);
   }
 
@@ -65,36 +76,36 @@ export class HeaderComponent {
     let cIndex = -1;
     let tIndex = -1
     this.threadList.forEach((ch) => {
-      num++;      
+      num++;
       ch.communikation.forEach((com) => {
         cIndex++;
         com.threads.forEach((th) => {
           tIndex++;
           if (th.message.toLowerCase().includes(this.searchText)) {
-            output.push({ "num": num, "cIndex": cIndex, "tIndex": tIndex ,"name" :th.name, "message": th.message , "time":th.time});
+            output.push({"chanName": ch.channel.name, "num": num, "cIndex": cIndex, "tIndex": tIndex, "name": th.name, "message": th.message, "time": th.time });
           }
         });
-        tIndex=-1;
+        tIndex = -1;
 
       });
-      cIndex=-1;
+      cIndex = -1;
     });
     console.log("output", output);
     this.threadMessages = output;
   }
 
-  getdate(info:any){
-   return this.threadList[info.num].communikation[info.cIndex].date;
+  getdate(info: any) {
+    return this.threadList[info.num].communikation[info.cIndex].date;
   }
 
-  makeSubstring(s:string, len:number){
-    console.log("message is",s);
+  makeSubstring(s: string, len: number) {
+    console.log("message is", s);
     let l = s.length;
-    let min = Math.min(l,len);
-    let sub = s.substring(0,min);
-    console.log("messageSub is",sub);
+    let min = Math.min(l, len);
+    let sub = s.substring(0, min);
+    console.log("messageSub is", sub);
     return sub;
-    }
+  }
 
   searchProfiles(text: string) {
     let output = [];
@@ -115,6 +126,6 @@ export class HeaderComponent {
 
 
 
-  
+
 
 }
