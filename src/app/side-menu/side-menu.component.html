@@ -62,7 +62,7 @@
                     <div>
                         <!--Hier werden die Kontakte reingerendert.-->
                         <div class="contact-div">
-                            <div style="position: relative;">
+                            <div>
                                 <img src="{{user.iconPath}}">
                                 <div [class.greenDot]="user.getAktive()" (click)="openTalk(user)" class="stateDot">
                                 </div>
@@ -71,7 +71,7 @@
                         </div>
 
                         <div *ngFor="let u of userList" class="contact-div">
-                            <div style="position: relative;" (click)="openTalk(u)">
+                            <div (click)="openTalk(u)">
                                 <img src="{{u.iconPath}}">
                                 <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
                             </div>
