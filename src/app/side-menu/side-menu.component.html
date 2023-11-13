@@ -63,9 +63,9 @@
                         <div class="contact-div">
                             <div style="position: relative;">
                                 <img src="{{user.iconPath}}">
-                                <div [class.greenDot]="user.getAktive()" class="stateDot"></div>
+                                <div [class.greenDot]="user.getAktive()" (click)="openTalk(user)" class="stateDot"></div>
                             </div>
-                            <span>{{user.name}} (Du)</span>
+                            <span (click)="openTalk(user)">{{user.name}} (Du)</span>
                         </div>
 
                         <div *ngFor="let u of userList" class="contact-div">

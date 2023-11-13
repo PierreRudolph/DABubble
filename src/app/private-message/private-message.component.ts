@@ -38,7 +38,7 @@ export class PrivateMessageComponent {
   showEmojisEdit: boolean | undefined;
   showEmojisComment: boolean | undefined;
   emojiMessageIndex = 0;
-  communikationIndex=0;
+  communikationIndex = 0;
   smileHelper: SmileHelper = new SmileHelper();
   chatHelper: ChatHepler = new ChatHepler();
 
@@ -205,12 +205,16 @@ export class PrivateMessageComponent {
       console.log("not exist");
       this.currentTalkData = this.chatHepler.createEmptyTalk()
       this.currentTalkData.communikation = [];//---------------------------
-      console.log("xurrent data ", this.currentTalkData);
+      console.log("current data ", this.currentTalkData);
     }
   }
 
   openExistingTalk(talkId: string) {
     this.getTalkById(talkId);
+  }
+
+  isItMe() {
+    return this.otherChatUser.idDB == this.user.idDB;
   }
 
   setOtherUser(user: User) {
@@ -222,6 +226,7 @@ export class PrivateMessageComponent {
       this.openTalk()
     },
       1000);
+
   }
 
   async updateDB(id: string, coll: string, info: {}) {
@@ -313,7 +318,7 @@ export class PrivateMessageComponent {
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     let talkId = this.currentTalkData.idDB;
     // this.emojiText += emoji;//löschen
-    console.log("messages",this.currentTalkData.communikation[this.communikationIndex].messages);
+    console.log("messages", this.currentTalkData.communikation[this.communikationIndex].messages);
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -332,27 +337,27 @@ export class PrivateMessageComponent {
       }
     }
     this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile = sm;
-    console.log("neuer Smilie ",  this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex]);
+    console.log("neuer Smilie ", this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex]);
     this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
     this.showEmojisComment = false;
   }
 
-  removeSmile(i:number,sIndex: number) {
+  removeSmile(i: number, sIndex: number) {
     let talkId = this.currentTalkData.idDB;
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;
     console.log("sm", this.currentTalkData.communikation[this.communikationIndex].messages[i]);
-    let newUserList = this.smileHelper.removeUser(sm[sIndex].users,this.user)
+    let newUserList = this.smileHelper.removeUser(sm[sIndex].users, this.user)
     sm[sIndex].users = newUserList;
     if (sm[sIndex].users.length == 0) {
       sm.splice(sIndex, 1);
     }
-    this.currentTalkData.communikation[this.communikationIndex].messages[i].smile=sm
-    this.chatHelper.updateDB(talkId, 'talk', { "communikation":  this.currentTalkData.communikation });
-  }  
+    this.currentTalkData.communikation[this.communikationIndex].messages[i].smile = sm
+    this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
+  }
 
 
-  isEmojisCommentShown(i:number,index: number) {
-    return this.showEmojisComment && (index == this.emojiMessageIndex)&&(i ==this.communikationIndex);
+  isEmojisCommentShown(i: number, index: number) {
+    return this.showEmojisComment && (index == this.emojiMessageIndex) && (i == this.communikationIndex);
   }
 
   toggleEmojisDialog() {
@@ -363,7 +368,7 @@ export class PrivateMessageComponent {
     this.showEmojisEdit = !this.showEmojisEdit;
   }
 
-  toggleEmojisDialogComment(i:number,mIndex: number) {   
+  toggleEmojisDialogComment(i: number, mIndex: number) {
     this.showEmojisComment = !this.showEmojisComment;
     this.communikationIndex = i;
     this.emojiMessageIndex = mIndex;

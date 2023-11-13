@@ -82,6 +82,10 @@ export class MainPageComponent {
     console.log("current thread number is", this.currentThreadId);
     console.log("Threadli st", this.threadList);
   }
+  
+  isItMe() {
+    return this.otherChatUser.idDB == this.user.idDB;
+  }
 
   setOtherUser(user: User) {
     this.talkOpen = true;
