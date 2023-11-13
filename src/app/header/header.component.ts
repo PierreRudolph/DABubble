@@ -16,6 +16,7 @@ export class HeaderComponent {
   private searchText: string = "";
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
+  public talkMessages: any[] = [];
   public userInfos: any[] = [];
   public text = "";
 
@@ -33,15 +34,16 @@ export class HeaderComponent {
     // }, 5000);
   }
 
-  showPop(){
-  return this.text!="";
+  showPop() {
+    return this.text != "";
   }
 
-  searchKey(text:string) {
+  searchKey(text: string) {
     this.text = text;
     this.searchChannelNames(this.text);
     this.searchProfiles(this.text);
     this.searchChannelMessages(this.text);
+    this.searchPrivateMess(this.text);
   }
 
   searchChannelNames(text: string) {
@@ -52,17 +54,65 @@ export class HeaderComponent {
       i++;
       console.log("t is", t.channel.name);
       if (t.channel.name.toLowerCase().includes(this.searchText) || t.channel.description.toLowerCase().includes(this.searchText)) {
-        let des="";
-        if(t.channel.description.toLowerCase().includes(this.searchText))
-        {
-          des= this.makeSubstring(t.channel.description, 20)
+        let des = "";
+        if (t.channel.description.toLowerCase().includes(this.searchText)) {
+          des = this.makeSubstring(t.channel.description, 20)
         }
-        output.push({ "name": t.channel.name, "index": i ,"decription":des});       
+        output.push({ "name": t.channel.name, "index": i, "decription": des });
       }
     });
     console.log("output", output);
     this.threadTitleDec = output;
   }
+
+  searchPrivateMess(text: string) {
+    let output = [];
+    this.searchText = text.toLowerCase();
+    let num = -1;
+    let cIndex = -1;
+    let mIndex = -1
+    console.log("talkList", this.talkList);
+    this.talkList.forEach((ch) => {
+      num++;
+      ch.communikation.forEach((com) => {
+        cIndex++;
+        com.messages.forEach((mes) => {
+          mIndex++;
+          if (mes.message.toLowerCase().includes(this.searchText)) {
+            output.push({
+              "nameMem1": ch.member1, "nameMem2": ch.member2,
+              "member1DBid": ch.member1DBid, "member2DBid": ch.member2DBid,
+              "num": num, "cIndex": cIndex,
+              "mIndex": mIndex, "message": mes.message, "time": mes.time
+            });
+          }
+        });
+        mIndex = -1;
+
+      });
+      cIndex = -1;
+    });
+    console.log("output", output);
+    this.talkMessages = output;
+  }
+
+  getOtherUser(info: any) {
+    let otherUser = new User();
+    let m1 = info.member1DBid;
+    let m2 = info.member2DBid;
+    if (m1 == m2) { otherUser= this.user; }
+    else {
+      this.userList.forEach((ul) => {
+        if ((ul.idDB == m1 && this.user.idDB == m2)||ul.idDB == m2 && this.user.idDB == m1) { 
+     
+          otherUser = ul; }
+      });    
+      
+    }
+    console.log("other user", otherUser);
+    return otherUser;
+  }
+
 
   callOpenChan(n: number) {
     this.callOpenChannel.emit(n);
@@ -71,6 +121,7 @@ export class HeaderComponent {
   callOpenT(u: User) {
     this.callOpenTalk.emit(u);
   }
+
 
 
 
@@ -87,7 +138,7 @@ export class HeaderComponent {
         com.threads.forEach((th) => {
           tIndex++;
           if (th.message.toLowerCase().includes(this.searchText)) {
-            output.push({"chanName": ch.channel.name, "num": num, "cIndex": cIndex, "tIndex": tIndex, "name": th.name, "message": th.message, "time": th.time });
+            output.push({ "chanName": ch.channel.name, "num": num, "cIndex": cIndex, "tIndex": tIndex, "name": th.name, "message": th.message, "time": th.time });
           }
         });
         tIndex = -1;
@@ -95,7 +146,7 @@ export class HeaderComponent {
       });
       cIndex = -1;
     });
-    console.log("output", output);
+    // console.log("output", output);
     this.threadMessages = output;
   }
 
@@ -103,12 +154,17 @@ export class HeaderComponent {
     return this.threadList[info.num].communikation[info.cIndex].date;
   }
 
+  getdateTalk(info: any) {
+    return this.talkList[info.num].communikation[info.cIndex].date;
+  }
+
+
   makeSubstring(s: string, len: number) {
-    console.log("message is", s);
+   
     let l = s.length;
     let min = Math.min(l, len);
     let sub = s.substring(0, min);
-    console.log("messageSub is", sub);
+    // console.log("messageSub is", sub);
     return sub;
   }
 
@@ -125,7 +181,7 @@ export class HeaderComponent {
     if (this.user.name.toLowerCase().includes(this.searchText) || this.user.email.toLowerCase().includes(this.searchText)) {
       output.push(this.user);
     }
-    console.log("output", output);
+    // console.log("output", output);
     this.userInfos = output;
   }
 

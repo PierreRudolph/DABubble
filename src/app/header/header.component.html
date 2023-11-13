@@ -31,6 +31,13 @@
                      <span>{{tMess.time}} Uhr am {{getdate(tMess)}}</span>
                     </div>
                 </div>
+                <div *ngFor="let talkMess of talkMessages" class="field" (click)="callOpenT(getOtherUser(talkMess))">
+                    <div style="display: flex; flex-direction: column; position: relative;gap:5px;">
+                      <span class="nunitoBlack">{{talkMess.nameMem1}} & {{talkMess.nameMem2}}</span>                   
+                     <span> {{makeSubstring(talkMess.message,20)}}....   </span>
+                     <span>{{talkMess.time}} Uhr am {{getdateTalk(talkMess)}}</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
