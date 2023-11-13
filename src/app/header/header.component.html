@@ -8,8 +8,9 @@
     </div>
 
     <div *ngIf="router.url=='/'||router.url=='/main'" class="search-input">
-        <input type="text" placeholder="Code learning durchsuchen">
+        <input  type="text" placeholder="Code learning durchsuchen">
         <img src="assets/icons/search.svg">
+        
     </div>
 
     <div [class.dNone]="router.url !='/login'" class="loginHeaderRight">

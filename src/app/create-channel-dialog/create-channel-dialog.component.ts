@@ -11,7 +11,7 @@ import { User } from 'src/moduls/user.class';
 })
 export class CreateChannelDialogComponent {
   public channel: Channel = new Channel();
-  public channelJSON = {};
+  public channelJSON :any= {};
   channelName: string = "";
   channelDescription: string = "";
   channelMembers: any = [];
@@ -113,6 +113,7 @@ export class CreateChannelDialogComponent {
     this.channel.members = memberList;
     console.log("channel", this.channel);
     this.channelJSON = this.channel.toJSON();
+    this.channelJSON.creator = this.user.name;
     this.closeDialog();
 
   }
