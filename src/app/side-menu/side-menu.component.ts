@@ -61,6 +61,7 @@ export class SideMenuComponent {
             channelId = docRef.id;
             let c = {
               "name": this.madeChannel.name,
+              "creator":this.madeChannel.creator,
               "idDB": channelId,
               "description": this.madeChannel.description,
               "members": this.madeChannel.members,
