@@ -74,19 +74,21 @@
                                 <!-- <div>{{emojiText}}</div> -->
                                 <div style="display:flex;gap:3px">
                                     <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
-                                     class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)" (click)="removeSmile(aIndex,sIndex)">
+                                        class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)"
+                                        (click)="removeSmile(aIndex,sIndex)">
                                         {{s.icon}}
                                         {{s.users.length}}
                                     </div>
                                 </div>
                             </div>
-                            <img (click)="toggleEmojisDialog(aIndex)" class="add-reaction-icon" src="assets/icons/add-reaction.svg">
+                            <img (click)="toggleEmojisDialog(aIndex)" class="add-reaction-icon"
+                                src="assets/icons/add-reaction.svg">
                             <emoji-mart class="emojiDiv" *ngIf="showEmoji(aIndex)" title="Pick your emoji…"
-                                (emojiClick)="saveEmoji($event)" (darkMode)="false"></emoji-mart>
-                             
+                                (emojiClick)="saveEmoji($event)" lightmode></emoji-mart>
+
                         </diV>
                     </div>
-                </div> 
+                </div>
                 <!-- end answer              -->
             </div>
         </div>
@@ -97,16 +99,16 @@
             <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
                 placeholder="Antworten..."></textarea>
             <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
-         <div style="position:relative">
-            <div class="iconContainerTextArea">
-                <img class="iconsTextArea" src="assets/img/add.svg">
-                <div style="width:2px;background-color: #ADB0D9 ;"></div>
-                <img class="iconsTextArea" (click)="toggleEmojisDialogTA()" src="assets/img/smile.svg">
-                <img class="iconsTextArea" src="assets/img/alternate_email.svg">                
+            <div style="position:relative">
+                <div class="iconContainerTextArea">
+                    <img class="iconsTextArea" src="assets/img/add.svg">
+                    <div style="width:2px;background-color: #ADB0D9 ;"></div>
+                    <img class="iconsTextArea" (click)="toggleEmojisDialogTA()" src="assets/img/smile.svg">
+                    <img class="iconsTextArea" src="assets/img/alternate_email.svg">
+                </div>
+                <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…"
+                    (emojiClick)="saveEmojiTextArea($event)" (darkMode)="false"></emoji-mart>
             </div>
-            <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…" (emojiClick)="saveEmojiTextArea($event)"
-                (darkMode)="false"></emoji-mart>
-         </div>
         </div>
     </mat-drawer>
 
