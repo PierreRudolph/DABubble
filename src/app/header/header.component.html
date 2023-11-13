@@ -13,8 +13,9 @@
             <img src="assets/icons/search.svg">
             <div #searchResults class="searchResults" *ngIf="showPop()">
                 <div *ngFor="let threadTitles of threadTitleDec" class="field"
-                    (click)="callOpenChan(threadTitles.index)">
+                    (click)="callOpenChan(threadTitles.index)" style="display: flex;flex-direction: column;">
                     <span class="nunitoBlack"># {{threadTitles.name}}</span>
+                    <span class="nunitoBlack fs14">{{threadTitles.decription}}...</span>
                 </div>
                 <div *ngFor="let uInfo of userInfos" class="field" (click)="callOpenT(uInfo)">
                     <div style="display: flex; position: relative;gap:20px;">

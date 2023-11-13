@@ -52,7 +52,12 @@ export class HeaderComponent {
       i++;
       console.log("t is", t.channel.name);
       if (t.channel.name.toLowerCase().includes(this.searchText) || t.channel.description.toLowerCase().includes(this.searchText)) {
-        output.push({ "name": t.channel.name, "index": i });
+        let des="";
+        if(t.channel.description.toLowerCase().includes(this.searchText))
+        {
+          des= this.makeSubstring(t.channel.description, 20)
+        }
+        output.push({ "name": t.channel.name, "index": i ,"decription":des});       
       }
     });
     console.log("output", output);
