@@ -26,7 +26,8 @@
                     </mat-expansion-panel-header>
                     <div *ngFor="let ch of threadList, index as c">
                         <!--Hier werden erstellte Channel reingerendert.-->
-                        <div class="created-channel" (click)="openChannel(c)">
+                        <div class="created-channel" [class.channelActive]="channelActive==c"
+                            (click)="openChannel(c); channelActive=c">
                             <img src="assets/icons/tag.svg">
                             <!-- <span>Entwicklerteam </span> -->
                             <span *ngIf="loaded">{{getName(c)}} </span>
@@ -61,15 +62,16 @@
                     <div >
                         <!--Hier werden die Kontakte reingerendert.-->
                         <div class="contact-div">
-                            <div style="position: relative;">
+                            <div>
                                 <img src="{{user.iconPath}}">
-                                <div [class.greenDot]="user.getAktive()" (click)="openTalk(user)" class="stateDot"></div>
+                                <div [class.greenDot]="user.getAktive()" (click)="openTalk(user)" class="stateDot">
+                                </div>
                             </div>
                             <span (click)="openTalk(user)">{{user.name}} (Du)</span>
                         </div>
 
                         <div *ngFor="let u of userList" class="contact-div">
-                            <div style="position: relative;" (click)="openTalk(u)">
+                            <div (click)="openTalk(u)">
                                 <img src="{{u.iconPath}}">
                                 <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
                             </div>

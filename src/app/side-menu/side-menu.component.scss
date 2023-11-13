@@ -240,6 +240,14 @@
     }
 }
 
+.channelActive {
+    background-color: #eceefe;
+
+    img {
+        content: url('/assets/icons/tag-hover.svg');
+    }
+}
+
 .add-ch-div {
     cursor: pointer;
     width: 100%;
@@ -291,19 +299,36 @@
     border-radius: 30px;
     transition: all 225ms ease-in-out;
     margin: 10px 0px;
+    padding: 4px 20px;
+
+    div {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
     img {
+        object-fit: cover;
+        border-radius: 100%;
         width: 50px;
-        margin-left: 15px;
-        margin-right: 10px;
+        height: 50px;
     }
 
     span {
         font-size: 18px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     &:hover {
         background-color: #eceefe;
+
+        span {
+            overflow: visible;
+            //white-space: unset; was ist schöner, wenn der Name zu lang ist?
+        }
     }
 
     &:active {
@@ -321,8 +346,8 @@
     border-radius: 100%;
     position: absolute;
     background-color: #ADB0D9;
-    right: 15px;
-    bottom: 7px;
+    right: 16px;
+    bottom: -18px;
     border: 2px white solid;
 }
 

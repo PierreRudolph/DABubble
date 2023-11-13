@@ -181,9 +181,9 @@
     overflow-y: scroll;
 }
 
-.positionStartChannel{
+.positionStartChannel {
     display: flex;
-    flex-direction:column; 
+    flex-direction: column;
     justify-content: flex-end;
 }
 
@@ -200,7 +200,7 @@
     // padding-left: 40px;
     padding-top: 10px;
     padding-bottom: 25px;
-    margin-top: 25px;   
+    margin-top: 25px;
 }
 
 .char-img {
@@ -228,11 +228,12 @@
 .popUpFlipContainer {
     right: unset;
     left: 40px;
-   
+
 }
-.popUpFlip{
-    border-radius: 25px!important;
-    border-bottom-right-radius: 0px!important;
+
+.popUpFlip {
+    border-radius: 25px !important;
+    border-bottom-right-radius: 0px !important;
 }
 
 .popUpMessageContainer {
@@ -301,6 +302,7 @@
             opacity: 1;
             right: 40px;
         }
+
         .popUpMessageContainer {
             display: unset;
         }
@@ -343,13 +345,13 @@
     gap: 50px;
 }
 
-.messageDataPart{
+.messageDataPart {
     display: flex;
     align-items: flex-end;
     padding-top: 30px;
-    gap:30px;
+    gap: 30px;
     flex-direction: column;
-    width:100%;
+    width: 100%;
     align-items: flex-end;
 }
 
@@ -359,7 +361,7 @@
     font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
-    width:fit-content;
+    width: fit-content;
 }
 
 .message-right {
@@ -541,25 +543,6 @@
     right: 55px;
     bottom: 10px;
     cursor: pointer;
-}
-
-.iconsTextArea {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 100%;
-
-    &:hover {
-        background-color: #ECEEFE;
-    }
-}
-
-.iconContainerTextArea {
-    position: absolute;
-    left: 70px;
-    bottom: 20px;
-    display: flex;
-    gap: 5px;
-
 }
 
 .sendDate {
