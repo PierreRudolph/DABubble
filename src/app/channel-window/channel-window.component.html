@@ -62,7 +62,8 @@
                     <div [class.dNone]="!thread.edit" style="width:100%">
                         <div style="position:relative">
                             <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                            <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit" src="assets/img/smile.svg">
+                            <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit"
+                                src="assets/img/smiley-icon.svg">
                             <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
                                 (emojiClick)="saveEmojiEdit($event)" (darkMode)="false"></emoji-mart>
                         </div>
