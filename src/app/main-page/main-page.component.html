@@ -1,4 +1,5 @@
-<app-header [threadList]="this.threadList" [user]="user" [userList]="userList"></app-header>
+<app-header [threadList]="this.threadList" [user]="user" [userList]="userList"  [talkList]="talkList" 
+ (callOpenChannel)="callOpenChan($event)"   (callOpenTalk)="openMessage($event)"></app-header>
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)"

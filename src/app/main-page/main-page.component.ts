@@ -7,6 +7,7 @@ import { PrivateMessageComponent } from '../private-message/private-message.comp
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.component';
+import { SideMenuComponent } from '../side-menu/side-menu.component';
 
 @Component({
   selector: 'app-main-page',
@@ -29,7 +30,7 @@ export class MainPageComponent {
   public currentThreadId: string = "";
   private chathelper: ChatHepler = new ChatHepler();
   public threadList: any = [this.chathelper.createEmptyThread()];
-  public talkList:any = [this.chathelper.createEmptyTalk()];
+  public talkList: any = [this.chathelper.createEmptyTalk()];
   public channelOpen = false;
   public textThread = "";
   public textThreadEdit = "";
@@ -50,13 +51,22 @@ export class MainPageComponent {
 
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
+  @ViewChild(SideMenuComponent) side: SideMenuComponent;
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router) {
- setTimeout(()=>{
-  console.log("talkList",this.talkList);
- },3500);
+    //  setTimeout(()=>{
+    //   console.log("talkList",this.talkList);
+    //  },3500);
+  }
+
+  callOpenChan(num: number) {
+    this.side.openChannel(num);
+  }
+
+  openMessage(u:User){
+ this.side.openTalk(u);
   }
 
   setSideMenuHidden(h: boolean) {

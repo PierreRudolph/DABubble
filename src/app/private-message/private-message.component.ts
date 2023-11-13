@@ -286,10 +286,8 @@ export class PrivateMessageComponent {
         {
           this.talkList.push(elem.data());
         }
-        // console.log( "m1 "+ elem.data()['member1DBid']+ "  m2:"+ elem.data()['member2DBid'] + "   uderid")
-        // this.talkList.push(elem.data());
-      });
-      // console.log("talkList ",this.talkList)
+        
+      });     
       this.newItemEventTalkList.emit(this.talkList);
     });
 
