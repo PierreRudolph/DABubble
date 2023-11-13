@@ -29,6 +29,7 @@ export class MainPageComponent {
   public currentThreadId: string = "";
   private chathelper: ChatHepler = new ChatHepler();
   public threadList: any = [this.chathelper.createEmptyThread()];
+  public talkList:any = [this.chathelper.createEmptyTalk()];
   public channelOpen = false;
   public textThread = "";
   public textThreadEdit = "";
@@ -53,7 +54,9 @@ export class MainPageComponent {
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router) {
-
+ setTimeout(()=>{
+  console.log("talkList",this.talkList);
+ },3500);
   }
 
   setSideMenuHidden(h: boolean) {
@@ -82,7 +85,7 @@ export class MainPageComponent {
     console.log("current thread number is", this.currentThreadId);
     console.log("Threadli st", this.threadList);
   }
-  
+
   isItMe() {
     return this.otherChatUser.idDB == this.user.idDB;
   }
@@ -151,7 +154,7 @@ export class MainPageComponent {
 
   setThreadList(list: any) {
     this.threadList = list;
-    console.log("threadlist in main", this.threadList);
+    // console.log("threadlist in main", this.threadList);
   }
 
   async updateDB(id: string, coll: string, info: {}) {
@@ -167,7 +170,9 @@ export class MainPageComponent {
     return collection(this.firestore, 'thread');
   }
 
-
+  setTalkList(tl: any) {
+    this.talkList = tl;
+  }
 
   setOpen(value: boolean) {
     this.openChat = value;

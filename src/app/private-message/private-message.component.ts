@@ -17,6 +17,7 @@ export class PrivateMessageComponent {
   public user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
   public userList: any;
+  public talkList:any;
   private userUid: string = ""; //uid od the user
   private unsub: any;
   private unsubtalk: any;
@@ -44,6 +45,7 @@ export class PrivateMessageComponent {
 
   @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
+  @Output() newItemEventTalkList = new EventEmitter<any>();
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
@@ -55,9 +57,16 @@ export class PrivateMessageComponent {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
       this.unsub = this.subUserInfo();
-      this.unsubtalk = this.subTalkInfo();
+    
 
     }, 1000);
+
+    setTimeout(()=>{
+      this.unsubtalk = this.subTalkInfo();
+    },1500);
+    setTimeout(()=>{
+  
+    },3000);
   }
 
   addNewItem(userList: any) {
@@ -266,13 +275,22 @@ export class PrivateMessageComponent {
 
   subTalkInfo() {
     let ref = this.talkRef();
+    this.talkList=[];
     return onSnapshot(ref, (list) => {
       list.forEach(elem => {
         if (elem.id == this.currentTalkId) {
-          this.currentTalkData = elem.data();
+          this.currentTalkData = elem.data();          
           console.log("curretn talk sub", this.currentTalkData);
         }
+        if(elem.data()['member1DBid']==this.user.idDB||elem.data()['member2DBid']==this.user.idDB)
+        {
+          this.talkList.push(elem.data());
+        }
+        // console.log( "m1 "+ elem.data()['member1DBid']+ "  m2:"+ elem.data()['member2DBid'] + "   uderid")
+        // this.talkList.push(elem.data());
       });
+      // console.log("talkList ",this.talkList)
+      this.newItemEventTalkList.emit(this.talkList);
     });
 
   }
