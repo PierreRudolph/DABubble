@@ -56,14 +56,9 @@ export class ChannelWindowComponent {
     });
   }
 
-  // dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
-  //   dialogRef.componentInstance.userList = this.userList;//Kopie
-  //   dialogRef.componentInstance.dialogReference = dialogRef;
-  //   dialogRef.afterClosed().subscribe(result => {      
-  //     this.madeChannel = result;
-  //     if (result != "") { this.addChannel(); }
-
-  //   });
+  showBegin(com: any) {   
+    return com.date == "";
+  }
 
   setEditChanPos() {
     if (this.sideMenuHidden) {

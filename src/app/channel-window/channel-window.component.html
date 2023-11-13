@@ -23,9 +23,9 @@
     </div>
 </div>
 
-<div class="channel-body">
+<div class="channel-body"  [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])"  >
     <div class="message-div" *ngFor="let com of this.threadList[number].communikation, index as i ">
-        <div class="dateIcon">
+        <div class="dateIcon" *ngIf="!showBegin(com)" >
             <div class="sendDate">{{this.threadList[number].communikation[i].date}}</div>
             <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
         </div>
@@ -38,9 +38,8 @@
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
                 <div class="popUpMessageContainer" [class.popUpFlipContainer]="!getFlip(j)">
                     <div class="popUpMessage" [class.popUpFlip]="!getFlip(j)">
-                    
-                      <img class="popUpIcons pad0"  (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">
-                        
+                      <img class="popUpIcons pad0"  src="assets/img/popUpHaken.svg">
+                      <img class="popUpIcons pad0"  (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">                        
                 
                       <img class="popUpIcons" [class.dNone]="getFlip(j)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">
                     </div>
@@ -104,26 +103,10 @@
             </div>
         </div>
     </div>
-    <!-- Eine Frage Ende -->
-    <!-- <div class="dateIcon">
-        <div class="sendDate">5.11.2522</div>
-        <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
-    </div> -->
-    <!-- <div class="message-div message-div-right">
-        <img src="assets/img/ch3.svg">
-
-        <div class="message-inner-div message-inner-div-right">
-
-            <div class="mes-name-clock mes-name-clock-right">
-                <span class="mes-name mes-name-right">Frederik Beck</span>
-                <span>15:06 Uhr</span>
-            </div>
-
-            <diV class="message message-right">
-                Ja das ist es.
-            </diV>
-        </div>
-    </div> -->
+    <div *ngIf="showBegin(threadList[this.number].communikation[0])" style="padding: 10px 40px 10px 40px;">
+        <span class="nunitoBlack fs20"> #{{threadList[this.number].channel.name}}</span><br>
+         Das ist der Anfang des Channels.
+     </div> 
 </div>
 
 <div class="textareaDirektMessage">
