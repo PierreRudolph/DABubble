@@ -1,4 +1,4 @@
-<app-header></app-header>
+<app-header [threadList]="this.threadList" [user]="user" [userList]="userList"></app-header>
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)"
@@ -19,7 +19,7 @@
 
     <div *ngIf="!channelOpen">
       <app-private-message (newItemEventUserList)="setUserList($event)"
-        (newItemEventLoggedUser)="setLoggedInUser($event)"></app-private-message>
+        (newItemEventLoggedUser)="setLoggedInUser($event)"  (newItemEventTalkList)="setTalkList($event)"></app-private-message>
     </div>
 
     <div style="padding-bottom: 30px;display: none;">

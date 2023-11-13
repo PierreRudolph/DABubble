@@ -1,11 +1,11 @@
-<mat-drawer-container class="example-container mat-drawer-div" [class.mar-right-20]="!sideMenuHidden">
+<mat-drawer-container  class="example-container mat-drawer-div" [class.mar-right-20]="!sideMenuHidden">
     <mat-drawer #drawer class="example-sidenav sidenav" mode="side" opened>
         <div class="head">
             <img src="assets/img/workspace-logo.svg">
             <p class="workspace-name">Code learning</p>
             <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
         </div>
-        <div class="accordion-outer-div">
+        <div class="accordion-outer-div" >
             <img (click)="openCreateChannelDialog()" class="add-icon" src="assets/icons/add.svg">
             <mat-accordion multi>
 
@@ -59,7 +59,7 @@
                             </div>
                         </div>
                     </mat-expansion-panel-header>
-                    <div>
+                    <div >
                         <!--Hier werden die Kontakte reingerendert.-->
                         <div class="contact-div">
                             <div>
