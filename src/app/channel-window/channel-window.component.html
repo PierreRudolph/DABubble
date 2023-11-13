@@ -23,30 +23,32 @@
     </div>
 </div>
 
-<div class="channel-body"  [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])"  >
+<div class="channel-body" [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])">
     <div class="message-div" *ngFor="let com of this.threadList[number].communikation, index as i ">
-        <div class="dateIcon" *ngIf="!showBegin(com)" >
+        <div class="dateIcon" *ngIf="!showBegin(com)">
             <div class="sendDate">{{this.threadList[number].communikation[i].date}}</div>
             <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
         </div>
         <div class="add-reaction">
             <img src="assets/icons/add-reaction.svg">
         </div>
-        <div class="messageDataPart" >
+        <div class="messageDataPart">
 
             <div class="message-inner-div" [class.messageInnerDivRight]="fromLoggedInUser(thread)"
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
                 <div class="popUpMessageContainer" [class.popUpFlipContainer]="!getFlip(j)">
                     <div class="popUpMessage" [class.popUpFlip]="!getFlip(j)">
-                      <img class="popUpIcons pad0"  src="assets/img/popUpHaken.svg">
-                      <img class="popUpIcons pad0"  (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">                        
-                
-                      <img class="popUpIcons" [class.dNone]="getFlip(j)"  (click)="openEditPopUp()" src="assets/img/more_vert.svg">
+                        <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg">
+                        <img class="popUpIcons pad0" (click)="toggleEmojisThread(i,j)"
+                            src="assets/icons/add-reaction.svg">
+
+                        <img class="popUpIcons" [class.dNone]="getFlip(j)" (click)="openEditPopUp()"
+                            src="assets/img/more_vert.svg">
                     </div>
-                    <div class="editMessage "  [class.show]="openEditDialog" (click)="openEditWindow(thread)">
-                      <div class="editMessageT">Nachricht bearbeiten</div>
+                    <div class="editMessage " [class.show]="openEditDialog" (click)="openEditWindow(thread)">
+                        <div class="editMessageT">Nachricht bearbeiten</div>
                     </div>
-                  </div>
+                </div>
                 <img src="{{getIconPathQuestionUser(thread.iD)}}">
                 <div style="display: flex; flex-direction: column; width:100%;align-items: flex-end;">
                     <div class="mes-name-clock">
@@ -59,18 +61,18 @@
                     </diV>
                     <div [class.dNone]="!thread.edit" style="width:100%">
                         <div style="position:relative">
-                          <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                          <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit" src="assets/img/smile.svg">
-                          <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
-                            (emojiClick)="saveEmojiEdit($event)" (darkMode)="false"></emoji-mart>
+                            <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{thread.message}}  </textarea>
+                            <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit" src="assets/img/smile.svg">
+                            <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
+                                (emojiClick)="saveEmojiEdit($event)" (darkMode)="false"></emoji-mart>
                         </div>
-          
+
                         <div class="editButtonContainer">
-                          <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
-                          <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
+                            <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
+                            <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
                         </div>
-                      </div>
-                    <diV class="reactions" [class.dNone]="thread.edit">                       
+                    </div>
+                    <diV class="reactions" [class.dNone]="thread.edit">
 
                         <div style="display:flex;gap:3px">
                             <div *ngFor="let t of thread.smile; index as sIndex" class="reactIcons"
@@ -82,8 +84,9 @@
                         </div>
                         <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
                             src="assets/icons/add-reaction.svg">
-                        <emoji-mart class="emojiDiv" style="left:-300px;bottom:-200px;" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
-                            (emojiClick)="saveEmojiComment($event)" (darkMode)="false"></emoji-mart>
+                        <emoji-mart class="emojiDiv" style="left:-300px;bottom:-200px;" *ngIf="isThreadEmojiShown(i,j)"
+                            title="Pick your emoji…" (emojiClick)="saveEmojiComment($event)"
+                            (darkMode)="false"></emoji-mart>
                     </diV>
 
                     <div class="answers-info">
@@ -105,18 +108,18 @@
     </div>
     <div *ngIf="showBegin(threadList[this.number].communikation[0])" style="padding: 10px 40px 10px 40px;">
         <span class="nunitoBlack fs20"> #{{threadList[this.number].channel.name}}</span><br>
-         Das ist der Anfang des Channels.
-     </div> 
+        Das ist der Anfang des Channels.
+    </div>
 </div>
 
 <div class="textareaDirektMessage">
     <textarea class="textAreaDirekt" [(ngModel)]="textThread" placeholder="Nachricht an (Channel-name)"></textarea>
     <img class="sendArrow" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
-        <img class="iconsTextArea" src="assets/img/add.svg">
+        <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
-        <img class="iconsTextArea" (click)="toggleEmojisDialog()" src="assets/img/smile.svg">
-        <img class="iconsTextArea" src="assets/img/alternate_email.svg">
+        <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
+        <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
         <!-- (emojiSelect)="addEmoji($event)" -->
     </div>
     <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"

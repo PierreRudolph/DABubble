@@ -351,25 +351,6 @@
     box-sizing: border-box;
 }
 
-.iconsTextArea {
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 100%;
-
-    &:hover {
-        background-color: #ECEEFE;
-    }
-}
-
-.iconContainerTextArea {
-    position: absolute;
-    left: 35px;
-    bottom: 20px;
-    display: flex;
-    gap: 5px;
-
-}
-
 .textAreaDirekt {
     border: #ADB0D9 solid 1px;
     border-radius: 30px;

@@ -27,6 +27,7 @@ export class SideMenuComponent {
   public loaded: boolean = false;
   private madeChannel: any;
   private unsubChannel: any;
+  public channelActive: number;
 
   constructor(public dialog: MatDialog) {
     console.log("threadist construktor", this.threadList);
@@ -61,7 +62,7 @@ export class SideMenuComponent {
             channelId = docRef.id;
             let c = {
               "name": this.madeChannel.name,
-              "creator":this.madeChannel.creator,
+              "creator": this.madeChannel.creator,
               "idDB": channelId,
               "description": this.madeChannel.description,
               "members": this.madeChannel.members,

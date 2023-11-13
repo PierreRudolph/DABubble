@@ -240,6 +240,14 @@
     }
 }
 
+.channelActive {
+    background-color: #eceefe;
+
+    img {
+        content: url('/assets/icons/tag-hover.svg');
+    }
+}
+
 .add-ch-div {
     cursor: pointer;
     width: 100%;

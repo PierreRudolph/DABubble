@@ -279,3 +279,41 @@ app-impressum {
     border: 1px solid #d9d9d9;
     background-color: #fff;
 }
+
+.iconContainerTextArea {
+    transition: all 225ms ease-in-out;
+    opacity: 0.5;
+    position: absolute;
+    left: 70px;
+    bottom: 20px;
+    display: flex;
+    gap: 5px;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.textAreaIconPlus {
+    cursor: pointer;
+
+    &:hover {
+        content: url('/assets/img/plus-icon-hover.svg');
+    }
+}
+
+.textAreaIconSmiley {
+    cursor: pointer;
+
+    &:hover {
+        content: url('/assets/img/smiley-icon-hover.svg');
+    }
+}
+
+.textAreaIconEmail {
+    cursor: pointer;
+
+    &:hover {
+        content: url('/assets/img/email-icon-hover.svg');
+    }
+}
