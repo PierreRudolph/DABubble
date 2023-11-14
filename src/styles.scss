@@ -232,11 +232,12 @@ app-impressum {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    left: 200px;
+    right: 200px;
     top: 65px;
     width: 250px;
     display: none;
     cursor: pointer;
+    z-index:2;
 
     .editMessageT {
         padding: 10px 20px 10px 20px;

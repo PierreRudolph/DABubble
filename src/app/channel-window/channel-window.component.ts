@@ -309,7 +309,7 @@ export class ChannelWindowComponent {
     this.addPeopleOpen = !this.addPeopleOpen;
   }
 
-  getFlip(m: any) {
+  getFlip(m: any) {   
     return m.iD == this.user.idDB;
   }
 

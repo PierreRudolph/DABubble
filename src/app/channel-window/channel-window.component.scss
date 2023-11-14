@@ -230,16 +230,19 @@
     }
 }
 
-// .popUpFlipContainer {
-//     right: unset;
-//     left: 40px;
+.popUpFlipContainer {
+  display: flex;
+  justify-content: flex-end;
+  right: unset;
+  left:40px;
+  .flipCorner{
+    border-radius: 25px!important;
+    border-bottom-right-radius: 0!important;
+}
+   
+}
 
-// }
 
-// .popUpFlip {
-//     border-radius: 25px !important;
-//     border-bottom-right-radius: 0px !important;
-// }
 
 .popUpMessageContainer {
     position: absolute;
@@ -287,7 +290,7 @@
     display: flex;
     gap: 5px;
     border-radius: 25px;
-    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0px;
     border: solid 1px #ADB0D9;
     padding: 3px 20px 3px 20px;
     width: fit-content;

@@ -169,7 +169,7 @@
         }
 
         .popUpMessageContainer {
-            display: unset;
+            display: unset!important;
         }
     }
 }
@@ -227,11 +227,22 @@
     }
 }
 
+.popUpMessageContainerFlip{
+    right:unset;
+    left:40px;
+
+    .flipCorner{
+        border-radius: 25px!important;
+        border-bottom-right-radius: 0!important;
+    }
+   
+}
+
 .popUpMessageContainer {
     position: absolute;
     right: 40px;
     top: 10px;
-    display: none;
+    display: none!important;
 }
 
 .unHover {
@@ -253,6 +264,8 @@
     height: fit-content;
     background-color: white;
     align-items: center;
+
+    
 }
 
 // .flipMessage{
@@ -284,8 +297,10 @@
 }
 
 .popUpFlipContainer {
-    right: unset;
-    left: 40px;
+    display: flex;
+    justify-content: flex-end;
+    // right: unset;
+    // left: 40px;
 }
 
 .editButtonContainer {

@@ -9,18 +9,22 @@
         <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
           <img style="width: 70px;" src="{{getIconFromName(m.name)}}">
           <div class="message-inner-div">
-            <div class="mes-name-clock">
+            <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(m)">
               <span class="nunitoBlack">{{m.name}}</span>
               <span style="color:#b7bade">{{m.time}} Uhr</span>
             </div>
-            <div class="message" [class.dNone]="m.edit">
-              {{m.message}}
+            <div [class.popUpFlipContainer]="getFlip(m)">
+              <div class="message" [class.dNone]="m.edit">
+                {{m.message}}
+              </div>
             </div>
-            <div style="display:flex;gap:5px; margin-top:10px">
-              <div class="reactIcons" [class.lila]="smileHelper.isUserInSmile(sFace.users,user)"
-                *ngFor="let sFace of m.smile, index as sIndex" (click)="removeSmile(mIndex,sIndex)">
-                {{sFace.icon}}
-                {{sFace.users.length}}
+            <div [class.popUpFlipContainer]="getFlip(m)">
+              <div style="display:flex;gap:5px; margin-top:10px">
+                <div class="reactIcons" [class.lila]="smileHelper.isUserInSmile(sFace.users,user)"
+                  *ngFor="let sFace of m.smile, index as sIndex" (click)="removeSmile(mIndex,sIndex)">
+                  {{sFace.icon}}
+                  {{sFace.users.length}}
+                </div>
               </div>
             </div>
             <div [class.dNone]="!m.edit">
@@ -36,13 +40,12 @@
               </div>
             </div>
           </div>
-          <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(m)">
-            <div class="popUpMessage" [class.popUpFlip]="getFlip(m)">
-              <!-- <img class="popUpIcons" src="assets/img/popUpHaken.svg">
-              <img class="popUpIcons" src="assets/img/popUpClaps.svg"> -->
+          <div class="popUpMessageContainer" [class.popUpMessageContainerFlip]="getFlip(m)">
+            <div class="popUpMessage"  [class.flipCorner]="getFlip(m)">
+             
               <img class="popUpIcons pad0" (click)="toggleEmojisDialogComment(i,mIndex)"
                 src="assets/icons/add-reaction.svg">
-              <!-- <img class="popUpIcons" src="assets/img/comment.svg"> -->
+          
               <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
                 src="assets/img/more_vert.svg">
             </div>
