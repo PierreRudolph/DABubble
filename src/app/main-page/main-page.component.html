@@ -3,8 +3,8 @@
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)"
-    (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList"
-    class="side-menu"></app-side-menu>
+    (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList"  [threadList]="threadList"
+    class="side-menu"  ></app-side-menu>
   <div class="main-content-div">
 
 
@@ -13,9 +13,12 @@
       [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"></app-channel-window>
 
 
-    <app-private-message class="privateMessage" *ngIf="!channelOpen" (newItemEventUserList)="setUserList($event)"
+    <!-- <app-private-message class="privateMessage" *ngIf="!channelOpen" (newItemEventUserList)="setUserList($event)"
       (newItemEventLoggedUser)="setLoggedInUser($event)"
-      (newItemEventTalkList)="setTalkList($event)"></app-private-message>
+      (newItemEventTalkList)="setTalkList($event)"></app-private-message> -->
+      <app-private-message class="privateMessage" *ngIf="!channelOpen" (newItemEventUserList)="setUserList($event)"
+      (newItemEventLoggedUser)="setLoggedInUser($event)"
+    [talkList]="talkList" [userList]="userList" ></app-private-message>
 
 
     <!-- <div style="padding-bottom: 30px;display: none;">

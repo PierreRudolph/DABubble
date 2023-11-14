@@ -49,7 +49,14 @@ export class MainPageComponent {
   private editA = false;
   private answerOpen = false;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
-
+  unsubChannel: any
+  private unsub: any;
+  private unsubtalk: any;
+  loaded = false;
+  public currentTalkData: any = this.chathelper.createEmptyTalk();
+  private currentTalkId: string = "";
+  private userAuth: any; //authenticated user
+  private userUid: string = ""; //uid od the user
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(SideMenuComponent) side: SideMenuComponent;
@@ -57,17 +64,79 @@ export class MainPageComponent {
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router) {
-    //  setTimeout(()=>{
-    //   console.log("talkList",this.talkList);
-    //  },3500);
+    console.log("threadist construktor", this.threadList);
+    console.log("channel name", this.threadList[0].channel.name);
+    this.unsubChannel = this.subChannelList()
+    console.log("current", this.currentTalkData);
+    this.currentTalkData.communikation = [];
+    setTimeout(() => {
+      console.log("call construktor");
+      this.userAuth = this.authService.getAuthServiceUser();
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
+      this.unsub = this.subUserInfo(); 
+    }, 1000);
+
+    setTimeout(()=>{
+      this.unsubtalk = this.subTalkInfo();
+    },1500);
+  }
+
+    subUserInfo() {
+    let ref = collection(this.firestore, 'user');
+    return onSnapshot(ref, (list) => {
+      this.userList = [];
+      list.forEach(elem => {
+        let u = new User(elem.data())
+        if (u.uid == this.userUid) {
+          this.user = u;
+          this.user.status = "aktiv";
+        }
+        else { this.userList.push(u); }
+      });
+      // this.addNewItem(this.userList);
+    });
+  }
+
+  subTalkInfo() {
+    let ref = collection(this.firestore, 'talk');
+    this.talkList=[];
+    return onSnapshot(ref, (list) => {
+      list.forEach(elem => {
+        if (elem.id == this.currentTalkId) {
+          this.currentTalkData = elem.data();          
+          console.log("curretn talk sub", this.currentTalkData);
+        }
+        if(elem.data()['member1DBid']==this.user.idDB||elem.data()['member2DBid']==this.user.idDB)
+        {
+          this.talkList.push(elem.data());
+        }
+        
+      });     
+      // this.newItemEventTalkList.emit(this.talkList);
+    });
+
+  }  
+
+  subChannelList() {
+    let ref = this.threadRef();
+    return onSnapshot(ref, (list) => {   
+      let cl: any = []
+      list.forEach(elem => {
+      
+        cl.push(elem.data());
+      });
+      this.threadList = cl;
+    
+    });
+
   }
 
   callOpenChan(num: number) {
     this.side.openChannel(num);
   }
 
-  openMessage(u:User){
- this.side.openTalk(u);
+  openMessage(u: User) {
+    this.side.openTalk(u);
   }
 
   setSideMenuHidden(h: boolean) {
@@ -92,7 +161,7 @@ export class MainPageComponent {
   setChannelNumber(number: number) {
     this.number = number;
     this.channelOpen = true;
-    this.talkOpen=false;
+    this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
     console.log("current thread number is", this.currentThreadId);
     console.log("Threadli st", this.threadList);
@@ -113,56 +182,7 @@ export class MainPageComponent {
       this.child.setOtherUser(user);
     }, 500);
 
-  }
-
-  // subUserInfo() {
-  //   let ref = this.threadRef();
-  //   return onSnapshot(ref, (list) => {
-  //     // this.threadList = [];
-  //     let th: any = []
-  //     list.forEach(elem => {
-  //       // this.threadList.push(elem.data());
-  //       th.push(elem.data());
-  //     });
-  //     this.threadList = th;
-  //     // this.addNewItem(this.userList);
-
-  //     console.log("threadlist", this.threadList);
-  //   });
-
-  // }
-
-  // threadDate(number: number, index: number) {
-  //   let date = this.threadList[number].communikation[index].date
-  //   // console.log("thread", this.threadList[number].communikation[index].date);
-  //   return date;
-  // }
-
-  // threadData(number: number, index: number, indexTh: number, dataName: string) {
-  //   let data = this.threadList[number].communikation[index].threads[indexTh][dataName];
-  //   // console.log("thread", this.threadList[number].communikation[index].threads[indexTh][dataName]);
-  //   return data;
-  // }
-
-  // async addThread(item: any) {
-
-  //   await addDoc(this.threadRef(), item).catch(
-  //     (err) => { console.error(err) }).then(
-  //       (docRef) => {
-  //         if (docRef) {
-  //           this.currentThreadId = docRef.id;
-  //           let c =
-  //           {
-  //             "name": item.channel.name,
-  //             "idDB": this.currentThreadId,
-  //             "description": item.channel.description,
-  //             "members": item.channel.members,
-  //           };
-  //           console.log(c);
-  //           this.updateDB(this.currentThreadId, 'thread', { "channel": c });
-  //         }
-  //       });
-  // }
+  } 
 
   setThreadList(list: any) {
     this.threadList = list;

@@ -13,21 +13,22 @@ import { SmileHelper } from 'src/moduls/smileHelper.class';
   styleUrls: ['./private-message.component.scss']
 })
 export class PrivateMessageComponent {
-  private userAuth: any; //authenticated user
+  // private userAuth: any; //authenticated user
   public user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
-  public userList: any;
-  public talkList:any;
-  private userUid: string = ""; //uid od the user
-  private unsub: any;
-  private unsubtalk: any;
+  private chatHepler: ChatHepler = new ChatHepler();
+  @Input() userList: any;
+ 
+  // private userUid: string = ""; //uid od the user
+  // private unsub: any;
+  // private unsubtalk: any;
   public choiceDialog: boolean = false;
   public profileOpen = false;
   public openChat = false;
   @Input() otherChatUser: User = new User();
   @Input() _setUser: boolean = false;
   private currentTalkId: string = "";
-  private chatHepler: ChatHepler = new ChatHepler();
+  @Input() talkList:any=[this.chatHepler.createEmptyTalk()];
   public currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
   public textEdit: string = "";
@@ -43,32 +44,32 @@ export class PrivateMessageComponent {
   smileHelper: SmileHelper = new SmileHelper();
   chatHelper: ChatHepler = new ChatHepler();
 
-  @Output() newItemEventUserList = new EventEmitter<any>();
+  // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
   @Output() newItemEventTalkList = new EventEmitter<any>();
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router) {
-    console.log("current", this.currentTalkData);
-    this.currentTalkData.communikation = [];
-    setTimeout(() => {
-      console.log("call construktor");
-      this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
-      this.unsub = this.subUserInfo(); 
-    }, 1000);
+    // console.log("current", this.currentTalkData);
+    // this.currentTalkData.communikation = [];
+    // setTimeout(() => {
+    //   console.log("call construktor");
+    //   this.userAuth = this.authService.getAuthServiceUser();
+    //   this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
+    //   this.unsub = this.subUserInfo(); 
+    // }, 1000);
 
-    setTimeout(()=>{
-      this.unsubtalk = this.subTalkInfo();
-    },1500);
+    // setTimeout(()=>{
+    //   this.unsubtalk = this.subTalkInfo();
+    // },1500);
     
   }
 
-  addNewItem(userList: any) {
-    this.newItemEventUserList.emit(userList);
-    this.newItemEventLoggedUser.emit(this.user);
-  }
+  // addNewItem(userList: any) {
+  //   this.newItemEventUserList.emit(userList);
+  //   this.newItemEventLoggedUser.emit(this.user);
+  // }
   openEditWindow(m: any) {
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
@@ -89,9 +90,9 @@ export class PrivateMessageComponent {
     this.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
-  userRef() {
-    return collection(this.firestore, 'user');
-  }
+  // userRef() {
+  //   return collection(this.firestore, 'user');
+  // }
 
   talkRef() {
     return collection(this.firestore, 'talk');
@@ -253,41 +254,41 @@ export class PrivateMessageComponent {
         });
   }
 
-  subUserInfo() {
-    let ref = this.userRef();
-    return onSnapshot(ref, (list) => {
-      this.userList = [];
-      list.forEach(elem => {
-        let u = new User(elem.data())
-        if (u.uid == this.userUid) {
-          this.user = u;
-          this.user.status = "aktiv";
-        }
-        else { this.userList.push(u); }
-      });
-      this.addNewItem(this.userList);
-    });
-  }
+  // subUserInfo() {
+  //   let ref = this.userRef();
+  //   return onSnapshot(ref, (list) => {
+  //     this.userList = [];
+  //     list.forEach(elem => {
+  //       let u = new User(elem.data())
+  //       if (u.uid == this.userUid) {
+  //         this.user = u;
+  //         this.user.status = "aktiv";
+  //       }
+  //       else { this.userList.push(u); }
+  //     });
+  //     this.addNewItem(this.userList);
+  //   });
+  // }
 
-  subTalkInfo() {
-    let ref = this.talkRef();
-    this.talkList=[];
-    return onSnapshot(ref, (list) => {
-      list.forEach(elem => {
-        if (elem.id == this.currentTalkId) {
-          this.currentTalkData = elem.data();          
-          console.log("curretn talk sub", this.currentTalkData);
-        }
-        if(elem.data()['member1DBid']==this.user.idDB||elem.data()['member2DBid']==this.user.idDB)
-        {
-          this.talkList.push(elem.data());
-        }
+  // subTalkInfo() {
+  //   let ref = this.talkRef();
+  //   this.talkList=[];
+  //   return onSnapshot(ref, (list) => {
+  //     list.forEach(elem => {
+  //       if (elem.id == this.currentTalkId) {
+  //         this.currentTalkData = elem.data();          
+  //         console.log("curretn talk sub", this.currentTalkData);
+  //       }
+  //       if(elem.data()['member1DBid']==this.user.idDB||elem.data()['member2DBid']==this.user.idDB)
+  //       {
+  //         this.talkList.push(elem.data());
+  //       }
         
-      });     
-      this.newItemEventTalkList.emit(this.talkList);
-    });
+  //     });     
+  //     this.newItemEventTalkList.emit(this.talkList);
+  //   });
 
-  }
+  // }
 
   async getTalkById(id: string) {
     const docRef = doc(this.firestore, "talk", id);

@@ -18,21 +18,16 @@ export class SideMenuComponent {
   private chathelper: ChatHepler = new ChatHepler();
   @Input() user: User = new User();
   @Input() userList = [this.user];
-  public threadList = [{ "channel": { "name": "channelname" } }]// [this.chathelper.createEmptyThread()];
+  @Input() threadList = [{ "channel": { "name": "channelname" } }]// [this.chathelper.createEmptyThread()];
   @Output() newItemEventMenuHidden = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEventChanel = new EventEmitter<any>();
   @Output() newItemEvent = new EventEmitter<boolean>();
-  @Output() newItemEventThreadList = new EventEmitter<any>();
   public loaded: boolean = false;
-  private madeChannel: any;
-  private unsubChannel: any;
+  private madeChannel: any; 
   public channelActive: number;
 
-  constructor(public dialog: MatDialog) {
-    console.log("threadist construktor", this.threadList);
-    console.log("channel name", this.threadList[0].channel.name);
-    this.unsubChannel = this.subChannelList()
+  constructor(public dialog: MatDialog) {   
     setTimeout(() => {
       this.loaded = true; //wegen ladeproblemen
     }, 3000);
@@ -74,21 +69,6 @@ export class SideMenuComponent {
         });
   }
 
-  subChannelList() {
-    let ref = this.threadRef();
-    return onSnapshot(ref, (list) => {
-      // this.threadList = [];
-      let cl: any = []
-      list.forEach(elem => {
-        // this.threadList.push(elem.data());
-        cl.push(elem.data());
-      });
-      this.threadList = cl;
-      // this.addNewItem(this.userList);
-      this.newItemEventThreadList.emit(this.threadList);     
-    });
-
-  }
 
   addNewItem(user: User) {
     this.newItemEventUser.emit(user);

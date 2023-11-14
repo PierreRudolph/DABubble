@@ -1,7 +1,7 @@
 <div class="direktMesHeader">
-  <div style="position: relative;width:70px;">
+  <div style="position: relative;width:70px;" *ngIf="talkOpen">
     <img style="width:65px;height:auto;border-radius: 100%;" src="{{otherChatUser.iconPath}}">
-    <div [class.greenDot]="otherChatUser.getAktive()" class="stateDot"></div>
+    <div [class.greenDot]="otherChatUser.getAktive()"  class="stateDot"></div>
   </div>
   <div class="nunitoBlack">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
 </div>
