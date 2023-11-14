@@ -14,7 +14,7 @@
             <img src="assets/img/ch2.svg">
             <img src="assets/img/ch3.svg"> -->
             <div *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)">
-                <img style="width:40px;height:40px" src="{{getIconPathQuestionUser(m.memberID)}}">
+                <img class="charImg" src="{{getIconPathQuestionUser(m.memberID)}}">
             </div>
             <span>{{this.threadList[number].channel.members.length}}</span>
         </div>
@@ -36,12 +36,13 @@
 
             <div class="message-inner-div" [class.messageInnerDivRight]="fromLoggedInUser(thread)"
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
-                <div class="popUpMessageContainer" [class.popUpFlipContainer]="!getFlip(j)">
-                    <div class="popUpMessage" [class.popUpFlip]="!getFlip(j)">
+                <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(j)">
+                    <div class="popUpMessage" [class.popUpFlip]="getFlip(j)">
                         <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg">
-                        <img class="popUpIcons pad0" (click)="toggleEmojisThread(i,j)"
-                            src="assets/icons/add-reaction.svg">
-
+                        <img class="addReaction" (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">
+                        <span class="popUpIcons pad0" (click)="saveEmojiCom(raisedHands.innerText)"
+                            #raisedHands>🙌</span>
+                        <img class="answerIcon" (click)="openNewThread()" src="assets/img/answer-icon.svg">
                         <img class="popUpIcons" [class.dNone]="getFlip(j)" (click)="openEditPopUp()"
                             src="assets/img/more_vert.svg">
                     </div>
@@ -49,8 +50,8 @@
                         <div class="editMessageT">Nachricht bearbeiten</div>
                     </div>
                 </div>
-                <img src="{{getIconPathQuestionUser(thread.iD)}}">
-                <div style="display: flex; flex-direction: column; width:100%;align-items: flex-end;">
+                <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}">
+                <div class="messageContent">
                     <div class="mes-name-clock">
                         <span class="mes-name">{{thread.name}}</span>
                         <span>{{thread.time}} Uhr</span>
@@ -65,7 +66,7 @@
                             <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit"
                                 src="assets/img/smiley-icon.svg">
                             <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
-                                (emojiClick)="saveEmojiEdit($event)" (darkMode)="false"></emoji-mart>
+                                (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
                         </div>
 
                         <div class="editButtonContainer">
@@ -85,12 +86,11 @@
                         </div>
                         <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
                             src="assets/icons/add-reaction.svg">
-                        <emoji-mart class="emojiDiv" style="left:-300px;bottom:-200px;" *ngIf="isThreadEmojiShown(i,j)"
-                            title="Pick your emoji…" (emojiClick)="saveEmojiComment($event)"
-                            (darkMode)="false"></emoji-mart>
+                        <emoji-mart class="emojiDiv" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
+                            (emojiClick)="saveEmojiComment($event)"></emoji-mart>
                     </diV>
 
-                    <div class="answers-info">
+                    <div class="answers-info" *ngIf="thread.answer.length>0">
                         <div class="answers-counter" (click)="openThisThread(number,i,j)">
                             <span> {{thread.answer.length}}</span>
                             <span>Antworten</span>
@@ -123,6 +123,6 @@
         <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
         <!-- (emojiSelect)="addEmoji($event)" -->
     </div>
-    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
-        (darkMode)="false"></emoji-mart>
+    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
+        (emojiClick)="saveEmoji($event)"></emoji-mart>
 </div>

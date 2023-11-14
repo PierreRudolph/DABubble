@@ -1,7 +1,7 @@
 <div style="position: absolute;top:0; right:-20px;">
     <div class="profile" (click)="openChoie()" style="cursor: pointer;">
         <div style="width:fit-content;white-space: nowrap; font-size: 32px;">{{user.name}}</div>
-        <img style="max-width: 70px;" src="{{user.iconPath}}">
+        <img class="avatarImg" src="{{user.iconPath}}">
         <img style="cursor: pointer;" src="assets/img/arrowDown.svg">
     </div>
     <div *ngIf="choiceDialog" class="choiceDialog">

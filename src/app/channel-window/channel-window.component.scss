@@ -56,8 +56,8 @@
 
 .emojiDiv {
     position: absolute;
-    bottom: -150px;
-    left: 100px;
+    bottom: -415px;
+    left: 92px;
     z-index: 3;
 }
 
@@ -203,8 +203,10 @@
     margin-top: 25px;
 }
 
-.char-img {
+.charImg {
+    object-fit: cover;
     width: 70px;
+    height: 70px;
     padding-right: 15px;
 }
 
@@ -225,16 +227,16 @@
     }
 }
 
-.popUpFlipContainer {
-    right: unset;
-    left: 40px;
+// .popUpFlipContainer {
+//     right: unset;
+//     left: 40px;
 
-}
+// }
 
-.popUpFlip {
-    border-radius: 25px !important;
-    border-bottom-right-radius: 0px !important;
-}
+// .popUpFlip {
+//     border-radius: 25px !important;
+//     border-bottom-right-radius: 0px !important;
+// }
 
 .popUpMessageContainer {
     position: absolute;
@@ -262,11 +264,27 @@
     }
 }
 
+.addReaction {
+    cursor: pointer;
+
+    &:hover {
+        content: url('/assets/icons/add-reaction-hover.svg');
+    }
+}
+
+.answerIcon {
+    cursor: pointer;
+
+    &:hover {
+        content: url('/assets/img/answer-icon-hover.svg');
+    }
+}
+
 .popUpMessage {
     display: flex;
     gap: 5px;
     border-radius: 25px;
-    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0px;
     border: solid 1px #ADB0D9;
     padding: 3px 20px 3px 20px;
     width: fit-content;
@@ -311,6 +329,12 @@
 
 .message-inner-div-right {
     align-items: flex-end;
+}
+
+.messageContent {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .mes-name-clock {
@@ -570,4 +594,12 @@
     width: calc(100% - 80px);
     margin-top: 15px;
     margin-left: 40px;
+}
+
+.smileEdit {
+    cursor: pointer;
+
+    &:hover {
+        content: url('/assets/img/smiley-icon-hover.svg');
+    }
 }
