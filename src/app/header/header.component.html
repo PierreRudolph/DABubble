@@ -7,10 +7,39 @@
         <img src="assets/img/LogoName.svg">
     </div>
 
-    <div *ngIf="router.url=='/'||router.url=='/main'" class="search-input">
-        <input  type="text" placeholder="Code learning durchsuchen">
-        <img src="assets/icons/search.svg">
-        
+    <div *ngIf="router.url=='/'||router.url=='/main'">
+        <div class="searchInput">
+            <input (ngModelChange)="searchKey($event)" [(ngModel)]="text" type="text" placeholder="Code learning durchsuchen" ngModel>
+            <img src="assets/icons/search.svg">
+            <div #searchResults class="searchResults" *ngIf="showPop()">
+                <div *ngFor="let threadTitles of threadTitleDec" class="field"
+                    (click)="callOpenChan(threadTitles.index)" style="display: flex;flex-direction: column;">
+                    <span class="nunitoBlack"># {{threadTitles.name}}</span>
+                    <span class="nunitoBlack fs14">{{threadTitles.decription}}...</span>
+                </div>
+                <div *ngFor="let uInfo of userInfos" class="field" (click)="callOpenT(uInfo)">
+                    <div style="display: flex; position: relative;gap:20px;">
+                        <img src="{{uInfo.iconPath}}">
+                        <span class="nunitoBlack"> {{uInfo.name}}</span>
+                    </div>
+                </div>
+                <div *ngFor="let tMess of threadMessages" class="field"  (click)="callOpenChan(tMess.num)" >
+                    <div style="display: flex; flex-direction: column; position: relative;gap:5px;">
+                      <span class="nunitoBlack">#{{tMess.chanName}}</span>
+                      <span class="nunitoBlack fs18">{{tMess.name}}</span>
+                     <span> {{makeSubstring(tMess.message,20)}}....   </span>
+                     <span>{{tMess.time}} Uhr am {{getdate(tMess)}}</span>
+                    </div>
+                </div>
+                <div *ngFor="let talkMess of talkMessages" class="field" (click)="callOpenT(getOtherUser(talkMess))">
+                    <div style="display: flex; flex-direction: column; position: relative;gap:5px;">
+                      <span class="nunitoBlack">{{talkMess.nameMem1}} & {{talkMess.nameMem2}}</span>                   
+                     <span> {{makeSubstring(talkMess.message,20)}}....   </span>
+                     <span>{{talkMess.time}} Uhr am {{getdateTalk(talkMess)}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div [class.dNone]="router.url !='/login'" class="loginHeaderRight">
