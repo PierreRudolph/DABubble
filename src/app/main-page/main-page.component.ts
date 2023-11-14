@@ -91,6 +91,7 @@ export class MainPageComponent {
   setChannelNumber(number: number) {
     this.number = number;
     this.channelOpen = true;
+    this.talkOpen=false;
     this.currentThreadId = this.threadList[number].channel.idDB;
     console.log("current thread number is", this.currentThreadId);
     console.log("Threadli st", this.threadList);
