@@ -40,14 +40,7 @@ export class MainPageComponent {
   public load = false;
   public sideMenuHidden: boolean;
   //-----------------
-  public number: number = 0;
-  private iEdit = 0; //indizierung für Bearbeitung der Threads
-  private jEdit = 0;
-  private aAnswer = 0;
-  //-----------------------
-  private editT = false;
-  private editA = false;
-  private answerOpen = false;
+  public number: number = 0; 
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   unsubChannel: any
   private unsub: any;
@@ -57,7 +50,7 @@ export class MainPageComponent {
   private currentTalkId: string = "";
   private userAuth: any; //authenticated user
   private userUid: string = ""; //uid od the user
-  public started=false;
+  public started = false;
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(SideMenuComponent) side: SideMenuComponent;
@@ -73,21 +66,22 @@ export class MainPageComponent {
     setTimeout(() => {
       console.log("call construktor");
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
-      this.unsub = this.subUserInfo(); 
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "";// "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
+      this.unsub = this.subUserInfo();
     }, 1000);
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.unsubtalk = this.subTalkInfo();
-    },1500);
-
-    setTimeout(()=>{
-      console.log("talkList",this.talkList);
-    },5000);
+    }, 1500);
 
   }
 
-    subUserInfo() {
+  /**
+   * Observes the database about changes on  all Users.
+   * 
+   * @returns Snapshot of the userList and logeed in User.
+   */
+  subUserInfo() {
     let ref = collection(this.firestore, 'user');
     return onSnapshot(ref, (list) => {
       this.userList = [];
@@ -99,117 +93,135 @@ export class MainPageComponent {
         }
         else { this.userList.push(u); }
       });
-      // this.addNewItem(this.userList);
+
     });
   }
 
+  /**
+  * Observes the database about changes on  all private talks of the current User.  
+  * 
+  * @returns Snapshot of all private talks of the current User.
+  */
   subTalkInfo() {
     let ref = collection(this.firestore, 'talk');
-    this.talkList=[];
+    this.talkList = [];
     return onSnapshot(ref, (list) => {
       list.forEach(elem => {
         if (elem.id == this.currentTalkId) {
-          this.currentTalkData = elem.data();          
+          this.currentTalkData = elem.data();
           console.log("curretn talk sub", this.currentTalkData);
         }
-        if(elem.data()['member1DBid']==this.user.idDB||elem.data()['member2DBid']==this.user.idDB)
-        {
+        //Only talks of the current user are saved
+        if (elem.data()['member1DBid'] == this.user.idDB || elem.data()['member2DBid'] == this.user.idDB) {
           this.talkList.push(elem.data());
         }
-        
-      });     
-      // this.newItemEventTalkList.emit(this.talkList);
+      });
     });
+  }
 
-  }  
-
+  /**
+   * Observes the database about changes of all channel entries and threads.
+   * 
+   * @returns Snapshot of all channels and their associated threads.
+   */
   subChannelList() {
-    let ref = this.threadRef();
-    return onSnapshot(ref, (list) => {   
+    let ref = collection(this.firestore, 'thread');
+    return onSnapshot(ref, (list) => {
       let cl: any = []
       list.forEach(elem => {
-      
+
         cl.push(elem.data());
       });
       this.threadList = cl;
-    
+
     });
 
   }
 
+  /**
+   * Is used by the Searchfunction. When clicked on the result the channel is opend, where the result can be found.
+   *    
+   * @param num  index of the current Cannel
+   */
   callOpenChan(num: number) {
-    this.side.openChannel(num);
+    this.setChannelNumber(num);
+    this.openChat = false;
+    // this.side.openChannel(num);
   }
 
+  /**
+  * Is used by the Searchfunction. When clicked on the result the channel is opend, where the result can be found.
+  *    
+  * @param u  User with which you want to chat with.
+  */
   openMessage(u: User) {
     this.side.openTalk(u);
   }
 
+  /**   
+   * @param h Sets wheather the sidemenu shoud be hidden or not
+   */
   setSideMenuHidden(h: boolean) {
     this.sideMenuHidden = h;
   }
 
+  /**
+   * Sets the needed variables to find the current message.    
+   * The structure of a channel entry can be found in ChatHepler(in moduleds) in the funtion createEmptyThread
+   * 
+   * @param n Index of the channel
+   * @param i Index of the communication (every day where a smessage was written has an own communication)
+   * @param j Index the message within a communication 
+   */
   openThisThread(n: number, i: number, j: number) {
-    console.log("number:" + n + " communikation:" + i + "  ThreadIndex:" + j);
     this.threadC.setValue(n, i, j);
     this.openChat = true;
-
   }
 
-  giveValue(v: number) {
-    console.log(v);
-  }
+  // giveValue(v: number) {
+  //   console.log(v);
+  // }
 
   setOpenValue(e: boolean) {
     this.openChat = e;
   }
-
+  /**
+   * Sets the id of the current channel. Sets the required variables for visibility.
+   * @param number index of the Channel set should be openend
+   */
   setChannelNumber(number: number) {
     this.number = number;
     this.channelOpen = true;
     this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
-    console.log("current thread number is", this.currentThreadId);
-    console.log("Threadli st", this.threadList);
   }
 
+  /**  
+   * @returns Am i talking to myself?
+   */
   isItMe() {
     return this.otherChatUser.idDB == this.user.idDB;
   }
 
-  openPrivate(){
-    return (!this.channelOpen) && this.started;
-  }
-
+  /**
+   * Setz the other chatUser to u and start the private talk.
+   * @param user Ohter chat user
+   */
   setOtherUser(user: User) {
     this.talkOpen = true;
     this.channelOpen = false;
     console.log("exist", this.exist);
-
     setTimeout(() => {
       this.otherChatUser = user;
       // this.setUser = !this.setUser;
       this.child.setOtherUser(user);
     }, 500);
 
-  } 
+  }
 
   setThreadList(list: any) {
     this.threadList = list;
-    // console.log("threadlist in main", this.threadList);
-  }
 
-  async updateDB(id: string, coll: string, info: {}) {
-
-    let docRef = doc(this.firestore, coll, id);
-    await updateDoc(docRef, info).then(
-      () => { console.log("update", id); }
-    ).catch(
-      (err) => { console.log(err); });
-  }
-
-  threadRef() {
-    return collection(this.firestore, 'thread');
   }
 
   setTalkList(tl: any) {
@@ -220,122 +232,21 @@ export class MainPageComponent {
     this.openChat = value;
   }
 
-  // setUserList(uL: any) {
-  //   this.userList = uL;
-  //   this.started = true
-  // }
-
   setLoggedInUser(u: any) {
     this.user = u;
     this.started = true;
   }
 
-  editThreadAnswer(i: number, j: number, aIndex: number) {
-    this.editA = !this.editA;
-    this.iEdit = i;
-    this.jEdit = j;
-    this.aAnswer = aIndex;
-    this.textThreadAnswerEdit = this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[aIndex].message;
-  }
-
-  editThread(i: number, j: number) {
-    this.editT = !this.editT;
-    this.iEdit = i;
-    this.jEdit = j;
-    this.textThreadEdit = this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message;
-  }
-
-  answerThread(i: number, j: number) { //später löschen
-    this.textThreadAnswer = "";
-    this.answerOpen = !this.answerOpen;
-    this.iEdit = i;
-    this.jEdit = j;
-  }
-
-  saveEdit() {
-    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message);
-    this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message = this.textThreadEdit;
-    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].message);
-    this.updateDB(this.currentThreadId, 'thread', { "communikation": this.threadList[this.number].communikation });
-    this.editT = !this.editT;
-  }
-
-  saveAnswer() {  //löschen später
-    let answ = {
-      "name": this.user.name,
-      "iD": this.user.idDB, //of person that writes the message
-      "edit": false,
-      "smile": [],
-      "time": this.chathelper.parseTime(new Date(Date.now())),
-      "message": this.textThreadAnswer,
-    }
-    this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer.push(answ);
-    console.log("Antwort", answ);
-    console.log("comunikation", this.threadList[this.number].communikation[this.iEdit]);
-    this.updateDB(this.currentThreadId, 'thread', { "communikation": this.threadList[this.number].communikation });
-    this.answerOpen = !this.answerOpen;
-  }
-
-  saveEditAnswer() {
-    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[this.aAnswer].message);
-    this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[this.aAnswer].message = this.textThreadAnswerEdit;
-    console.log("Mess", this.threadList[this.number].communikation[this.iEdit].threads[this.jEdit].answer[this.aAnswer].message);
-    this.updateDB(this.currentThreadId, 'thread', { "communikation": this.threadList[this.number].communikation });
-    this.editA = !this.editA;
-  }
-
-  getEdit(i: number, j: number) {
-    return (this.editT && (this.iEdit == i) && (this.jEdit == j))
-  }
-  getAnswer(i: number, j: number) {
-    return (this.answerOpen && (this.iEdit == i) && (this.jEdit == j))
-  }
-
-  getEditAnswer(i: number, j: number, aIndex: number) {
-    return (this.editA && (this.iEdit == i) && (this.jEdit == j) && (this.aAnswer == aIndex));
-  }
-
-  sendQuestion(indexCannel: number) {
-    let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
-    let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
-    let today = this.chathelper.parseDate(new Date(Date.now()));
-
-    let thread = {
-      "name": this.user.name,
-      "iD": this.user.idDB, //of person that writes the message
-      "edit": false,
-      "smile": [],
-      "time": this.chathelper.parseTime(new Date(Date.now())),
-      "message": this.textThread,
-      "answer": [
-
-      ]
-    }
-
-    if (today == lastdate) {
-      this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(thread);
-      let th = this.threadList[indexCannel].communikation;
-      console.log("upload data ", th);
-      this.updateDB(this.currentThreadId, "thread", { "communikation": th });
-    }
-    else {
-      if (this.threadList[indexCannel].communikation[communikationLastIndex].date == "") {
-        this.threadList[indexCannel].communikation = [];
-      }
-      let c = {
-        "date": today,
-        "threads": [thread]
-      }
-      this.threadList[indexCannel].communikation.push(c);
-      this.updateDB(this.currentThreadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
-    }
-    this.textThread = "";
-  }
-
+  /**
+   * Opens the thread window for the given communication
+   * 
+   * @param c  Object, that contain all the needet data to pen the thread in SideMenuThreadComponent.
+   * c is given to SideMenuThreadComponent, that needs the informations.
+   */
   setThreadC(c: ThreadConnector) {
     this.threadC = c;
     this.openChat = true;
-    this.started=true;
+    this.started = true;
     setTimeout(() => { this.childSideThread.drawer.open(); }, 250);
 
   }

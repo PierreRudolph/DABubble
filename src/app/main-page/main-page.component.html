@@ -11,66 +11,10 @@
     <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
       [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
       [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"></app-channel-window>
-
-
-    <!-- <app-private-message class="privateMessage" *ngIf="!channelOpen" (newItemEventUserList)="setUserList($event)"
-      (newItemEventLoggedUser)="setLoggedInUser($event)"
-      (newItemEventTalkList)="setTalkList($event)"></app-private-message> -->
+    
       <app-private-message class="privateMessage" *ngIf="!channelOpen " [user]="user" (newItemEventLoggedUser)="setLoggedInUser($event)"
     [talkList]="talkList" [userList]="userList" ></app-private-message>
-
-
-    <!-- <div style="padding-bottom: 30px;display: none;">
-      <div style="border: 2px solid black;" *ngIf="channelOpen">Channel open is
-        {{this.threadList[number].channel.name}}
-        <div style=" height:700px;overflow-y: scroll;">
-          <div *ngFor="let c of threadList[number].communikation;  index as i" style="margin:50px 10px 0 10px;">
-
-            {{this.threadList[number].communikation[i].date}}
-            <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j"
-              style="margin:30px;cursor: pointer;" (click)="openThisThread(number,i,j)">
-             
-              {{this.threadList[number].communikation[i].threads[j].name}}<br>
-              {{this.threadList[number].communikation[i].threads[j].time}}<br>
-              {{this.threadList[number].communikation[i].threads[j].message}}<br>
-
-              <div *ngFor="let ans of threadList[number].communikation[i].threads[j].answer;  index as aIndex"
-                style="margin:20px;">
-                <div>
-                  Antwort {{aIndex+1}}<br>
-                  {{this.threadList[number].communikation[i].threads[j].answer[aIndex].name}}<br>
-                  {{this.threadList[number].communikation[i].threads[j].answer[aIndex].time}}<br>
-                  {{this.threadList[number].communikation[i].threads[j].answer[aIndex].message}}<br>
-                </div>
-                <button (click)="editThreadAnswer(i,j,aIndex)">Edit Anwort</button>
-                <div *ngIf="getEditAnswer(i,j,aIndex)">
-                  <textarea [(ngModel)]="textThreadAnswerEdit"></textarea>
-                  <button (click)="saveEditAnswer()">save</button>
-                </div>
-              </div>
-              <div style="display: flex;gap:30px ;">
-                <button (click)="editThread(i,j)">Edit</button>
-                <button (click)="answerThread(i,j)">antworten</button>
-              </div>
-              <div *ngIf="getEdit(i,j)">
-                <textarea [(ngModel)]="textThreadEdit"></textarea>
-                <button (click)="saveEdit()"> senden</button>
-              </div>
-              <div *ngIf="getAnswer(i,j)">
-                <textarea [(ngModel)]="textThreadAnswer"></textarea>
-                <button (click)="saveAnswer()"> anworten</button>
-              </div>
-
-            </div>
-            <div>
-            </div>
-
-          </div>
-        </div>
-        <textarea [(ngModel)]="textThread"></textarea>
-        <button (click)="sendQuestion(number)"> senden</button>
-      </div>
-    </div> -->
+  
 
   </div>
   <app-side-menu-thread *ngIf="openChat" class="side-menu" [threadList]="threadList" [user]="user" [threadC]="threadC"
