@@ -18,6 +18,7 @@ export class MainPageComponent {
 
 
   public user: User = new User();//authenticated user
+  public gastID = "aFPvtx4nkhhF3IIAbvMP"
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   public choiceDialog: boolean = false;

@@ -56,17 +56,13 @@ export class PrivateMessageComponent {
       console.log("call construktor");
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
-      this.unsub = this.subUserInfo();
-    
-
+      this.unsub = this.subUserInfo(); 
     }, 1000);
 
     setTimeout(()=>{
       this.unsubtalk = this.subTalkInfo();
     },1500);
-    setTimeout(()=>{
-  
-    },3000);
+    
   }
 
   addNewItem(userList: any) {
