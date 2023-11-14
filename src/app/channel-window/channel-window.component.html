@@ -10,12 +10,8 @@
     <div class="channel-header-right">
         <div class="added-members" (click)="openChannelMembersDialog()"
             [class.hoverStyleChannelMembers]="channelMembersOpen" mat-button>
-            <!-- <img src="assets/img/ch1.svg">
-            <img src="assets/img/ch2.svg">
-            <img src="assets/img/ch3.svg"> -->
-            <div *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)">
-                <img class="charImg" src="{{getIconPathQuestionUser(m.memberID)}}">
-            </div>
+            <img *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)"
+                src="{{getIconPathQuestionUser(m.memberID)}}">
             <span>{{this.threadList[number].channel.members.length}}</span>
         </div>
         <img class="add-people" (click)="openAddPeopleDialog()" [class.hoverStyleAddPeople]="addPeopleOpen"

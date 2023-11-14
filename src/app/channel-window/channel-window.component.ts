@@ -324,6 +324,7 @@ export class ChannelWindowComponent {
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
     this.smileEdit = !this.smileEdit;
+    console.log('m.id=', tIndex, 'this.user.idDB=', this.user.idDB);
   }
 
   saveEmojiEdit(e: { emoji: { unified: string; }; }) {

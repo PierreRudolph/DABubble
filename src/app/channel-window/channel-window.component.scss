@@ -121,8 +121,10 @@
     padding: 3px 10px;
 
     img {
+        object-fit: cover;
+        height: 40px;
         width: 40px;
-        border: 2px solid white;
+        border: 3px solid white;
         border-radius: 30px;
     }
 
@@ -141,7 +143,7 @@
     img:nth-of-type(3) {
         z-index: 1;
         position: absolute;
-        left: 21px;
+        left: 22px;
     }
 
     span {
@@ -155,6 +157,7 @@
         color: #7e83f5;
     }
 }
+
 
 .hoverStyleChannelMembers {
     background-color: #ECEEFE;
