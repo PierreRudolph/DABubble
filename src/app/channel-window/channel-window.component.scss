@@ -304,6 +304,7 @@
 
 .message-inner-div {
     // flex-direction: column;
+    position: relative;
     align-items: flex-start;
     display: flex;
     gap: 30px;

@@ -34,10 +34,13 @@
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
                 <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(j)">
                     <div class="popUpMessage" [class.popUpFlip]="getFlip(j)">
-                        <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg">
+                        <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
+                            (click)="saveEmojiCom(i,j,haken.innerText)">
+                        <div style="display:none" #haken>✅</div>
                         <img class="addReaction" (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">
-                        <span class="popUpIcons pad0" (click)="saveEmojiCom(raisedHands.innerText)"
+                        <span class="popUpIcons pad0" (click)="saveEmojiCom(i,j,raisedHands.innerText)"
                             #raisedHands>🙌</span>
+                        <img class="answerIcon" (click)="openThisThread(number,i,j)" src="assets/img/answer-icon.svg">
                         <img class="answerIcon" (click)="openThisThread(number,i,j)" src="assets/img/answer-icon.svg">
                         <img class="popUpIcons" [class.dNone]="getFlip(j)" (click)="openEditPopUp()"
                             src="assets/img/more_vert.svg">
