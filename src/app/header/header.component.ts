@@ -51,8 +51,7 @@ export class HeaderComponent {
     this.searchText = text.toLowerCase();
     let i = -1;
     this.threadList.forEach((t) => {
-      i++;
-      console.log("t is", t.channel.name);
+      i++;      
       if (t.channel.name.toLowerCase().includes(this.searchText) || t.channel.description.toLowerCase().includes(this.searchText)) {
         let des = "";
         if (t.channel.description.toLowerCase().includes(this.searchText)) {
