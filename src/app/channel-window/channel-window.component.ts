@@ -56,7 +56,7 @@ export class ChannelWindowComponent {
     });
   }
 
-  showBegin(com: any) {   
+  showBegin(com: any) {
     return com.date == "";
   }
 
@@ -141,6 +141,35 @@ export class ChannelWindowComponent {
   }
 
 
+  saveEmojiCom(e: any) { // warum speichert die funktion den emoji nicht?
+    console.log('emoji ist', e);
+    let emoji = e;
+    let threadId = this.threadList[this.number].channel.idDB;
+    // this.emojiText += emoji;//löschen 
+    let sm = this.getTreadData(this.threadIndex, 'smile');
+
+    let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
+    if (smileIndex == -1) {
+      let icon = {
+        "icon": emoji,
+        "users": [
+          { "id": this.user.idDB }
+        ]
+      };
+      sm.push(icon);
+    } else {
+      let usersIcon = sm[smileIndex].users;
+
+      if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
+        sm[smileIndex].users.push({ "id": this.user.idDB });
+      }
+    }
+
+    this.setTreadData(this.threadIndex, 'smile', sm);
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    // this.showEmojisTread = !this.showEmojisTread;
+  }
+
   toggleEmojisDialog() {
     this.showEmojis = !this.showEmojis;
   }
@@ -156,6 +185,9 @@ export class ChannelWindowComponent {
     this.threadC.setValue(n, i, j);
     // this.openChat = true;
     this.newItemEventChannel.emit(this.threadC);
+  }
+
+  openNewThread() {
 
   }
 
