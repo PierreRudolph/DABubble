@@ -51,25 +51,14 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router) {
-    // console.log("current", this.currentTalkData);
-    // this.currentTalkData.communikation = [];
-    // setTimeout(() => {
-    //   console.log("call construktor");
-    //   this.userAuth = this.authService.getAuthServiceUser();
-    //   this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
-    //   this.unsub = this.subUserInfo(); 
-    // }, 1000);
-
-    // setTimeout(()=>{
-    //   this.unsubtalk = this.subTalkInfo();
-    // },1500);
 
   }
 
-  // addNewItem(userList: any) {
-  //   this.newItemEventUserList.emit(userList);
-  //   this.newItemEventLoggedUser.emit(this.user);
-  // }
+  /**
+   * Opens the edid Window
+   * 
+   * @param m Contains all the data of the current message.
+   */
   openEditWindow(m: any) {
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
@@ -80,19 +69,23 @@ export class PrivateMessageComponent {
     m.edit = false;
   }
 
+  /**
+   * Computed, when we klick on the vert icon, that appears when hover over the message.
+   */
   openEditPopUp() {
     this.openEditDialog = !this.openEditDialog;
   }
 
+  /**
+   * Saves the edited message
+   * 
+   * @param m Contains all the data of the current message.
+   */
   saveEdit(m: any) {
     m.edit = false;
     m.message = this.textEdit;
-    this.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+    this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
-
-  // userRef() {
-  //   return collection(this.firestore, 'user');
-  // }
 
   talkRef() {
     return collection(this.firestore, 'talk');
@@ -101,6 +94,13 @@ export class PrivateMessageComponent {
   setOpen(value: boolean) {
     this.openChat = value;
   }
+
+  /**
+   * Creates a JSON that repesents the message. It contains the given text and other needed Informations.
+   * 
+   * @param text String that yould be in the new created message.
+   * @returns 
+   */
   createMessageFromText(text: string) {
     let mes = {
       "name": this.user.name,
@@ -113,6 +113,12 @@ export class PrivateMessageComponent {
     return mes;
   }
 
+  /**
+   * Saves the given JSON in a appropriate way in currentTalkData.
+   * It consoders wheater the messages was createt on anothr day than the last one.
+   * 
+   * @param mes JSON that represents the message.
+   */
   saveMessageExist(mes: {}) {
     setTimeout(() => {
       let len = this.currentTalkData.communikation.length;
@@ -130,6 +136,9 @@ export class PrivateMessageComponent {
     }, 500);
   }
 
+  /**
+   * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
+   */
   saveMessage() {
     let mes = this.createMessageFromText(this.text);
     console.log(mes)
@@ -140,19 +149,25 @@ export class PrivateMessageComponent {
     else {
       this.saveMessageExist(mes);
     }
-
     setTimeout(() => {
-      this.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+      this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }, 750);
     this.text = "";
   }
-
-  getIconFromName(name: string) {
-    if (name == this.user.name) {
+  /**
+   * 
+   * @param id id of the user
+   * @returns The imagePath of the given user
+   */
+  getIconFromName(id: string) {
+    if (id == this.user.idDB) {
       return this.user.iconPath;
     } else return this.otherChatUser.iconPath;
   }
 
+  /**
+   * Initializes a new private talk. Sets the needed information to both users, that take part on the conversation.
+   */
   startTalkInitialize() {
     let talkUser = { //the id of the talk is saved in a List of the user
       "talkID": this.currentTalkId,
@@ -166,12 +181,17 @@ export class PrivateMessageComponent {
     let oT = this.otherChatUser.talkID;  //other talklist
     uT.push(talkUser);
     oT.push(talkOther);
-    this.updateDB(this.user.idDB, "user", { "talkID": uT });
-    this.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
+    this.chatHepler.updateDB(this.user.idDB, "user", { "talkID": uT });
+    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
   }
 
-  startTalk(talk: {}): {} {
 
+  /** Called when a new private talk is started.
+   * 
+   * @param talk JSON of information of the new message
+   * @returns 
+   */
+  startTalk(talk: {}): {} {
     let t: any = this.chatHepler.createNewTalk(this.user, this.otherChatUser);
 
     t.communikation[0].messages = [talk];
@@ -181,11 +201,16 @@ export class PrivateMessageComponent {
     }, 2000);
     t.idDB = this.currentTalkId;
     this.currentTalkData = t;
-    console.log("communikation Talk", this.currentTalkData);
+    // console.log("communikation Talk", this.currentTalkData);
     return t;
   }
 
+  /**
+   * Determines the talk-id with otherChatUser and opens it.
+   */
+
   openTalk() {
+    let talkId = "";
     console.log("openTalk");
     this.exist = false;
     this.talkOpen = true;
@@ -194,7 +219,7 @@ export class PrivateMessageComponent {
     // console.log("talks ", talks);
     // console.log("otherChatUser ", dbIDOther);
     // console.log("user ", this.user);
-    let talkId = "";
+
     talks.forEach(t => {
       let a: any;
       a = t;
@@ -204,7 +229,16 @@ export class PrivateMessageComponent {
         talkId = a.talkID;
       }
     });
+    this.openeningTalk(talkId);
+  }
 
+
+  /** 
+   * Used by openTalk(). Opens the talk in the appropirate way depending if it is a new talk or an existing one.
+   * 
+   * @param talkId Id of the talk, that should be opend
+   */
+  openeningTalk(talkId: string) {
     if (this.exist) {
       console.log("talk exist");
       this.openExistingTalk(talkId);
@@ -228,17 +262,22 @@ export class PrivateMessageComponent {
   setOtherUser(user: User) {
     this.otherChatUser = user;
     console.log("data", this.currentTalkData);
-    this.openTalk();  
+    this.openTalk();
 
   }
 
-  async updateDB(id: string, coll: string, info: {}) {
+  // async updateDB(id: string, coll: string, info: {}) {
 
-    let docRef = doc(this.firestore, coll, id);
-    await updateDoc(docRef, info).catch(
-      (err) => { console.log(err); });
-  }
+  //   let docRef = doc(this.firestore, coll, id);
+  //   await updateDoc(docRef, info).catch(
+  //     (err) => { console.log(err); });
+  // }
 
+  /**
+   * Stores a new talk in firebase.
+   * 
+   * @param item Data of the new talk that shell be stored in the firestore database
+   */
   async addTalk(item: {}) {
 
     await addDoc(this.talkRef(), item).catch(
@@ -246,58 +285,24 @@ export class PrivateMessageComponent {
         (docRef) => {
           if (docRef) {
             this.currentTalkId = docRef.id;
-            this.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
+            this.chatHepler.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
           }
         });
   }
 
-  // subUserInfo() {
-  //   let ref = this.userRef();
-  //   return onSnapshot(ref, (list) => {
-  //     this.userList = [];
-  //     list.forEach(elem => {
-  //       let u = new User(elem.data())
-  //       if (u.uid == this.userUid) {
-  //         this.user = u;
-  //         this.user.status = "aktiv";
-  //       }
-  //       else { this.userList.push(u); }
-  //     });
-  //     this.addNewItem(this.userList);
-  //   });
-  // }
-
-  // subTalkInfo() {
-  //   let ref = this.talkRef();
-  //   this.talkList=[];
-  //   return onSnapshot(ref, (list) => {
-  //     list.forEach(elem => {
-  //       if (elem.id == this.currentTalkId) {
-  //         this.currentTalkData = elem.data();          
-  //         console.log("curretn talk sub", this.currentTalkData);
-  //       }
-  //       if(elem.data()['member1DBid']==this.user.idDB||elem.data()['member2DBid']==this.user.idDB)
-  //       {
-  //         this.talkList.push(elem.data());
-  //       }
-
-  //     });     
-  //     this.newItemEventTalkList.emit(this.talkList);
-  //   });
-
-  // }
-
+  /**
+   * Loads the data of the talkfrom firestore and stores them in currentTalkData
+   * 
+   * @param id id of the talk
+   */
   async getTalkById(id: string) {
     const docRef = doc(this.firestore, "talk", id);
     let docSnap = await getDoc(docRef);
 
     if (docSnap != null) {
-      // console.log("Document data:",docSnap.data());
       this.currentTalkData = docSnap.data();
-
     } else {
       // docSnap.data() will be undefined in this case
-
     }
   }
 
@@ -305,6 +310,10 @@ export class PrivateMessageComponent {
     return m.iD == this.user.idDB
   }
 
+  /** Puts the given emoji in the textare or in the texteditarea
+   * 
+   * @param e JSON Object that contains the information of the emoji that should be stored in the text.
+   */
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
@@ -316,19 +325,16 @@ export class PrivateMessageComponent {
       this.textEdit += emoji;
       this.toggleEmojisDialogEdit()
     }
-    console.log(emoji);
-
-    console.log("show emoji", e);
-    console.log("show emoji", emoji);
   }
 
+  /** Saves the given emoji as a comment pinned under the message.
+   * 
+   * @param e JSON Object that contains the information of the emoji that should be stored in the text.
+   */
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
-
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let talkId = this.currentTalkData.idDB;
-    // this.emojiText += emoji;//löschen
-    console.log("messages", this.currentTalkData.communikation[this.communikationIndex].messages);
+    let talkId = this.currentTalkData.idDB; 
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -341,17 +347,21 @@ export class PrivateMessageComponent {
       sm.push(icon);
     } else {
       let usersIcon = sm[smileIndex].users;
-
       if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
     }
     this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile = sm;
-    console.log("neuer Smilie ", this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex]);
     this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
     this.showEmojisComment = false;
   }
 
+ /**
+  * Removed the smilie of the smiliebox with the given location data.
+  * 
+  * @param i        index of the message where the smilie that sould be removed
+  * @param sIndex   the index of the smilie in the smiliebox that sould be removed
+  */
   removeSmile(i: number, sIndex: number) {
     let talkId = this.currentTalkData.idDB;
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;

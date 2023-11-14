@@ -17,7 +17,7 @@
 
       <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
         <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
-          <img style="width: 70px;" src="{{getIconFromName(m.name)}}">
+          <img style="width: 70px;" src="{{getIconFromName(m.iD)}}">
           <div class="message-inner-div">
             <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(m)">
               <span class="nunitoBlack">{{m.name}}</span>
