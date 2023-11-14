@@ -26,6 +26,19 @@
     width: fit-content;
 }
 
+.userName {
+    font-size: 32px;
+    max-width: 300px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+        max-width: 400px;
+    }
+}
+
+
 .avatarImg {
     border-radius: 50%;
     width: 70px;
