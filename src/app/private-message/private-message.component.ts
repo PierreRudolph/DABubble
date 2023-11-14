@@ -14,11 +14,11 @@ import { SmileHelper } from 'src/moduls/smileHelper.class';
 })
 export class PrivateMessageComponent {
   // private userAuth: any; //authenticated user
-  public user: User = new User();//authenticated user
+  @Input() user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
   private chatHepler: ChatHepler = new ChatHepler();
   @Input() userList: any;
- 
+
   // private userUid: string = ""; //uid od the user
   // private unsub: any;
   // private unsubtalk: any;
@@ -28,7 +28,7 @@ export class PrivateMessageComponent {
   @Input() otherChatUser: User = new User();
   @Input() _setUser: boolean = false;
   private currentTalkId: string = "";
-  @Input() talkList:any=[this.chatHepler.createEmptyTalk()];
+  @Input() talkList: any = [this.chatHepler.createEmptyTalk()];
   public currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
   public textEdit: string = "";
@@ -63,7 +63,7 @@ export class PrivateMessageComponent {
     // setTimeout(()=>{
     //   this.unsubtalk = this.subTalkInfo();
     // },1500);
-    
+
   }
 
   // addNewItem(userList: any) {
@@ -191,7 +191,9 @@ export class PrivateMessageComponent {
     this.talkOpen = true;
     let dbIDOther = this.otherChatUser.idDB;
     let talks = this.user.talkID; // list of all the talks of the user   
-
+    // console.log("talks ", talks);
+    // console.log("otherChatUser ", dbIDOther);
+    // console.log("user ", this.user);
     let talkId = "";
     talks.forEach(t => {
       let a: any;
@@ -226,12 +228,7 @@ export class PrivateMessageComponent {
   setOtherUser(user: User) {
     this.otherChatUser = user;
     console.log("data", this.currentTalkData);
-    this.openTalk();
-    setTimeout(() => {
-      console.log("open talk again");
-      this.openTalk()
-    },
-      1000);
+    this.openTalk();  
 
   }
 
@@ -283,7 +280,7 @@ export class PrivateMessageComponent {
   //       {
   //         this.talkList.push(elem.data());
   //       }
-        
+
   //     });     
   //     this.newItemEventTalkList.emit(this.talkList);
   //   });

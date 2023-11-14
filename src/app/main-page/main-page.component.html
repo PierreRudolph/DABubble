@@ -2,7 +2,7 @@
   (callOpenChannel)="callOpenChan($event)" (callOpenTalk)="openMessage($event)"></app-header>
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
-    (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)"
+    (newItemEventChanel)="setChannelNumber($event)"
     (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList"  [threadList]="threadList"
     class="side-menu"  ></app-side-menu>
   <div class="main-content-div">
@@ -16,8 +16,7 @@
     <!-- <app-private-message class="privateMessage" *ngIf="!channelOpen" (newItemEventUserList)="setUserList($event)"
       (newItemEventLoggedUser)="setLoggedInUser($event)"
       (newItemEventTalkList)="setTalkList($event)"></app-private-message> -->
-      <app-private-message class="privateMessage" *ngIf="!channelOpen" (newItemEventUserList)="setUserList($event)"
-      (newItemEventLoggedUser)="setLoggedInUser($event)"
+      <app-private-message class="privateMessage" *ngIf="!channelOpen " [user]="user" (newItemEventLoggedUser)="setLoggedInUser($event)"
     [talkList]="talkList" [userList]="userList" ></app-private-message>
 
 

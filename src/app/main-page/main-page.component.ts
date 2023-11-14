@@ -57,6 +57,7 @@ export class MainPageComponent {
   private currentTalkId: string = "";
   private userAuth: any; //authenticated user
   private userUid: string = ""; //uid od the user
+  public started=false;
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(SideMenuComponent) side: SideMenuComponent;
@@ -79,6 +80,11 @@ export class MainPageComponent {
     setTimeout(()=>{
       this.unsubtalk = this.subTalkInfo();
     },1500);
+
+    setTimeout(()=>{
+      console.log("talkList",this.talkList);
+    },5000);
+
   }
 
     subUserInfo() {
@@ -171,6 +177,10 @@ export class MainPageComponent {
     return this.otherChatUser.idDB == this.user.idDB;
   }
 
+  openPrivate(){
+    return (!this.channelOpen) && this.started;
+  }
+
   setOtherUser(user: User) {
     this.talkOpen = true;
     this.channelOpen = false;
@@ -210,12 +220,14 @@ export class MainPageComponent {
     this.openChat = value;
   }
 
-  setUserList(uL: any) {
-    this.userList = uL;
-  }
+  // setUserList(uL: any) {
+  //   this.userList = uL;
+  //   this.started = true
+  // }
 
   setLoggedInUser(u: any) {
     this.user = u;
+    this.started = true;
   }
 
   editThreadAnswer(i: number, j: number, aIndex: number) {
@@ -323,6 +335,7 @@ export class MainPageComponent {
   setThreadC(c: ThreadConnector) {
     this.threadC = c;
     this.openChat = true;
+    this.started=true;
     setTimeout(() => { this.childSideThread.drawer.open(); }, 250);
 
   }
