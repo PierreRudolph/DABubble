@@ -18,7 +18,7 @@
     border-radius: 25px;
     padding: 20px;
     align-items: center;
-    display: flex;  
+    display: flex;
 
     &:hover {
         background-color: #ECEEFE;
@@ -38,13 +38,13 @@
     border: 1px solid grey;
     padding: 10px;
     z-index: 4;
-    
+
     img {
-        position: unset!important;
-        width:30px;
-        height:30px;
+        position: unset !important;
+        width: 30px;
+        height: 30px;
     }
-    
+
 }
 
 .space-betw {
@@ -111,23 +111,23 @@
     padding: 10px;
 }
 
-// @media (min-width:470px) {
-//     .headerContainer {
-//         padding: 15px 16px;
-//         padding-bottom: 0px;
-//     }
+@media (max-width:470px) {
+    .headerContainer {
+        padding: 15px 16px;
+        padding-bottom: 0px;
+    }
 
-//     .logoContainer {
-//         img:nth-child(1) {
-//             height: 45px;
-//         }
+    .logoContainer {
+        img:nth-child(1) {
+            height: 45px;
+        }
 
-//         img:nth-child(2) {
-//             height: 20px;
-//         }
-//     }
+        img:nth-child(2) {
+            height: 20px;
+        }
+    }
 
-//     .search-input {
-//         display: none;
-//     }
-// }
+    .searchInput {
+        display: none;
+    }
+}
