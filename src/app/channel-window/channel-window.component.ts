@@ -133,6 +133,7 @@ export class ChannelWindowComponent {
       if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
+      console.log(emoji);
     }
 
     this.setTreadData(this.threadIndex, 'smile', sm);
