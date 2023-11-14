@@ -2,7 +2,7 @@
     <div class="profile" (click)="openChoie()" style="cursor: pointer;">
         <span class="userName">{{user.name}}</span>
         <img class="avatarImg" src="{{user.iconPath}}">
-        <img style="cursor: pointer;" src="assets/img/arrowDown.svg">
+        <img class="arrowImg" src="assets/img/arrowDown.svg">
     </div>
     <div *ngIf="choiceDialog" class="choiceDialog">
         <div style="cursor: pointer;" (click)="openProfile()">Profile</div>

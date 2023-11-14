@@ -46,6 +46,10 @@
     object-fit: cover;
 }
 
+.arrowImg {
+    cursor: pointer;
+}
+
 .choiceDialog {
     position: absolute;
     right: 50px;
@@ -83,17 +87,23 @@
 
 }
 
-// @media (max-width:470px) {
-//     .profile {
-//         right: 15px;
-//         top: 15px;
+@media (max-width:470px) {
 
-//         div {
-//             display: none;
-//         }
+    .profile {
+        top: 13px;
+        right: 13px;
+    }
 
-//         img:nth-of-type(2) {
-//             display: none;
-//         }
-//     }
-// }
+    .avatarImg {
+        width: 50px;
+        height: 50px;
+    }
+
+    .userName {
+        display: none;
+    }
+
+    .arrowImg {
+        display: none;
+    }
+}

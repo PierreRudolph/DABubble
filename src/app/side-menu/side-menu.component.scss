@@ -327,7 +327,6 @@
 
         span {
             overflow: visible;
-            //white-space: unset; was ist schöner, wenn der Name zu lang ist?
         }
     }
 
@@ -353,4 +352,80 @@
 
 .greenDot {
     background-color: #92C83E;
+}
+
+.inputMobile {
+    display: none;
+}
+
+.newMesMobile {
+    display: none;
+}
+
+@media (max-width:470px) {
+    .sidenav-content {
+        display: none;
+    }
+
+    .mar-right-20 {
+        margin-right: 0px;
+    }
+
+    .sidenav {
+        padding: 32px 18px;
+        border-radius: 0px;
+        width: 100%;
+    }
+
+    .accordion-outer-div {
+        margin: 25px 25px;
+    }
+
+    .head {
+        display: none;
+    }
+
+    .inputMobile {
+        display: block;
+        position: relative;
+
+        input {
+            color: grey;
+            font-size: 17px;
+            height: 48px;
+            width: 100%;
+            padding: 8px 24px;
+            border: 1px solid #ADB0D9;
+            box-sizing: border-box;
+            border-radius: 30px;
+
+            &:focus-within {
+                outline: none;
+            }
+        }
+
+        img {
+            position: absolute;
+            right: 25px;
+            top: 7px;
+            width: 32px;
+        }
+    }
+
+    .add-icon {
+        top: 10px;
+        content: url('/assets/icons/add-mobile.svg');
+
+        &:hover {
+            content: url('/assets/icons/add-mobile.svg');
+        }
+    }
+
+    .newMesMobile {
+        z-index: 1;
+        display: block;
+        position: absolute;
+        bottom: 50px;
+        right: 5px;
+    }
 }

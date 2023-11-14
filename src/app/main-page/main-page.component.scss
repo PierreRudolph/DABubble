@@ -9,10 +9,6 @@
     margin-bottom: 25px;
 }
 
-.side-menu {
-    border-radius: 30px;
-}
-
 .main-content-div {
     width: 100%;
     background-color: white;
@@ -46,4 +42,22 @@
 .privateMessage {
     position: relative;
     height: 100%;
+}
+
+@media (max-width:470px) {
+    .main-page {
+        width: 100vw;
+        height: calc(100vh - 80px);
+        margin: 0px;
+        margin-top: 80px;
+    }
+
+    .main-content-div {
+        display: none;
+    }
+
+    .side-menu {
+        width: 100%;
+
+    }
 }
