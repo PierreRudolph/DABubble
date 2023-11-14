@@ -141,9 +141,10 @@ export class ChannelWindowComponent {
   }
 
 
-  saveEmojiCom(e: any) { // warum speichert die funktion den emoji nicht?
+  saveEmojiCom(cIndex: number, tIndex: number, e: any) { // warum speichert die funktion den emoji nicht?
     console.log('emoji ist', e);
     let emoji = e;
+    this.setIndices(cIndex, tIndex);
     let threadId = this.threadList[this.number].channel.idDB;
     // this.emojiText += emoji;//löschen 
     let sm = this.getTreadData(this.threadIndex, 'smile');
@@ -247,6 +248,11 @@ export class ChannelWindowComponent {
     this.textThread = "";
   }
 
+
+  setIndices(cIndex: number, tIndex: number) {   
+    this.threadIndex = tIndex;
+    this.commIndex = cIndex;
+  }
 
   toggleEmojisThread(cIndex: number, tIndex: number) {
     this.showEmojisTread = !this.showEmojisTread;
