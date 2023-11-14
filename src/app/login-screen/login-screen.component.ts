@@ -36,6 +36,22 @@ export class LoginScreenComponent {
       });
   }
 
+  async loginAsGuest() {
+    return this.authService.logIn("gast@mail.com", "gggggg").then((res) => {
+      // Login successful       
+      let user = this.authService.getAuthServiceUser();
+      let id = user._delegate.uid;
+      console.log("user", id);
+      console.log("Logegd in as Guest");
+      localStorage.setItem('uid', id);
+      // this.route.navigateByUrl("/main");
+      this.route.navigateByUrl("/main");
+    })
+      .catch((error) => {
+        console.log("fail");
+      });
+  }
+
   async logInWithGoogle() {
     this.authService.logInWithGoogle().
       then((dat) => {
