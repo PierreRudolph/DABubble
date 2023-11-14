@@ -38,18 +38,12 @@
     background-color: #92C83E;
 }
 
-.direktMesHeader {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    //width: 100%; verursacht overflow wenn thread geschlossen
-    height: 60px;
-    margin: 32px 45px 20px 45px;
-    box-sizing: border-box;
-}
-
 .channel-window {
     position: relative;
     height: 100%;
 }
 
+.privateMessage {
+    position: relative;
+    height: 100%;
+}

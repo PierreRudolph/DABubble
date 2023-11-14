@@ -1,32 +1,24 @@
-<app-header [threadList]="this.threadList" [user]="user" [userList]="userList"  [talkList]="talkList" 
- (callOpenChannel)="callOpenChan($event)"   (callOpenTalk)="openMessage($event)"></app-header>
+<app-header [threadList]="this.threadList" [user]="user" [userList]="userList" [talkList]="talkList"
+  (callOpenChannel)="callOpenChan($event)" (callOpenTalk)="openMessage($event)"></app-header>
 <div class="main-page">
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (newItemEventChanel)="setChannelNumber($event)" (newItemEventThreadList)="setThreadList($event)"
     (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList"
     class="side-menu"></app-side-menu>
   <div class="main-content-div">
-    <div *ngIf="talkOpen" class="direktMesHeader">
-      <div style="position: relative;width:70px;">
-        <img style="width:65px;height:auto;border-radius: 100%;" src="{{otherChatUser.iconPath}}">
-        <div [class.greenDot]="otherChatUser.getAktive()" class="stateDot"></div>
-      </div>
-      <div class="nunitoBlack">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
-    </div>
+
 
     <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
       [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
       [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"></app-channel-window>
 
-    <div *ngIf="!channelOpen">
-      <app-private-message (newItemEventUserList)="setUserList($event)"
-        (newItemEventLoggedUser)="setLoggedInUser($event)"  (newItemEventTalkList)="setTalkList($event)"></app-private-message>
-    </div>
 
-    <div style="padding-bottom: 30px;display: none;">
+    <app-private-message class="privateMessage" *ngIf="!channelOpen" (newItemEventUserList)="setUserList($event)"
+      (newItemEventLoggedUser)="setLoggedInUser($event)"
+      (newItemEventTalkList)="setTalkList($event)"></app-private-message>
 
 
-
+    <!-- <div style="padding-bottom: 30px;display: none;">
       <div style="border: 2px solid black;" *ngIf="channelOpen">Channel open is
         {{this.threadList[number].channel.name}}
         <div style=" height:700px;overflow-y: scroll;">
@@ -35,7 +27,7 @@
             {{this.threadList[number].communikation[i].date}}
             <div *ngFor="let t of threadList[number].communikation[i].threads;  index as j"
               style="margin:30px;cursor: pointer;" (click)="openThisThread(number,i,j)">
-              <!-- <div *ngFor="let t of c[i].threads;  index as j"> -->
+             
               {{this.threadList[number].communikation[i].threads[j].name}}<br>
               {{this.threadList[number].communikation[i].threads[j].time}}<br>
               {{this.threadList[number].communikation[i].threads[j].message}}<br>
@@ -73,12 +65,10 @@
 
           </div>
         </div>
-        <!-- {{this.threadList[number].communikation[1].threads[0].message}}<br> -->
         <textarea [(ngModel)]="textThread"></textarea>
         <button (click)="sendQuestion(number)"> senden</button>
       </div>
-
-    </div>
+    </div> -->
 
   </div>
   <app-side-menu-thread *ngIf="openChat" class="side-menu" [threadList]="threadList" [user]="user" [threadC]="threadC"
