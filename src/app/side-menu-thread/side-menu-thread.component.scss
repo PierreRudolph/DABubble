@@ -9,6 +9,7 @@
     display: flex;
     align-items: center;
     height: 100%;
+    width: 100%;
     width: 485px;
     border-radius: 30px;
     padding: 37px 0px;
@@ -312,6 +313,7 @@
 
 .answers-div {
     height: 100%;
+    width: 100%;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -408,4 +410,8 @@
 
 .lila {
     background-color: #cbcdec;
+}
+
+.iconContainerTextArea {
+    left: 15px;
 }

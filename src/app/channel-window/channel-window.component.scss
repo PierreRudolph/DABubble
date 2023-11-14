@@ -23,14 +23,19 @@
 
 .channel-header-left {
     cursor: pointer;
-    width: 278px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-radius: 20px;
     padding: 6px 10px;
+    gap: 10px;
 
     span {
+        max-width: 220px;
+        height: 22px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         font-size: 24px;
         font-weight: 700;
     }
@@ -39,6 +44,7 @@
         background-color: #ECEEFE;
 
         span {
+            max-width: 250px;
             font-size: 24px;
             font-weight: 700;
             color: #7e83f5;
