@@ -72,7 +72,6 @@ export class SideMenuComponent {
             this.chathelper.updateDB(channelId, 'thread', { "channel": c });
           }
         });
-
   }
 
   subChannelList() {
@@ -86,8 +85,7 @@ export class SideMenuComponent {
       });
       this.threadList = cl;
       // this.addNewItem(this.userList);
-      this.newItemEventThreadList.emit(this.threadList);
-      console.log("threadlist", this.threadList);
+      this.newItemEventThreadList.emit(this.threadList);     
     });
 
   }
