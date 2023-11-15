@@ -2,9 +2,15 @@
     [class.padding-main-page]="router.url =='/'||router.url =='/imprint'||router.url =='/data-policy'"
     [class.space-betw]="router.url=='/login'">
 
-    <div class="logoContainer">
+    <div class="logoContainer" *ngIf="showNormalHeader()">
         <img src="assets/img/logo.svg">
         <img src="assets/img/LogoName.svg">
+    </div>
+
+    <div class="mobileHeader" *ngIf="showMobileHeader()">
+        <img (click)="emitToggleSideMenu()" src="assets/img/arrow_back.svg">
+        <img src="assets/img/workspace-logo.svg">
+        <span>Code learning</span>
     </div>
 
     <div *ngIf="router.url=='/'||router.url=='/main'">

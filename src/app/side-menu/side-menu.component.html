@@ -1,99 +1,100 @@
-<mat-drawer-container class="example-container mat-drawer-div" [class.mar-right-20]="!sideMenuHidden">
-    <mat-drawer #drawer class="example-sidenav sidenav" mode="side" opened>
-        <img class="newMesMobile" src="assets/icons/new-mes-mobile.svg">
-        <div class="head">
-            <img src="assets/img/workspace-logo.svg">
-            <p class="workspace-name">Code learning</p>
-            <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
-        </div>
-        <div class="inputMobile">
-            <input placeholder="Gehe zu...">
-            <img src="assets/icons/search.svg">
-        </div>
-        <div class="accordion-outer-div">
-            <img (click)="openCreateChannelDialog()" class="add-icon" src="assets/icons/add.svg">
-            <mat-accordion multi>
+<div #sideMenuDiv style="height: 100%;">
+    <mat-drawer-container class="example-container mat-drawer-div" [class.mar-right-20]="!sideMenuHidden">
+        <mat-drawer #drawer class="example-sidenav sidenav" mode="side" opened>
+            <img class="newMesMobile" src="assets/icons/new-mes-mobile.svg">
+            <div class="head">
+                <img src="assets/img/workspace-logo.svg">
+                <p class="workspace-name">Code learning</p>
+                <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
+            </div>
+            <div class="inputMobile">
+                <input placeholder="Gehe zu...">
+                <img src="assets/icons/search.svg">
+            </div>
+            <div class="accordion-outer-div">
+                <img (click)="openCreateChannelDialog()" class="add-icon" src="assets/icons/add.svg">
+                <mat-accordion multi>
 
-                <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding pointer-ev"
-                    (opened)="chPanelOpen=true" (closed)="chPanelOpen=false" hideToggle multi>
+                    <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding pointer-ev"
+                        (opened)="chPanelOpen=true" (closed)="chPanelOpen=false" hideToggle multi>
 
-                    <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
-                        <div class="panel-header">
-                            <div class="header-left">
-                                <img class="arrow-drop-down" [class.rotate]="chPanelOpen"
-                                    src="assets/icons/arrow-drop-down.svg">
-                                <div>
-                                    <img class="workspaces-icon" src="assets/icons/workspaces.svg">
-                                    <span class="panel-headline">Channels</span>
+                        <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
+                            <div class="panel-header">
+                                <div class="header-left">
+                                    <img class="arrow-drop-down" [class.rotate]="chPanelOpen"
+                                        src="assets/icons/arrow-drop-down.svg">
+                                    <div>
+                                        <img class="workspaces-icon" src="assets/icons/workspaces.svg">
+                                        <span class="panel-headline">Channels</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </mat-expansion-panel-header>
-                    <div *ngFor="let ch of threadList, index as c">
-                        <!--Hier werden erstellte Channel reingerendert.-->
-                        <div class="created-channel" [class.channelActive]="channelActive==c"
-                            (click)="openChannel(c); channelActive=c">
-                            <img src="assets/icons/tag.svg">
-                            <!-- <span>Entwicklerteam </span> -->
-                            <span *ngIf="loaded">{{getName(c)}} </span>
-                        </div>
+                        </mat-expansion-panel-header>
+                        <div *ngFor="let ch of threadList, index as c">
+                            <!--Hier werden erstellte Channel reingerendert.-->
+                            <div class="created-channel" [class.channelActive]="channelActive==c"
+                                (click)="openChannel(c); channelActive=c">
+                                <img src="assets/icons/tag.svg">
+                                <!-- <span>Entwicklerteam </span> -->
+                                <span *ngIf="loaded">{{getName(c)}} </span>
+                            </div>
 
-                        <!-- <div class="created-channel" (click)="openChannel(1)">
+                            <!-- <div class="created-channel" (click)="openChannel(1)">
                             <img src="assets/icons/tag.svg">
                             <span>Entwicklerteam</span>
                             <span *ngIf="loaded" >{{getName(1)}} </span>
                         </div> -->
-                    </div>
-                    <div class="add-ch-div" (click)="openCreateChannelDialog()">
-                        <img class="add-circle" src="assets/icons/add-circle.svg">
-                        <span>Channel hinzufügen</span>
-                    </div>
-                </mat-expansion-panel>
+                        </div>
+                        <div class="add-ch-div" (click)="openCreateChannelDialog()">
+                            <img class="add-circle" src="assets/icons/add-circle.svg">
+                            <span>Channel hinzufügen</span>
+                        </div>
+                    </mat-expansion-panel>
 
-                <mat-expansion-panel class="mat-elevation-z0 mar-top remove-mat-expansion-panel-padding "
-                    (opened)="mesPanelOpen = true" (closed)="mesPanelOpen = false" hideToggle>
-                    <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
-                        <div class="panel-header">
-                            <div class="header-left">
-                                <img class="arrow-drop-down" [class.rotate]="mesPanelOpen"
-                                    src="assets/icons/arrow-drop-down.svg">
+                    <mat-expansion-panel class="mat-elevation-z0 mar-top remove-mat-expansion-panel-padding "
+                        (opened)="mesPanelOpen = true" (closed)="mesPanelOpen = false" hideToggle>
+                        <mat-expansion-panel-header class="panel-sp" style="box-shadow: none; padding:0px;">
+                            <div class="panel-header">
+                                <div class="header-left">
+                                    <img class="arrow-drop-down" [class.rotate]="mesPanelOpen"
+                                        src="assets/icons/arrow-drop-down.svg">
+                                    <div>
+                                        <img class="account-icon" src="assets/icons/account-circle.svg">
+                                        <span class="panel-headline">Direktnachrichten</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </mat-expansion-panel-header>
+                        <div>
+                            <!--Hier werden die Kontakte reingerendert.-->
+                            <div class="contact-div">
                                 <div>
-                                    <img class="account-icon" src="assets/icons/account-circle.svg">
-                                    <span class="panel-headline">Direktnachrichten</span>
+                                    <img src="{{user.iconPath}}">
+                                    <div [class.greenDot]="user.getAktive()" (click)="openTalk(user)" class="stateDot">
+                                    </div>
                                 </div>
+                                <span (click)="openTalk(user)">{{user.name}} (Du)</span>
                             </div>
-                        </div>
-                    </mat-expansion-panel-header>
-                    <div>
-                        <!--Hier werden die Kontakte reingerendert.-->
-                        <div class="contact-div">
-                            <div>
-                                <img src="{{user.iconPath}}">
-                                <div [class.greenDot]="user.getAktive()" (click)="openTalk(user)" class="stateDot">
+
+                            <div *ngFor="let u of userList" class="contact-div">
+                                <div (click)="openTalk(u)">
+                                    <img src="{{u.iconPath}}">
+                                    <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
                                 </div>
+                                <span (click)="openTalk(u)">{{u.name}}</span>
                             </div>
-                            <span (click)="openTalk(user)">{{user.name}} (Du)</span>
                         </div>
-
-                        <div *ngFor="let u of userList" class="contact-div">
-                            <div (click)="openTalk(u)">
-                                <img src="{{u.iconPath}}">
-                                <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
-                            </div>
-                            <span (click)="openTalk(u)">{{u.name}}</span>
-                        </div>
-                    </div>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </div>
-    </mat-drawer>
-</mat-drawer-container>
-
+                    </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+        </mat-drawer>
+    </mat-drawer-container>
+</div>
 <div class="example-sidenav-content sidenav-content">
     <img class="open-sidenav" *ngIf="sideMenuHidden" src="assets/icons/open-sidenav.svg">
     <img class="close-sidenav" *ngIf="!sideMenuHidden" src="assets/icons/close-sidenav.svg">
     <span *ngIf="!sideMenuHidden">Workspace-Menü schließen</span>
     <span *ngIf="sideMenuHidden">Workspace-Menü öffnen</span>
-    <button type="button" mat-button (click)="toggleDrawer();drawer.toggle()">
+    <button type="button" mat-button (click)="this.setDrawerValues();">
     </button>
 </div>

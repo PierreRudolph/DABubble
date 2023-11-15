@@ -13,6 +13,8 @@ export class HeaderComponent {
   private chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() talkList: any = [this.chathelper.createNewTalk]
+  @Input() screenWidth: any;
+  @Input() sideMenuHidden: boolean;
   private searchText: string = "";
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
@@ -20,6 +22,7 @@ export class HeaderComponent {
   public userInfos: any[] = [];
   public text = "";
 
+  @Output() toggleSideMenu = new EventEmitter<boolean>();
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
 
@@ -51,7 +54,7 @@ export class HeaderComponent {
     this.searchText = text.toLowerCase();
     let i = -1;
     this.threadList.forEach((t) => {
-      i++;      
+      i++;
       if (t.channel.name.toLowerCase().includes(this.searchText) || t.channel.description.toLowerCase().includes(this.searchText)) {
         let des = "";
         if (t.channel.description.toLowerCase().includes(this.searchText)) {
@@ -99,14 +102,15 @@ export class HeaderComponent {
     let otherUser = new User();
     let m1 = info.member1DBid;
     let m2 = info.member2DBid;
-    if (m1 == m2) { otherUser= this.user; }
+    if (m1 == m2) { otherUser = this.user; }
     else {
       this.userList.forEach((ul) => {
-        if ((ul.idDB == m1 && this.user.idDB == m2)||ul.idDB == m2 && this.user.idDB == m1) { 
-     
-          otherUser = ul; }
-      });    
-      
+        if ((ul.idDB == m1 && this.user.idDB == m2) || ul.idDB == m2 && this.user.idDB == m1) {
+
+          otherUser = ul;
+        }
+      });
+
     }
     console.log("other user", otherUser);
     return otherUser;
@@ -159,7 +163,7 @@ export class HeaderComponent {
 
 
   makeSubstring(s: string, len: number) {
-   
+
     let l = s.length;
     let min = Math.min(l, len);
     let sub = s.substring(0, min);
@@ -184,8 +188,16 @@ export class HeaderComponent {
     this.userInfos = output;
   }
 
+  emitToggleSideMenu() {
+    this.sideMenuHidden = !this.sideMenuHidden;
+    this.toggleSideMenu.emit(this.sideMenuHidden)
+  }
 
+  showNormalHeader() {
+    return this.screenWidth < 471 && !this.sideMenuHidden || this.screenWidth > 471;
+  }
 
-
-
+  showMobileHeader() {
+    return this.screenWidth < 471 && this.sideMenuHidden;
+  }
 }

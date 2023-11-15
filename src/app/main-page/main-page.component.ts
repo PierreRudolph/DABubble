@@ -1,4 +1,4 @@
-import { Component, inject, ViewChild } from '@angular/core';
+import { Component, HostListener, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
@@ -8,6 +8,7 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.component';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
+import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-main-page',
@@ -32,7 +33,7 @@ export class MainPageComponent {
   private chathelper: ChatHepler = new ChatHepler();
   public threadList: any = [this.chathelper.createEmptyThread()];
   public talkList: any = [this.chathelper.createEmptyTalk()];
-  public channelOpen = false;
+  public channelOpen: boolean = false;
   public textThread = "";
   public textThreadEdit = "";
   public textThreadAnswer = "";
@@ -40,7 +41,7 @@ export class MainPageComponent {
   public load = false;
   public sideMenuHidden: boolean;
   //-----------------
-  public number: number = 0; 
+  public number: number = 0;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   unsubChannel: any
   private unsub: any;
@@ -51,6 +52,7 @@ export class MainPageComponent {
   private userAuth: any; //authenticated user
   private userUid: string = ""; //uid od the user
   public started = false;
+  public screenWidth: any;
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(SideMenuComponent) side: SideMenuComponent;
@@ -74,7 +76,9 @@ export class MainPageComponent {
       this.unsubtalk = this.subTalkInfo();
     }, 1500);
 
+    this.setScreenWidth();
   }
+
 
   /**
    * Observes the database about changes on  all Users.
@@ -248,9 +252,27 @@ export class MainPageComponent {
     this.openChat = true;
     this.started = true;
     setTimeout(() => { this.childSideThread.drawer.open(); }, 250);
-
   }
 
+
+  setScreenWidth() {
+    this.screenWidth = window.innerWidth;
+  }
+
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
+  }
+
+  setMobileView() {
+    return !(this.screenWidth < 471 && !this.sideMenuHidden);
+  }
+
+  toggleSideMenu(h: boolean) {
+    this.sideMenuHidden = h;
+    console.log(this.sideMenuHidden)
+  }
 
 }
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
 import { User } from 'src/moduls/user.class';
 import { CreateChannelDialogComponent } from '../create-channel-dialog/create-channel-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,22 +12,27 @@ import { Firestore, addDoc, collection, onSnapshot } from '@angular/fire/firesto
 })
 export class SideMenuComponent {
   public sideMenuHidden: boolean | true;
-  chPanelOpen: boolean | undefined;
-  mesPanelOpen: boolean | undefined;
+  public chPanelOpen: boolean | undefined;
+  public mesPanelOpen: boolean | undefined;
   public firestore: Firestore = inject(Firestore);
+  public loaded: boolean = false;
+  public channelActive: number;
+  private madeChannel: any;
   private chathelper: ChatHepler = new ChatHepler();
+
   @Input() user: User = new User();
   @Input() userList = [this.user];
   @Input() threadList = [{ "channel": { "name": "channelname" } }]// [this.chathelper.createEmptyThread()];
+  @Input() screenWidth: number;
   @Output() newItemEventMenuHidden = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEventChanel = new EventEmitter<any>();
   @Output() newItemEvent = new EventEmitter<boolean>();
-  public loaded: boolean = false;
-  private madeChannel: any; 
-  public channelActive: number;
 
-  constructor(public dialog: MatDialog) {   
+  @ViewChild('drawer') drawer: any;
+  @ViewChild('sideMenuDiv') sideMenuDiv: any;
+
+  constructor(public dialog: MatDialog) {
     setTimeout(() => {
       this.loaded = true; //wegen ladeproblemen
     }, 3000);
@@ -76,6 +81,7 @@ export class SideMenuComponent {
   }
 
   openTalk(u: User) {
+    this.setDrawerValues();
     console.log("openUserTalk", u);
     this.addNewItem(u);
   }
@@ -95,14 +101,28 @@ export class SideMenuComponent {
   }
 
   openChannel(n: number) {
+    this.setDrawerValues();
     this.newItemEvent.emit(false);
     this.newItemEventChanel.emit(n);
   }
 
 
-  toggleDrawer() {
+  toggleDrawerBol() {
     this.sideMenuHidden = !this.sideMenuHidden;
     this.newItemEventMenuHidden.emit(this.sideMenuHidden);
+  }
+
+
+  setDrawerValues() {
+    if (this.screenWidth < 471) {
+      this.sideMenuDiv.nativeElement.classList.add('dNone');
+      this.drawer.toggle();
+      this.toggleDrawerBol();
+    } else {
+      this.sideMenuDiv.nativeElement.classList.remove('dNone');
+      this.drawer.toggle();
+      this.toggleDrawerBol();
+    }
   }
 }
 
