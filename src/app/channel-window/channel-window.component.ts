@@ -46,6 +46,9 @@ export class ChannelWindowComponent {
     }, 500);
   }
 
+  /**
+   * Openes the dialog for editing the Channel
+   */
   openEditChannelDialog() {
     this.setEditChanPos();
     this.toggleEditChanBol();
@@ -60,6 +63,9 @@ export class ChannelWindowComponent {
     return com.date == "";
   }
 
+/**
+ * Sets the position of the edit channel Window
+ */
   setEditChanPos() {
     if (this.sideMenuHidden) {
       this.editChanPosLeft = '60px';
@@ -82,21 +88,34 @@ export class ChannelWindowComponent {
     this.editChannelOpen = !this.editChannelOpen;
   }
 
-  saveEmoji(e: { emoji: { unified: string; }; }) {
-    let unicodeCode: string = e.emoji.unified;
-    let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    this.textThread += emoji;
-    console.log(emoji);
-    this.toggleEmojisDialog();
-  }
-
+/**
+ * Stores a given information as JSON at the given position
+ * 
+ * @param index Index of the message within the day
+ * @param n     What kind of information do we want to acces?
+ * @param m     Information we want to store
+ */
   setTreadData(index: number, n: string, m: any) {
     this.threadList[this.number].communikation[this.commIndex].threads[index][n] = m;
   }
+
+  /**
+ * Return the information as JSON that is stored at the given position
+ * 
+ * @param index Index of the message within the day
+ * @param n     What kind of information do we want to acces? 
+ */
   getTreadData(index: number, n: string) {
     return this.threadList[this.number].communikation[this.commIndex].threads[index][n];
   }
 
+  /**
+   * Removes the Comment-Smilie at the given position. Structure of Threadbase communikation see ChatHelper.
+   * 
+   * @param cIndex  Index of the communication
+   * @param tIndex  Index of the Message that belongs to this communication
+   * @param sIndex  Index of the Smile
+   */
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
     let threadId = this.threadList[this.number].channel.idDB;
     this.commIndex = cIndex;
@@ -110,44 +129,44 @@ export class ChannelWindowComponent {
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
 
-
+/**
+ * stors the given emoji
+ * 
+ * @param e JSON of the emoji
+ */
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.number].channel.idDB;
-    // this.emojiText += emoji;//löschen 
-    let sm = this.getTreadData(this.threadIndex, 'smile');
+    let threadId = this.threadList[this.number].channel.idDB; 
 
-    let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
-    if (smileIndex == -1) {
-      let icon = {
-        "icon": emoji,
-        "users": [
-          { "id": this.user.idDB }
-        ]
-      };
-      sm.push(icon);
-    } else {
-      let usersIcon = sm[smileIndex].users;
-
-      if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
-        sm[smileIndex].users.push({ "id": this.user.idDB });
-      }
-      console.log(emoji);
-    }
+    let sm = this.createEmojiData(emoji);
 
     this.setTreadData(this.threadIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
     this.showEmojisTread = !this.showEmojisTread;
   }
 
-
+/**
+ * stors the specific emoji, Claps or Checkmark
+ * 
+ * @param e JSON of the emoji
+ */
   saveEmojiCom(cIndex: number, tIndex: number, e: any) { // warum speichert die funktion den emoji nicht?
-    console.log('emoji ist', e);
+   
     let emoji = e;
     this.setIndices(cIndex, tIndex);
     let threadId = this.threadList[this.number].channel.idDB;
-    // this.emojiText += emoji;//löschen 
+    let sm = this.createEmojiData(emoji);  
+
+    this.setTreadData(this.threadIndex, 'smile', sm);
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    // this.showEmojisTread = !this.showEmojisTread;
+  }
+
+  /**
+   * Creates the emoji data, that shell be stored.
+   */
+  createEmojiData(emoji:string){
     let sm = this.getTreadData(this.threadIndex, 'smile');
 
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
@@ -166,39 +185,51 @@ export class ChannelWindowComponent {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
     }
-
-    this.setTreadData(this.threadIndex, 'smile', sm);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
-    // this.showEmojisTread = !this.showEmojisTread;
+    return sm;
   }
 
   toggleEmojisDialog() {
     this.showEmojis = !this.showEmojis;
   }
 
+  /** 
+   * @param thread JSON that contains the information of the thread.
+   * @returns      Time from the last answer of this message.
+   */
   getTimeLastAnswer(thread: any) {
     let lastIndex = thread.answer.length - 1;
     if (lastIndex == -1) { return 0; }
     return thread.answer[lastIndex].time;
   }
 
+  /**
+   * Opens the threads/answers of the message with the given location Lada.
+   * 
+   * @param n Channel-Index
+   * @param i Communication-Index
+   * @param j Message-Index
+   */
   openThisThread(n: number, i: number, j: number) {
     console.log("number:" + n + " communikation:" + i + "  ThreadIndex:" + j);
-    this.threadC.setValue(n, i, j);
-    // this.openChat = true;
+    this.threadC.setValue(n, i, j);  
     this.newItemEventChannel.emit(this.threadC);
-  }
+  }  
 
-  openNewThread() {
-
-  }
-
+  /**   
+   * @param thread JSON that contains the information of the thread.
+   * @returns      is the message from the currently logged in user (important for Styling)
+   */
   fromLoggedInUser(thread: any) {
     let uId = this.user.idDB;
     let aId = thread.iD;
     return (uId == aId);
   }
 
+/**
+ * 
+ * @param id id of the user for which we want the path of the Profile-Image
+ * @returns 
+ */
   getIconPathQuestionUser(id: string) {
 
     let path = "";
@@ -211,26 +242,35 @@ export class ChannelWindowComponent {
     return path;
   }
 
-  sendQuestion(indexCannel: number) {
-    let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
-    let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
-    let today = this.chathelper.parseDate(new Date(Date.now()));
-    let threadId = this.threadList[indexCannel].channel.idDB;
-
-    let thread = {
+/**
+ * 
+ * @returns Creates a new Question as JSON
+ */
+  getQuestion(){
+    let question = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
       "edit": false,
       "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThread,
-      "answer": [
-
-      ]
+      "answer": []
     }
+    return question;
+  }
 
+/**
+ * Send a Question 
+ * @param indexCannel index it the channel in that the question shell be released.
+ */
+  sendQuestion(indexCannel: number) {
+    let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
+    let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
+    let today = this.chathelper.parseDate(new Date(Date.now()));
+    let threadId = this.threadList[indexCannel].channel.idDB;
+    let question = this.getQuestion();
     if (today == lastdate) {
-      this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(thread);
+      this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
       let th = this.threadList[indexCannel].communikation;
       console.log("upload data ", th);
       this.chathelper.updateDB(threadId, "thread", { "communikation": th });
@@ -241,7 +281,7 @@ export class ChannelWindowComponent {
       }
       let c = {
         "date": today,
-        "threads": [thread]
+        "threads": [question]
       }
       this.threadList[indexCannel].communikation.push(c);
       this.chathelper.updateDB(threadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
@@ -254,42 +294,42 @@ export class ChannelWindowComponent {
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
   }
-
+/**
+ * Stores the given Data in Variables
+ * @param cIndex Communication-Index
+ * @param tIndex ThreadIndex
+ */
   toggleEmojisThread(cIndex: number, tIndex: number) {
-    this.showEmojisTread = !this.showEmojisTread;
-    console.log("cIndex:" + cIndex + "   tIndex:" + tIndex);
+    this.showEmojisTread = !this.showEmojisTread;   
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
   }
-
-  isThreadEmojiShown(cIndex: number, tIndex: number) {
-    // console.log("tIndex", tIndex + " threadIndex "+this.threadIndex);
+  isThreadEmojiShown(cIndex: number, tIndex: number) {   
     return ((this.showEmojisTread) && (this.threadIndex == tIndex) && (this.commIndex == cIndex));
   }
 
-
+/**
+ * Opends the dialog for adding peopple to the Channel.
+ */
   openAddPeopleDialog() {
     this.toggleAddPplChanBol();
     this.setMembersAndAddMembersPos();
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);
-    dialogRef.componentInstance.channel = this.threadList[this.number];//Kopie
-    dialogRef.componentInstance.userList = this.userList;//Kopie
-    dialogRef.componentInstance.user = this.user;//Kopie
-    // dialogRef.afterClosed().subscribe(() => {
-    //     this.toggleEditChanBol();
-    //   });
+    dialogRef.componentInstance.channel = this.threadList[this.number];
+    dialogRef.componentInstance.userList = this.userList;
+    dialogRef.componentInstance.user = this.user; 
     this.setAddPplDialogPos(dialogRef);
     this.setAddPplDialogValues(dialogRef);
     this.subscribeAddPplDialog(dialogRef);
   }
 
-
+//Bitte kommentieren
   setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
     dialogRef.updatePosition({ right: this.addMembersDialogPosRight, top: '190px' });
   }
 
-
+//Bitte kommentieren
   setAddPplDialogValues(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     let instance = dialogRef.componentInstance;
     instance.user = new User(this.user.toJSON());
@@ -297,18 +337,22 @@ export class ChannelWindowComponent {
     instance.userList = this.userList;
   }
 
-
+//Bitte kommentieren
   subscribeAddPplDialog(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.afterClosed().subscribe(() => {
       this.toggleAddPplChanBol();
     })
   }
 
-
   toggleAddPplChanBol() {
     this.addPeopleOpen = !this.addPeopleOpen;
   }
 
+/**
+ * 
+ * @param m JSON of data of a Channel-Message
+ * @returns Returns wheather the person that wrote the message is the current user. Important for styling.
+ */
   getFlip(m: any) {   
     return m.iD == this.user.idDB;
   }
@@ -316,42 +360,69 @@ export class ChannelWindowComponent {
   closeEdit(m: any) {
     m.edit = false;
   }
-
+/**
+ * Save the Edited message 
+ * @param m JSON of data of a Channel-Message
+ * @param cIndex  Communication-Index
+ * @param tIndex  ThreadIndex
+ */
   saveEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
     this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
-    let threadIndex = this.threadList[this.number].channel.idDB;
-    console.log("threadIndex", threadIndex);
-    console.log("message", this.threadList[this.number].communikation[cIndex].threads[tIndex].message);
-    console.log("textEdit", this.textEdit + " cIndex:" + cIndex + "  tIndex" + tIndex);
+    let threadIndex = this.threadList[this.number].channel.idDB;   
     this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
 
+/**
+ * Sets variable to the given values. Opens the edit-dialog Window.
+ * @param cIndex  Communication-Index
+ * @param tIndex  ThreadIndex 
+ */
   toggleEmojisDialogEdit(cIndex: number, tIndex: number) {
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
-    this.smileEdit = !this.smileEdit;
-    console.log('m.id=', tIndex, 'this.user.idDB=', this.user.idDB);
+    this.smileEdit = !this.smileEdit;   
   }
 
+  /** * 
+ * @param e JSON of the emoji that should be shown in the message within the channel
+ */
+  saveEmoji(e: { emoji: { unified: string; }; }) {
+    let unicodeCode: string = e.emoji.unified;
+    let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+    this.textThread += emoji;   
+    this.toggleEmojisDialog();
+  }
+
+  /** * 
+ * @param e JSON of the emoji that should be shown in the message-edit within the channel
+ */
   saveEmojiEdit(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    this.textEdit += emoji;
-    console.log(emoji);
+    this.textEdit += emoji;   
     this.smileEdit = !this.smileEdit;
   }
 
-  openEditWindow(m: any) {
-    console.log("open edit window");
+  /**    
+   * @param m JSON of data of a Channel-Message
+   */
+  openEditWindow(m: any) {   
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
     this.textEdit = m.message;
   }
+
+  /**
+   * Blend in the popUp containing "Nachricht bearbeiten"
+   */
   openEditPopUp() {
     this.openEditDialog = !this.openEditDialog;
-
   }
+
+  /**
+   * Opens a window with all users that are assigned to the channel.
+   */
   openChannelMembersDialog() {
     this.toggleChannelMembersBol();
     this.setMembersAndAddMembersPos();
@@ -362,14 +433,20 @@ export class ChannelWindowComponent {
     dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
     dialogRef.componentInstance.user = this.user;//Kopie
-    console.log('channelMembersOpen ist', this.channelMembersOpen)
+  
   }
-
+/**
+ * sets the position of the Dialog that contains all assigned members.
+ */
   setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
     dialogRef.updatePosition({ right: this.membersDialogPosRight, top: '190px' });
   }
 
+/**
+ * Goves the needet variables to the Dialog
+ * @param dialogRef MatDialogRef of ChannelMembersComponent
+ */
   setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     let instance = dialogRef.componentInstance;
     instance.user = new User(this.user.toJSON());
@@ -378,6 +455,7 @@ export class ChannelWindowComponent {
     instance.dialogRef = dialogRef;
   }
 
+ //Bitte kommentieren
   subscribeChannelMembersDialog(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
