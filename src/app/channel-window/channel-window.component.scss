@@ -237,15 +237,16 @@
 }
 
 .popUpFlipContainer {
-  display: flex;
-  justify-content: flex-end;
-  right: unset;
-  left:40px;
-  .flipCorner{
-    border-radius: 25px!important;
-    border-bottom-right-radius: 0!important;
-}
-   
+    display: flex;
+    justify-content: flex-end;
+    right: unset;
+    left: 40px;
+
+    .flipCorner {
+        border-radius: 25px !important;
+        border-bottom-right-radius: 0 !important;
+    }
+
 }
 
 
@@ -614,5 +615,30 @@
 
     &:hover {
         content: url('/assets/img/smiley-icon-hover.svg');
+    }
+}
+
+@media (max-width:471px) {
+
+    .channel-header {
+        border-radius: 0px;
+        height: 60px;
+        padding: 10px 16px;
+    }
+
+    .channel-header-left {
+        font-size: 20px;
+
+        img {
+            width: 30px;
+        }
+    }
+
+    .added-members {
+        display: none;
+    }
+
+    .add-people {
+        width: 34px;
     }
 }

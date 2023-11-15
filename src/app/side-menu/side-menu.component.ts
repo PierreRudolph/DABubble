@@ -3,7 +3,7 @@ import { User } from 'src/moduls/user.class';
 import { CreateChannelDialogComponent } from '../create-channel-dialog/create-channel-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
-import { Firestore, addDoc, collection, onSnapshot } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-side-menu',
@@ -109,20 +109,28 @@ export class SideMenuComponent {
 
   toggleDrawerBol() {
     this.sideMenuHidden = !this.sideMenuHidden;
+    this.emitSideMenuHidden();
+  }
+
+  emitSideMenuHidden() {
     this.newItemEventMenuHidden.emit(this.sideMenuHidden);
   }
 
-
   setDrawerValues() {
-    if (this.screenWidth < 471) {
-      this.sideMenuDiv.nativeElement.classList.add('dNone');
+    if (this.screenWidth < 471 && this.sideMenuHidden) {
       this.drawer.toggle();
       this.toggleDrawerBol();
-    } else {
-      this.sideMenuDiv.nativeElement.classList.remove('dNone');
-      this.drawer.toggle();
-      this.toggleDrawerBol();
-    }
+      setTimeout(() => { this.sideMenuDiv.nativeElement.classList.remove('dNone'); }, 120);
+    } else
+      if (this.screenWidth < 471 && !this.sideMenuHidden) {
+        this.sideMenuDiv.nativeElement.classList.add('dNone');
+        this.toggleDrawerBol();
+        this.drawer.toggle();
+      } else {
+        this.drawer.toggle();
+        this.sideMenuDiv.nativeElement.classList.remove('dNone');
+        this.toggleDrawerBol();
+      }
   }
 }
 

@@ -271,7 +271,7 @@ export class MainPageComponent {
 
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
-    console.log(this.sideMenuHidden)
+    this.side.setDrawerValues();
   }
 
 }

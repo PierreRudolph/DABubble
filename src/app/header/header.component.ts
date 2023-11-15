@@ -190,7 +190,7 @@ export class HeaderComponent {
 
   emitToggleSideMenu() {
     this.sideMenuHidden = !this.sideMenuHidden;
-    this.toggleSideMenu.emit(this.sideMenuHidden)
+    this.toggleSideMenu.emit(this.sideMenuHidden);
   }
 
   showNormalHeader() {
