@@ -1,9 +1,12 @@
 <div class="dialog-div">
+
+    <div class="smallThickBorder" *ngIf="mobileFromBottom"></div>
+
     <div class="dialog-header">
         <span class="nunito fs24 wei700">Leute hinzufügen</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
-    <div class="channelName">
+    <div *ngIf="screenWidth>471" class="channelName">
         <img src="assets/icons/tag-hover.svg">
         <span>{{channel.name}}</span>
     </div>
@@ -32,6 +35,6 @@
 
     <div class="addBtnDiv">
         <!-- <button mat-dialog-close class="btn" (click)="make()" disabled>Hinzufügen</button> -->
-        <button mat-dialog-close  class="btn" (click)="make()" >Hinzufügen</button>
+        <button mat-dialog-close class="btn" (click)="make()">Hinzufügen</button>
     </div>
 </div>
