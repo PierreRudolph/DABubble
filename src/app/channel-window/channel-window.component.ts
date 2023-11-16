@@ -74,9 +74,8 @@ export class ChannelWindowComponent {
     }
   }
 
-
   /**
-   * Sets the Position of channe-members-dialod and add-people-dialog,
+   * Sets the Position of channel-members-dialog and add-people-dialog,
    * depending on whether side-menu-thread(==openChat), is open or closed.
    */
   setMembersAndAddMembersPos() {

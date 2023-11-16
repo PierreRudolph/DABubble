@@ -39,10 +39,11 @@ export class AddPeopleDialogComponent {
    * @param u User that shell be added as a member
    */
   addMember(u: User) {
-    let inList = false;  // "strict": false, in compileoptions
-    console.log("actua member", this.channel.members);
-    this.channel.members.forEach(ul => {
-      if (ul.memberID == u.idDB) { inList = true };
+    let inList = false;  // "strict": false, in compileoptions    
+    console.log("actual member", this.currentlyAddedUser);
+    this.currentlyAddedUser.forEach(ul => {
+      console.log("memberID " + ul.idDB + "  Userid:" + u.idDB);
+      if ((ul.idDB == u.idDB) || this.isAlreadyMember(u)) { inList = true };
     });
     if (!inList) {
       this.currentlyAddedUser.push(u);
@@ -51,7 +52,14 @@ export class AddPeopleDialogComponent {
     else {
       console.log("Uster ist bereits in der Liste");
     }
-   
+  }
+
+  isAlreadyMember(user: User) {
+    let inList = false;
+    this.channel.members.forEach(ul => {
+      if (ul.memberID == user.idDB) { inList = true };
+    });
+    return inList;
   }
 
   /**
@@ -72,24 +80,24 @@ export class AddPeopleDialogComponent {
     return this.filteredMembers.length > 0;
   }
 
-/**
- * Only shows the list of member
- */
+  /**
+   * Only shows the list of member
+   */
   filterMember() {
-    
+
     console.log("filtered Value");
     this.filteredMembers = [];
     this.userList.forEach((u) => {
-      this.setMemberToList(u);     
+      this.setMemberToList(u);
     });
-    this.setMemberToList(this.user);    
+    this.setMemberToList(this.user);
   }
 
- /**  
-  * Sets all User that are containing the searchText in the Name to the filteredMembers
-  * @param u User
-  */
-  setMemberToList(u:User){
+  /**  
+   * Sets all User that are containing the searchText in the Name to the filteredMembers
+   * @param u User
+   */
+  setMemberToList(u: User) {
     let filterValue = this.searchText.toLowerCase();
     if ((filterValue != "")) {
       let n = u.name;
@@ -107,14 +115,14 @@ export class AddPeopleDialogComponent {
   /**
    * Make the memberlist for the current channel
    */
-  make() {    
-    this.fristPage = true;  
+  make() {
+    this.fristPage = true;
     this.currentlyAddedUser.forEach((us) => {
       this.channel.members.push({ "memberName": us.name, "memberID": us.idDB });
-    });   
-    this.chathelper.updateDB(this.channel.idDB,"thread",{"channel":this.channel});   
+    });
+    this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
   }
-  
+
   /**
    * Searches in the Userlist for a specific keyworld
    * @param data 
