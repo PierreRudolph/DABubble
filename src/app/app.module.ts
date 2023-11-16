@@ -31,7 +31,6 @@ import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-prof
 import { CreateChannelDialogComponent } from './create-channel-dialog/create-channel-dialog.component';
 import { AddPeopleDialogComponent } from './add-people-dialog/add-people-dialog.component';
 import { PrivateMessageComponent } from './private-message/private-message.component';
-import { ThreadBasedChatComponent } from './thread-based-chat/thread-based-chat.component';
 import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ChannelWindowComponent } from './channel-window/channel-window.component';
 import { EditChannelComponent } from './edit-channel/edit-channel.component';
@@ -54,8 +53,7 @@ import { ChannelMembersComponent } from './channel-members/channel-members.compo
     MainDialogProfilComponent,
     CreateChannelDialogComponent,
     AddPeopleDialogComponent,
-    PrivateMessageComponent,
-    ThreadBasedChatComponent,
+    PrivateMessageComponent,   
     ChannelWindowComponent,
     EditChannelComponent,
     ChannelMembersComponent

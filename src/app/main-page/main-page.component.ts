@@ -61,19 +61,20 @@ export class MainPageComponent {
 
   constructor(public authService: AuthService, public router: Router) {
     console.log("threadist construktor", this.threadList);
-    console.log("channel name", this.threadList[0].channel.name);
-    this.unsubChannel = this.subChannelList()
+    console.log("channel name", this.threadList[0].channel.name);  
     console.log("current", this.currentTalkData);
     this.currentTalkData.communikation = [];
+    
     setTimeout(() => {
       console.log("call construktor");
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid :"UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid :"UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden          
       this.unsub = this.subUserInfo();
     }, 1000);
 
     setTimeout(() => {
       this.unsubtalk = this.subTalkInfo();
+      this.unsubChannel = this.subChannelList();
     }, 1500);
 
     this.setScreenWidth();
@@ -131,15 +132,30 @@ export class MainPageComponent {
   subChannelList() {
     let ref = collection(this.firestore, 'thread');
     return onSnapshot(ref, (list) => {
+      console.log("change channel");
       let cl: any = []
       list.forEach(elem => {
-
+       if( this.isUserInMemberList(elem.data())){
         cl.push(elem.data());
+       }        
       });
       this.threadList = cl;
 
     });
 
+  }
+
+  isUserInMemberList(channel:any){
+    let b=false;
+    let list :any[]=channel.channel.members;
+   list.forEach((m)=>{
+    if(m.memberID==this.user.idDB)
+    {
+      b=true;
+    }
+   });
+
+   return b;
   }
 
   /**
