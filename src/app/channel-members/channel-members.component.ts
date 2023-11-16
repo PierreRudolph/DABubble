@@ -19,14 +19,14 @@ export class ChannelMembersComponent {
   public dialogRef: MatDialogRef<ChannelMembersComponent>;
   private addMembers: boolean | false;
 
-  constructor() {}
+  constructor() { }
 
   /**
    * 
    * @param u  JSON than contains the data of a member of a channel
    * @returns 
    */
-  isMe(u:any){
+  isMe(u: any) {
     return u.memberID == this.user.idDB;
   }
 
@@ -49,7 +49,7 @@ export class ChannelMembersComponent {
    * @returns  Iconpath of the Icon for the given user.
    */
   getIcon(id: string) {
-    let icon = "";   
+    let icon = "";
     this.userList.forEach((ul) => {
       if (ul.idDB == id) {
         icon = ul.iconPath;
@@ -61,9 +61,9 @@ export class ChannelMembersComponent {
     return icon;
   }
 
-/**
- * Finishes the process of adding a member by closing the dialog.
- */
+  /**
+   * Finishes the process of adding a member by closing the dialog.
+   */
   addMembersAction() {
     this.addMembers = true;
     this.dialogRef.close(this.addMembers);

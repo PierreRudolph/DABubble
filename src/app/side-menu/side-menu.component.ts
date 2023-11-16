@@ -127,9 +127,7 @@ export class SideMenuComponent {
         this.toggleDrawerBol();
         this.drawer.toggle();
       } else {
-        this.drawer.toggle();
         this.sideMenuDiv.nativeElement.classList.remove('dNone');
-        this.toggleDrawerBol();
       }
   }
 }

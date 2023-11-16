@@ -81,6 +81,7 @@
     line-height: normal;
     padding: 15px;
 }
+
 .arrowBack {
     position: absolute;
     left: 32px;
@@ -91,9 +92,9 @@
     display: none;
     // border-color: #57E8A2;
     // background-color: #a5f3cd;
-  }
+}
 
-  #privacyAgreement +::before{
+#privacyAgreement+::before {
     // wählt wegen + den span aus
     content: "\2713";
     display: inline-block;
@@ -105,18 +106,18 @@
     border-color: #797EF3;
     padding-bottom: 3px;
     padding-left: 3px;
-    box-sizing: content-box;   
+    box-sizing: content-box;
     margin-right: 10px;
     background-color: white;
     color: white;
     // color: black;
-  }
-  
-  .red{
-    color: red!important;
-  }
+}
 
-#privacyAgreement:checked + *::before {
+.red {
+    color: red !important;
+}
+
+#privacyAgreement:checked+*::before {
     content: "\2713";
     display: inline-block;
     width: 13px;
@@ -130,12 +131,10 @@
     border-color: #797EF3;
     padding-bottom: 3px;
     padding-left: 3px;
-    box-sizing: content-box;    
+    box-sizing: content-box;
     margin-right: 10px;
-  }
+}
 
-  #checkSpan{
+#checkSpan {
     font-size: 16px;
-  }
-
-  .discription{}
+}

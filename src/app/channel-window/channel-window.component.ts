@@ -31,12 +31,15 @@ export class ChannelWindowComponent {
   @Input() userList: User[];
   @Input() sideMenuHidden: boolean;
   @Input() openChat: boolean;
+  @Input() screenWidth: number;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   public smileHelper: SmileHelper = new SmileHelper();
+  private dialogPosTop: string = '190px';
   private editChanPosLeft: string = '445px';
-  private membersDialogPosRight = '110px';
-  private addMembersDialogPosRight = '60px';
+  private membersDialogPosRight: string = '110px';
+  private addMembersDialogPosRight: string = '60px';
+  private dialogClasses: Array<string> = ['dialogBorToLeNone'];
   public openEditDialog: boolean = false;
 
   constructor(public dialog: MatDialog) {
@@ -51,9 +54,15 @@ export class ChannelWindowComponent {
    */
   openEditChannelDialog() {
     this.setEditChanPos();
+    this.setDialogMobileStyle();
+
     this.toggleEditChanBol();
-    let dialogRef = this.dialog.open(EditChannelComponent, { panelClass: 'dialogBorToLeNone', position: { left: this.editChanPosLeft, top: '190px' } });
+    let dialogRef = this.dialog.open(EditChannelComponent,
+      { panelClass: this.dialogClasses, position: { left: this.editChanPosLeft, top: this.dialogPosTop } });
     dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
+    dialogRef.componentInstance.userList = this.userList;//Kopie
+    dialogRef.componentInstance.user = this.user;//Kopie
+    dialogRef.componentInstance.screenWidth = this.screenWidth;
     dialogRef.afterClosed().subscribe(() => {
       this.toggleEditChanBol();
     });
@@ -74,6 +83,14 @@ export class ChannelWindowComponent {
     }
   }
 
+  setDialogMobileStyle() {
+    if (this.screenWidth < 471) {
+      this.editChanPosLeft = '0px';
+      this.dialogPosTop = '0px';
+      this.dialogClasses = ['maxWidth100', 'dialogBorRadNone'];
+    }
+  }
+
   /**
    * Sets the Position of channel-members-dialog and add-people-dialog,
    * depending on whether side-menu-thread(==openChat), is open or closed.
@@ -85,6 +102,11 @@ export class ChannelWindowComponent {
     } else {
       this.membersDialogPosRight = '110px';
       this.addMembersDialogPosRight = '60px';
+    }
+    if (this.screenWidth < 471) {
+      this.membersDialogPosRight = '0px';
+      this.addMembersDialogPosRight = '0px';
+      this.dialogPosTop = '0px';
     }
   }
 
@@ -330,7 +352,7 @@ export class ChannelWindowComponent {
   //Bitte kommentieren
   setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    dialogRef.updatePosition({ right: this.addMembersDialogPosRight, top: '190px' });
+    dialogRef.updatePosition({ right: this.addMembersDialogPosRight, top: this.dialogPosTop });
   }
 
   //Bitte kommentieren
@@ -444,7 +466,7 @@ export class ChannelWindowComponent {
    */
   setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: '190px' });
+    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: this.dialogPosTop });
   }
 
   /**
