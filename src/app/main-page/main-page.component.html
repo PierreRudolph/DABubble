@@ -21,7 +21,7 @@
 
       <app-send-new-message style="height:100%" [threadList]="this.threadList"  [talkList]="talkList"
       [user]="user" [userList]="userList"  (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)" (areaText)="setAreaText($event)"
-      (callOpenTalk)="openMessage($event)" *ngIf="newMessOpen" ></app-send-new-message>
+      (areaTextPrivate)="setAreaTextPrivate($event)" (callOpenTalk)="openMessage($event)" *ngIf="newMessOpen" ></app-send-new-message>
 
   </div>
 

@@ -25,8 +25,11 @@ export class SendNewMessageComponent {
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() isOpen= new EventEmitter<boolean>();
   @Output() areaText= new EventEmitter<string>();
+  @Output() areaTextPrivate =new EventEmitter<string>();
 
-  toggleEmojisDialog() { }
+  toggleEmojisDialog() {
+    this.showEmojis =!this.showEmojis;
+   }
 
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
@@ -81,6 +84,8 @@ export class SendNewMessageComponent {
 
   callOpenT(u: User) {
     this.callOpenTalk.emit(u);
+    this.isOpen.emit(false);
+    this.areaTextPrivate.emit(this.text);
   }
 
 

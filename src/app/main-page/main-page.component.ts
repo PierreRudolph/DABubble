@@ -171,7 +171,7 @@ export class MainPageComponent {
   callOpenChan(num: number) {
     this.setChannelNumber(num);
     this.openChat = false;
-    // this.side.openChannel(num);
+   
   }
 
   /**
@@ -180,7 +180,8 @@ export class MainPageComponent {
   * @param u  User with which you want to chat with.
   */
   openMessage(u: User) {
-    this.side.openTalk(u);
+    this.side.openTalk(u);   
+    this.side.newMessage = false;
   }
 
   /**   
@@ -265,8 +266,16 @@ export class MainPageComponent {
 
   setAreaText(areaText: string) {
     this.areaText = areaText;
-    setTimeout(() => { this.childChannel.textThread = areaText; }, 1000)
+    setTimeout(() => {
+       this.childChannel.textThread = areaText;       
+    }, 1000);
+  }
 
+  setAreaTextPrivate(areaText: string) {
+    this.areaText = areaText;
+    setTimeout(() => {     
+       this.child.text=areaText;
+    }, 1000);
   }
 
   /**

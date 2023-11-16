@@ -3,7 +3,7 @@
     <div class="nunitoBlack">Neue Nachricht</div>
     <input (ngModelChange)="searchKey($event)"  ngModel  type="input" class="address" placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
     <div class="searchPiopUp" *ngIf="searchText.length >1 ">
-     <div *ngFor="let user of searchResultUser; index as u" class="searchuserName nunitoBlack">
+     <div *ngFor="let user of searchResultUser; index as u" class="searchuserName nunitoBlack" (click)="callOpenT(user)">
      <img src="{{user.iconPath}}"> {{user.name}}
      </div>
      <div *ngFor="let chan of searchResulChannel; index as c" class="searchChannelName nunitoBlack" (click)="callOpenChan(chan.num)">
@@ -22,9 +22,9 @@
     <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
     <div style="width:2px;background-color: #ADB0D9 ;"></div>
     <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
-    <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
-    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
-      (emojiClick)="saveEmoji($event)"></emoji-mart>
+    <img class="textAreaIconEmail" src="assets/img/email-icon.svg">   
   </div>
+  <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
+  (emojiClick)="saveEmoji($event)"></emoji-mart>
   </div>
 </div>
