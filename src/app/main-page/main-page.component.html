@@ -12,7 +12,8 @@
 
     <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
       [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
-      [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"></app-channel-window>
+      [sideMenuHidden]="this.sideMenuHidden" [screenWidth]="this.screenWidth"
+      [openChat]="this.openChat"></app-channel-window>
 
     <app-private-message class="privateMessage" *ngIf="!channelOpen " [user]="user"
       (newItemEventLoggedUser)="setLoggedInUser($event)" [talkList]="talkList"

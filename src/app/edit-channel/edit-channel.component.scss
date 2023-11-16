@@ -1,10 +1,11 @@
 .edit-channel-dialog {
     padding: 35px;
     width: 872px;
-    height: 521px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    box-sizing: border-box;
+    overflow-y: auto;
 }
 
 .mat-mdc-dialog-surface {
@@ -21,7 +22,7 @@
         align-items: center;
         justify-content: space-between;
         max-width: 400px;
-       
+
 
         img {
             width: 30px;
@@ -99,6 +100,7 @@
 
 .border-div-editing {
     margin: 14px 25px;
+    padding: 16px;
 }
 
 .channel-description-outer-div {
@@ -125,4 +127,106 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
+}
+
+//start add-people-dialog style
+.dialogDiv {
+    padding: 20px;
+    border: 1px solid #ADB0D9;
+    border-radius: 20px;
+}
+
+.dialogHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    img {
+        cursor: pointer;
+
+        &:hover {
+            content: url('/assets/img/close-hover.svg');
+        }
+    }
+}
+
+.members {
+    gap: 13px;
+}
+
+.addMembers {
+    cursor: pointer;
+    transition: all 225ms ease-in;
+    width: 282px;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    padding: 12px 29px;
+    gap: 10px;
+
+    &:hover {
+        background-color: #ECEEFE;
+        color: #7e83f5;
+
+        img {
+            content: url('/assets/icons/add-people-hover.svg');
+        }
+    }
+}
+
+.contactDiv {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-radius: 30px;
+    transition: all 225ms ease-in-out;
+    margin: 10px 0px;
+
+    img {
+        width: 50px;
+        margin-left: 15px;
+        margin-right: 10px;
+    }
+
+    span {
+        font-size: 18px;
+    }
+
+    &:hover {
+        background-color: #eceefe;
+    }
+
+    &:active {
+        span {
+            transition: all 225ms ease-in-out;
+            color: #7e83f5;
+            font-weight: 700;
+        }
+    }
+}
+
+.stateDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    position: absolute;
+    background-color: #ADB0D9;
+    right: 15px;
+    bottom: 7px;
+    border: 2px white solid;
+}
+
+.greenDot {
+    background-color: #92C83E;
+}
+
+//end add-people-dialog style
+@media (max-width:471px) {
+    .edit-channel-dialog {
+        width: 100vw;
+        height: 100vh;
+        padding: 16px;
+        padding-top: 40px;
+    }
 }

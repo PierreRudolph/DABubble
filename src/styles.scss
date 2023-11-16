@@ -31,7 +31,7 @@ body {
     overflow: hidden !important;
 }
 
-.mat-mdc-dialog-surface {
+.mat-mdc-dialog-container .mat-mdc-dialog-surface {
     border-radius: 30px !important;
     overflow-y: unset !important;
 }
@@ -318,3 +318,13 @@ app-impressum {
         content: url('/assets/img/email-icon-hover.svg');
     }
 }
+
+.maxWidth100 {
+    max-width: 100% !important;
+}
+
+.dialogBorRadNone .mat-mdc-dialog-surface {
+    border-radius: 0px !important;
+}
+
+@media (max-width:471) {}

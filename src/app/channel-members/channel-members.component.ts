@@ -35,7 +35,7 @@ export class ChannelMembersComponent {
 
   }
 
-  isMe(u:any){
+  isMe(u: any) {
     return u.memberID == this.user.idDB;
   }
 
@@ -50,7 +50,7 @@ export class ChannelMembersComponent {
   }
 
   getIcon(id: string) {
-    let icon = "";   
+    let icon = "";
     this.userList.forEach((ul) => {
       if (ul.idDB == id) {
         icon = ul.iconPath;
