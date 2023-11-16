@@ -34,12 +34,13 @@
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
                 <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(thread)">
                     <div class="popUpMessage" [class.flipCorner]="getFlip(thread)">
-                        <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg" (click)="saveEmojiCom(i,j,haken.innerText)">
+                        <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
+                            (click)="saveEmojiCom(i,j,haken.innerText)">
                         <div style="display:none" #haken>✅</div>
                         <img class="addReaction" (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">
                         <span class="popUpIcons pad0" (click)="saveEmojiCom(i,j,raisedHands.innerText)"
                             #raisedHands>🙌</span>
-                        <img class="answerIcon"  (click)="openThisThread(number,i,j)" src="assets/img/answer-icon.svg">
+                        <img class="answerIcon" (click)="openThisThread(number,i,j)" src="assets/img/answer-icon.svg">
                         <img class="popUpIcons" [class.dNone]="!getFlip(thread)" (click)="openEditPopUp()"
                             src="assets/img/more_vert.svg">
                     </div>
@@ -53,11 +54,11 @@
                         <span class="mes-name">{{thread.name}}</span>
                         <span>{{thread.time}} Uhr</span>
                     </div>
-                  <div style="width:100%" [class.popUpFlipContainer]="getFlip(thread)">
-                    <div class="message" [class.dNone]="thread.edit" >
-                        {{thread.message}}
+                    <div style="width:100%" [class.popUpFlipContainer]="getFlip(thread)">
+                        <div class="message" [class.dNone]="thread.edit">
+                            {{thread.message}}
+                        </div>
                     </div>
-                  </div>
                     <div [class.dNone]="!thread.edit" style="width:100%" [class.popUpFlipContainer]="getFlip(thread)">
                         <div style="position:relative">
                             <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{thread.message}}  </textarea>
@@ -74,7 +75,7 @@
                     </div>
                     <diV class="reactions" [class.dNone]="thread.edit" [class.popUpFlipContainer]="getFlip(thread)">
 
-                        <div style="display:flex;gap:3px " >
+                        <div style="display:flex;gap:3px ">
                             <div *ngFor="let t of thread.smile; index as sIndex" class="reactIcons"
                                 [class.lila]="smileHelper.isUserInSmile(t.users,user)"
                                 (click)="removeSmileComment(i,j,sIndex)">
@@ -112,7 +113,8 @@
 </div>
 
 <div class="textareaDirektMessage">
-    <textarea class="textAreaDirekt" [(ngModel)]="textThread" placeholder="Nachricht an (Channel-name)"></textarea>
+    <textarea class="textAreaDirekt" [(ngModel)]="textThread"
+        placeholder="Nachricht an #{{this.threadList[number].channel.name}}"></textarea>
     <img class="sendArrow" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
         <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
