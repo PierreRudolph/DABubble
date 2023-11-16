@@ -83,12 +83,14 @@ export class SideMenuComponent {
 
   setNewMessage() {
     this.newMessage = !this.newMessage;
-    console.log( "value",this.newMessage);
+    console.log("value", this.newMessage);
     this.isOpen.emit(this.newMessage);
-   
+
   }
 
   openTalk(u: User) {
+    this.newMessage = false;
+    this.isOpen.emit(false);
     this.setDrawerValues();
     console.log("openUserTalk", u);
     this.addNewItem(u);
@@ -110,9 +112,11 @@ export class SideMenuComponent {
 
   openChannel(n: number) {
     this.channelActive = n;
+    this.newMessage = false;
     this.setDrawerValues();
     this.newItemEvent.emit(false);
     this.newItemEventChanel.emit(n);
+    this.isOpen.emit(false);
   }
 
 

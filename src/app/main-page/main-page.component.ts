@@ -9,6 +9,7 @@ import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.component';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { retry } from 'rxjs';
+import { ChannelWindowComponent } from '../channel-window/channel-window.component';
 
 @Component({
   selector: 'app-main-page',
@@ -25,7 +26,6 @@ export class MainPageComponent {
   public choiceDialog: boolean = false;
   public profileOpen = false;
   public openChat = false;
-  public newMessage = false;
   public otherChatUser: User = new User();
   public exist = false;
   public talkOpen: boolean = false;
@@ -37,9 +37,7 @@ export class MainPageComponent {
   public channelOpen: boolean = false;
   public newMessOpen: boolean = false;
   public textThread = "";
-  public textThreadEdit = "";
-  public textThreadAnswer = "";
-  public textThreadAnswerEdit = "";
+  public areaText = "";
   public load = false;
   public sideMenuHidden: boolean;
   //-----------------
@@ -57,6 +55,7 @@ export class MainPageComponent {
   public screenWidth: any;
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
+  @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
   @ViewChild(SideMenuComponent) side: SideMenuComponent;
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
@@ -161,7 +160,7 @@ export class MainPageComponent {
   }
 
   setNewMessage(b: boolean) {
-    this.newMessage = b;
+    this.newMessOpen = b;
   }
 
   /**
@@ -220,6 +219,7 @@ export class MainPageComponent {
     this.channelOpen = true;
     this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
+    this.side.newMessage = false;
   }
 
   /**  
@@ -235,13 +235,13 @@ export class MainPageComponent {
    */
   setOtherUser(user: User) {
     this.talkOpen = true;
-    this.channelOpen = false;    
+    this.channelOpen = false;
     setTimeout(() => {
       this.otherChatUser = user;
       console.log("other user", this.otherChatUser);
       // this.setUser = !this.setUser;
       this.child.setOtherUser(user);
-    },750);
+    }, 750);
 
   }
 
@@ -261,6 +261,12 @@ export class MainPageComponent {
   setLoggedInUser(u: any) {
     this.user = u;
     this.started = true;
+  }
+
+  setAreaText(areaText: string) {
+    this.areaText = areaText;
+    setTimeout(() => { this.childChannel.textThread = areaText; }, 1000)
+
   }
 
   /**
@@ -296,5 +302,12 @@ export class MainPageComponent {
     this.side.setDrawerValues();
   }
 
+  showPrivateMessage() {
+    return !this.channelOpen && !this.newMessOpen;
+  }
+
+  showChannel() {
+    return this.channelOpen && !this.newMessOpen;
+  }
 }
 

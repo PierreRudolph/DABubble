@@ -24,6 +24,7 @@ export class SendNewMessageComponent {
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() isOpen= new EventEmitter<boolean>();
+  @Output() areaText= new EventEmitter<string>();
 
   toggleEmojisDialog() { }
 
@@ -75,6 +76,7 @@ export class SendNewMessageComponent {
   callOpenChan(n: number) {
     this.callOpenChannel.emit(n);
     this.isOpen.emit(false);
+    this.areaText.emit(this.text);
   }
 
   callOpenT(u: User) {

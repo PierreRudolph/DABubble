@@ -119,11 +119,20 @@
 
 .searchChannelName {
     padding: 20px;
+    display: flex;
+    align-items: center;
+    gap:20px;
 
     &:hover {
         background-color: #cbcdec;
         border-radius: 30px;
         cursor: pointer;
+    }
+
+    img {
+        width: 30px;
+        height: 30px;
+        border-radius: 100%;
     }
 }
 

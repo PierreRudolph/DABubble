@@ -10,18 +10,18 @@
 
   <div class="main-content-div" *ngIf="setMobileView()">
 
-    <app-channel-window class="channel-window" *ngIf="channelOpen" [threadList]="this.threadList" [number]="this.number"
+    <app-channel-window class="channel-window" *ngIf="showChannel()" [threadList]="this.threadList" [number]="this.number"
       [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
       [sideMenuHidden]="this.sideMenuHidden" [screenWidth]="this.screenWidth"
       [openChat]="this.openChat"></app-channel-window>
 
-    <app-private-message class="privateMessage" *ngIf="!channelOpen && !newMessOpen  " [user]="user"
+    <app-private-message class="privateMessage" *ngIf="showPrivateMessage() " [user]="user"
       (newItemEventLoggedUser)="setLoggedInUser($event)" [talkList]="talkList"
       [userList]="userList"></app-private-message>
 
       <app-send-new-message style="height:100%" [threadList]="this.threadList"  [talkList]="talkList"
-      [user]="user" [userList]="userList"  (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)"
-      (callOpenTalk)="openMessage($event)" *ngIf="newMessage" ></app-send-new-message>
+      [user]="user" [userList]="userList"  (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)" (areaText)="setAreaText($event)"
+      (callOpenTalk)="openMessage($event)" *ngIf="newMessOpen" ></app-send-new-message>
 
   </div>
 
