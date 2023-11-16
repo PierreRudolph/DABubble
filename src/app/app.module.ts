@@ -35,6 +35,7 @@ import { PickerComponent } from '@ctrl/ngx-emoji-mart';
 import { ChannelWindowComponent } from './channel-window/channel-window.component';
 import { EditChannelComponent } from './edit-channel/edit-channel.component';
 import { ChannelMembersComponent } from './channel-members/channel-members.component';
+import { SendNewMessageComponent } from './send-new-message/send-new-message.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -56,7 +57,8 @@ import { ChannelMembersComponent } from './channel-members/channel-members.compo
     PrivateMessageComponent,   
     ChannelWindowComponent,
     EditChannelComponent,
-    ChannelMembersComponent
+    ChannelMembersComponent,
+    SendNewMessageComponent
   ],
   imports: [
     BrowserModule,

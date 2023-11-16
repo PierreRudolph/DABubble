@@ -1,0 +1,22 @@
+<div style="height: 100%; display: flex; flex-direction: column;">
+  <div class="newMesHeader">
+    <div class="nunitoBlack">Neue Nachricht</div>
+    <input type="input" class="address" placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
+  </div>
+  <div style="display: flex; flex-grow: 1;">
+  
+  </div>
+  <div style="padding:  32px 45px 20px 45px; ">
+  <div style="position: relative;">
+    <textarea #textArea class="textAreaDirekt" [(ngModel)]="text"></textarea>
+  <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
+  <div class="iconContainerTA">
+    <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
+    <div style="width:2px;background-color: #ADB0D9 ;"></div>
+    <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
+    <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
+    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
+      (emojiClick)="saveEmoji($event)"></emoji-mart>
+  </div>
+  </div>
+</div>

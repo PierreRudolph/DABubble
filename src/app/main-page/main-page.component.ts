@@ -34,6 +34,7 @@ export class MainPageComponent {
   public threadList: any = [this.chathelper.createEmptyThread()];
   public talkList: any = [this.chathelper.createEmptyTalk()];
   public channelOpen: boolean = false;
+  public newMessOpen:boolean = false;
   public textThread = "";
   public textThreadEdit = "";
   public textThreadAnswer = "";
