@@ -32,6 +32,9 @@ export class ProfileDialogComponent {
     this.addNewItem(false);
   }
 
+  /**
+   * Save the given name and email only if they have a valid Fom. Otherwise the previouse values are kept.
+   */
   save() {
     let n = this.registerForm.value.name;
     let e = this.registerForm.value.email;

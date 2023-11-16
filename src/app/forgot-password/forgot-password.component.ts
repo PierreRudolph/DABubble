@@ -12,11 +12,14 @@ export class ForgotPasswordComponent {
 
   public hide: boolean = true;
   public move: boolean = false;
-
+//Checks if the given mail in a valid form
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   })
 
+  /**
+   * Executed when click on "weiter"
+   */
   weiter() {
     this.hide = false;
     this.move = true;
@@ -27,9 +30,12 @@ export class ForgotPasswordComponent {
     }, 2500);
   }
 
+  /**
+   * 
+   * @returns Send the forget request to the firebase authservice
+   */
   async forgotPassword() {
-    return this.authService.forgotPassword(this.registerForm.value.email).then(() => {
-      // window.alert(" Wir senden Ihnen eine E-Mail, über die Sie Ihr Passwort ändern können.");
+    return this.authService.forgotPassword(this.registerForm.value.email).then(() => {     
     }).catch((err) => {
       window.alert(err);
     });

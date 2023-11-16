@@ -52,26 +52,50 @@ export class SideMenuThreadComponent {
     }, 300);
   }
 
+  /**
+   * 
+   * @returns Get the amount of answeres of a previously selected message. 
+   */
   getAnswerLength() {
     return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer.length;
   }
 
+  /**   * 
+  * @returns Get the list of answeres of a previously selected message. 
+  */
   getAnswerList() {
     return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer
   }
 
+  /**    
+   * @param index index of the answer
+   * @param n     specific information of a answer that is represented as a JSON
+   * @returns     Returns the given information of the given answer.
+   */
   getAnswerData(index: number, n: string) {
     return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n];
   }
-
+  /**
+   * Stores the given information in the given answer (represented by a JSON)
+   * @param index index of the answer
+   * @param n     specific information of a answer that is represented as a JSON
+   * @param m     The data that shell be stored
+   */
   setAnswerData(index: number, n: string, m: any) {
     this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n] = m;
   }
 
-  showSmielie(index: number) {// ändern
+  /** 
+   * @param index index of the answer
+   * @returns     returns the list of commenticons of the answer
+   */
+  showSmilie(index: number) {
     return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
   }
 
+/**
+ * @returns Returns the icon of the user, than sends the initial message that is opened in this thread window.
+ */
   getIconPathQuestionUser() {
     let id = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
     let path = "";
@@ -84,6 +108,11 @@ export class SideMenuThreadComponent {
     return path;
   }
 
+  /**
+   * 
+   * @param index   index of the answer
+   * @returns       Returns the Image of a the user that gave the given answer
+   */
   getImagePortrait(index: number) {
     let id = this.getAnswerData(index, 'iD');
     let path = "";
@@ -96,12 +125,7 @@ export class SideMenuThreadComponent {
     return path;
   }
 
-  saveAnswer() {
-    let n = this.threadC.chNum;
-    let i = this.threadC.coIndex;
-    let j = this.threadC.thIndex;
-    let threadId = this.threadList[n].channel.idDB;
-    console.log("threadId", threadId)
+  makeAnswer(){
     let answ = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
@@ -110,37 +134,59 @@ export class SideMenuThreadComponent {
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,
     }
+    return answ;
+  }
+
+  /**
+   * Saves the answer
+   */
+  saveAnswer() {
+    let n = this.threadC.chNum;
+    let i = this.threadC.coIndex;
+    let j = this.threadC.thIndex;
+    let threadId = this.threadList[n].channel.idDB;   
+    let answ = this.makeAnswer();
+
     if (this.editA) {
       this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
     }
     else {
       this.threadList[n].communikation[i].threads[j].answer.push(answ);
-    }
-
-    console.log("Antwort", answ);
-    console.log("comunikation", this.threadList[n].communikation[i]);
+    }   
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
     this.textThreadAnswer = "";
     this.editA = false;
   }
 
-  openAnswerMode(ans: any, index: number) {
+  /**
+   * 
+   * @param ans JSON of the answer that shell be edited
+   * @param index  Index of the answer that shell be edited
+   */
+  openAnswerEditMode(ans: any, index: number) {
     this.editA = true;
     this.textThreadAnswer = ans.message;
     this.editAIndex = index;
   }
 
+  /** 
+   * @param answer JSON of the answer
+   * @returns   returns wheather the answer is of the current user(useed for styling)
+   */
   fromLoggedInUser(answer: any) {
     let uId = this.user.idDB;
     let aId = answer.iD;
     return (uId == aId);
   }
 
+  /**
+   * Stores a emoji for an answer
+   * @param e JSON of the emoji
+   */
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
-    // this.emojiText += emoji;//löschen
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;   
     console.log("answerIndex", this.answerIndex);
     let sm = this.getAnswerData(this.answerIndex, 'smile');
 
@@ -171,14 +217,27 @@ export class SideMenuThreadComponent {
     this.answerIndex = aIndex;
   }
 
+  /**
+   * blends in or out the emoji popup vor the textarea.
+   */
   toggleEmojisDialogTA() {
     this.showEmojisTA = !this.showEmojisTA;
-
   }
 
+  /**
+   * 
+   * @param aIndex index of the answer where the emoji popUp shell be blend in
+   * @returns 
+   */
   showEmoji(aIndex: number) {
     return (this.answerIndex === aIndex) && this.showEmojis;
   }
+
+  /**
+   * 
+   * @param aIndex index of the answer where the emoji shell be deleted
+   * @param sIndex 
+   */
   removeSmile(aIndex: number, sIndex: number) {
     let threadId = this.threadList[this.threadC.chNum].channel.idDB;
     let userSmiles = this.getAnswerData(aIndex, 'smile');
@@ -191,6 +250,10 @@ export class SideMenuThreadComponent {
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
   }
 
+  /**
+   * Saves the given emoji in the textarea 
+   * @param e JSON on the emoji
+   */
   saveEmojiTextArea(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
