@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
 import { ChannelMembersComponent } from '../channel-members/channel-members.component';
+import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 
 @Component({
   selector: 'app-edit-channel',
@@ -85,5 +86,28 @@ export class EditChannelComponent {
   addMembersAction() {
     //this.addMembers = true;
     //this.dialogRef.close(this.addMembers);
+  }
+
+  openAddPeopleDialog() {
+    let dialogRef = this.dialog.open(AddPeopleDialogComponent);
+    this.setAddPeopleStyle(dialogRef);
+    dialogRef.componentInstance.channel = this.channel;
+    dialogRef.componentInstance.userList = this.userList;
+    dialogRef.componentInstance.user = this.user;
+    dialogRef.componentInstance.mobileFromBottom = true;
+    dialogRef.afterClosed().subscribe(() => {
+      dialogRef.componentInstance.mobileFromBottom = false;
+    })
+  }
+
+  setAddPeopleStyle(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
+    dialogRef.addPanelClass('maxWidth100');
+    dialogRef.addPanelClass('addPeopleDialogMobileStyle');
+    dialogRef.updatePosition({ bottom: '-470px' });
+
+    setTimeout(() => {
+      dialogRef.addPanelClass('transition225');
+      dialogRef.updatePosition({ bottom: '-20px' });
+    }, 500)
   }
 }

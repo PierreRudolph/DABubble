@@ -323,6 +323,15 @@ app-impressum {
     max-width: 100% !important;
 }
 
+.transition225 {
+    transition: all 225ms ease-in-out;
+}
+
+.addPeopleDialogMobileStyle {
+    width: 100%;
+    height: 360px;
+}
+
 .dialogBorRadNone .mat-mdc-dialog-surface {
     border-radius: 0px !important;
 }

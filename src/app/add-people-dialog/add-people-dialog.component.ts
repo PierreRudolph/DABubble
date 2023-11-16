@@ -21,10 +21,10 @@ export class AddPeopleDialogComponent {
   public currentlyAddedUser: User[] = [];
   public fristPage = true;
   public dialogReference: MatDialogRef<AddPeopleDialogComponent>;
-
+  public screenWidth: number;
   private chathelper: ChatHepler = new ChatHepler();
   public channel: any = this.chathelper.createEmptyThread();
-
+  public mobileFromBottom: boolean | false;
 
   constructor(public addPeopleDialog: MatDialog) {
     setTimeout(() => {

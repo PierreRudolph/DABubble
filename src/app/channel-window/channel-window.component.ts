@@ -54,7 +54,7 @@ export class ChannelWindowComponent {
    */
   openEditChannelDialog() {
     this.setEditChanPos();
-    this.setDialogMobileStyle();
+    this.setEditDialogMobileStyle();
 
     this.toggleEditChanBol();
     let dialogRef = this.dialog.open(EditChannelComponent,
@@ -83,7 +83,7 @@ export class ChannelWindowComponent {
     }
   }
 
-  setDialogMobileStyle() {
+  setEditDialogMobileStyle() {
     if (this.screenWidth < 471) {
       this.editChanPosLeft = '0px';
       this.dialogPosTop = '0px';
@@ -352,6 +352,10 @@ export class ChannelWindowComponent {
   //Bitte kommentieren
   setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
+    if (this.screenWidth < 471) {
+      dialogRef.addPanelClass('maxWidth100');
+      return;
+    }
     dialogRef.updatePosition({ right: this.addMembersDialogPosRight, top: this.dialogPosTop });
   }
 
@@ -361,6 +365,7 @@ export class ChannelWindowComponent {
     instance.user = new User(this.user.toJSON());
     instance.channel = this.threadList[this.number].channel;
     instance.userList = this.userList;
+    instance.screenWidth = this.screenWidth;
   }
 
   //Bitte kommentieren
@@ -466,8 +471,11 @@ export class ChannelWindowComponent {
    */
   setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: this.dialogPosTop });
+    if (this.screenWidth < 471)
+      return;
+    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: '190px' });
   }
+
 
   /**
    * Goves the needet variables to the Dialog

@@ -87,3 +87,10 @@
 .greenDot {
     background-color: #92C83E;
 }
+
+@media (max-width:471px) {
+    .dialogDiv {
+        width: auto;
+        padding: 20px 16px;
+    }
+}
