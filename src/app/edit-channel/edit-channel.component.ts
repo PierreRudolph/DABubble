@@ -31,6 +31,9 @@ export class EditChannelComponent {
     this.toggleChanNameOnEdit();
   }
 
+  /**
+   * Saves the new name of the channel
+   */
   saveNewChannelName() {
     let value = (document.getElementById("nameChannel") as HTMLInputElement | null)?.value;
     this.channel.name = value;
@@ -38,6 +41,9 @@ export class EditChannelComponent {
     this.toggleChanNameOnEdit();
   }
 
+   /**
+   * Belends in the editing windows for the name
+   */
   toggleChanNameOnEdit() {
     this.chanNamOnEdit = !this.chanNamOnEdit;
   }
@@ -45,6 +51,9 @@ export class EditChannelComponent {
   editChannelDesc() {
     this.toggleChanDescOnEdit();
   }
+  /**
+   * Saves the changed description
+   */
   saveNewChannelDesc() {
     let value = (document.getElementById("description") as HTMLInputElement | null)?.value;
     this.channel.description = value;
@@ -52,6 +61,9 @@ export class EditChannelComponent {
     this.toggleChanDescOnEdit();
   }
 
+  /**
+   * Belends in the editing windows for the Description
+   */
   toggleChanDescOnEdit() {
     this.chanDescOnEdit = !this.chanDescOnEdit;
   }

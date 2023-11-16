@@ -19,7 +19,7 @@ export class ResetComponent implements OnInit, OnDestroy {
   public move: boolean = false;
 
   actionCode: string = "";
-  public actionCodeChecked: boolean = false;
+  // public actionCodeChecked: boolean = false;
   public registerForm: FormGroup = new FormGroup({
     password: new FormControl('', Validators.required),
     passwordConfirm: new FormControl('', Validators.required),
@@ -35,6 +35,9 @@ export class ResetComponent implements OnInit, OnDestroy {
     private authService: AuthService
   ) { }
 
+  /**
+   * Process the Authentification of the reset email, by checking the sendet queryparameters
+   */
   ngOnInit() {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.ngUnsubscribe))
@@ -42,17 +45,15 @@ export class ResetComponent implements OnInit, OnDestroy {
         // if we didn't receive any parameters, 
         // we can't do anything
         if (!params) this.router.navigateByUrl('login');
-
+        // is the link a valid reset link
         this.mode = params['mode'];
-        this.actionCode = params['oobCode'];
-        console.log("mode",this.mode);
-        console.log("oobcode",this.actionCode);
+        this.actionCode = params['oobCode'];    
 
         switch (params['mode']) {
           case "resetPassword": {
             // Verify the password reset code is valid.
             this.authService.getAuth().verifyPasswordResetCode(this.actionCode).then(email => {
-              this.actionCodeChecked = true;
+              // this.actionCodeChecked = true;             
             }).catch(e => {
               // Invalid or expired action code. Ask user to try to reset the password
               // again.
@@ -68,10 +69,10 @@ export class ResetComponent implements OnInit, OnDestroy {
       })
   }
 
-  ngOnDestroy() {
-    // End all subscriptions listening to ngUnsubscribe
-    // to avoid memory leaks.
-    // this.ngUnsubscribe.next();
+  /**
+   *  End all subscriptions listening to ngUnsubscribe
+   */
+  ngOnDestroy() {   
     this.ngUnsubscribe.complete();
   }
 
