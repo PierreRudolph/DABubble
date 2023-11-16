@@ -30,25 +30,20 @@ export class CreateAccountAvatarComponent {
 
   }
 
+  /**
+   * Sign up a new user and saves the authentication uid in the userinformations
+   */
   register() {
     this.wait = true;
-    console.log(this.user);
     this.authService.signUp(this.user.email, this.user.password).then((res) => {
       this.hide = false;
       this.move = true;
       this.user.password = "";
       let userAny: any = res;
-      let id = userAny.user._delegate.uid;     
+      let id = userAny.user._delegate.uid;
       this.user.uid = id;
-     
       this.addUser(this.user.toJSON());
-      setTimeout(() => {
-        this.hide = true;
-        this.move = false;
-        this.wait = false;
-
-        this.router.navigateByUrl('/login');
-      }, 2500);
+      this.navigatePage();
     })
       .catch((error) => {
         this.wait = false;
@@ -56,12 +51,28 @@ export class CreateAccountAvatarComponent {
       })
   }
 
+/** 
+ * Navigates to the login Page.
+*/
+  navigatePage() {
+    setTimeout(() => {
+      this.hide = true;
+      this.move = false;
+      this.wait = false;
+      this.router.navigateByUrl('/login');
+    }, 2500);
+  }
+
+  /**
+   * Stores the given User in the Database
+   * @param item JSON that contains the userinformations
+   */
   async addUser(item: {}) {
     await addDoc(this.userRef(), item).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
           if (docRef) {
-            this.idDoc = docRef.id;           
+            this.idDoc = docRef.id;
             this.updateGame(this.idDoc);
           }
         });
@@ -71,25 +82,33 @@ export class CreateAccountAvatarComponent {
     return doc(this.firestore, 'user', docId);
   }
 
-
+/** * 
+ * @param id Database id of the user is stored within the userinformations.
+ */
   async updateGame(id: string) {
     let docRef = this.getSingleUserRef(id)
     await updateDoc(docRef, { "idDB": id }).catch(
       (err) => { console.log(err); });
   }
 
-
   userRef() {
     return collection(this.firestore, 'user');
   }
 
-
+/**
+ * Sets the selected iconpath.
+ * @param Path  Iconpath for the user
+ */
   setPortraitPath(path: string) {
     this.user.iconPath = path;
     this.portraitPath = path;
     this.padding = false;
   }
 
+/**
+ * Saves the uploaded portrait as base64 code in the data. 
+ * @param event Uploaded file
+ */
   onSelect(event: any) {
     if (event.target.files[0]) {
       let reader = new FileReader();

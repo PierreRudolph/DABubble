@@ -30,23 +30,28 @@ export class CreateChannelDialogComponent {
   public filteredMembers: User[] = [];
   public currentlyAddedUser:User[]=[];
 
-  constructor(public addPeopleDialog: MatDialog) {
-    // setTimeout(() => {
-    //   console.log('userliste is', this.userList);
-    // }, 5000);
+  constructor(public addPeopleDialog: MatDialog) {  
 
   }
 
-  addMember(u:User){
-    // console.log("added Member ",u);
-    // let m = {
-    //   "memberName": u.name,
-    //   "memberID": u.idDB,
-    // };
-    // this.channel.members.push(m);
-    // console.log("this channel",this.channel);
-    this.currentlyAddedUser.push(u);
-    console.log("currently users",this.currentlyAddedUser);
+  /**
+   * Puts the given user in the currentlyAddedUser list
+   * @param u User 
+   */
+  addMember(u: User) {
+    let inList = false;  // "strict": false, in compileoptions
+    console.log("actual member", this.currentlyAddedUser);
+    this.currentlyAddedUser.forEach(ul => {    
+      console.log("memberID "+ul.idDB+ "  Userid:"+ u.idDB );
+      if (ul.idDB == u.idDB) { inList = true };
+    });
+    if (!inList) {
+      this.currentlyAddedUser.push(u);
+      console.log("currently users", this.currentlyAddedUser);
+    }
+    else {
+      console.log("Uster ist bereits in der Liste");
+    }   
   }
 
   deleteUser(us:User){
@@ -141,10 +146,7 @@ export class CreateChannelDialogComponent {
   setValue() {
     this.isChecked = !this.isChecked;
   }
-
-  // ngOnInit(): void {
-  //   this.search();
-  // }
+ 
 
   searchKey(data: string) {
     this.searchText = data;
@@ -152,9 +154,4 @@ export class CreateChannelDialogComponent {
    
   }
 
-  // search() {
-  //   this.filteredMembers = this.searchText === "" ? this.userList : this.userList.filter((element) => {
-  //     return element.name.toLowerCase() == this.searchText.toLowerCase();
-  //   });
-  // }
 }

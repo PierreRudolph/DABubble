@@ -19,26 +19,21 @@ export class ChannelMembersComponent {
   public dialogRef: MatDialogRef<ChannelMembersComponent>;
   private addMembers: boolean | false;
 
-  constructor() {
-    console.log("channel ", this.channel);
-    console.log("UserList", this.userList);
-    console.log("user", this.user);
-    // setTimeout(() => {
-    //   console.log("channel ", this.channel);
-    //   console.log("UserList", this.userList);
-    //   console.log("user", this.user);
-    //   this.allUsers.push(this.user);
-    //   this.userList.forEach((u) => {
-    //     this.allUsers.push(u);
-    //   });
-    // }, 500);
+  constructor() { }
 
-  }
-
+  /**
+   * 
+   * @param u  JSON than contains the data of a member of a channel
+   * @returns 
+   */
   isMe(u: any) {
     return u.memberID == this.user.idDB;
   }
 
+  /** 
+   * @param u JSON than contains the data of a member of a channel
+   * @returns returns the status of the given Member
+   */
   getAktive(u: any) {
     let aktive = false;
     this.userList.forEach((ul) => {
@@ -49,6 +44,10 @@ export class ChannelMembersComponent {
     return aktive;
   }
 
+  /**   * 
+   * @param id Id of the user
+   * @returns  Iconpath of the Icon for the given user.
+   */
   getIcon(id: string) {
     let icon = "";
     this.userList.forEach((ul) => {
@@ -62,6 +61,9 @@ export class ChannelMembersComponent {
     return icon;
   }
 
+  /**
+   * Finishes the process of adding a member by closing the dialog.
+   */
   addMembersAction() {
     this.addMembers = true;
     this.dialogRef.close(this.addMembers);

@@ -23,15 +23,20 @@ export class CreateAccountComponent {
  })
   public loading: boolean = false;
 
-
-  constructor() {
-  
+  constructor() {  
    }
 
+/**
+ * Method send the given user up to the parent compopnent.
+ * @param user User that was created 
+ */
    addNewItem(user:User) {
     this.newItemEvent.emit(user);
   }
 
+  /**
+   * Is executed when clicking in "weiter" in the create new account
+   */
    weiter(){    
     let userInfo = {
     "name":this.registerForm.value.name, 
@@ -47,13 +52,10 @@ export class CreateAccountComponent {
     this.userInfo = JSON.stringify(userInfo);
     console.log(userInfo);
     this.addNewItem(this.user);    
-   }
-
- 
+   } 
 
     clickBox(){     
       console.log("return check value", this.registerForm.value.data);
     }
     
-
-}
+    }

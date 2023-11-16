@@ -11,12 +11,14 @@ export class CreateAccountMainComponent {
   public fristpage = true;
   public user: User = new User();
 
-  construkter() {
-  
+  construkter() {  
   }
 
-  setPage(user: User) {
-    console.log("name as string", user.name);
+  /**
+   * Sets the User and handles what page is active.
+   * @param user User that will be created
+   */
+  setPage(user: User) {   
     this.user = user;   
     this.fristpage= false;
   }
