@@ -261,6 +261,7 @@ export class PrivateMessageComponent {
 
   setOtherUser(user: User) {
     this.otherChatUser = user;
+    console.log("other user private", this.otherChatUser);
     console.log("data", this.currentTalkData);
     this.openTalk();
 

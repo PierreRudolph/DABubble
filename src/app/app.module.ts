@@ -36,6 +36,7 @@ import { ChannelWindowComponent } from './channel-window/channel-window.componen
 import { EditChannelComponent } from './edit-channel/edit-channel.component';
 import { ChannelMembersComponent } from './channel-members/channel-members.component';
 import { SendNewMessageComponent } from './send-new-message/send-new-message.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -58,7 +59,8 @@ import { SendNewMessageComponent } from './send-new-message/send-new-message.com
     ChannelWindowComponent,
     EditChannelComponent,
     ChannelMembersComponent,
-    SendNewMessageComponent
+    SendNewMessageComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

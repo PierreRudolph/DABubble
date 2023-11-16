@@ -5,7 +5,7 @@
             <div class="head">
                 <img src="assets/img/workspace-logo.svg">
                 <p class="workspace-name">Code learning</p>
-                <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg">
+                <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg"  (click)="setNewMessage()">
             </div>
             <div class="inputMobile">
                 <input placeholder="Gehe zu...">
@@ -33,7 +33,7 @@
                         <div *ngFor="let ch of threadList, index as c">
                             <!--Hier werden erstellte Channel reingerendert.-->
                             <div class="created-channel" [class.channelActive]="channelActive==c"
-                                (click)="openChannel(c); channelActive=c">
+                                (click)="openChannel(c)">
                                 <img src="assets/icons/tag.svg">
                                 <!-- <span>Entwicklerteam </span> -->
                                 <span *ngIf="loaded">{{getName(c)}} </span>

@@ -1,10 +1,18 @@
 <div style="height: 100%; display: flex; flex-direction: column;">
   <div class="newMesHeader">
     <div class="nunitoBlack">Neue Nachricht</div>
-    <input type="input" class="address" placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
-  </div>
-  <div style="display: flex; flex-grow: 1;">
-  
+    <input (ngModelChange)="searchKey($event)"  ngModel  type="input" class="address" placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
+    <div class="searchPiopUp" *ngIf="searchText.length >1 ">
+     <div *ngFor="let user of searchResultUser; index as u" class="searchuserName nunitoBlack">
+     <img src="{{user.iconPath}}"> {{user.name}}
+     </div>
+     <div *ngFor="let chan of searchResulChannel; index as c" class="searchChannelName nunitoBlack" (click)="callOpenChan(chan.num)">
+      <img src="assets/icons/workspaces.svg">  {{chan.name}}
+      </div>
+    </div>
+ </div>
+  <div style="display: flex; flex-grow: 1;">  
+   
   </div>
   <div style="padding:  32px 45px 20px 45px; ">
   <div style="position: relative;">

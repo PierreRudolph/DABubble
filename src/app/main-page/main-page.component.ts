@@ -25,6 +25,7 @@ export class MainPageComponent {
   public choiceDialog: boolean = false;
   public profileOpen = false;
   public openChat = false;
+  public newMessage = false;
   public otherChatUser: User = new User();
   public exist = false;
   public talkOpen: boolean = false;
@@ -34,7 +35,7 @@ export class MainPageComponent {
   public threadList: any = [this.chathelper.createEmptyThread()];
   public talkList: any = [this.chathelper.createEmptyTalk()];
   public channelOpen: boolean = false;
-  public newMessOpen:boolean = false;
+  public newMessOpen: boolean = false;
   public textThread = "";
   public textThreadEdit = "";
   public textThreadAnswer = "";
@@ -62,14 +63,14 @@ export class MainPageComponent {
 
   constructor(public authService: AuthService, public router: Router) {
     console.log("threadist construktor", this.threadList);
-    console.log("channel name", this.threadList[0].channel.name);  
+    console.log("channel name", this.threadList[0].channel.name);
     console.log("current", this.currentTalkData);
     this.currentTalkData.communikation = [];
-    
+
     setTimeout(() => {
       console.log("call construktor");
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid :"UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden          
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden          
       this.unsub = this.subUserInfo();
     }, 1000);
 
@@ -77,6 +78,8 @@ export class MainPageComponent {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
+
+    console.log("private comp", this.child);
 
     this.setScreenWidth();
   }
@@ -136,9 +139,9 @@ export class MainPageComponent {
       console.log("change channel");
       let cl: any = []
       list.forEach(elem => {
-       if( this.isUserInMemberList(elem.data())){
-        cl.push(elem.data());
-       }        
+        if (this.isUserInMemberList(elem.data())) {
+          cl.push(elem.data());
+        }
       });
       this.threadList = cl;
 
@@ -146,17 +149,19 @@ export class MainPageComponent {
 
   }
 
-  isUserInMemberList(channel:any){
-    let b=false;
-    let list :any[]=channel.channel.members;
-   list.forEach((m)=>{
-    if(m.memberID==this.user.idDB)
-    {
-      b=true;
-    }
-   });
+  isUserInMemberList(channel: any) {
+    let b = false;
+    let list: any[] = channel.channel.members;
+    list.forEach((m) => {
+      if (m.memberID == this.user.idDB) {
+        b = true;
+      }
+    });
+    return b;
+  }
 
-   return b;
+  setNewMessage(b: boolean) {
+    this.newMessage = b;
   }
 
   /**
@@ -230,13 +235,13 @@ export class MainPageComponent {
    */
   setOtherUser(user: User) {
     this.talkOpen = true;
-    this.channelOpen = false;
-    console.log("exist", this.exist);
+    this.channelOpen = false;    
     setTimeout(() => {
       this.otherChatUser = user;
+      console.log("other user", this.otherChatUser);
       // this.setUser = !this.setUser;
       this.child.setOtherUser(user);
-    }, 500);
+    },750);
 
   }
 
