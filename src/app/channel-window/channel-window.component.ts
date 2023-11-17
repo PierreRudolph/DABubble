@@ -403,6 +403,7 @@ export class ChannelWindowComponent {
   saveEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
     this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
+    this.threadList[this.number].communikation[cIndex].threads[tIndex].messageSplits =  this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
     let threadIndex = this.threadList[this.number].channel.idDB;
     this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
