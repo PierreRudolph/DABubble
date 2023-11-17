@@ -17,6 +17,7 @@ export class SideMenuThreadComponent {
   private chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
+  @Input() screenWidth: number;
   @Output() newSetOpen = new EventEmitter<boolean>();
   @Output() newItemEventOpenChat = new EventEmitter<boolean>();
   public textThreadEdit = "";
@@ -27,6 +28,7 @@ export class SideMenuThreadComponent {
   private answerIndex = 0;
   public smileHelper: SmileHelper = new SmileHelper();
   public openChat: boolean;
+
   showEmojis: boolean | undefined;
   showEmojisTA: boolean | undefined;
   emojiText: string = "";
@@ -37,6 +39,7 @@ export class SideMenuThreadComponent {
   constructor() {
     setTimeout(() => {
       console.log("this user is", this.user);
+      this.setMobileStatus()
     }, 500);
   }
 
@@ -93,9 +96,9 @@ export class SideMenuThreadComponent {
     return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
   }
 
-/**
- * @returns Returns the icon of the user, than sends the initial message that is opened in this thread window.
- */
+  /**
+   * @returns Returns the icon of the user, than sends the initial message that is opened in this thread window.
+   */
   getIconPathQuestionUser() {
     let id = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
     let path = "";
@@ -125,7 +128,7 @@ export class SideMenuThreadComponent {
     return path;
   }
 
-  makeAnswer(){
+  makeAnswer() {
     let answ = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
@@ -144,7 +147,7 @@ export class SideMenuThreadComponent {
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
-    let threadId = this.threadList[n].channel.idDB;   
+    let threadId = this.threadList[n].channel.idDB;
     let answ = this.makeAnswer();
 
     if (this.editA) {
@@ -152,7 +155,7 @@ export class SideMenuThreadComponent {
     }
     else {
       this.threadList[n].communikation[i].threads[j].answer.push(answ);
-    }   
+    }
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
     this.textThreadAnswer = "";
     this.editA = false;
@@ -186,7 +189,7 @@ export class SideMenuThreadComponent {
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;   
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
     console.log("answerIndex", this.answerIndex);
     let sm = this.getAnswerData(this.answerIndex, 'smile');
 
@@ -260,5 +263,13 @@ export class SideMenuThreadComponent {
 
     this.textThreadAnswer += emoji;
     this.showEmojisTA = false;
+  }
+
+  setMobileStatus() {
+    // if (this.screenWidth <= 471) {
+    //   this.drawer.close();
+    // } else {
+    //   this.drawer.open();
+    // }
   }
 }

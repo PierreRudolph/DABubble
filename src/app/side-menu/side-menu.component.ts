@@ -116,6 +116,12 @@ export class SideMenuComponent {
     this.newItemEventMenuHidden.emit(this.sideMenuHidden);
   }
 
+  openCloseSideMenu() {
+    this.drawer.toggle();
+    this.setDrawerValues();
+    this.toggleDrawerBol()
+  }
+
   setDrawerValues() {
     if (this.screenWidth < 471 && this.sideMenuHidden) {
       this.drawer.toggle();
