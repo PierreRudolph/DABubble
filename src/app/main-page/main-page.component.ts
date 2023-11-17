@@ -9,6 +9,7 @@ import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.component';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { retry } from 'rxjs';
+import { ChannelWindowComponent } from '../channel-window/channel-window.component';
 
 @Component({
   selector: 'app-main-page',
@@ -34,10 +35,9 @@ export class MainPageComponent {
   public threadList: any = [this.chathelper.createEmptyThread()];
   public talkList: any = [this.chathelper.createEmptyTalk()];
   public channelOpen: boolean = false;
+  public newMessOpen: boolean = false;
   public textThread = "";
-  public textThreadEdit = "";
-  public textThreadAnswer = "";
-  public textThreadAnswerEdit = "";
+  public areaText = "";
   public load = false;
   public sideMenuHidden: boolean;
   //-----------------
@@ -55,6 +55,7 @@ export class MainPageComponent {
   public screenWidth: any;
 
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
+  @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
   @ViewChild(SideMenuComponent) side: SideMenuComponent;
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
@@ -62,19 +63,22 @@ export class MainPageComponent {
   constructor(public authService: AuthService, public router: Router) {
     console.log("threadist construktor", this.threadList);
     console.log("channel name", this.threadList[0].channel.name);
-    this.unsubChannel = this.subChannelList()
     console.log("current", this.currentTalkData);
     this.currentTalkData.communikation = [];
+
     setTimeout(() => {
       console.log("call construktor");
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden          
       this.unsub = this.subUserInfo();
     }, 1000);
 
     setTimeout(() => {
       this.unsubtalk = this.subTalkInfo();
+      this.unsubChannel = this.subChannelList();
     }, 1500);
+
+    console.log("private comp", this.child);
 
     this.setScreenWidth();
   }
@@ -131,15 +135,32 @@ export class MainPageComponent {
   subChannelList() {
     let ref = collection(this.firestore, 'thread');
     return onSnapshot(ref, (list) => {
+      console.log("change channel");
       let cl: any = []
       list.forEach(elem => {
-
-        cl.push(elem.data());
+        if (this.isUserInMemberList(elem.data())) {
+          cl.push(elem.data());
+        }
       });
       this.threadList = cl;
 
     });
 
+  }
+
+  isUserInMemberList(channel: any) {
+    let b = false;
+    let list: any[] = channel.channel.members;
+    list.forEach((m) => {
+      if (m.memberID == this.user.idDB) {
+        b = true;
+      }
+    });
+    return b;
+  }
+
+  setNewMessage(b: boolean) {
+    this.newMessOpen = b;
   }
 
   /**
@@ -150,7 +171,7 @@ export class MainPageComponent {
   callOpenChan(num: number) {
     this.setChannelNumber(num);
     this.openChat = false;
-    // this.side.openChannel(num);
+
   }
 
   /**
@@ -160,6 +181,7 @@ export class MainPageComponent {
   */
   openMessage(u: User) {
     this.side.openTalk(u);
+    this.side.newMessage = false;
   }
 
   /**   
@@ -198,6 +220,7 @@ export class MainPageComponent {
     this.channelOpen = true;
     this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
+    this.side.newMessage = false;
   }
 
   /**  
@@ -214,12 +237,12 @@ export class MainPageComponent {
   setOtherUser(user: User) {
     this.talkOpen = true;
     this.channelOpen = false;
-    console.log("exist", this.exist);
     setTimeout(() => {
       this.otherChatUser = user;
+      console.log("other user", this.otherChatUser);
       // this.setUser = !this.setUser;
       this.child.setOtherUser(user);
-    }, 500);
+    }, 750);
 
   }
 
@@ -239,6 +262,20 @@ export class MainPageComponent {
   setLoggedInUser(u: any) {
     this.user = u;
     this.started = true;
+  }
+
+  setAreaText(areaText: string) {
+    this.areaText = areaText;
+    setTimeout(() => {
+      this.childChannel.textThread = areaText;
+    }, 1000);
+  }
+
+  setAreaTextPrivate(areaText: string) {
+    this.areaText = areaText;
+    setTimeout(() => {
+      this.child.text = areaText;
+    }, 1000);
   }
 
   /**
@@ -278,5 +315,12 @@ export class MainPageComponent {
     this.side.setDrawerValues();
   }
 
+  showPrivateMessage() {
+    return !this.channelOpen && !this.newMessOpen;
+  }
+
+  showChannel() {
+    return this.channelOpen && !this.newMessOpen;
+  }
 }
 

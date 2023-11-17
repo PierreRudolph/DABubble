@@ -1,0 +1,23 @@
+<div class="profileDialog ">
+    <div class="firstLine">
+        <div class="nunitoBlack fs24">Profil</div>
+        <img (click)="closeDialog()" style="cursor: pointer;" src="assets/img/close.svg">
+    </div>
+    <div>
+        <img class="imgProfile" src="{{user.iconPath}}">
+    </div>
+    <div class="firstLine">
+        <div class="nunitoBlack fs32">{{user.name}}</div>
+    </div>
+    <div class="styleState">
+        <div class="dot"></div>
+        <div class="state">{{user.status}}</div>
+    </div>
+    <div class="styleMail">
+        <img src="assets/img/mailBlack.svg">
+        <div>
+            <div class="nunitoBlack fs20">E-Mail-Adresse</div>
+            <div class="userMail">{{user.email}}</div>
+        </div>
+    </div>
+</div>
