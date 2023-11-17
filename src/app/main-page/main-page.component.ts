@@ -306,6 +306,10 @@ export class MainPageComponent {
     return !(this.screenWidth < 471 && !this.sideMenuHidden);
   }
 
+  // setMobileView() {
+  //   return !this.openChat;
+  // }
+
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
     this.side.setDrawerValues();
