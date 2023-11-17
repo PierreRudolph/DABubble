@@ -35,7 +35,7 @@ export class MainPageComponent {
   public threadList: any = [this.chathelper.createEmptyThread()];
   public talkList: any = [this.chathelper.createEmptyTalk()];
   public channelOpen: boolean = false;
-  public newMessOpen: boolean = false;
+  public newMessOpen: boolean = true;
   public textThread = "";
   public areaText = "";
   public load = false;
@@ -171,7 +171,7 @@ export class MainPageComponent {
   callOpenChan(num: number) {
     this.setChannelNumber(num);
     this.openChat = false;
-   
+
   }
 
   /**
@@ -180,7 +180,7 @@ export class MainPageComponent {
   * @param u  User with which you want to chat with.
   */
   openMessage(u: User) {
-    this.side.openTalk(u);   
+    this.side.openTalk(u);
     this.side.newMessage = false;
   }
 
@@ -267,14 +267,14 @@ export class MainPageComponent {
   setAreaText(areaText: string) {
     this.areaText = areaText;
     setTimeout(() => {
-       this.childChannel.textThread = areaText;       
+      this.childChannel.textThread = areaText;
     }, 1000);
   }
 
   setAreaTextPrivate(areaText: string) {
     this.areaText = areaText;
-    setTimeout(() => {     
-       this.child.text=areaText;
+    setTimeout(() => {
+      this.child.text = areaText;
     }, 1000);
   }
 

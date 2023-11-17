@@ -22,6 +22,57 @@
     cursor: pointer;
 }
 
+.searchResults{
+
+    display: flex;
+    padding: 20px; 
+    flex-grow: 1;
+    img {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
+    }
+}
+
+.emoji-div {
+    position: absolute;
+    bottom: 135px;
+
+}
+
+.error{
+    border-color: red!important;
+    &::placeholder {
+        color:red!important  ;     
+    }
+}
+
+.addressBox{
+    position: absolute;
+    padding: 30px;
+    max-height:200px; 
+    overflow-y: scroll;
+    bottom:90px;
+    right:800px;
+    border-radius: 20px;
+    border: 1px solid #ADB0D9;
+    background-color: white;
+
+    img{
+        width:10px;
+        height:10px;
+        border-radius: 100%;
+    }
+}
+
+.addressElements{
+    &:hover {
+        background-color: #cbcdec;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
 .address {
     border-radius: 30px;
     border: 1px solid #ADB0D9;
@@ -88,21 +139,21 @@
     }
 }
 
-.searchPiopUp {
-    top: 150px;
-    position: absolute;
-    width: 80%;
-    height: fit-content;
-    background-color: white;
-    border-radius: 30px;
-    border: 1px solid #ADB0D9;
+// .searchPiopUp {
+//     top: 150px;
+//     position: absolute;
+//     width: 80%;
+//     height: fit-content;
+//     background-color: white;
+//     border-radius: 30px;
+//     border: 1px solid #ADB0D9;
 
-    img {
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
-    }
-}
+//     img {
+//         width: 40px;
+//         height: 40px;
+//         border-radius: 100%;
+//     }
+// }
 
 .searchuserName {
     display: flex;

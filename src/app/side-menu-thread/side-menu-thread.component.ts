@@ -129,7 +129,7 @@ export class SideMenuThreadComponent {
     let answ = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
-      "edit": false,
+      "edit": false,     
       "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,

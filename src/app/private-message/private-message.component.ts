@@ -12,7 +12,7 @@ import { SmileHelper } from 'src/moduls/smileHelper.class';
   templateUrl: './private-message.component.html',
   styleUrls: ['./private-message.component.scss']
 })
-export class PrivateMessageComponent {
+export class PrivateMessageComponent  {
   // private userAuth: any; //authenticated user
   @Input() user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
@@ -42,7 +42,7 @@ export class PrivateMessageComponent {
   emojiMessageIndex = 0;
   communikationIndex = 0;
   smileHelper: SmileHelper = new SmileHelper();
-  chatHelper: ChatHepler = new ChatHepler();
+  chatHelper: ChatHepler = new ChatHepler();  
 
   // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -53,6 +53,7 @@ export class PrivateMessageComponent {
   constructor(public authService: AuthService, public router: Router) {
 
   }
+
 
   /**
    * Opens the edid Window
@@ -105,7 +106,7 @@ export class PrivateMessageComponent {
     let mes = {
       "name": this.user.name,
       "iD": this.user.idDB,
-      "edit": false,
+      "edit": false,     
       "smile": [],
       "time": this.chatHepler.parseTime(new Date(Date.now())),
       "message": text,
@@ -393,6 +394,10 @@ export class PrivateMessageComponent {
     this.showEmojisComment = !this.showEmojisComment;
     this.communikationIndex = i;
     this.emojiMessageIndex = mIndex;
+  }
+
+  test(){
+    console.log("teeeeeeeest");
   }
 
   // addEmoji(selected: Emoji) {

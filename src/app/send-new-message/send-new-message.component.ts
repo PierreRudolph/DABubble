@@ -20,16 +20,19 @@ export class SendNewMessageComponent {
   @Input() public talkList: any = [this.chathelper.createEmptyTalk()];
   searchResultUser: User[] = [];
   searchResulChannel: any[] = [];
-
+  public error = false;
+  public addresses = false;
+ 
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
-  @Output() isOpen= new EventEmitter<boolean>();
-  @Output() areaText= new EventEmitter<string>();
-  @Output() areaTextPrivate =new EventEmitter<string>();
+  @Output() isOpen = new EventEmitter<boolean>();
+  @Output() areaText = new EventEmitter<string>();
+  @Output() areaTextPrivate = new EventEmitter<string>();
+  @Output() inputCheck = new EventEmitter<any>();
 
   toggleEmojisDialog() {
-    this.showEmojis =!this.showEmojis;
-   }
+    this.showEmojis = !this.showEmojis;
+  }
 
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
@@ -42,11 +45,11 @@ export class SendNewMessageComponent {
 
   searchNameOrmail(st: string, first: string) {
     this.userList.forEach((u) => {
-      if (((u.name.toLowerCase().includes(st)) && (first == '@'))||((u.email.toLowerCase().includes(st)) && (first == '@'))) {
+      if (((u.name.toLowerCase().includes(st)) && (first == '@')) || ((u.email.toLowerCase().includes(st)) && (first == '@'))) {
         this.searchResultUser.push(u);
       }
     })
-    if (((this.user.name.toLowerCase().includes(st)) && (first == '@'))||((this.user.email.toLowerCase().includes(st)) && (first == '@'))) {
+    if (((this.user.name.toLowerCase().includes(st)) && (first == '@')) || ((this.user.email.toLowerCase().includes(st)) && (first == '@'))) {
       this.searchResultUser.push(this.user);
     }
   }
@@ -59,7 +62,7 @@ export class SendNewMessageComponent {
     console.log("first elem", first);
     this.searchResultUser = [];
     this.searchResulChannel = [],
-    console.log("searchtext", st);
+      console.log("searchtext", st);
     this.searchNameOrmail(st, first);
 
     console.log(this.searchResultUser);
@@ -68,24 +71,42 @@ export class SendNewMessageComponent {
       num++;
       console.log("name ", t.channel.name.toLowerCase().includes(st) + " " + t.channel.name.toLowerCase())
       if ((t.channel.name.toLowerCase().includes(st)) && (first == '#')) {
-        let info = {"name": t.channel.name, "num":num}
+        let info = { "name": t.channel.name, "num": num }
         this.searchResulChannel.push(info);
       }
     })
   }
-  saveMessage() { }
+  saveMessage() {
+    this.error = true;
+    setTimeout(() => {
+      this.error = false;
+    },2000);
+  }
 
+  openMailAddresses(){
+    this.chathelper.getLinkedUsers(this.user, this.userList, "Der Name ist @Maria Müller. Und was noch @Perry Rhodan.");
+    // this.chathelper.isPartOf("Maria Müller","Der Name ist @Maria Müller. Und was noch @Perry Rhodan");
+    // this.chathelper.splitAtName(this.user, this.userList,"Der Name ist @Maria Müller. Und was noch @Perry Rhodan")
+    this.addresses =!this.addresses;
+  }
 
   callOpenChan(n: number) {
     this.callOpenChannel.emit(n);
     this.isOpen.emit(false);
     this.areaText.emit(this.text);
+   
   }
 
   callOpenT(u: User) {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
+   
+  }
+
+  chooseUser(u:User){
+    this.text+= '@'+u.name;
+    this.addresses =!this.addresses;   
   }
 
 
