@@ -371,3 +371,51 @@
 .lila {
     background-color: #cbcdec;
 }
+
+
+.addressBox{
+    position: absolute;
+    padding: 30px;
+    max-height:200px; 
+    overflow-y: scroll;
+    bottom:80px;
+    left:50px;
+    z-index:3;
+    border-radius: 20px;
+    border: 1px solid #ADB0D9;
+    background-color: white;
+
+    img{
+        width:10px;
+        height:10px;
+        border-radius: 100%;
+    }
+}
+// ------------------------------------------------------------------------
+.addressElements{
+    &:hover {
+        background-color: #cbcdec;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+}
+
+.address {
+    border-radius: 30px;
+    border: 1px solid #ADB0D9;
+    padding: 15px;
+    width: 100%;
+
+    &:focus {
+        outline: none;
+    }
+
+    &::placeholder {
+        color: var(--Text-gray, #686868);
+        font-family: Nunito;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+    }
+}

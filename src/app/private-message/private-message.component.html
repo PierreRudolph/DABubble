@@ -24,8 +24,12 @@
               <span style="color:#b7bade">{{m.time}} Uhr</span>
             </div>
             <div [class.popUpFlipContainer]="getFlip(m)">
-              <div class="message" [class.dNone]="m.edit"   >    
-                {{m.message}}           
+              <div class="message" [class.dNone]="m.edit" >    
+                <!-- {{m.message}}  -->
+                <span *ngFor="let mes of m.messageSplits" style="width:100%">
+                  <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)" style="background-color: #535AF1;cursor:pointer;">{{mes.text}}</span>
+                  <span *ngIf="!chatHelper.isLink(mes)">{{mes.text}}</span>
+                </span>          
               </div>                         
             </div>
             <div [class.popUpFlipContainer]="getFlip(m)">
@@ -98,9 +102,15 @@
     <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
     <div style="width:2px;background-color: #ADB0D9 ;"></div>
     <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
-    <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
+    <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
     <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
       (emojiClick)="saveEmoji($event)"></emoji-mart>
-    <!-- (emojiSelect)="addEmoji($event)" -->
+     
+  </div>
+  <div class="addressBox" *ngIf="addresses">
+    <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
+    <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
+      <img src="{{usL.iconPath}}"> {{usL.name}}
+    </div>
   </div>
 </div>

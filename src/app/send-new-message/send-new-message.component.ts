@@ -84,7 +84,7 @@ export class SendNewMessageComponent {
   }
 
   openMailAddresses(){
-    this.chathelper.getLinkedUsers(this.user, this.userList, "Der Name ist @Maria Müller. Und was noch @Perry Rhodan.");
+    this.chathelper.getLinkedUsers(this.user, this.userList, "Der Name ist @Maria Müller. Und was noch @Perry Rhodan. @Julia Wessolleck");
     // this.chathelper.isPartOf("Maria Müller","Der Name ist @Maria Müller. Und was noch @Perry Rhodan");
     // this.chathelper.splitAtName(this.user, this.userList,"Der Name ist @Maria Müller. Und was noch @Perry Rhodan")
     this.addresses =!this.addresses;

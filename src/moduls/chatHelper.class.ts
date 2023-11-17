@@ -28,6 +28,7 @@ export class ChatHepler {
           ],
           "time": "",
           "message": "",
+          "messageSplits": [{ "type": "", "text": "" }],
         }]
       }]
     }
@@ -56,6 +57,7 @@ export class ChatHepler {
           ],
           "time": "",
           "message": "",
+          "messageSplits": [{ "type": "t", "text": "" }],
         }]
       }]
     }
@@ -143,69 +145,6 @@ export class ChatHepler {
   }
 
 
-  // getLinkedUsers(text: string) {
-  //   let splittedtText = []
-  //   let linkedUserList = [];
-  //   let t = text;
-  //   let s = "";
-
-
-  // }
-
-  extraktName(user: User, userList: any[], text: string): any {
-    let t = text;
-    let index = 0;
-    let h = "";
-    let len = 0;
-    let name = "";
-    let last = 0;
-    console.log("t ist:", t);
-    let infoBack = { "link": "", "rest": "" };
-
-    userList.forEach((u) => {
-      name = '@' + u.name;
-      len = name.length;
-      if (len <= t.length) {
-        h = t.substring(0, index + len);
-        last = t.charCodeAt(index + len);
-        // console.log("h ist ", h);
-        // console.log("euql  ", h==name);
-        // console.log("name  ",name);
-        // console.log("rest  ",t.substring(len));
-        // console.log("last ", last)
-        if ((h == name) && (last < 65 || last > 122)) {
-          console.log("the filtered name is", name);
-          infoBack.link = h;
-          infoBack.rest = t.substring(len);
-        }
-      }
-    });
-    return infoBack;
-  }
-
-  splitAtName(user: User, userList: any[], text: string) {
-    let t = text;
-    let s = "";
-    let r = "";
-    let i = 0;
-    let index = t.indexOf('@');
-    let infoList = [];
-    let storedInfo = { "before": "", "link": "", };
-    let infoBack = { "link": "", "rest": "" };
-    while ((index != -1) && (i < 5)) {
-      i++;
-      s = t.substring(0, index - 1);
-
-      r = t.substring(index);
-      console.log("s ", s);
-      console.log("r ", r);
-      infoBack = this.extraktName(user, userList, r);
-      infoList.push(infoBack);
-      t = infoBack.rest;
-      index = t.indexOf('@');
-    }
-    console.log("Infolist", infoList);
-  }
 
   sortParts(list: any[]) {
     let helper = list;
@@ -218,11 +157,12 @@ export class ChatHepler {
       }
       return 0;
     });
-    console.log("helper ", helper);
+    // console.log("helper ", helper);
+    return helper;
   }
 
-  getLinkedUsers(user: User, userList: any[], text: string) {  
-    let messageInformation=[];
+  getLinkedUsers(user: User, userList: any[], text: string) {
+    let messageInformation = [];
     let t = text;
     let index = 0;
     let s = "";
@@ -239,27 +179,40 @@ export class ChatHepler {
         })
       }
     });
-    console.log("isPart", isPart);
-    this.sortParts(isPart);
-    console.log("isPartSorted", isPart);
+
+    index = this.isPartOf(user.name, t);
+    if (index != -1) {
+      isPart.push({
+        "name": user.name,
+        "index": index,
+      })
+    }
+    // console.log("isPart", isPart);
+    isPart = this.sortParts(isPart);
+    // console.log("isPartSorted", isPart);
     isPart.forEach((us) => {
       us.index = us.index - subtrakt;
       s = t.substring(0, us.index);
       end = ('@' + us.name).length + us.index;
       ut = t.substring(us.index, end);
       let rest = t.substring(end);
-      console.log("s ", s);
-      console.log("ut ", ut);
-      console.log("rest ", rest);
+      // console.log("s ", s);
+      // console.log("ut ", ut);
+      // console.log("rest ", rest);
       t = rest;
       subtrakt = text.length - rest.length;
-      messageInformation.push({"type":"t","text":s});
-      messageInformation.push({"type":"l","text":ut});
+      messageInformation.push({ "type": "t", "text": s });
+      messageInformation.push({ "type": "l", "text": ut });
     });
-    if(t.length>0){
-      messageInformation.push({"type":"t","text":t});
+    if (t.length > 0) {
+      messageInformation.push({ "type": "t", "text": t });
     }
     console.log(messageInformation);
+    return messageInformation;
+  }
+
+  isLink(type:any){
+      return type.type=='l';
   }
 
 
@@ -267,11 +220,11 @@ export class ChatHepler {
     let part = '@' + name;
     let index = text.indexOf(part);
     let sub = text.substring(index + part.length);
-    console.log("sub", sub);
+    // console.log("sub", sub);
     let ret = -1;
     if (sub.length > 1) {
       let last = sub.charCodeAt(0);
-      console.log("last", last);
+      // console.log("last", last);
       if ((last < 65) || (last > 122)) {
         ret = index;
       }
