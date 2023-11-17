@@ -104,6 +104,7 @@ export class ChatHepler {
               ],
               "time": "",
               "message": "",
+              "messageSplits": [{ "type": "", "text": "" }],
               "answer": [
                 {
                   "name": "",
@@ -119,6 +120,7 @@ export class ChatHepler {
                   ],
                   "time": "",
                   "message": "",
+                  "messageSplits": [{ "type": "", "text": "" }],
                 }
               ]
             }

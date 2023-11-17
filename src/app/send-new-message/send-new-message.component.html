@@ -29,7 +29,7 @@
         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
       </div>
     </div>
-    <div class="addressBox" *ngIf="addresses">
+    <div class="addressBox posAdBox" *ngIf="addresses">
       <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
       <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
         <img src="{{usL.iconPath}}"> {{usL.name}}
