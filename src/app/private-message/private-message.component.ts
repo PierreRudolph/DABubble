@@ -6,6 +6,8 @@ import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } fro
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
+import { MatDialog } from '@angular/material/dialog';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 @Component({
   selector: 'app-private-message',
@@ -43,6 +45,8 @@ export class PrivateMessageComponent {
   communikationIndex = 0;
   smileHelper: SmileHelper = new SmileHelper();
   chatHelper: ChatHepler = new ChatHepler();
+  public messageInformation: any[] = [];
+  public addresses = false;
 
   // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -50,7 +54,7 @@ export class PrivateMessageComponent {
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
-  constructor(public authService: AuthService, public router: Router) {
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
 
   }
 
@@ -84,6 +88,7 @@ export class PrivateMessageComponent {
   saveEdit(m: any) {
     m.edit = false;
     m.message = this.textEdit;
+    m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.textEdit);
     this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
@@ -109,7 +114,9 @@ export class PrivateMessageComponent {
       "smile": [],
       "time": this.chatHepler.parseTime(new Date(Date.now())),
       "message": text,
+      "messageSplits": this.chatHelper.getLinkedUsers(this.user, this.userList, text),
     }
+    this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, text);
     return mes;
   }
 
@@ -335,7 +342,7 @@ export class PrivateMessageComponent {
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let talkId = this.currentTalkData.idDB; 
+    let talkId = this.currentTalkData.idDB;
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -357,12 +364,12 @@ export class PrivateMessageComponent {
     this.showEmojisComment = false;
   }
 
- /**
-  * Removed the smilie of the smiliebox with the given location data.
-  * 
-  * @param i        index of the message where the smilie that sould be removed
-  * @param sIndex   the index of the smilie in the smiliebox that sould be removed
-  */
+  /**
+   * Removed the smilie of the smiliebox with the given location data.
+   * 
+   * @param i        index of the message where the smilie that sould be removed
+   * @param sIndex   the index of the smilie in the smiliebox that sould be removed
+   */
   removeSmile(i: number, sIndex: number) {
     let talkId = this.currentTalkData.idDB;
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;
@@ -395,6 +402,10 @@ export class PrivateMessageComponent {
     this.emojiMessageIndex = mIndex;
   }
 
+  test() {
+    console.log("teeeeeeeest");
+  }
+
   // addEmoji(selected: Emoji) {
   //   const emoji: string = (selected.emoji as any).native;
   //   const input = this.textArea.nativeElement;
@@ -414,5 +425,41 @@ export class PrivateMessageComponent {
   //   const [start, end] = [input.selectionStart, input.selectionEnd];
   //   input.setRangeText(emoji, start, end, 'end');
   // }
+
+  openMailAddresses() {
+    //  this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, "Der Name ist @Maria Müller. Und was noch @Perry Rhodan. @Julia Wessolleck");
+    // this.chathelper.isPartOf("Maria Müller","Der Name ist @Maria Müller. Und was noch @Perry Rhodan");
+    // this.chathelper.splitAtName(this.user, this.userList,"Der Name ist @Maria Müller. Und was noch @Perry Rhodan")
+
+    this.addresses = !this.addresses;
+    console.log("addresses", this.addresses);
+  }
+
+
+  openProfileOfUser(user: any) {
+    let t = user.text.substring(1);
+    if (this.user.name == t) { this.openDialog(this.user) }
+    else {
+      this.userList.forEach((u) => {
+        if (u.name == t) { this.openDialog(u); }
+      });
+    }
+
+  }
+
+  chooseUser(u: User) {
+    this.text += '@' + u.name;
+    this.addresses = !this.addresses;
+
+  }
+
+  openDialog(user: User): void {
+    const dialogRef = this.dialog.open(UserProfileComponent);
+    dialogRef.componentInstance.user = new User(user.toJSON());
+    dialogRef.componentInstance.ref = dialogRef;
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
 
 }

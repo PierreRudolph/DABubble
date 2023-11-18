@@ -19,7 +19,8 @@
                         <!-- <div class="add-reaction">
                         <img src="assets/icons/add-reaction.svg">
                     </div> -->
-                        <img class="char-img" src="{{  getIconPathQuestionUser()}}">
+                        <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;"
+                            src="{{  getIconPathQuestionUser()}}">
                         <div class="message-inner-div">
                             <div class="mes-name-clock">
                                 <span
@@ -28,7 +29,14 @@
                                     Uhr</span>
                             </div>
                             <diV class="message">
-                                {{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].message}}
+                                <!-- {{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].message}} -->
+                                <span
+                                    *ngFor="let mes of threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].messageSplits"
+                                    style="width:100%">
+                                    <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
+                                        style="background-color: #535AF1;cursor:pointer;">{{mes.text}}</span>
+                                    <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
+                                </span>
                             </diV>
                         </div>
                     </div>
@@ -55,7 +63,12 @@
                                 <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
                             </div>
                             <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
-                                {{getAnswerData(aIndex,'message')}}
+                                <!-- {{getAnswerData(aIndex,'message')}} -->
+                                <span *ngFor="let mes of answ.messageSplits" style="width:100%">
+                                    <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
+                                        style="background-color: #535AF1;cursor:pointer;">{{mes.text}}</span>
+                                    <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
+                                </span>
                             </diV>
                             <diV class="reactions">
 
@@ -85,6 +98,14 @@
                                     src="assets/icons/add-reaction.svg">
                                 <emoji-mart class="emojiDiv" *ngIf="showEmoji(aIndex)" title="Pick your emoji…"
                                     (emojiClick)="saveEmoji($event)" lightmode></emoji-mart>
+                                <div class="addressBox" *ngIf="addresses">
+                                    <div class="addressElements" (click)="chooseUser(user)"><img
+                                            src="{{user.iconPath}}">
+                                        {{user.name}}</div>
+                                    <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
+                                        <img src="{{usL.iconPath}}"> {{usL.name}}
+                                    </div>
+                                </div>
 
                             </diV>
                         </div>
@@ -105,7 +126,7 @@
                         <div style="width:2px;background-color: #ADB0D9 ;"></div>
                         <img class="textAreaIconSmiley" (click)="toggleEmojisDialogTA()"
                             src="assets/img/smiley-icon.svg">
-                        <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
+                        <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
                     </div>
                     <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…"
                         (emojiClick)="saveEmojiTextArea($event)" (darkMode)="false"></emoji-mart>
@@ -118,6 +139,6 @@
             Toggle sidenav
         </button>
     </div> -->
-
     </mat-drawer-container>
 </div>
+</mat-drawer-container>

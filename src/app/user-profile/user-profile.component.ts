@@ -9,5 +9,9 @@ import { User } from 'src/moduls/user.class';
 export class UserProfileComponent {
 
   public user: User = new User();
-  closeDialog(){}
+  public ref:any;
+
+  closeDialog(){
+    this.ref.close();
+  }
 }

@@ -58,14 +58,22 @@
                     </div>
                     <div style="width:100%" [class.popUpFlipContainer]="getFlip(thread)">
                         <div class="message" [class.dNone]="thread.edit">
-                            {{thread.message}}
+                            <!-- {{thread.message}} -->
+                            <span *ngFor="let mes of thread.messageSplits" style="width:100%">
+                                <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
+                                    style="background-color: #535AF1;cursor:pointer;">{{mes.text}}</span>
+                                <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
+                            </span>
                         </div>
                     </div>
-                    <div [class.dNone]="!thread.edit" style="width:100%" [class.popUpFlipContainer]="getFlip(thread)">
+                    <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
+                        [class.popUpFlipContainer]="getFlip(thread)">
                         <div style="position:relative">
-                            <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                            <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit"
-                                src="assets/img/smiley-icon.svg">
+                            <div style="position:relative"> <textarea class="textAreaDirekt"
+                                    [(ngModel)]="textEdit">{{thread.message}}  </textarea>
+                                <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit"
+                                    src="assets/img/smiley-icon.svg">
+                            </div>
                             <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
                                 (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
                         </div>
@@ -122,9 +130,15 @@
         <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
         <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
-        <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
+        <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
         <!-- (emojiSelect)="addEmoji($event)" -->
     </div>
     <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
         (emojiClick)="saveEmoji($event)"></emoji-mart>
+    <div class="addressBox" *ngIf="addresses">
+        <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
+        <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
+            <img src="{{usL.iconPath}}"> {{usL.name}}
+        </div>
+    </div>
 </div>

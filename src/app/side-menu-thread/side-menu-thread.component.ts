@@ -4,6 +4,8 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { User } from 'src/moduls/user.class';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-side-menu-thread',
   templateUrl: './side-menu-thread.component.html',
@@ -14,7 +16,7 @@ export class SideMenuThreadComponent {
 
   @Input() userList: User[];
   @Input() user: User;
-  private chathelper: ChatHepler = new ChatHepler();
+  public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Input() screenWidth: number;
@@ -28,6 +30,7 @@ export class SideMenuThreadComponent {
   private answerIndex = 0;
   public smileHelper: SmileHelper = new SmileHelper();
   public openChat: boolean;
+  public addresses = false;
 
   showEmojis: boolean | undefined;
   showEmojisTA: boolean | undefined;
@@ -38,7 +41,7 @@ export class SideMenuThreadComponent {
   @ViewChild('drawer')
   drawer!: MatDrawer;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
     setTimeout(() => {
       console.log("this user is", this.user);
     }, 500);
@@ -140,6 +143,7 @@ export class SideMenuThreadComponent {
       "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThreadAnswer,
+      "messageSplits": this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer),
     }
     return answ;
   }
@@ -156,9 +160,11 @@ export class SideMenuThreadComponent {
 
     if (this.editA) {
       this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
+      this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer);
     }
     else {
       this.threadList[n].communikation[i].threads[j].answer.push(answ);
+     
     }
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
     this.textThreadAnswer = "";
@@ -280,4 +286,37 @@ export class SideMenuThreadComponent {
   showSideMenuMobile() {
     this.sideMenuThreadDiv.nativeElement.classList.remove('mobileDNone');
   }
+
+
+
+  openMailAddresses() {
+    this.addresses = !this.addresses;
+  }
+
+
+  openProfileOfUser(user: any) {
+    let t = user.text.substring(1);
+    if (this.user.name == t) { this.openDialog(this.user) }
+    else {
+      this.userList.forEach((u) => {
+        if (u.name == t) { this.openDialog(u); }
+      });
+    }
+
+  }
+
+  chooseUser(u: User) {
+    this.textThreadAnswer += '@' + u.name;
+    this.addresses = !this.addresses;
+  }
+
+  openDialog(user: User): void {
+    const dialogRef = this.dialog.open(UserProfileComponent);
+    dialogRef.componentInstance.user = new User(user.toJSON());
+    dialogRef.componentInstance.ref = dialogRef;
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
 }

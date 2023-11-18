@@ -1,30 +1,40 @@
 <div style="height: 100%; display: flex; flex-direction: column;">
   <div class="newMesHeader">
     <div class="nunitoBlack">Neue Nachricht</div>
-    <input (ngModelChange)="searchKey($event)"  ngModel  type="input" class="address" placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
-    <div class="searchPiopUp" *ngIf="searchText.length >1 ">
-     <div *ngFor="let user of searchResultUser; index as u" class="searchuserName nunitoBlack" (click)="callOpenT(user)">
-     <img src="{{user.iconPath}}"> {{user.name}}
-     </div>
-     <div *ngFor="let chan of searchResulChannel; index as c" class="searchChannelName nunitoBlack" (click)="callOpenChan(chan.num)">
-      <img src="assets/icons/workspaces.svg">  {{chan.name}}
+    <input *ngIf="!error" (ngModelChange)="searchKey($event)" ngModel type="input" class="address"
+      placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
+    <input *ngIf="error" ngModel disabled type="input" class="address error"
+      placeholder="Bitte einen Addressaten eingeben und auswählen">
+  </div>
+  <div class="searchResults">
+    <div *ngIf="searchText.length >1 ">
+      <div *ngFor="let user of searchResultUser; index as u" class="searchuserName nunitoBlack"
+        (click)="callOpenT(user)">
+        <img src="{{user.iconPath}}"> {{user.name}}
+      </div>
+      <div *ngFor="let chan of searchResulChannel; index as c" class="searchChannelName nunitoBlack"
+        (click)="callOpenChan(chan.num)">
+        <img src="assets/icons/workspaces.svg"> {{chan.name}}
       </div>
     </div>
- </div>
-  <div style="display: flex; flex-grow: 1;">  
-   
   </div>
   <div style="padding:  32px 45px 20px 45px; ">
-  <div style="position: relative;">
-    <textarea #textArea class="textAreaDirekt" [(ngModel)]="text"></textarea>
-  <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
-  <div class="iconContainerTA">
-    <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
-    <div style="width:2px;background-color: #ADB0D9 ;"></div>
-    <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
-    <img class="textAreaIconEmail" src="assets/img/email-icon.svg">   
+    <div style="position: relative;">
+      <textarea #textArea class="textAreaDirekt" [(ngModel)]="text"></textarea>
+      <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
+      <div class="iconContainerTA">
+        <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
+        <div style="width:2px;background-color: #ADB0D9 ;"></div>
+        <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
+        <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
+      </div>
+    </div>
+    <div class="addressBox posAdBox" *ngIf="addresses">
+      <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
+      <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
+        <img src="{{usL.iconPath}}"> {{usL.name}}
+      </div>
+    </div>
+    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
+      (emojiClick)="saveEmoji($event)"></emoji-mart>
   </div>
-  <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
-  (emojiClick)="saveEmoji($event)"></emoji-mart>
-  </div>
-</div>

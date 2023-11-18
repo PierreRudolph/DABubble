@@ -7,6 +7,7 @@ import { EditChannelComponent } from '../edit-channel/edit-channel.component';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 import { ChannelMembersComponent } from '../channel-members/channel-members.component';
+import { UserProfileComponent } from '../user-profile/user-profile.component';
 
 @Component({
   selector: 'app-channel-window',
@@ -18,7 +19,7 @@ export class ChannelWindowComponent {
   public textEdit = ""
   showEmojis: boolean | undefined;
   showEmojisTread: boolean | undefined;
-  private chathelper: ChatHepler = new ChatHepler();
+  public chathelper: ChatHepler = new ChatHepler();
   private threadIndex: number = 0;
   private commIndex: number = 0;
   public editChannelOpen: boolean | false;
@@ -41,6 +42,7 @@ export class ChannelWindowComponent {
   private addMembersDialogPosRight: string = '60px';
   private dialogClasses: Array<string> = ['dialogBorToLeNone'];
   public openEditDialog: boolean = false;
+  public addresses = false;
 
   constructor(public dialog: MatDialog) {
     console.log("threadlist channel", this.threadList);
@@ -276,10 +278,11 @@ export class ChannelWindowComponent {
     let question = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
-      "edit": false,
+      "edit": false,     
       "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThread,
+      "messageSplits": this.chathelper.getLinkedUsers(this.user, this.userList,this.textThread),
       "answer": []
     }
     return question;
@@ -400,6 +403,7 @@ export class ChannelWindowComponent {
   saveEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
     this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
+    this.threadList[this.number].communikation[cIndex].threads[tIndex].messageSplits =  this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
     let threadIndex = this.threadList[this.number].channel.idDB;
     this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
@@ -506,4 +510,37 @@ export class ChannelWindowComponent {
   toggleChannelMembersBol() {
     this.channelMembersOpen = !this.channelMembersOpen;
   }
+
+  openMailAddresses() {
+    this.addresses = !this.addresses;   
+  }
+
+
+  openProfileOfUser(user: any) {
+    let t = user.text.substring(1);
+    if (this.user.name == t) { this.openDialog(this.user) }
+    else {
+      this.userList.forEach((u) => {
+        if (u.name == t) { this.openDialog(u); }
+      });
+    }
+
+  }
+
+  chooseUser(u: User) {
+    this.textThread += '@' + u.name;
+    this.addresses = !this.addresses;
+  }
+
+  openDialog(user: User): void {
+    const dialogRef = this.dialog.open(UserProfileComponent);
+    dialogRef.componentInstance.user = new User(user.toJSON());
+    dialogRef.componentInstance.ref = dialogRef;
+    dialogRef.afterClosed().subscribe(result => {
+
+    });
+  }
+
+
+
 }

@@ -22,25 +22,33 @@
     cursor: pointer;
 }
 
-.address {
-    border-radius: 30px;
-    border: 1px solid #ADB0D9;
-    padding: 15px;
-    width: 100%;
+.searchResults{
 
-    &:focus {
-        outline: none;
-    }
-
-    &::placeholder {
-        color: var(--Text-gray, #686868);
-        font-family: Nunito;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
+    display: flex;
+    padding: 20px; 
+    flex-grow: 1;
+    img {
+        width: 40px;
+        height: 40px;
+        border-radius: 100%;
     }
 }
+
+.emoji-div {
+    position: absolute;
+    bottom: 135px;
+
+}
+
+.error{
+    border-color: red!important;
+    &::placeholder {
+        color:red!important  ;     
+    }
+}
+
+
+
 
 .textAreaDirekt {
     border: #ADB0D9 solid 1px;
@@ -88,21 +96,21 @@
     }
 }
 
-.searchPiopUp {
-    top: 150px;
-    position: absolute;
-    width: 80%;
-    height: fit-content;
-    background-color: white;
-    border-radius: 30px;
-    border: 1px solid #ADB0D9;
+// .searchPiopUp {
+//     top: 150px;
+//     position: absolute;
+//     width: 80%;
+//     height: fit-content;
+//     background-color: white;
+//     border-radius: 30px;
+//     border: 1px solid #ADB0D9;
 
-    img {
-        width: 40px;
-        height: 40px;
-        border-radius: 100%;
-    }
-}
+//     img {
+//         width: 40px;
+//         height: 40px;
+//         border-radius: 100%;
+//     }
+// }
 
 .searchuserName {
     display: flex;
@@ -134,6 +142,10 @@
         height: 30px;
         border-radius: 100%;
     }
+}
+
+.posAdBox{
+    left:unset;
 }
 
 
