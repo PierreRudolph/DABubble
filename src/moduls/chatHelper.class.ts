@@ -186,52 +186,25 @@ export class ChatHepler {
       go = true;
       while (go) {
         index = this.isPartOf(u.name, text);
-        if (index != -1) {
-          console.log("text" + text + " index:" + index + " add:" + add+ "name" + u.name);
+        if (index != -1) {         
           let i = index + add;
           let elem={
             "name": u.name,
             "index": i,
-          }
-          console.log("elem",elem);
-          isPartList.push(elem);
-          console.log("ist part",isPartList);
+          }        
+          isPartList.push(elem);         
           text = text.substring(index + 1 + u.name.length);
-          add = t.length - text.length;
-          console.log("text after cut" + text + " index:" + index + " add:" + add);
+          add = t.length - text.length;         
         } else {
           go = false;
           text = t;        
           add = 0;
         }
       }
-    });
-   
-   
+    });    
     return isPartList;
   }
-  // pushLinkedUsers(user: User, userList: any[], t: string) {
-  //   let index = 0;
-  //   let isPart = [];
-  //   userList.forEach((u) => {
-  //     index = this.isPartOf(u.name, t);
-  //     if (index != -1) {
-  //       isPart.push({
-  //         "name": u.name,
-  //         "index": index,
-  //       })
-  //     }
-  //   });
-  //   index = this.isPartOf(user.name, t);
-  //   if (index != -1) {
-  //     isPart.push({
-  //       "name": user.name,
-  //       "index": index,
-  //     })
-  //   }
-  //   return isPart;
-  // }
-
+ 
   /**
    * 
    * @param user User
@@ -276,20 +249,15 @@ export class ChatHepler {
    * 
    * @param name name of the user
    * @param text Text we want to store
-   * @returns  gives back if @ name (without space but it is needed here in coments) is part of the text as a whole word so @ name is @ Maria , but 
-   *           in the Text Text it is 
+   * @returns  gives back if @ name (without space but it is needed here in coments) is part of the text as a whole word.
    */
   isPartOf(name: string, text: string) {
     let part = '@' + name;
-    let index = text.indexOf(part);
-    // console.log("text",text);
-    let sub = text.substring(index + part.length);
-    // console.log("subs", name + ":" + sub);
-    // console.log("sub", sub);
+    let index = text.indexOf(part);  
+    let sub = text.substring(index + part.length);   
     let ret = -1;
     if ((sub.length > 0) && (index != -1)) {
-      let last = sub.charCodeAt(0);
-      // console.log("index ist", index);
+      let last = sub.charCodeAt(0);    
       if ((last < 65) || (last > 122)) {
         ret = index;
       }
@@ -298,9 +266,6 @@ export class ChatHepler {
         ret = index;
       }
     }
-    return ret;//text.indexOf(part);
-
+    return ret;
   }
-
-
 }

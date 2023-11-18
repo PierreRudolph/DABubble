@@ -610,6 +610,10 @@
 
 .smileEdit {
     cursor: pointer;
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+
 
     &:hover {
         content: url('/assets/img/smiley-icon-hover.svg');
