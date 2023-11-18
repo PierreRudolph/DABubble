@@ -35,7 +35,7 @@ export class HeaderComponent {
     return this.text != "";
   }
 
-  resizeWindow(){
+  resizeWindow() {
     this.screenWidth = window.innerWidth;
   }
 
@@ -192,12 +192,12 @@ export class HeaderComponent {
   }
 
   showNormalHeader() {
-    console.log("screenwidth",window.innerWidth);
+    console.log("screenwidth", window.innerWidth);
     // return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
-    return (window.innerWidth< 471 && !this.sideMenuHidden) || window.innerWidth> 471;
+    return (window.innerWidth < 471 && !this.sideMenuHidden) || window.innerWidth > 471;
   }
 
   showMobileHeader() {
-    return window.innerWidth < 471 && this.sideMenuHidden;
+    return this.screenWidth < 471 && this.sideMenuHidden;
   }
 }
