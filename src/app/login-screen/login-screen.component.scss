@@ -14,32 +14,6 @@
     box-sizing: border-box;
 }
 
-@media screen and (max-width:650px) {
-    .logInDialog {
-        width: 398px;
-        height: 552px;
-        left: calc(50% - 199px);
-        top: calc(50% - 276px);
-        padding: 35px 20px 35px 20px;
-        gap: 20px;
-
-    }
-
-    .inputWind {
-       
-        width: 358px!important;
-        height: 50px!important;
-        padding: 13px 32px 13px 30px;
-    }
-
-    .googleLoginButt{
-        width: 358px!important;
-        height: 50px!important;
-        padding: 13px 32px 13px 30px;
-    }
-
-
-}
 
 
 .headline {
@@ -204,10 +178,10 @@
     display: flex;
     align-items: center;
     left: calc(50% - 112px);
-    top :92px;
+    top: 92px;
     width: 224px;
     justify-content: flex-start;
-    z-index: 1; 
+    z-index: 1;
 
     div {
         display: flex;
@@ -285,3 +259,66 @@
         width: 165px;
     }
 }
+
+@media screen and (max-width:650px) {
+
+  
+    .logInDialog {
+        width: 398px;
+        height: fit-content;
+        left: calc(50% - 199px);
+        top: calc(50% - 276px);
+        padding: 35px 26px 35px 26px;
+        gap: 20px;
+
+    }
+
+    .headline{
+        font-size: 32px;
+    }
+
+    .inputWind {
+
+        width: 358px ;
+        height: 50px ;
+        padding: 13px 32px 13px 30px;
+    }
+
+    .googleLoginButt {
+        width: 358px ;
+        height: 50px ;
+        padding: 13px 32px 13px 30px;
+    }
+
+    .btn {
+         padding: 12px 25px 12px 25px;
+    }
+}
+
+@media screen and (max-width:400px) {
+
+  
+    .logInDialog {
+        width: 320px;       
+        left: calc(50% - 160px);
+        top: calc(50% - 276px);     
+    }
+
+    .headline{
+        font-size: 26px;
+    }
+
+    .inputWind {
+        width: 300px ;       
+    }
+
+    .googleLoginButt {
+        width: 300px !important;
+       
+    }
+
+    .btn {
+         padding: 6px 15px 6px 15px;
+    }
+}
+

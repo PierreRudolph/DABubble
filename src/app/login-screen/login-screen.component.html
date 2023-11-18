@@ -1,6 +1,6 @@
-<app-header  *ngIf = "!blendOutHeader()"  ></app-header>
-<div class="intro" *ngIf = "!blendOutHeader()" >
-   <div class="logo-outer-div">
+<app-header  *ngIf = "!blendOutHeader()" [screenWidth]="screenWidth" ></app-header>
+<div class="intro"  >
+   <div class="logo-outer-div" *ngIf = "!blendOutHeader()">
       <div class="logoContainer">
          <div>
             <img class="shrink-logo" src="assets/img/logo.svg">
