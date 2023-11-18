@@ -33,6 +33,13 @@ h1 {
     justify-content: flex-end;
 }
 
+.logoContainer {
+    position: absolute;
+    display: flex;
+    left: 50px;
+    top: 10px;
+}
+
 
 .profile {
     background-color: #797EF3;
@@ -124,3 +131,55 @@ h1 {
         transform: translateY(-400px);
     }
 }
+
+@media screen and (max-width:650px) {
+    .logInDialog {
+        width: 398px;
+        height: fit-content;
+        left: calc(50% - 198px);
+        top: calc(50% - 180px);
+        padding: 26px 21px 26px 21px;
+        gap: 20px;
+    }
+
+    .headline {
+        font-size: 32px;
+    }
+
+    .icons {
+        gap: 4px;
+    }
+
+    .imgIcon {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logoContainer {
+        position: absolute;
+        width: 200px;
+        left: calc(50% - 100px);
+        top: 80px;
+    }
+
+
+    .chooseList{
+        display:none;
+    }
+    .chooseListSmall {
+        color: #000;
+        font-family: Nunito;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width:650px) {
+    .chooseListSmall{
+        display:none;
+    }
+}
+

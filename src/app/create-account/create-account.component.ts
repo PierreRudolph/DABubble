@@ -22,9 +22,16 @@ export class CreateAccountComponent {
     password:new FormControl('', Validators.required)
  })
   public loading: boolean = false;
-
+  public screenWidth=0;
   constructor() {  
+    window.addEventListener("resize", this.resizeWindow);
    }
+
+   resizeWindow(){
+    this.screenWidth = window.innerWidth;
+  }
+
+
 
 /**
  * Method send the given user up to the parent compopnent.
