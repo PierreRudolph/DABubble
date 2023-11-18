@@ -25,10 +25,16 @@
 
     }
 
-    .input {
-        position: relative;
-        width: 358px;
-        height: 50px;
+    .inputWind {
+       
+        width: 358px!important;
+        height: 50px!important;
+        padding: 13px 32px 13px 30px;
+    }
+
+    .googleLoginButt{
+        width: 358px!important;
+        height: 50px!important;
         padding: 13px 32px 13px 30px;
     }
 
@@ -50,7 +56,7 @@
     text-align: center;
 }
 
-.input {
+.inputWind {
     position: relative;
     width: 500px;
     height: 60px;
@@ -184,6 +190,24 @@
     justify-content: flex-start;
     z-index: 1;
     animation: logo-animation 600ms ease-out 500ms forwards;
+
+    div {
+        display: flex;
+        align-items: center;
+        z-index: 1;
+        padding: 20px;
+    }
+}
+
+.logoContainerStatic {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: calc(50% - 112px);
+    top :92px;
+    width: 224px;
+    justify-content: flex-start;
+    z-index: 1; 
 
     div {
         display: flex;
