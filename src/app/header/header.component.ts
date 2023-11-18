@@ -198,12 +198,12 @@ export class HeaderComponent {
   }
 
   showNormalHeader() {
-    console.log("screenwidth",window.innerWidth);
-    // return true;//(this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
-    return (window.innerWidth< 471 && !this.sideMenuHidden) || window.innerWidth> 471;
+    console.log("screenwidth", window.innerWidth);
+    return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
+    // return (window.innerWidth< 471 && !this.sideMenuHidden) || window.innerWidth> 471;
   }
 
   showMobileHeader() {
-    return window.innerWidth < 471 && this.sideMenuHidden;
+    return this.screenWidth < 471 && this.sideMenuHidden;
   }
 }
