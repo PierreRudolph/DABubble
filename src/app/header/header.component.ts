@@ -35,6 +35,10 @@ export class HeaderComponent {
     //   // this.searchProfiles("Jul");    
     //   // this.searchChannelMessages("Taylor ");
     // }, 5000);
+
+    // addEventListener("resize", (event) => {
+
+    // });
   }
 
   showPop() {
@@ -194,10 +198,12 @@ export class HeaderComponent {
   }
 
   showNormalHeader() {
-    return this.screenWidth < 471 && !this.sideMenuHidden || this.screenWidth > 471;
+    console.log("screenwidth",window.innerWidth);
+    // return true;//(this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
+    return (window.innerWidth< 471 && !this.sideMenuHidden) || window.innerWidth> 471;
   }
 
   showMobileHeader() {
-    return this.screenWidth < 471 && this.sideMenuHidden;
+    return window.innerWidth < 471 && this.sideMenuHidden;
   }
 }
