@@ -139,7 +139,7 @@ export class SideMenuComponent {
     if (this.screenWidth < 471 && this.sideMenuHidden) {
       this.drawer.toggle();
       this.toggleDrawerBol();
-      setTimeout(() => { this.sideMenuDiv.nativeElement.classList.remove('dNone'); }, 120);
+      setTimeout(() => { this.sideMenuDiv.nativeElement.classList.remove('dNone'); }, 80);
     } else
       if (this.screenWidth < 471 && !this.sideMenuHidden) {
         this.sideMenuDiv.nativeElement.classList.add('dNone');

@@ -1,121 +1,123 @@
-<mat-drawer-container class="example-container mat-drawer-div" [class.margin-right]="this.drawer.opened==true">
-    <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end">
-        <div class="sidenav-header">
-            <div>
-                <span class="sidenav-headline">Thread</span>
-                <img class="tag-icon" src="assets/icons/tag-hover.svg">
-                <span class="thread-name">{{threadList[threadC.chNum].channel.name}}</span>
+<div #sideMenuThreadDiv class="threadOuterDiv mobileDNone">
+    <mat-drawer-container class="example-container mat-drawer-div" [class.margin-left]="this.drawer.opened==true">
+        <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end">
+            <div class="sidenav-header">
+                <div>
+                    <span class="sidenav-headline">Thread</span>
+                    <img class="tag-icon" src="assets/icons/tag-hover.svg">
+                    <span class="thread-name">{{threadList[threadC.chNum].channel.name}}</span>
+                </div>
+                <img (click)="closeThread()" class="close-icon" src="assets/img/close.svg">
             </div>
-            <img (click)="closeThread()" class="close-icon" src="assets/img/close.svg">
-        </div>
 
-        <div class="sidenav-body">
+            <div class="sidenav-body">
 
-            <div class="thread-starter">
-                <!--Hier wird die Thread-starter Nachricht reingerendert-->
+                <div class="thread-starter">
+                    <!--Hier wird die Thread-starter Nachricht reingerendert-->
 
-                <div class="message-div">
-                    <!-- <div class="add-reaction">
+                    <div class="message-div">
+                        <!-- <div class="add-reaction">
                         <img src="assets/icons/add-reaction.svg">
                     </div> -->
-                    <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;"
-                        src="{{  getIconPathQuestionUser()}}">
-                    <div class="message-inner-div">
-                        <div class="mes-name-clock">
-                            <span
-                                class="mes-name">{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
-                            <span>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].time}}
-                                Uhr</span>
-                        </div>
-                        <diV class="message">
-                            {{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].message}}
-                        </diV>
-                    </div>
-                </div>
-
-                <div class="answer-counter-div">
-                    <span class="answer-counter"> {{getAnswerLength()}} Antworten</span>
-                </div>
-
-            </div>
-
-            <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
-                <!--Hier werden die Antworten des Threads reingerendert-->
-                <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
-                    <div class="add-reaction">
-                        <img class="changeFace" src="assets/icons/add-reaction.svg">
-                        <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg"
-                            (click)="openAnswerEditMode(answ,aIndex)">
-                    </div>
-                    <img class="char-img" src="{{getImagePortrait(aIndex)}}">
-                    <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
-                        <div class="mes-name-clock" [class.mes-name-clock-right]="fromLoggedInUser(answ)">
-                            <span class="mes-name"
-                                [class.mes-name-right]="fromLoggedInUser(answ)">{{getAnswerData(aIndex,'name')}}</span>
-                            <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
-                        </div>
-                        <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
-                            {{getAnswerData(aIndex,'message')}}
-                        </diV>
-                        <diV class="reactions">
-
-                            <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
-
-                                <div class="reactions-tooltip">
-                                    <img src="assets/icons/emoji-nerd.svg">
-                                    <div class="reactions-username">
-                                        <span>{{getAnswerData(aIndex,'name')}}</span>
-                                        <span>und Du</span>
-                                    </div>
-                                    <span>hat reagiert</span>
-                                </div>
-                                <!-- <img style="margin-right: 5px;" src="assets/icons/emoji-nerd.svg">
-                                <span>{{getAnswerData(aIndex, 'smile')}}</span> -->
-                                <!-- <div>{{emojiText}}</div> -->
-                                <div style="display:flex;gap:3px">
-                                    <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
-                                        class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)"
-                                        (click)="removeSmile(aIndex,sIndex)">
-                                        {{s.icon}}
-                                        {{s.users.length}}
-                                    </div>
-                                </div>
+                        <img class="char-img" src="{{  getIconPathQuestionUser()}}">
+                        <div class="message-inner-div">
+                            <div class="mes-name-clock">
+                                <span
+                                    class="mes-name">{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
+                                <span>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].time}}
+                                    Uhr</span>
                             </div>
-                            <img (click)="toggleEmojisDialog(aIndex)" class="add-reaction-icon"
-                                src="assets/icons/add-reaction.svg">
-                            <emoji-mart class="emojiDiv" *ngIf="showEmoji(aIndex)" title="Pick your emoji…"
-                                (emojiClick)="saveEmoji($event)" lightmode></emoji-mart>
-
-                        </diV>
+                            <diV class="message">
+                                {{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].message}}
+                            </diV>
+                        </div>
                     </div>
+
+                    <div class="answer-counter-div">
+                        <span class="answer-counter"> {{getAnswerLength()}} Antworten</span>
+                    </div>
+
                 </div>
-                <!-- end answer              -->
+
+                <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
+                    <!--Hier werden die Antworten des Threads reingerendert-->
+                    <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
+                        <div class="add-reaction">
+                            <img class="changeFace" src="assets/icons/add-reaction.svg">
+                            <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg"
+                                (click)="openAnswerEditMode(answ,aIndex)">
+                        </div>
+                        <img class="char-img" src="{{getImagePortrait(aIndex)}}">
+                        <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
+                            <div class="mes-name-clock" [class.mes-name-clock-right]="fromLoggedInUser(answ)">
+                                <span class="mes-name"
+                                    [class.mes-name-right]="fromLoggedInUser(answ)">{{getAnswerData(aIndex,'name')}}</span>
+                                <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
+                            </div>
+                            <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
+                                {{getAnswerData(aIndex,'message')}}
+                            </diV>
+                            <diV class="reactions">
+
+                                <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
+
+                                    <div class="reactions-tooltip">
+                                        <img src="assets/icons/emoji-nerd.svg">
+                                        <div class="reactions-username">
+                                            <span>{{getAnswerData(aIndex,'name')}}</span>
+                                            <span>und Du</span>
+                                        </div>
+                                        <span>hat reagiert</span>
+                                    </div>
+                                    <!-- <img style="margin-right: 5px;" src="assets/icons/emoji-nerd.svg">
+                                <span>{{getAnswerData(aIndex, 'smile')}}</span> -->
+                                    <!-- <div>{{emojiText}}</div> -->
+                                    <div style="display:flex;gap:3px">
+                                        <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
+                                            class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)"
+                                            (click)="removeSmile(aIndex,sIndex)">
+                                            {{s.icon}}
+                                            {{s.users.length}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <img (click)="toggleEmojisDialog(aIndex)" class="add-reaction-icon"
+                                    src="assets/icons/add-reaction.svg">
+                                <emoji-mart class="emojiDiv" *ngIf="showEmoji(aIndex)" title="Pick your emoji…"
+                                    (emojiClick)="saveEmoji($event)" lightmode></emoji-mart>
+
+                            </diV>
+                        </div>
+                    </div>
+                    <!-- end answer              -->
+                </div>
             </div>
-        </div>
-        <!-- <div class="textfield-div">
+            <!-- <div class="textfield-div">
             <textarea placeholder="Antworten..."></textarea>
         </div> -->
-        <div class="textareaDirektMessage">
-            <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
-                placeholder="Antworten..."></textarea>
-            <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
-            <div style="position:relative">
-                <div class="iconContainerTextArea">
-                    <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
-                    <div style="width:2px;background-color: #ADB0D9 ;"></div>
-                    <img class="textAreaIconSmiley" (click)="toggleEmojisDialogTA()" src="assets/img/smiley-icon.svg">
-                    <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
+            <div class="textareaDirektMessage">
+                <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
+                    placeholder="Antworten..."></textarea>
+                <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
+                <div style="position:relative">
+                    <div class="iconContainerTextArea">
+                        <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
+                        <div style="width:2px;background-color: #ADB0D9 ;"></div>
+                        <img class="textAreaIconSmiley" (click)="toggleEmojisDialogTA()"
+                            src="assets/img/smiley-icon.svg">
+                        <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
+                    </div>
+                    <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…"
+                        (emojiClick)="saveEmojiTextArea($event)" (darkMode)="false"></emoji-mart>
                 </div>
-                <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…"
-                    (emojiClick)="saveEmojiTextArea($event)" (darkMode)="false"></emoji-mart>
             </div>
-        </div>
-    </mat-drawer>
+        </mat-drawer>
 
-    <!-- <div class="example-sidenav-content">
+        <!-- <div class="example-sidenav-content">
         <button type="button" mat-button (click)="drawer.toggle()">
             Toggle sidenav
         </button>
     </div> -->
 
-</mat-drawer-container>
+    </mat-drawer-container>
+</div>

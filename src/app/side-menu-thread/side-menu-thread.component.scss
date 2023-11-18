@@ -1,3 +1,7 @@
+.threadOuterDiv {
+    height: 100%;
+}
+
 .mat-drawer-div {
     position: relative;
     background-color: #eceefe;
@@ -112,6 +116,8 @@
 
 .char-img {
     width: 70px;
+    height: 70px;
+    object-fit: cover;
     padding-right: 15px;
 }
 
@@ -343,7 +349,7 @@
     }
 }
 
-.margin-right {
+.margin-left {
     margin-left: 20px;
 }
 
@@ -414,4 +420,48 @@
 
 .iconContainerTextArea {
     left: 15px;
+}
+
+@media (max-width:471px) {
+    .threadOuterDiv {
+        width: 100vw;
+    }
+
+    .margin-left {
+        margin-left: 0px;
+    }
+
+    .sidenav {
+        width: 100vw;
+        border-radius: 0px;
+        padding: 20px 0px;
+    }
+
+    .sidenav-header {
+        width: 100%;
+        height: auto;
+        padding: 10px 16px;
+    }
+
+    .sidenav-body {
+        height: calc(100% - 180px);
+        margin-top: 29px;
+    }
+
+    .message-div {
+        padding-left: 20px;
+        padding-bottom: 20px;
+        gap: 15px;
+    }
+
+    .char-img {
+        object-fit: cover;
+        width: 50px;
+        height: 50px;
+        padding: 0px;
+    }
+
+    .mobileDNone {
+        display: none;
+    }
 }

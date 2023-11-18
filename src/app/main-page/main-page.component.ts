@@ -54,6 +54,7 @@ export class MainPageComponent {
   public started = false;
   public screenWidth: any;
 
+  @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
   @ViewChild(SideMenuComponent) side: SideMenuComponent;
@@ -80,7 +81,8 @@ export class MainPageComponent {
 
     console.log("private comp", this.child);
 
-    this.setScreenWidth();
+    this.getScreenWidth();
+
   }
 
 
@@ -210,6 +212,11 @@ export class MainPageComponent {
 
   setOpenValue(e: boolean) {
     this.openChat = e;
+    if (!this.openChat && this.sideMenuHidden) {
+      this.setMobileSideMenuValues();
+    }
+
+    //this.closeSideMenuThreadMobile();
   }
   /**
    * Sets the id of the current channel. Sets the required variables for visibility.
@@ -288,11 +295,14 @@ export class MainPageComponent {
     this.threadC = c;
     this.openChat = true;
     this.started = true;
-    setTimeout(() => { this.childSideThread.drawer.open(); }, 250);
+    setTimeout(() => {
+      this.hideMainContentDivOnMobile();
+      this.childSideThread.openSideMenuThread();
+    }, 250);
   }
 
 
-  setScreenWidth() {
+  getScreenWidth() {
     this.screenWidth = window.innerWidth;
   }
 
@@ -306,13 +316,24 @@ export class MainPageComponent {
     return !(this.screenWidth < 471 && !this.sideMenuHidden);
   }
 
+  hideMainContentDivOnMobile() {
+    if (this.screenWidth < 471) {
+      this.mainContentDiv.nativeElement.classList.add('dNone');
+    }
+
+  }
+
   // setMobileView() {
   //   return !this.openChat;
   // }
 
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
-    this.side.setDrawerValues();
+    if (this.channelOpen) {
+      this.setMobileSideMenuValues();
+    }
+
+    this.closeSideMenuThreadMobile();
   }
 
   showPrivateMessage() {
@@ -321,6 +342,18 @@ export class MainPageComponent {
 
   showChannel() {
     return this.channelOpen && !this.newMessOpen;
+  }
+
+  setMobileSideMenuValues() {
+    this.side.setDrawerValues();
+
+  }
+
+  closeSideMenuThreadMobile() {
+    if (this.openChat) {
+      this.childSideThread.closeThread();
+    }
+
   }
 }
 

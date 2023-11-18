@@ -33,13 +33,14 @@ export class SideMenuThreadComponent {
   showEmojisTA: boolean | undefined;
   emojiText: string = "";
 
+  @ViewChild('sideMenuThreadDiv')
+  sideMenuThreadDiv: any;
   @ViewChild('drawer')
   drawer!: MatDrawer;
 
   constructor() {
     setTimeout(() => {
       console.log("this user is", this.user);
-      this.setMobileStatus()
     }, 500);
   }
 
@@ -48,11 +49,14 @@ export class SideMenuThreadComponent {
     console.log(this.drawer);
     this.openChat = false;
     this.newItemEventOpenChat.emit(this.openChat);
-
     setTimeout(() => {
       //  this.newSetOpen.emit(false);
       //  this.drawer.open() 
     }, 300);
+  }
+
+  closeThreadMobile() {
+    this.drawer.close();
   }
 
   /**
@@ -265,11 +269,15 @@ export class SideMenuThreadComponent {
     this.showEmojisTA = false;
   }
 
-  setMobileStatus() {
-    // if (this.screenWidth <= 471) {
-    //   this.drawer.close();
-    // } else {
-    //   this.drawer.open();
-    // }
+  openSideMenuThread() {
+    this.drawer.open();
+
+    setTimeout(() => {
+      this.showSideMenuMobile();
+    }, 80);
+  }
+
+  showSideMenuMobile() {
+    this.sideMenuThreadDiv.nativeElement.classList.remove('mobileDNone');
   }
 }
