@@ -58,9 +58,9 @@ export class SideMenuThreadComponent {
     }, 300);
   }
 
-  closeThreadMobile() {
-    this.drawer.close();
-  }
+  // closeThreadMobile() {
+  //   this.drawer.close();
+  // }
 
   /**
    * 
@@ -164,7 +164,7 @@ export class SideMenuThreadComponent {
     }
     else {
       this.threadList[n].communikation[i].threads[j].answer.push(answ);
-     
+
     }
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
     this.textThreadAnswer = "";

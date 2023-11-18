@@ -323,16 +323,12 @@ export class MainPageComponent {
 
   }
 
-  // setMobileView() {
-  //   return !this.openChat;
-  // }
 
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
     if (this.channelOpen) {
       this.setMobileSideMenuValues();
     }
-
     this.closeSideMenuThreadMobile();
   }
 
@@ -353,7 +349,6 @@ export class MainPageComponent {
     if (this.openChat) {
       this.childSideThread.closeThread();
     }
-
   }
 }
 
