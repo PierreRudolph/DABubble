@@ -146,8 +146,12 @@ export class ChatHepler {
     return day + "." + month + "." + year;
   }
 
-
-
+  /**
+   * Sort the given List by index.
+   * 
+   * @param list List in form of {"name":n,"index":i}
+   * @returns 
+   */
   sortParts(list: any[]) {
     let helper = list;
     helper.sort(function (x, y) {
@@ -159,19 +163,18 @@ export class ChatHepler {
       }
       return 0;
     });
-    // console.log("helper ", helper);
     return helper;
   }
 
-  getLinkedUsers(user: User, userList: any[], text: string) {
-    let messageInformation = [];
-    let t = text;
+  /**   * 
+   * @param user User
+   * @param userList This of Users
+   * @param t        Text that sould be stored
+   * @returns        List of type {"name": u.name,"index": index,} that stores every occurence the form @ username of a user 
+   */
+  pushLinkedUsers(user: User, userList: any[], t: string) {
     let index = 0;
-    let s = "";
-    let ut = "";
-    let end = 0;
     let isPart = [];
-    let subtrakt = 0;
     userList.forEach((u) => {
       index = this.isPartOf(u.name, t);
       if (index != -1) {
@@ -181,7 +184,6 @@ export class ChatHepler {
         })
       }
     });
-
     index = this.isPartOf(user.name, t);
     if (index != -1) {
       isPart.push({
@@ -189,18 +191,33 @@ export class ChatHepler {
         "index": index,
       })
     }
-    // console.log("isPart", isPart);
-    isPart = this.sortParts(isPart);
-    // console.log("isPartSorted", isPart);
+    return isPart;
+  }
+
+  /**
+   * 
+   * @param user User
+   * @param userList This of Users
+   * @param text     Text that sould be stored
+   * @returns        Gives back alist of type { "type": "", "text": "" }. Stores type l for the q name part and type t for the other parts
+   */
+  getLinkedUsers(user: User, userList: any[], text: string) {
+    let messageInformation = [];
+    let t = text;  
+    let s = "";
+    let ut = "";
+    let end = 0;
+    let isPart = [];
+    let subtrakt = 0;
+
+    isPart = this.pushLinkedUsers(user, userList, t);
+    isPart = this.sortParts(isPart);  
     isPart.forEach((us) => {
       us.index = us.index - subtrakt;
       s = t.substring(0, us.index);
       end = ('@' + us.name).length + us.index;
       ut = t.substring(us.index, end);
-      let rest = t.substring(end);
-      // console.log("s ", s);
-      // console.log("ut ", ut);
-      // console.log("rest ", rest);
+      let rest = t.substring(end);     
       t = rest;
       subtrakt = text.length - rest.length;
       messageInformation.push({ "type": "t", "text": s });
@@ -208,30 +225,42 @@ export class ChatHepler {
     });
     if (t.length > 0) {
       messageInformation.push({ "type": "t", "text": t });
-    }
-    console.log(messageInformation);
+    }    
     return messageInformation;
   }
 
-  isLink(type:any){
-      return type.type=='l';
+  /** gibes back wheather element is type link(contains @ name) */
+  isLink(type: any) {
+    return type.type == 'l';
   }
 
-
+/**
+ * 
+ * @param name name of the user
+ * @param text Text we want to store
+ * @returns  gives back if @ name (without space but it is needed here in coments) is part of the text as a whole word so @ name is @ Maria , but 
+ *           in the Text Text it is 
+ */
   isPartOf(name: string, text: string) {
     let part = '@' + name;
     let index = text.indexOf(part);
     let sub = text.substring(index + part.length);
+    console.log("subs",name+ ":"+sub );
     // console.log("sub", sub);
     let ret = -1;
-    if (sub.length > 1) {
+    if ((sub.length > 0) && (index!=-1)) {
       let last = sub.charCodeAt(0);
-      // console.log("last", last);
+       console.log("last", last +":"+ sub[0]);
       if ((last < 65) || (last > 122)) {
         ret = index;
       }
+    }else{
+      if(index!=-1){
+        ret = index;
+      }
     }
-    return text.indexOf(part);
+     return ret;//text.indexOf(part);
+    
   }
 
 
