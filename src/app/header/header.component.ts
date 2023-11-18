@@ -193,8 +193,7 @@ export class HeaderComponent {
 
   showNormalHeader() {
     console.log("screenwidth", window.innerWidth);
-    // return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
-    return (window.innerWidth < 471 && !this.sideMenuHidden) || window.innerWidth > 471;
+    return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
   }
 
   showMobileHeader() {
