@@ -174,25 +174,63 @@ export class ChatHepler {
    */
   pushLinkedUsers(user: User, userList: any[], t: string) {
     let index = 0;
-    let isPart = [];
-    userList.forEach((u) => {
-      index = this.isPartOf(u.name, t);
-      if (index != -1) {
-        isPart.push({
-          "name": u.name,
-          "index": index,
-        })
+    let go = true;
+    let isPartList = [];   
+    let text = t;
+    let add = 0;
+    let uList =[user];
+    userList.forEach((ul)=>{
+      uList.push(ul);
+    });   
+    uList.forEach((u) => {
+      go = true;
+      while (go) {
+        index = this.isPartOf(u.name, text);
+        if (index != -1) {
+          console.log("text" + text + " index:" + index + " add:" + add+ "name" + u.name);
+          let i = index + add;
+          let elem={
+            "name": u.name,
+            "index": i,
+          }
+          console.log("elem",elem);
+          isPartList.push(elem);
+          console.log("ist part",isPartList);
+          text = text.substring(index + 1 + u.name.length);
+          add = t.length - text.length;
+          console.log("text after cut" + text + " index:" + index + " add:" + add);
+        } else {
+          go = false;
+          text = t;        
+          add = 0;
+        }
       }
     });
-    index = this.isPartOf(user.name, t);
-    if (index != -1) {
-      isPart.push({
-        "name": user.name,
-        "index": index,
-      })
-    }
-    return isPart;
+   
+   
+    return isPartList;
   }
+  // pushLinkedUsers(user: User, userList: any[], t: string) {
+  //   let index = 0;
+  //   let isPart = [];
+  //   userList.forEach((u) => {
+  //     index = this.isPartOf(u.name, t);
+  //     if (index != -1) {
+  //       isPart.push({
+  //         "name": u.name,
+  //         "index": index,
+  //       })
+  //     }
+  //   });
+  //   index = this.isPartOf(user.name, t);
+  //   if (index != -1) {
+  //     isPart.push({
+  //       "name": user.name,
+  //       "index": index,
+  //     })
+  //   }
+  //   return isPart;
+  // }
 
   /**
    * 
@@ -203,7 +241,7 @@ export class ChatHepler {
    */
   getLinkedUsers(user: User, userList: any[], text: string) {
     let messageInformation = [];
-    let t = text;  
+    let t = text;
     let s = "";
     let ut = "";
     let end = 0;
@@ -211,13 +249,13 @@ export class ChatHepler {
     let subtrakt = 0;
 
     isPart = this.pushLinkedUsers(user, userList, t);
-    isPart = this.sortParts(isPart);  
+    isPart = this.sortParts(isPart);
     isPart.forEach((us) => {
       us.index = us.index - subtrakt;
       s = t.substring(0, us.index);
       end = ('@' + us.name).length + us.index;
       ut = t.substring(us.index, end);
-      let rest = t.substring(end);     
+      let rest = t.substring(end);
       t = rest;
       subtrakt = text.length - rest.length;
       messageInformation.push({ "type": "t", "text": s });
@@ -225,7 +263,7 @@ export class ChatHepler {
     });
     if (t.length > 0) {
       messageInformation.push({ "type": "t", "text": t });
-    }    
+    }
     return messageInformation;
   }
 
@@ -234,33 +272,34 @@ export class ChatHepler {
     return type.type == 'l';
   }
 
-/**
- * 
- * @param name name of the user
- * @param text Text we want to store
- * @returns  gives back if @ name (without space but it is needed here in coments) is part of the text as a whole word so @ name is @ Maria , but 
- *           in the Text Text it is 
- */
+  /**
+   * 
+   * @param name name of the user
+   * @param text Text we want to store
+   * @returns  gives back if @ name (without space but it is needed here in coments) is part of the text as a whole word so @ name is @ Maria , but 
+   *           in the Text Text it is 
+   */
   isPartOf(name: string, text: string) {
     let part = '@' + name;
     let index = text.indexOf(part);
+    // console.log("text",text);
     let sub = text.substring(index + part.length);
-    console.log("subs",name+ ":"+sub );
+    // console.log("subs", name + ":" + sub);
     // console.log("sub", sub);
     let ret = -1;
-    if ((sub.length > 0) && (index!=-1)) {
+    if ((sub.length > 0) && (index != -1)) {
       let last = sub.charCodeAt(0);
-       console.log("last", last +":"+ sub[0]);
+      // console.log("index ist", index);
       if ((last < 65) || (last > 122)) {
         ret = index;
       }
-    }else{
-      if(index!=-1){
+    } else {
+      if (index != -1) {
         ret = index;
       }
     }
-     return ret;//text.indexOf(part);
-    
+    return ret;//text.indexOf(part);
+
   }
 
 
