@@ -28,21 +28,15 @@ export class HeaderComponent {
 
 
   constructor(public router: Router) {
-    // setTimeout(() => {
-    //   this.searchChannelNames(this.text);
-    //   this.searchProfiles(this.text);    
-    //   this.searchChannelMessages(this.text);
-    //   // this.searchProfiles("Jul");    
-    //   // this.searchChannelMessages("Taylor ");
-    // }, 5000);
-
-    // addEventListener("resize", (event) => {
-
-    // });
+    window.addEventListener("resize", this.resizeWindow);
   }
 
   showPop() {
     return this.text != "";
+  }
+
+  resizeWindow(){
+    this.screenWidth = window.innerWidth;
   }
 
   searchKey(text: string) {
@@ -199,7 +193,7 @@ export class HeaderComponent {
 
   showNormalHeader() {
     console.log("screenwidth",window.innerWidth);
-    // return true;//(this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
+    // return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471;
     return (window.innerWidth< 471 && !this.sideMenuHidden) || window.innerWidth> 471;
   }
 
