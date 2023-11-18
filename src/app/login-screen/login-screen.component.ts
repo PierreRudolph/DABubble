@@ -11,14 +11,23 @@ import { Router } from '@angular/router';
 export class LoginScreenComponent {
 
   hide: boolean = true;
+  private screenWidth=0;
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required)
   })
   public loading: boolean = false;
 
-  constructor(public authService: AuthService, private route: Router) {
+  constructor(public authService: AuthService, public route: Router) {
+    window.addEventListener("resize", this.resizeWindow);
+  }
 
+  resizeWindow(){
+    this.screenWidth = window.innerWidth;
+  }
+
+  blendOutHeader(){
+    return window.innerWidth <650;
   }
 
   async login() {

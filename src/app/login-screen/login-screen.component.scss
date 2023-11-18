@@ -14,6 +14,28 @@
     box-sizing: border-box;
 }
 
+@media screen and (max-width:650px) {
+    .logInDialog {
+        width: 398px;
+        height: 552px;
+        left: calc(50% - 199px);
+        top: calc(50% - 276px);
+        padding: 35px 20px 35px 20px;
+        gap: 20px;
+
+    }
+
+    .input {
+        position: relative;
+        width: 358px;
+        height: 50px;
+        padding: 13px 32px 13px 30px;
+    }
+
+
+}
+
+
 .headline {
     color: #444DF2;
     font-size: 46px;
@@ -110,6 +132,17 @@
     animation: fade-out 300ms ease-out 1900ms forwards;
 }
 
+.loginHeaderbottom {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    bottom: 50px;
+    width: 200px;
+    align-items: center;
+    left: calc(50% - 100px);
+}
+
 @keyframes fade-out {
     from {
         opacity: 1;
@@ -203,6 +236,8 @@
     justify-content: flex-end;
     animation: logo-name-animation 1200ms ease-out 800ms forwards;
 }
+
+
 
 
 @keyframes logo-name-animation {
