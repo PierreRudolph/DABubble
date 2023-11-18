@@ -1,5 +1,5 @@
 <app-header  *ngIf = "!blendOutHeader()"  ></app-header>
-<div class="intro">
+<div class="intro" *ngIf = "!blendOutHeader()" >
    <div class="logo-outer-div">
       <div class="logoContainer">
          <div>
@@ -10,7 +10,7 @@
    </div>
 </div>
 
-<div class="logoContainer" *ngIf="blendOutHeader()">
+<div class="logoContainerStatic" *ngIf="blendOutHeader()">
    <img src="assets/img/logo.svg">
    <img src="assets/img/LogoName.svg">
 </div>
@@ -19,11 +19,11 @@
    <h1 class="nunito headline">Anmeldung</h1>
    <p class="nunito loginDis">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
 
-   <div class="input">
+   <div class="inputWind">
       <img src="assets/img/mail.svg">
       <input formControlName="email" placeholder="beispielname@email.com">
    </div>
-   <div class="input">
+   <div class="inputWind">
       <img src="assets/img/lock.svg">
       <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password">
    </div>
@@ -31,7 +31,10 @@
 
    <div style="position: relative;">
       <div class="or">ODER</div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none">
+      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none" *ngIf="!blendOutHeader()">
+         <path d="M500 1H0" stroke="#ADB0D9" />
+      </svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="165" height="2" viewBox="0 0 500 2" fill="none" *ngIf="blendOutHeader()">
          <path d="M500 1H0" stroke="#ADB0D9" />
       </svg>
    </div>
