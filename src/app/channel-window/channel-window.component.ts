@@ -70,12 +70,15 @@ export class ChannelWindowComponent {
     });
   }
 
+
   showBegin(com: any) {
     return com.date == "";
   }
 
+
   /**
    * Sets the position of the edit channel Window
+   * depending on whether side-menu(==sideMenuHidden), is open or closed.
    */
   setEditChanPos() {
     if (this.sideMenuHidden) {
@@ -84,6 +87,7 @@ export class ChannelWindowComponent {
       this.editChanPosLeft = '445px';
     }
   }
+
 
   setEditDialogMobileStyle() {
     if (this.screenWidth < 471) {
@@ -97,7 +101,7 @@ export class ChannelWindowComponent {
    * Sets the Position of channel-members-dialog and add-people-dialog,
    * depending on whether side-menu-thread(==openChat), is open or closed.
    */
-  setMembersAndAddMembersPos() {
+  setPositionOfDialogs() {
     if (this.openChat) {
       this.membersDialogPosRight = '615px';
       this.addMembersDialogPosRight = '565px';
@@ -105,6 +109,15 @@ export class ChannelWindowComponent {
       this.membersDialogPosRight = '110px';
       this.addMembersDialogPosRight = '60px';
     }
+    this.setPositionOfDialogsMobile();
+  }
+
+
+  /**
+   * Sets the Position of channel-members-dialog and add-people-dialog,
+   * depending on screenWidth.
+   */
+  setPositionOfDialogsMobile() {
     if (this.screenWidth < 471) {
       this.membersDialogPosRight = '0px';
       this.addMembersDialogPosRight = '0px';
@@ -278,11 +291,11 @@ export class ChannelWindowComponent {
     let question = {
       "name": this.user.name,
       "iD": this.user.idDB, //of person that writes the message
-      "edit": false,     
+      "edit": false,
       "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
       "message": this.textThread,
-      "messageSplits": this.chathelper.getLinkedUsers(this.user, this.userList,this.textThread),
+      "messageSplits": this.chathelper.getLinkedUsers(this.user, this.userList, this.textThread),
       "answer": []
     }
     return question;
@@ -342,7 +355,7 @@ export class ChannelWindowComponent {
    */
   openAddPeopleDialog() {
     this.toggleAddPplChanBol();
-    this.setMembersAndAddMembersPos();
+    this.setPositionOfDialogs();
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);
     dialogRef.componentInstance.channel = this.threadList[this.number];
     dialogRef.componentInstance.userList = this.userList;
@@ -403,7 +416,7 @@ export class ChannelWindowComponent {
   saveEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
     this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
-    this.threadList[this.number].communikation[cIndex].threads[tIndex].messageSplits =  this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
+    this.threadList[this.number].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
     let threadIndex = this.threadList[this.number].channel.idDB;
     this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
@@ -460,7 +473,7 @@ export class ChannelWindowComponent {
    */
   openChannelMembersDialog() {
     this.toggleChannelMembersBol();
-    this.setMembersAndAddMembersPos();
+    this.setPositionOfDialogs();
     let dialogRef = this.dialog.open(ChannelMembersComponent);
     this.setChannelMembersDialogPos(dialogRef);
     this.setChannelMembersValues(dialogRef);
@@ -512,7 +525,7 @@ export class ChannelWindowComponent {
   }
 
   openMailAddresses() {
-    this.addresses = !this.addresses;   
+    this.addresses = !this.addresses;
   }
 
 
@@ -540,7 +553,4 @@ export class ChannelWindowComponent {
 
     });
   }
-
-
-
 }

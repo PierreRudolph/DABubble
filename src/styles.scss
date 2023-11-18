@@ -283,7 +283,7 @@ app-impressum {
 
 .iconContainerTextArea {
     transition: all 225ms ease-in-out;
-    opacity: 0.5;
+    opacity: 0.7;
     position: absolute;
     left: 70px;
     bottom: 20px;
@@ -341,7 +341,7 @@ app-impressum {
     cursor: pointer;
 }
 
-.addressElements{
+.addressElements {
     &:hover {
         background-color: #cbcdec;
         border-radius: 5px;
@@ -372,21 +372,21 @@ app-impressum {
 }
 
 
-.addressBox{
+.addressBox {
     position: absolute;
     padding: 30px;
-    max-height:200px; 
+    max-height: 200px;
     overflow-y: scroll;
-    bottom:80px;
-    left:50px;
-    z-index:3;
+    bottom: 80px;
+    left: 50px;
+    z-index: 3;
     border-radius: 20px;
     border: 1px solid #ADB0D9;
     background-color: white;
 
-    img{
-        width:10px;
-        height:10px;
+    img {
+        width: 10px;
+        height: 10px;
         border-radius: 100%;
     }
 }
