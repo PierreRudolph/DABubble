@@ -34,7 +34,7 @@
                                     *ngFor="let mes of threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].messageSplits"
                                     style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
-                                        style="background-color: #535AF1;cursor:pointer;">{{mes.text}}</span>
+                                        class="linkedUserName">{{mes.text}}</span>
                                     <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
                                 </span>
                             </diV>
@@ -66,7 +66,7 @@
                                 <!-- {{getAnswerData(aIndex,'message')}} -->
                                 <span *ngFor="let mes of answ.messageSplits" style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
-                                        style="background-color: #535AF1;cursor:pointer;">{{mes.text}}</span>
+                                        class="linkedUserName">{{mes.text}}</span>
                                     <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
                                 </span>
                             </diV>

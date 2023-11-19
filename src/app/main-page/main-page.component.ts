@@ -57,7 +57,7 @@ export class MainPageComponent {
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
-  @ViewChild(SideMenuComponent) side: SideMenuComponent;
+  @ViewChild(SideMenuComponent) sideMenu: SideMenuComponent;
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
@@ -182,8 +182,8 @@ export class MainPageComponent {
   * @param u  User with which you want to chat with.
   */
   openMessage(u: User) {
-    this.side.openTalk(u);
-    this.side.newMessage = false;
+    this.sideMenu.openTalk(u);
+    this.sideMenu.newMessage = false;
   }
 
   /**   
@@ -227,7 +227,7 @@ export class MainPageComponent {
     this.channelOpen = true;
     this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
-    this.side.newMessage = false;
+    this.sideMenu.newMessage = false;
   }
 
   /**  
@@ -326,9 +326,10 @@ export class MainPageComponent {
 
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
-    if (this.channelOpen) {
-      this.setMobileSideMenuValues();
-    }
+    // if (this.channelOpen) {
+    //   this.setMobileSideMenuValues();
+    // }
+    this.setMobileSideMenuValues();
     this.closeSideMenuThreadMobile();
   }
 
@@ -341,8 +342,7 @@ export class MainPageComponent {
   }
 
   setMobileSideMenuValues() {
-    this.side.setDrawerValues();
-
+    this.sideMenu.setDrawerValues();
   }
 
   closeSideMenuThreadMobile() {

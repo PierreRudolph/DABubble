@@ -1,7 +1,12 @@
 <div style="position: absolute;top:0; ">
     <div class="profile" (click)="openChoie()" style="cursor: pointer;">
         <span class="userName">{{user.name}}</span>
-        <img class="avatarImg" src="{{user.iconPath}}">
+        <div style="position: relative;">
+            <img class="avatarImg" src="{{user.iconPath}}">
+            <div [class.greenDot]="user.getAktive()" class="stateDot">
+            </div>
+        </div>
+
         <img class="arrowImg" src="assets/img/arrowDown.svg">
     </div>
     <div *ngIf="choiceDialog" class="choiceDialog">

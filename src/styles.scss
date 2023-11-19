@@ -395,3 +395,16 @@ app-impressum {
 
     
 }
+.linkedUserName {
+    cursor: pointer;
+    color: #444df2;
+    padding: 2px 8px;
+
+    &:hover {
+        background-color: rgba(68, 77, 242, 0.14);
+        border-radius: 20px;
+        padding: 2px 8px;
+    }
+}
+
+@media (max-width:471) {}

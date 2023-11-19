@@ -60,10 +60,26 @@
 
 }
 
+.openCloseSidenav {
+    cursor: pointer;
+    display: flex;
+    margin-left: 20px;
+    width: 32px;
+
+    &:hover {
+        .open-sidenav {
+            content: url("/assets/icons/close-sidenav-hover.svg");
+        }
+    }
+}
+
+
+
 .searchInput {
     position: relative;
-    width: 550px; //Hier m
-    margin-left: 50px;
+    width: calc(100% - 860px);
+    margin-left: 119px;
+    min-width: 505px;
 
     input {
         width: 100%;
@@ -131,6 +147,24 @@
     }
 }
 
+@media (max-width:1340px) {
+    .searchInput {
+        margin-left: 20px;
+    }
+}
+
+@media (max-width:1250px) {
+    .headerContainer {
+        padding-left: 25px;
+    }
+}
+
+@media(max-width:1110px) {
+    .searchInput {
+        min-width: 425px;
+    }
+}
+
 @media (max-width:470px) {
     .headerContainer {
         padding: 5px 16px;
@@ -150,10 +184,9 @@
     .searchInput {
         display: none;
     }
-    
-    .logoContainer {
-        position: absolute;      
-    
-    }
 
+    .logoContainer {
+        position: absolute;
+
+    }
 }

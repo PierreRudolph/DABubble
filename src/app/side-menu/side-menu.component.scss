@@ -231,7 +231,7 @@
         span {
             transition: all 225ms ease-in-out;
             color: #7e83f5;
-            font-weight: 700;
+            font-weight: 500;
         }
 
         img {
@@ -242,6 +242,8 @@
 
 .channelActive {
     background-color: #eceefe;
+    color: #7e83f5;
+    font-weight: 500;
 
     img {
         content: url('/assets/icons/tag-hover.svg');
