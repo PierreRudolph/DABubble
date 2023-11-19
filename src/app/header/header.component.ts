@@ -127,8 +127,6 @@ export class HeaderComponent {
   }
 
 
-
-
   searchChannelMessages(text: string) {
     let output = [];
     this.searchText = text.toLowerCase();

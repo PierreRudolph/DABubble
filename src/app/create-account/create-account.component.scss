@@ -19,6 +19,7 @@
     display: flex;
     left: 50px;
     top: 10px;
+    gap:10px;
 }
 
 .headline {
@@ -58,6 +59,7 @@
         background-color: #ECEEFE;
         font-family: 'Nunito';
         font-size: 18px;
+        width:fit-content;
 
         &:focus {
             outline: none;
@@ -146,6 +148,26 @@
     font-size: 16px;
 }
 
+
+.impData {
+    display: flex;
+    gap: 15px;
+    position: absolute;
+    bottom: 50px;
+    width: 200px;
+    left: calc(50% - 100px);
+
+    a {
+        color: var(--Purple-2, #797EF3);
+        font-family: Figtree;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 120%;
+        text-decoration: none;
+    }
+}
+
 @media screen and (max-width:650px) {
     .logInDialog {
         width: 398px;
@@ -162,6 +184,7 @@
     .input {
         width: 350px;
         height: 50px;
+        gap:10px;
         padding: 13px 32px 13px 32px;
     }
 
@@ -171,6 +194,11 @@
         left: calc(50% - 100px);
         top: 50px;
     }
+
+    .impData{
+        bottom:130px;
+  }
+    
 }
 
 @media screen and (max-width:400px) {
@@ -178,7 +206,7 @@
         width:320px;
         height: fit-content;
         left: calc(50% - 160px);
-        top: 200px;      
+        top: 160px;      
        
         .headline {
             font-size: 26px;

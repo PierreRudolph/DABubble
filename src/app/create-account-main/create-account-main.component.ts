@@ -8,19 +8,19 @@ import { User } from 'src/moduls/user.class';
 })
 export class CreateAccountMainComponent {
 
-  public fristpage =true;
+  public fristpage = true ;
   public user: User = new User();
 
-  construkter() {  
+  construkter() {
   }
 
   /**
    * Sets the User and handles what page is active.
    * @param user User that will be created
    */
-  setPage(user: User) {   
-    this.user = user;   
-    this.fristpage= false;
+  setPage(user: User) {
+    this.user = user;
+    this.fristpage = false;
   }
 
 }
