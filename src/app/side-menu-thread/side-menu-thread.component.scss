@@ -54,7 +54,7 @@
 
 .close-icon {
     cursor: pointer;
-    transition: all 225ms ease-in-out;
+    transition: all 100ms ease-out;
 
     &:hover {
         content: url('/assets/img/close-hover.svg');
@@ -94,6 +94,7 @@
     padding-top: 10px;
     padding-bottom: 25px;
     margin-top: 25px;
+    transition: all 100ms ease-out;
 
     &:hover {
         background-color: #eceefe;
@@ -197,6 +198,7 @@
     justify-content: space-between;
     background-color: white;
     min-width: 45px;
+    transition: all 100ms ease-out;
 
     img {
         width: 24px;
@@ -215,6 +217,7 @@
     background-color: white;
     border-radius: 30px;
     margin-left: 5px;
+    transition: all 100ms ease-out;
 
     &:hover {
         content: url('/assets/icons/add-reaction-hover.svg');
@@ -285,6 +288,7 @@
     height: 40px !important;
     border-radius: 100%;
     box-sizing: border-box;
+    transition: all 100ms ease-out;
 
     &:hover {
         background-color: #ECEEFE;
@@ -292,6 +296,7 @@
 }
 
 .changeFace {
+    transition: all 100ms ease-out;
 
     &:hover {
         content: url('/assets/icons/add-reaction-hover.svg');

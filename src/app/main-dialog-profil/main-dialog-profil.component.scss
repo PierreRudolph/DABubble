@@ -87,6 +87,21 @@
 
 }
 
+.stateDot {
+    width: 12px;
+    height: 12px;
+    border-radius: 100%;
+    position: absolute;
+    background-color: #ADB0D9;
+    right: 2px;
+    bottom: 15px;
+    border: 2px white solid;
+}
+
+.greenDot {
+    background-color: #92C83E;
+}
+
 @media (max-width:470px) {
 
     .profile {

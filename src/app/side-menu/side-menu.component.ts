@@ -146,10 +146,10 @@ export class SideMenuComponent {
         this.sideMenuDiv.nativeElement.classList.add('dNone');
         this.toggleDrawerBol();
         this.drawer.toggle();
-      } else {
+      } else if (this.sideMenuHidden) {
         this.toggleDrawerBol();
         this.drawer.toggle();
-      }
+      } else { }
   }
 }
 
