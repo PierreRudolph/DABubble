@@ -18,6 +18,7 @@ export class LoginScreenComponent {
   })
   public loading: boolean = false;
 
+
   constructor(public authService: AuthService, public route: Router) {
     window.addEventListener("resize", this.resizeWindow);
   }
@@ -37,6 +38,8 @@ export class LoginScreenComponent {
       let id = user._delegate.uid;
       console.log("user", id);
       localStorage.setItem('uid', id);
+      localStorage.removeItem('google'); 
+      localStorage.removeItem('googleName');  
       // this.route.navigateByUrl("/main");
       this.route.navigateByUrl("/main");
     })
@@ -47,7 +50,9 @@ export class LoginScreenComponent {
 
   async loginAsGuest() {
     return this.authService.logIn("gast@mail.com", "gggggg").then((res) => {
-      // Login successful       
+      // Login successful   
+      localStorage.removeItem('google'); 
+      localStorage.removeItem('googleName');   
       let user = this.authService.getAuthServiceUser();
       let id = user._delegate.uid;
       console.log("user", id);
@@ -65,7 +70,12 @@ export class LoginScreenComponent {
     this.authService.logInWithGoogle().
       then((dat) => {
         console.log("succesfully logged in with google", dat);
-        localStorage.setItem('google', "loggedIn");
+
+        let user = this.authService.getAuthServiceUser();       
+        let userName =user._delegate.displayName; 
+        console.log("googleuserName",userName);     
+
+        localStorage.setItem('google', userName);       
         // this.route.navigateByUrl("/login");
         this.route.navigateByUrl("/main");
       }).

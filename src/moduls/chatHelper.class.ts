@@ -1,4 +1,4 @@
-import { Firestore, doc, updateDoc } from "@angular/fire/firestore";
+import { Firestore, addDoc, collection, doc, updateDoc } from "@angular/fire/firestore";
 import { inject } from '@angular/core';
 import { User } from "./user.class";
 
@@ -268,4 +268,36 @@ export class ChatHepler {
     }
     return ret;
   }
+ /**
+   * Stores the given User in the Database
+   * @param item JSON that contains the userinformations
+   */
+ async addUser(item: {}) {
+  await addDoc(this.userRef(), item).catch(
+    (err) => { console.error(err) }).then(
+      (docRef) => {
+        if (docRef) {
+          let idDoc = docRef.id;
+          this.updateDB(idDoc,"user",{ "idDB": idDoc });
+        }
+      });
+}
+
+getSingleUserRef(docId: string) {
+  return doc(this.firestore, 'user', docId);
+}
+
+// /** * 
+// * @param id Database id of the user is stored within the userinformations.
+// */
+// async updateGame(id: string) {
+//   let docRef = this.getSingleUserRef(id)
+//   await updateDoc(docRef, { "idDB": id }).catch(
+//     (err) => { console.log(err); });
+// }
+
+userRef() {
+  return collection(this.firestore, 'user');
+}
+
 }

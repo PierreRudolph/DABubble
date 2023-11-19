@@ -70,7 +70,8 @@ export class MainPageComponent {
     setTimeout(() => {
       console.log("call construktor");
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden          
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden  
+      console.log("auth is", this.userAuth);
       this.unsub = this.subUserInfo();
     }, 1000);
 
@@ -95,16 +96,32 @@ export class MainPageComponent {
     let ref = collection(this.firestore, 'user');
     return onSnapshot(ref, (list) => {
       this.userList = [];
+      let google = true;
       list.forEach(elem => {
         let u = new User(elem.data())
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
+          google = false;
         }
         else { this.userList.push(u); }
       });
-
+       if(google){
+        this.createGoogleUser(this.userUid);
+       }
     });
+  }
+
+  createGoogleUser(userUid:string){   
+    this.user = new User();
+    this.user.uid= userUid;
+    this.user.name = this.userAuth._delegate.displayName;
+    this.user.email=this.userAuth._delegate.email;
+    this.user.iconPath="assets/img/Google.svg";
+    this.user.status="aktiv";
+    console.log("googleName",this.user.name ) ;
+    this.chathelper.addUser(this.user.toJSON());
+
   }
 
   /**

@@ -3,6 +3,7 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 import { Firestore, addDoc, collection, doc, updateDoc } from '@angular/fire/firestore';
+import { ChatHepler } from 'src/moduls/chatHelper.class';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class CreateAccountAvatarComponent {
   public portraitPath = "assets/img/person.svg";
   public firestore: Firestore = inject(Firestore);
   public idDoc = "";
+  public chathelper: ChatHepler = new ChatHepler();
 
   constructor(public authService: AuthService, private router: Router) {
     let u = authService.getAuthServiceUser();
@@ -42,7 +44,7 @@ export class CreateAccountAvatarComponent {
       let userAny: any = res;
       let id = userAny.user._delegate.uid;
       this.user.uid = id;
-      this.addUser(this.user.toJSON());
+      this.chathelper.addUser(this.user.toJSON());
       this.navigatePage();
     })
       .catch((error) => {
@@ -63,37 +65,37 @@ export class CreateAccountAvatarComponent {
     }, 2500);
   }
 
-  /**
-   * Stores the given User in the Database
-   * @param item JSON that contains the userinformations
-   */
-  async addUser(item: {}) {
-    await addDoc(this.userRef(), item).catch(
-      (err) => { console.error(err) }).then(
-        (docRef) => {
-          if (docRef) {
-            this.idDoc = docRef.id;
-            this.updateGame(this.idDoc);
-          }
-        });
-  }
+//   /**
+//    * Stores the given User in the Database
+//    * @param item JSON that contains the userinformations
+//    */
+//   async addUser(item: {}) {
+//     await addDoc(this.userRef(), item).catch(
+//       (err) => { console.error(err) }).then(
+//         (docRef) => {
+//           if (docRef) {
+//             this.idDoc = docRef.id;
+//             this.updateGame(this.idDoc);
+//           }
+//         });
+//   }
 
-  getSingleUserRef(docId: string) {
-    return doc(this.firestore, 'user', docId);
-  }
+//   getSingleUserRef(docId: string) {
+//     return doc(this.firestore, 'user', docId);
+//   }
 
-/** * 
- * @param id Database id of the user is stored within the userinformations.
- */
-  async updateGame(id: string) {
-    let docRef = this.getSingleUserRef(id)
-    await updateDoc(docRef, { "idDB": id }).catch(
-      (err) => { console.log(err); });
-  }
+// /** * 
+//  * @param id Database id of the user is stored within the userinformations.
+//  */
+//   async updateGame(id: string) {
+//     let docRef = this.getSingleUserRef(id)
+//     await updateDoc(docRef, { "idDB": id }).catch(
+//       (err) => { console.log(err); });
+//   }
 
-  userRef() {
-    return collection(this.firestore, 'user');
-  }
+//   userRef() {
+//     return collection(this.firestore, 'user');
+//   }
 
 /**
  * Sets the selected iconpath.
