@@ -290,7 +290,12 @@ userRef() {
   return collection(this.firestore, 'user');
 }
 
-
+/**
+ * 
+ * @param text Searchtext
+ * @param threadList  List that contains the information from all Channels
+ * @returns           List of all Channel that contain the text in the name or description
+ */
 searchChannelNames(text: string,threadList:any[]) {
   let output = [];
   let searchText = text.toLowerCase();
@@ -311,7 +316,6 @@ searchChannelNames(text: string,threadList:any[]) {
 }
 
 makeSubstring(s: string, len: number) {
-
   let l = s.length;
   let min = Math.min(l, len);
   let sub = s.substring(0, min);
@@ -319,6 +323,12 @@ makeSubstring(s: string, len: number) {
   return sub;
 }
 
+/**
+ * 
+ * @param text Searchtext
+ * @param talkList  List of all private talkks of the logged in User
+ * @returns         List of all private Messages that contain the text
+ */
 searchPrivateMess(text: string, talkList:any[]) {
   let output = [];
   let searchText = text.toLowerCase();
@@ -348,6 +358,12 @@ searchPrivateMess(text: string, talkList:any[]) {
   return talkMessages;
 }
 
+/**
+ * 
+ * @param text Searchtext
+ * @param threadList  List that contains the information from all Channels
+ * @returns           List of all threads that contain the given Text in the Messages
+ */
 searchChannelMessages(text: string,threadList :any[]) {
   let output = [];
   let searchText = text.toLowerCase();
@@ -374,6 +390,13 @@ searchChannelMessages(text: string,threadList :any[]) {
   return threadMessages;
 }
 
+/**
+ * 
+ * @param text Searchtext
+ * @param userList List of all Users
+ * @param user     logged in user
+ * @returns        All serch result fom name and email
+ */
 searchProfiles(text: string,userList:any[],user:User) {
   let output = [];
    let searchText = text.toLowerCase();
