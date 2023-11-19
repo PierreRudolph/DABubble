@@ -131,8 +131,9 @@ export class SideMenuComponent {
 
   openCloseSideMenu() {
     this.drawer.toggle();
-    this.setDrawerValues();
+    //this.setDrawerValues();
     this.toggleDrawerBol()
+    this.sideMenuDiv.nativeElement.classList.remove('dNone');
   }
 
   setDrawerValues() {
@@ -146,7 +147,8 @@ export class SideMenuComponent {
         this.toggleDrawerBol();
         this.drawer.toggle();
       } else {
-        this.sideMenuDiv.nativeElement.classList.remove('dNone');
+        this.toggleDrawerBol();
+        this.drawer.toggle();
       }
   }
 }

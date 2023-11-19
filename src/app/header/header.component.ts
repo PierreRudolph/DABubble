@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
+import { SideMenuComponent } from '../side-menu/side-menu.component';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -27,9 +28,11 @@ export class HeaderComponent {
   @Output() callOpenTalk = new EventEmitter<User>();
 
 
+
   constructor(public router: Router) {
     window.addEventListener("resize", this.resizeWindow);
   }
+
 
   showPop() {
     return this.text != "";
@@ -193,7 +196,7 @@ export class HeaderComponent {
 
   showNormalHeader() {
     console.log("screenwidth", window.innerWidth);
-    return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471    
+    return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471
   }
 
   showMobileHeader() {

@@ -60,10 +60,26 @@
 
 }
 
+.openCloseSidenav {
+    cursor: pointer;
+    display: flex;
+    margin-left: 20px;
+    width: 32px;
+
+    &:hover {
+        .open-sidenav {
+            content: url("/assets/icons/close-sidenav-hover.svg");
+        }
+    }
+}
+
+
+
 .searchInput {
     position: relative;
-    width: 550px; //Hier m
-    margin-left: 50px;
+    width: calc(100% - 860px);
+    margin-left: 119px;
+    min-width: 505px;
 
     input {
         width: 100%;
@@ -150,10 +166,10 @@
     .searchInput {
         display: none;
     }
-    
+
     .logoContainer {
-        position: absolute;      
-    
+        position: absolute;
+
     }
 
 }
