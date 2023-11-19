@@ -85,7 +85,7 @@
     animation: transform;
     display: flex;
     align-items: center;
-    gap:28px;
+    gap: 28px;
 }
 
 .moveUp {
@@ -101,5 +101,85 @@
 
     to {
         transform: translateY(-300px);
+    }
+}
+
+.logoContainerStatic {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: calc(50% - 112px);
+    top: 92px;
+    width: 224px;
+    justify-content: flex-start;
+    z-index: 1;
+
+    div {
+        display: flex;
+        align-items: center;
+        z-index: 1;
+        padding: 20px;
+    }
+}
+
+.heightGiver {
+    width: 100vw;
+    height: 900px;
+}
+
+@media screen and (max-width:650px) {
+
+    .popUp3 {
+        font-size: 18px;
+        padding: 20px;
+    }
+
+    .logoContainerStatic {
+        top: 60px;
+    }
+
+
+    .heightGiver {
+        height: 700px;
+    }
+
+    .headline {
+        font-size: 32px;
+    }
+
+    .forgetInDialog {
+        width: 398px;
+        height: fit-content;
+        left: calc(50% - 196px);
+        top: 150px;
+        padding: 35px 26px 35px 26px;
+        gap: 20px;
+    }
+
+    .impData {
+        bottom: 100px;
+    }
+
+    .input {
+        width: 358px;
+        height: 50px;
+        padding: 13px 32px 13px 30px;
+
+    }
+}
+
+@media screen and (max-width:400px) {
+    .headline {
+        font-size: 18px;
+    }
+
+    .forgetInDialog {
+        width: 320px;
+        left: calc(50% - 160px);
+        top: 150px;
+    }
+
+    .input {
+        width: 300px;
     }
 }
