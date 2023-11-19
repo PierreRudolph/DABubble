@@ -102,6 +102,12 @@
     background-color: #92C83E;
 }
 
+@media (max-width:1220px) {
+    .userName {
+        display: none;
+    }
+}
+
 @media (max-width:470px) {
 
     .profile {
