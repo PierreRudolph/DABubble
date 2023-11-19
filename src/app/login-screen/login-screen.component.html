@@ -1,6 +1,7 @@
-<app-header  *ngIf = "!blendOutHeader()" [screenWidth]="screenWidth" ></app-header>
-<div class="intro"  >
-   <div class="logo-outer-div" *ngIf = "!blendOutHeader()">
+<app-header *ngIf="!blendOutHeader()" [screenWidth]="screenWidth"></app-header>
+
+<div class="intro">
+   <div class="logo-outer-div">
       <div class="logoContainer">
          <div>
             <img class="shrink-logo" src="assets/img/logo.svg">
@@ -31,10 +32,12 @@
 
    <div style="position: relative;">
       <div class="or">ODER</div>
-      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none" *ngIf="!blendOutHeader()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none"
+         *ngIf="!blendOutHeader()">
          <path d="M500 1H0" stroke="#ADB0D9" />
       </svg>
-      <svg xmlns="http://www.w3.org/2000/svg" width="165" height="2" viewBox="0 0 500 2" fill="none" *ngIf="blendOutHeader()">
+      <svg xmlns="http://www.w3.org/2000/svg" width="165" height="2" viewBox="0 0 500 2" fill="none"
+         *ngIf="blendOutHeader()">
          <path d="M500 1H0" stroke="#ADB0D9" />
       </svg>
    </div>
