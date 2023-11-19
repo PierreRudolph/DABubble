@@ -189,10 +189,20 @@ h1 {
 
 
 @media screen and (min-width:650px) {
+
+ 
     .chooseListSmall {
         display: none;
     }
 }
+
+@media screen and (max-width:650px) {
+    .popUp3 {       
+        font-size: 18px;       
+        padding: 20px;        
+        width: fit-content;       
+    }
+    }
 
 @media screen and (max-width:400px) {
     .logInDialog {
