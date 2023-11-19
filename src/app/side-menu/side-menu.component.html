@@ -5,7 +5,7 @@
             <div class="head">
                 <img src="assets/img/workspace-logo.svg">
                 <p class="workspace-name">Code learning</p>
-                <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg"  (click)="setNewMessage()">
+                <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg" (click)="setNewMessage()">
             </div>
             <div class="inputMobile">
                 <input placeholder="Gehe zu...">
@@ -65,7 +65,7 @@
                                 </div>
                             </div>
                         </mat-expansion-panel-header>
-                        <div>
+                        <div class="scrollableContactDiv">
                             <!--Hier werden die Kontakte reingerendert.-->
                             <div class="contact-div">
                                 <div>
@@ -76,6 +76,28 @@
                                 <span (click)="openTalk(user)">{{user.name}} (Du)</span>
                             </div>
 
+                            <div *ngFor="let u of userList" class="contact-div">
+                                <div (click)="openTalk(u)">
+                                    <img src="{{u.iconPath}}">
+                                    <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
+                                </div>
+                                <span (click)="openTalk(u)">{{u.name}}</span>
+                            </div>
+
+                            <div *ngFor="let u of userList" class="contact-div">
+                                <div (click)="openTalk(u)">
+                                    <img src="{{u.iconPath}}">
+                                    <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
+                                </div>
+                                <span (click)="openTalk(u)">{{u.name}}</span>
+                            </div>
+                            <div *ngFor="let u of userList" class="contact-div">
+                                <div (click)="openTalk(u)">
+                                    <img src="{{u.iconPath}}">
+                                    <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
+                                </div>
+                                <span (click)="openTalk(u)">{{u.name}}</span>
+                            </div>
                             <div *ngFor="let u of userList" class="contact-div">
                                 <div (click)="openTalk(u)">
                                     <img src="{{u.iconPath}}">
