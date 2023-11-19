@@ -286,18 +286,110 @@ export class ChatHepler {
 getSingleUserRef(docId: string) {
   return doc(this.firestore, 'user', docId);
 }
-
-// /** * 
-// * @param id Database id of the user is stored within the userinformations.
-// */
-// async updateGame(id: string) {
-//   let docRef = this.getSingleUserRef(id)
-//   await updateDoc(docRef, { "idDB": id }).catch(
-//     (err) => { console.log(err); });
-// }
-
 userRef() {
   return collection(this.firestore, 'user');
+}
+
+
+searchChannelNames(text: string,threadList:any[]) {
+  let output = [];
+  let searchText = text.toLowerCase();
+  let i = -1;
+  threadList.forEach((t) => {
+    i++;
+    if (t.channel.name.toLowerCase().includes(searchText) || t.channel.description.toLowerCase().includes(searchText)) {
+      let des = "";
+      if (t.channel.description.toLowerCase().includes(searchText)) {
+        des = this.makeSubstring(t.channel.description, 20)
+      }
+      output.push({ "name": t.channel.name, "index": i, "decription": des });
+    }
+  });
+  console.log("output", output);
+  let threadTitleDec = output;
+  return threadTitleDec
+}
+
+makeSubstring(s: string, len: number) {
+
+  let l = s.length;
+  let min = Math.min(l, len);
+  let sub = s.substring(0, min);
+  // console.log("messageSub is", sub);
+  return sub;
+}
+
+searchPrivateMess(text: string, talkList:any[]) {
+  let output = [];
+  let searchText = text.toLowerCase();
+  let num = -1;
+  let cIndex = -1;
+  let mIndex = -1  
+  talkList.forEach((ch) => {
+    num++;
+    ch.communikation.forEach((com) => {
+      cIndex++;
+      com.messages.forEach((mes) => {
+        mIndex++;
+        if (mes.message.toLowerCase().includes(searchText)) {
+          output.push({
+            "nameMem1": ch.member1, "nameMem2": ch.member2,
+            "member1DBid": ch.member1DBid, "member2DBid": ch.member2DBid,
+            "num": num, "cIndex": cIndex,
+            "mIndex": mIndex, "message": mes.message, "time": mes.time
+          });
+        }
+      });
+      mIndex = -1;
+    });
+    cIndex = -1;
+  }); 
+  let talkMessages = output;
+  return talkMessages;
+}
+
+searchChannelMessages(text: string,threadList :any[]) {
+  let output = [];
+  let searchText = text.toLowerCase();
+  let num = -1;
+  let cIndex = -1;
+  let tIndex = -1
+  threadList.forEach((ch) => {
+    num++;
+    ch.communikation.forEach((com) => {
+      cIndex++;
+      com.threads.forEach((th) => {
+        tIndex++;
+        if (th.message.toLowerCase().includes(searchText)) {
+          output.push({ "chanName": ch.channel.name, "num": num, "cIndex": cIndex, "tIndex": tIndex, "name": th.name, "message": th.message, "time": th.time });
+        }
+      });
+      tIndex = -1;
+
+    });
+    cIndex = -1;
+  });
+  // console.log("output", output);
+  let threadMessages = output;
+  return threadMessages;
+}
+
+searchProfiles(text: string,userList:any[],user:User) {
+  let output = [];
+   let searchText = text.toLowerCase();
+  let i = -1;
+  userList.forEach((t) => {
+    i++;
+    if (t.name.toLowerCase().includes(searchText) || t.email.toLowerCase().includes(searchText)) {
+      output.push(t);
+    }
+  });
+  if (user.name.toLowerCase().includes(searchText) || user.email.toLowerCase().includes(searchText)) {
+    output.push(user);
+  }
+  // console.log("output", output);
+  let userInfos = output;
+  return userInfos;
 }
 
 }

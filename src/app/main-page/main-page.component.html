@@ -1,5 +1,5 @@
 <app-header [sideMenuHidden]="this.sideMenuHidden" [screenWidth]="this.screenWidth" [threadList]="this.threadList"
-  [user]="user" [userList]="userList" [talkList]="talkList" (callOpenChannel)="callOpenChan($event)"
+  [user]="user" [userList]="userList" [talkList]="talkList" (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)"
   (callOpenTalk)="openMessage($event)" (toggleSideMenu)="toggleSideMenu($event)"></app-header>
 
 <div class="main-page">

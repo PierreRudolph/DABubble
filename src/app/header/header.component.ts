@@ -11,7 +11,7 @@ import { SideMenuComponent } from '../side-menu/side-menu.component';
 export class HeaderComponent {
   @Input() user: User = new User();//authenticated user 
   @Input() userList: any;
-  private chathelper: ChatHepler = new ChatHepler();
+  public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() talkList: any = [this.chathelper.createNewTalk]
   @Input() screenWidth: any;
@@ -26,6 +26,7 @@ export class HeaderComponent {
   @Output() toggleSideMenu = new EventEmitter<boolean>();
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
+  @Output() isOpen = new EventEmitter<boolean>();
 
 
 
@@ -51,52 +52,11 @@ export class HeaderComponent {
   }
 
   searchChannelNames(text: string) {
-    let output = [];
-    this.searchText = text.toLowerCase();
-    let i = -1;
-    this.threadList.forEach((t) => {
-      i++;
-      if (t.channel.name.toLowerCase().includes(this.searchText) || t.channel.description.toLowerCase().includes(this.searchText)) {
-        let des = "";
-        if (t.channel.description.toLowerCase().includes(this.searchText)) {
-          des = this.makeSubstring(t.channel.description, 20)
-        }
-        output.push({ "name": t.channel.name, "index": i, "decription": des });
-      }
-    });
-    console.log("output", output);
-    this.threadTitleDec = output;
+    this.threadTitleDec = this.chathelper.searchChannelNames(text,this.threadList);
   }
 
-  searchPrivateMess(text: string) {
-    let output = [];
-    this.searchText = text.toLowerCase();
-    let num = -1;
-    let cIndex = -1;
-    let mIndex = -1
-    console.log("talkList", this.talkList);
-    this.talkList.forEach((ch) => {
-      num++;
-      ch.communikation.forEach((com) => {
-        cIndex++;
-        com.messages.forEach((mes) => {
-          mIndex++;
-          if (mes.message.toLowerCase().includes(this.searchText)) {
-            output.push({
-              "nameMem1": ch.member1, "nameMem2": ch.member2,
-              "member1DBid": ch.member1DBid, "member2DBid": ch.member2DBid,
-              "num": num, "cIndex": cIndex,
-              "mIndex": mIndex, "message": mes.message, "time": mes.time
-            });
-          }
-        });
-        mIndex = -1;
-
-      });
-      cIndex = -1;
-    });
-    console.log("output", output);
-    this.talkMessages = output;
+  searchPrivateMess(text: string) {    
+    this.talkMessages =  this.chathelper.searchPrivateMess(text, this.talkList);
   }
 
   getOtherUser(info: any) {
@@ -119,7 +79,9 @@ export class HeaderComponent {
 
 
   callOpenChan(n: number) {
+    console.log("call Cgan");
     this.callOpenChannel.emit(n);
+    this.isOpen.emit(false);
   }
 
   callOpenT(u: User) {
@@ -127,29 +89,8 @@ export class HeaderComponent {
   }
 
 
-  searchChannelMessages(text: string) {
-    let output = [];
-    this.searchText = text.toLowerCase();
-    let num = -1;
-    let cIndex = -1;
-    let tIndex = -1
-    this.threadList.forEach((ch) => {
-      num++;
-      ch.communikation.forEach((com) => {
-        cIndex++;
-        com.threads.forEach((th) => {
-          tIndex++;
-          if (th.message.toLowerCase().includes(this.searchText)) {
-            output.push({ "chanName": ch.channel.name, "num": num, "cIndex": cIndex, "tIndex": tIndex, "name": th.name, "message": th.message, "time": th.time });
-          }
-        });
-        tIndex = -1;
-
-      });
-      cIndex = -1;
-    });
-    // console.log("output", output);
-    this.threadMessages = output;
+  searchChannelMessages(text: string) {   
+    this.threadMessages = this.chathelper.searchChannelMessages(text,this.threadList);
   }
 
   getdate(info: any) {
@@ -158,33 +99,10 @@ export class HeaderComponent {
 
   getdateTalk(info: any) {
     return this.talkList[info.num].communikation[info.cIndex].date;
-  }
+  } 
 
-
-  makeSubstring(s: string, len: number) {
-
-    let l = s.length;
-    let min = Math.min(l, len);
-    let sub = s.substring(0, min);
-    // console.log("messageSub is", sub);
-    return sub;
-  }
-
-  searchProfiles(text: string) {
-    let output = [];
-    this.searchText = text.toLowerCase();
-    let i = -1;
-    this.userList.forEach((t) => {
-      i++;
-      if (t.name.toLowerCase().includes(this.searchText) || t.email.toLowerCase().includes(this.searchText)) {
-        output.push(t);
-      }
-    });
-    if (this.user.name.toLowerCase().includes(this.searchText) || this.user.email.toLowerCase().includes(this.searchText)) {
-      output.push(this.user);
-    }
-    // console.log("output", output);
-    this.userInfos = output;
+  searchProfiles(text: string) {    
+    this.userInfos = this.chathelper.searchProfiles(text,this.userList,this.user);
   }
 
   emitToggleSideMenu() {
