@@ -236,8 +236,6 @@
 }
 
 
-
-
 @keyframes logo-name-animation {
     0% {
         width: 0px;
@@ -260,9 +258,54 @@
     }
 }
 
+@keyframes mobile-logo-animation {
+    0% {
+        width: 70px;
+    }
+
+    49% {
+        width: 224px;
+    }
+
+    100% {
+        width: 224px;
+    }
+}
+
+@keyframes mobile-fade-position {
+    50% {
+        left: calc(50% - 150px);
+        top: calc(50% - 45px);
+    }
+
+    100% {
+        left: calc(50% - 150px);
+        top: 100px;
+    }
+}
+
+@keyframes mobile-logo-name-animation {
+    0% {
+        width: 0px;
+    }
+
+    49% {
+        width: 180px;
+    }
+
+    55% {
+        font-size: 35px;
+        width: 180px;
+    }
+
+    100% {
+        font-size: 35px;
+        width: 180px;
+    }
+}
+
 @media screen and (max-width:650px) {
 
-  
     .logInDialog {
         width: 398px;
         height: fit-content;
@@ -273,52 +316,82 @@
 
     }
 
-    .headline{
+    .headline {
         font-size: 32px;
     }
 
     .inputWind {
 
-        width: 358px ;
-        height: 50px ;
+        width: 358px;
+        height: 50px;
         padding: 13px 32px 13px 30px;
     }
 
     .googleLoginButt {
-        width: 358px ;
-        height: 50px ;
+        width: 358px;
+        height: 50px;
         padding: 13px 32px 13px 30px;
     }
 
     .btn {
-         padding: 12px 25px 12px 25px;
+        padding: 12px 25px 12px 25px;
+    }
+
+    .logo-outer-div {
+        left: calc(50% - 150px);
+        top: calc(50% - 45px);
+        width: 300px;
+        animation-name: mobile-fade-position;
+    }
+
+
+
+    .logoContainer {
+        animation-name: mobile-logo-animation;
+        width: 70px;
+
+        div {
+            padding: 0px;
+        }
+    }
+
+    .shrink-logo {
+        height: 70px;
+        animation: none;
+    }
+
+    .logo-name {
+        left: 75px;
+        font-size: 35px;
+        width: 0px;
+        height: 33px;
+        animation-name: mobile-logo-name-animation;
     }
 }
 
 @media screen and (max-width:400px) {
 
-  
+
     .logInDialog {
-        width: 320px;       
+        width: 320px;
         left: calc(50% - 160px);
-        top: calc(50% - 276px);     
+        top: calc(50% - 276px);
     }
 
-    .headline{
+    .headline {
         font-size: 26px;
     }
 
     .inputWind {
-        width: 300px ;       
+        width: 300px;
     }
 
     .googleLoginButt {
         width: 300px !important;
-       
+
     }
 
     .btn {
-         padding: 6px 15px 6px 15px;
+        padding: 6px 15px 6px 15px;
     }
 }
-
