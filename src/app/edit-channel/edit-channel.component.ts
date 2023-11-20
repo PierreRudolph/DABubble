@@ -41,9 +41,9 @@ export class EditChannelComponent {
     this.toggleChanNameOnEdit();
   }
 
-   /**
-   * Belends in the editing windows for the name
-   */
+  /**
+  * Belends in the editing windows for the name
+  */
   toggleChanNameOnEdit() {
     this.chanNamOnEdit = !this.chanNamOnEdit;
   }
@@ -121,5 +121,9 @@ export class EditChannelComponent {
       dialogRef.addPanelClass('transition225');
       dialogRef.updatePosition({ bottom: '-20px' });
     }, 500)
+  }
+
+  mobileScreenWidth() {
+    return this.screenWidth < 830;
   }
 }

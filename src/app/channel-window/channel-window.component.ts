@@ -36,7 +36,7 @@ export class ChannelWindowComponent {
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   public smileHelper: SmileHelper = new SmileHelper();
-  private dialogPosTop: string = '190px';
+  private dialogPosTop: string = '215px';
   private editChanPosLeft: string = '445px';
   private membersDialogPosRight: string = '110px';
   private addMembersDialogPosRight: string = '60px';
@@ -90,7 +90,7 @@ export class ChannelWindowComponent {
 
 
   setEditDialogMobileStyle() {
-    if (this.screenWidth < 471) {
+    if (this.mobileScreenWidth()) {
       this.editChanPosLeft = '0px';
       this.dialogPosTop = '0px';
       this.dialogClasses = ['maxWidth100', 'dialogBorRadNone'];
@@ -118,7 +118,7 @@ export class ChannelWindowComponent {
    * depending on screenWidth.
    */
   setPositionOfDialogsMobile() {
-    if (this.screenWidth < 471) {
+    if (this.mobileScreenWidth()) {
       this.membersDialogPosRight = '0px';
       this.addMembersDialogPosRight = '0px';
       this.dialogPosTop = '0px';
@@ -363,12 +363,13 @@ export class ChannelWindowComponent {
     this.setAddPplDialogPos(dialogRef);
     this.setAddPplDialogValues(dialogRef);
     this.subscribeAddPplDialog(dialogRef);
+
   }
 
   //Bitte kommentieren
   setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    if (this.mobileScreenWidth) {
+    if (this.mobileScreenWidth()) {
       dialogRef.addPanelClass('maxWidth100');
       return;
     }
@@ -490,7 +491,7 @@ export class ChannelWindowComponent {
     dialogRef.addPanelClass('dialogBorToReNone');
     if (this.mobileScreenWidth())
       return;
-    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: '190px' });
+    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: this.dialogPosTop });
   }
 
 

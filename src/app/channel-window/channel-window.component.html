@@ -32,10 +32,10 @@
         </div>
         <div class="messageDataPart">
 
-            <div class="message-inner-div" [class.messageInnerDivRight]="fromLoggedInUser(thread)"
+            <div class="message-inner-div" [class.rowReverse]="fromLoggedInUser(thread)"
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
                 <div class="popUpMessageContainer" [class.popUpFlipContainer]="getFlip(thread)">
-                    <div class="popUpMessage" [class.flipCorner]="getFlip(thread)">
+                    <div class="popUpMessage">
                         <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
                             (click)="saveEmojiCom(i,j,haken.innerText)">
                         <div style="display:none" #haken>✅</div>
@@ -52,11 +52,11 @@
                 </div>
                 <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}">
                 <div class="messageContent">
-                    <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(thread)">
+                    <div class="mes-name-clock" [class.messageRight]="getFlip(thread)">
                         <span class="mes-name">{{thread.name}}</span>
                         <span>{{thread.time}} Uhr</span>
                     </div>
-                    <div style="width:100%" [class.popUpFlipContainer]="getFlip(thread)">
+                    <div style="width:100%" [class.messageRight]="getFlip(thread)">
                         <div class="message" [class.dNone]="thread.edit">
                             <!-- {{thread.message}} -->
                             <span *ngFor="let mes of thread.messageSplits" style="width:100%">
@@ -67,7 +67,7 @@
                         </div>
                     </div>
                     <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
-                        [class.popUpFlipContainer]="getFlip(thread)">
+                        [class.messageRight]="getFlip(thread)">
                         <div style="position:relative">
                             <div style="position:relative"> <textarea class="textAreaDirekt"
                                     [(ngModel)]="textEdit">{{thread.message}}  </textarea>
@@ -83,7 +83,7 @@
                             <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
                         </div>
                     </div>
-                    <diV class="reactions" [class.dNone]="thread.edit" [class.popUpFlipContainer]="getFlip(thread)">
+                    <diV class="reactions" [class.dNone]="thread.edit" [class.messageRight]="getFlip(thread)">
 
                         <div style="display:flex;gap:3px ">
                             <div *ngFor="let t of thread.smile; index as sIndex" class="reactIcons"

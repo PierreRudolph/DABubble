@@ -51,9 +51,12 @@
     margin: 10px 0px;
 
     img {
+        object-fit: cover;
         width: 50px;
+        height: 50px;
         margin-left: 15px;
         margin-right: 10px;
+        border-radius: 50%;
     }
 
     span {
@@ -88,7 +91,7 @@
     background-color: #92C83E;
 }
 
-@media (max-width:471px) {
+@media (max-width:830px) {
     .dialogDiv {
         width: auto;
         padding: 20px 16px;
