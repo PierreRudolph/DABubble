@@ -32,7 +32,7 @@ export class SideMenuThreadComponent {
   public openChat: boolean;
   public addresses = false;
 
-  showEmojisUpper: boolean | undefined;
+  showEmojisUpper: boolean | undefined = false;
   showEmojisLower: boolean | undefined;
   showEmojisTA: boolean | undefined;
   showEmojisTAEdit:boolean|undefined;
@@ -182,7 +182,7 @@ export class SideMenuThreadComponent {
   }
 
   showSmile(aIndex:number){
-    return this.editA &&(aIndex == this.editAIndex);
+    return this.smileEdit &&(aIndex == this.editAIndex);
   }
 
     /**
@@ -194,14 +194,16 @@ export class SideMenuThreadComponent {
       return m.iD == this.user.idDB;
     }
 
-
-  saveEdit(){
-    this.editA = false;
+/**
+ * Saves the edited answer
+ */
+  saveEdit(){ 
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;     
-    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
-    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer);
+    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadEdit;
+    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadEdit);
+    this.editA = false;
   }
 
     /** * 
@@ -210,7 +212,7 @@ export class SideMenuThreadComponent {
     saveEmojiEdit(e: { emoji: { unified: string; }; }) {
       let unicodeCode: string = e.emoji.unified;
       let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-      this.textThreadAnswer += emoji;
+      this.textThreadEdit += emoji;
       this.smileEdit = !this.smileEdit;
     }
 
@@ -221,8 +223,12 @@ export class SideMenuThreadComponent {
    */
   openAnswerEditMode(ans: any, index: number) {
     this.editA = true;
-    this.textThreadAnswer = ans.message;
+    this.textThreadEdit = ans.message;
     this.editAIndex = index;
+  }
+
+  showEdit(aIndex){
+    return this.editA &&(this.editAIndex == aIndex);
   }
 
   closeEdit(){
