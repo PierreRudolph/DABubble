@@ -35,6 +35,7 @@ export class ChannelWindowComponent {
   @Input() screenWidth: number;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
+  @Output() isOpen = new EventEmitter<boolean>();
   public smileHelper: SmileHelper = new SmileHelper();
   private dialogPosTop: string = '215px';
   private editChanPosLeft: string = '445px';
@@ -43,6 +44,11 @@ export class ChannelWindowComponent {
   private dialogClasses: Array<string> = ['dialogBorToLeNone'];
   public openEditDialog: boolean = false;
   public addresses = false;
+  private text: string = "";
+
+  @Output() callOpenTalk = new EventEmitter<User>();
+  @Output() areaTextPrivate = new EventEmitter<string>();
+
 
   constructor(public dialog: MatDialog) {
     console.log("threadlist channel", this.threadList);
@@ -550,9 +556,17 @@ export class ChannelWindowComponent {
     const dialogRef = this.dialog.open(UserProfileComponent);
     dialogRef.componentInstance.user = new User(user.toJSON());
     dialogRef.componentInstance.ref = dialogRef;
-    dialogRef.afterClosed().subscribe(result => {
-
+    dialogRef.afterClosed().subscribe(user => {
+      if (user) {
+        this.callOpenT(user);
+      }
     });
+  }
+
+  callOpenT(u: User) {
+    this.callOpenTalk.emit(u);
+    this.isOpen.emit(false);
+    this.areaTextPrivate.emit(this.text);
   }
 
   mobileScreenWidth() {
