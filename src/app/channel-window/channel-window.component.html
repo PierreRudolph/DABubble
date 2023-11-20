@@ -14,9 +14,9 @@
                 src="{{getIconPathQuestionUser(m.memberID)}}">
             <span>{{this.threadList[number].channel.members.length}}</span>
         </div>
-        <img *ngIf="screenWidth>471" class="add-people" (click)="openAddPeopleDialog()"
+        <img *ngIf="!mobileScreenWidth()" class="add-people" (click)="openAddPeopleDialog()"
             [class.hoverStyleAddPeople]="addPeopleOpen" src="assets/icons/add-people.svg" mat-button>
-        <img *ngIf="screenWidth<=471" class="add-people" (click)="openChannelMembersDialog()"
+        <img *ngIf="mobileScreenWidth()" class="add-people" (click)="openChannelMembersDialog()"
             src="assets/icons/add-people.svg" mat-button>
     </div>
 </div>

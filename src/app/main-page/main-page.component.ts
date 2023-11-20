@@ -105,20 +105,20 @@ export class MainPageComponent {
         }
         else { this.userList.push(u); }
       });
-       if(google){
+      if (google) {
         this.createGoogleUser(this.userUid);
-       }
+      }
     });
   }
 
-  createGoogleUser(userUid:string){   
+  createGoogleUser(userUid: string) {
     this.user = new User();
-    this.user.uid= userUid;
+    this.user.uid = userUid;
     this.user.name = this.userAuth._delegate.displayName;
-    this.user.email=this.userAuth._delegate.email;
-    this.user.iconPath="assets/img/Google.svg";
-    this.user.status="aktiv";
-    console.log("googleName",this.user.name ) ;
+    this.user.email = this.userAuth._delegate.email;
+    this.user.iconPath = "assets/img/Google.svg";
+    this.user.status = "aktiv";
+    console.log("googleName", this.user.name);
     this.chathelper.addUser(this.user.toJSON());
 
   }
@@ -329,11 +329,11 @@ export class MainPageComponent {
   }
 
   setMobileView() {
-    return !(this.screenWidth < 471 && !this.sideMenuHidden);
+    return !(this.screenWidth < 830 && !this.sideMenuHidden);
   }
 
   hideMainContentDivOnMobile() {
-    if (this.screenWidth < 471) {
+    if (this.screenWidth < 830) {
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
 

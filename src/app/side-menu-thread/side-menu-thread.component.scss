@@ -33,7 +33,6 @@
     padding: 37px 36px;
     box-sizing: border-box;
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
-
 }
 
 .sidenav-headline {
@@ -95,16 +94,13 @@
     padding-bottom: 25px;
     margin-top: 25px;
     transition: all 100ms ease-out;
+    gap: 15px;
 
     &:hover {
         background-color: #eceefe;
 
         .message {
             background-color: white;
-        }
-
-        .message-right {
-            background-color: #444df2;
         }
 
         .add-reaction {
@@ -119,20 +115,26 @@
     width: 70px;
     height: 70px;
     object-fit: cover;
-    padding-right: 15px;
+    border-radius: 50%;
 }
 
 .message-div-right {
     flex-direction: row-reverse;
 
+    &:hover {
+        .message-right {
+            background-color: #797EF3;
+        }
 
-    img {
-        padding-right: 0px;
-        // padding-left: 15px;
+        .add-reaction-right {
+            right: unset;
+            left: 40px;
+        }
     }
 }
 
 .message-inner-div {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -152,7 +154,6 @@
 
 .mes-name-clock-right {
     flex-direction: row-reverse;
-
 }
 
 .mes-name {
@@ -177,7 +178,7 @@
 
 .message-right {
     color: white;
-    background-color: #444df2;
+    background-color: #797EF3;
     border-top-right-radius: 0px;
     border-top-left-radius: 20px;
 }
@@ -192,7 +193,7 @@
     cursor: pointer;
     position: relative;
     border-radius: 20px;
-    padding: 5px 10px;
+    padding: 0px 10px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -229,8 +230,8 @@
     align-items: center;
     position: absolute;
     width: max-content;
-    right: -160px;
-    top: -109px;
+    right: 0px;
+    top: -122px;
     flex-direction: column;
     background-color: #444df2;
     border-radius: 30px;
@@ -260,6 +261,14 @@
     }
 }
 
+.reactIconsDiv {
+    display: flex;
+    gap: 3px;
+    max-width: 230px;
+    align-items: center;
+    overflow-y: auto;
+}
+
 .add-reaction {
     display: flex;
     align-items: center;
@@ -283,6 +292,11 @@
     }
 }
 
+.add-reaction-right {
+    right: unset;
+    left: 0px;
+}
+
 .menu {
     width: 40px !important;
     height: 40px !important;
@@ -301,7 +315,6 @@
     &:hover {
         content: url('/assets/icons/add-reaction-hover.svg');
     }
-
 }
 
 .answer-counter-div {
@@ -374,7 +387,6 @@
     height: 150px;
     box-sizing: border-box;
 
-
     &:focus {
         outline: none;
     }
@@ -387,7 +399,6 @@
         font-weight: 400;
         line-height: normal;
     }
-
 }
 
 .sendArrow {
@@ -397,15 +408,24 @@
     cursor: pointer;
 }
 
-.emojiDiv {
+.emojiDivUpper {
     position: absolute;
     z-index: 3;
-    bottom: -200px;
-    left: 15px;
+    bottom: -230px;
+    right: 0px;
     height: 229px;
     overflow: auto;
-    width: 376px;
     border: 1px solid lightgray;
+}
+
+.emojiDivUpperRight {
+    right: 240px;
+}
+
+.emojiDivLower {
+    bottom: -200px;
+    left: 15px;
+    right: unset;
 }
 
 .emojiDivTA {
@@ -414,10 +434,26 @@
 }
 
 .reactIcons {
-    padding: 3px 10px 3px 10px;
+    margin: 4px 0px;
+    padding: 3px 5px;
     border: 1px solid #7e83f5;
     border-radius: 20px;
     cursor: pointer;
+    display: flex;
+    gap: 3px;
+}
+
+.reactIconInTooltipDiv {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.reactIconInTooltip {
+    margin-bottom: 20px;
+    margin-top: 10px;
+    scale: 2.5;
 }
 
 .lila {
@@ -428,7 +464,7 @@
     left: 15px;
 }
 
-@media (max-width:471px) {
+@media (max-width:830px) {
     .threadOuterDiv {
         width: 100vw;
     }

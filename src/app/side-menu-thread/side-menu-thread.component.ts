@@ -32,7 +32,8 @@ export class SideMenuThreadComponent {
   public openChat: boolean;
   public addresses = false;
 
-  showEmojis: boolean | undefined;
+  showEmojisUpper: boolean | undefined;
+  showEmojisLower: boolean | undefined;
   showEmojisTA: boolean | undefined;
   emojiText: string = "";
 
@@ -40,6 +41,8 @@ export class SideMenuThreadComponent {
   sideMenuThreadDiv: any;
   @ViewChild('drawer')
   drawer!: MatDrawer;
+  // openEditDialog: boolean;
+  // textEdit: any;
 
   constructor(public dialog: MatDialog) {
     setTimeout(() => {
@@ -221,12 +224,17 @@ export class SideMenuThreadComponent {
     }
     this.setAnswerData(this.answerIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
-    this.toggleEmojisDialog(this.answerIndex);
+    this.toggleEmojisUpperDialog(this.answerIndex);
 
   }
 
-  toggleEmojisDialog(aIndex: number) {
-    this.showEmojis = !this.showEmojis;
+  toggleEmojisUpperDialog(aIndex: number) {
+    this.showEmojisUpper = !this.showEmojisUpper;
+    this.answerIndex = aIndex;
+  }
+
+  toggleEmojisLowerDialog(aIndex: number) {
+    this.showEmojisLower = !this.showEmojisLower;
     this.answerIndex = aIndex;
   }
 
@@ -238,12 +246,22 @@ export class SideMenuThreadComponent {
   }
 
   /**
+     * 
+     * @param aIndex index of the answer where the emoji popUp shell be blend in
+     * @returns 
+     */
+  showEmojiUpper(aIndex: number) {
+    return (this.answerIndex === aIndex) && this.showEmojisUpper;
+  }
+
+
+  /**
    * 
    * @param aIndex index of the answer where the emoji popUp shell be blend in
    * @returns 
    */
-  showEmoji(aIndex: number) {
-    return (this.answerIndex === aIndex) && this.showEmojis;
+  showEmojiLower(aIndex: number) {
+    return (this.answerIndex === aIndex) && this.showEmojisLower;
   }
 
   /**
@@ -319,4 +337,20 @@ export class SideMenuThreadComponent {
     });
   }
 
+  // /**
+  //    * Blend in the popUp containing "Nachricht bearbeiten"
+  //    */
+  // openEditPopUp() {
+  //   this.openEditDialog = !this.openEditDialog;
+  // }
+
+
+  // /**    
+  //    * @param m JSON of data of a Channel-Message
+  //    */
+  // openEditWindow(m: any) {
+  //   this.openEditDialog = !this.openEditDialog;
+  //   m.edit = true;
+  //   this.textEdit = m.message;
+  // }
 }

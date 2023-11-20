@@ -209,8 +209,6 @@
     align-items: flex-start;
     box-sizing: border-box;
     transition: all 225ms ease-in-out;
-    // padding-right: 40px;
-    // padding-left: 40px;
     padding-top: 10px;
     padding-bottom: 25px;
     margin-top: 25px;
@@ -221,23 +219,6 @@
     width: 70px;
     height: 70px;
     padding-right: 15px;
-}
-
-.messageInnerDivRight {
-    flex-direction: row-reverse;
-    transition: all 100ms ease-out;
-
-    .message {
-        background-color: #444df2 !important;
-        color: white;
-        border-radius: 30px;
-        border-top-right-radius: 0px;
-        transition: all 100ms ease-out;
-    }
-
-    &:hover {
-        background-color: #444df2;
-    }
 }
 
 .popUpFlipContainer {
@@ -252,8 +233,6 @@
     }
 
 }
-
-
 
 .popUpMessageContainer {
     position: absolute;
@@ -317,7 +296,6 @@
 }
 
 .message-inner-div {
-    // flex-direction: column;
     position: relative;
     align-items: flex-start;
     display: flex;
@@ -338,7 +316,7 @@
         }
 
         .message-right {
-            background-color: #444df2;
+            background-color: #797EF3;
         }
 
         .popUpMessageContainer {
@@ -349,8 +327,23 @@
     }
 }
 
-.message-inner-div-right {
-    align-items: flex-end;
+.messageInnerDivRight {
+    flex-direction: row-reverse;
+    transition: all 100ms ease-out;
+
+    .message {
+        background-color: #797EF3;
+        color: white;
+        border-radius: 30px;
+        border-top-right-radius: 0px;
+        transition: all 100ms ease-out;
+    }
+
+    &:hover {
+        .message {
+            background-color: #797EF3;
+        }
+    }
 }
 
 .messageContent {
@@ -633,7 +626,7 @@
     }
 }
 
-@media (max-width:471px) {
+@media (max-width:830px) {
 
     .channel-header {
         border-radius: 0px;

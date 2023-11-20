@@ -368,7 +368,7 @@ export class ChannelWindowComponent {
   //Bitte kommentieren
   setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    if (this.screenWidth < 471) {
+    if (this.mobileScreenWidth) {
       dialogRef.addPanelClass('maxWidth100');
       return;
     }
@@ -488,7 +488,7 @@ export class ChannelWindowComponent {
    */
   setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    if (this.screenWidth < 471)
+    if (this.mobileScreenWidth())
       return;
     dialogRef.updatePosition({ right: this.membersDialogPosRight, top: '190px' });
   }
@@ -552,5 +552,9 @@ export class ChannelWindowComponent {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+
+  mobileScreenWidth() {
+    return this.screenWidth < 830;
   }
 }

@@ -391,11 +391,23 @@ app-impressum {
     }
 }
 
+// Warum geändert?
+// .linkedUserName {
+//     cursor: pointer;
+//     background-color: #1c1f5f;
+//     color: white;
+//     padding: 2px 8px;
+
+//     &:hover {
+//         background-color: rgba(68, 77, 242, 0.14);
+//         border-radius: 20px;
+//         padding: 2px 8px;
+//     }
+// }
 
 .linkedUserName {
     cursor: pointer;
-    background-color: #1c1f5f;
-    color: white;
+    color: #444df2;
     padding: 2px 8px;
 
     &:hover {

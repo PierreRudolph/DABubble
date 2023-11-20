@@ -52,11 +52,11 @@ export class HeaderComponent {
   }
 
   searchChannelNames(text: string) {
-    this.threadTitleDec = this.chathelper.searchChannelNames(text,this.threadList);
+    this.threadTitleDec = this.chathelper.searchChannelNames(text, this.threadList);
   }
 
-  searchPrivateMess(text: string) {    
-    this.talkMessages =  this.chathelper.searchPrivateMess(text, this.talkList);
+  searchPrivateMess(text: string) {
+    this.talkMessages = this.chathelper.searchPrivateMess(text, this.talkList);
   }
 
   getOtherUser(info: any) {
@@ -89,8 +89,8 @@ export class HeaderComponent {
   }
 
 
-  searchChannelMessages(text: string) {   
-    this.threadMessages = this.chathelper.searchChannelMessages(text,this.threadList);
+  searchChannelMessages(text: string) {
+    this.threadMessages = this.chathelper.searchChannelMessages(text, this.threadList);
   }
 
   getdate(info: any) {
@@ -99,10 +99,10 @@ export class HeaderComponent {
 
   getdateTalk(info: any) {
     return this.talkList[info.num].communikation[info.cIndex].date;
-  } 
+  }
 
-  searchProfiles(text: string) {    
-    this.userInfos = this.chathelper.searchProfiles(text,this.userList,this.user);
+  searchProfiles(text: string) {
+    this.userInfos = this.chathelper.searchProfiles(text, this.userList, this.user);
   }
 
   emitToggleSideMenu() {
@@ -111,11 +111,11 @@ export class HeaderComponent {
   }
 
   showNormalHeader() {
-  
-    return (this.screenWidth < 471 && !this.sideMenuHidden) || this.screenWidth > 471
+
+    return (this.screenWidth < 830 && !this.sideMenuHidden) || this.screenWidth > 830
   }
 
   showMobileHeader() {
-    return this.screenWidth < 471 && this.sideMenuHidden;
+    return this.screenWidth < 830 && this.sideMenuHidden;
   }
 }
