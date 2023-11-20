@@ -66,22 +66,27 @@
                                 </span>
                             </diV>
 
-                            <!-- <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
-                            [class.popUpFlipContainer]="getFlip(thread)">
+
+
+                            <div [class.dNone]="!showEdit(aIndex)" style="width:100%; display: flex;flex-direction: column;"
+                            [class.popUpFlipContainer]="getFlip(answ)">
                             <div style="position:relative">
                                 <div style="position:relative"> <textarea class="textAreaDirekt"
-                                        [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                                    <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit"
+                                        [(ngModel)]="textThreadEdit">{{answ.message}}  </textarea>
+                                    <img (click)="toggleEmojisDialogEdit(aIndex)" class="smileEdit"
                                         src="assets/img/smiley-icon.svg">
                                 </div>
-                                <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
+                                <emoji-mart class="emoji-div-Edit"  *ngIf="showSmile(aIndex)" title="Pick your emoji…"
                                     (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
                             </div>
     
                             <div class="editButtonContainer">
-                                <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
-                                <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
-                            </div>  -->
+                                <button class="btn buttonLight" (click)="closeEdit()">Abbrechen</button>
+                                <button class="btn butttonBlue" (click)="saveEdit()">Speichern</button>
+                            </div> 
+                            </div>
+
+
 
                             <diV class="reactions">
                                 <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">

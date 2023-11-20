@@ -309,8 +309,7 @@ searchChannelNames(text: string,threadList:any[]) {
       }
       output.push({ "name": t.channel.name, "index": i, "decription": des });
     }
-  });
-  console.log("output", output);
+  }); 
   let threadTitleDec = output;
   return threadTitleDec
 }
@@ -326,7 +325,7 @@ makeSubstring(s: string, len: number) {
 /**
  * 
  * @param text Searchtext
- * @param talkList  List of all private talkks of the logged in User
+ * @param talkList  List of all private talks of the logged in User
  * @returns         List of all private Messages that contain the text
  */
 searchPrivateMess(text: string, talkList:any[]) {
@@ -384,8 +383,7 @@ searchChannelMessages(text: string,threadList :any[]) {
 
     });
     cIndex = -1;
-  });
-  // console.log("output", output);
+  });  
   let threadMessages = output;
   return threadMessages;
 }
@@ -409,8 +407,7 @@ searchProfiles(text: string,userList:any[],user:User) {
   });
   if (user.name.toLowerCase().includes(searchText) || user.email.toLowerCase().includes(searchText)) {
     output.push(user);
-  }
-  // console.log("output", output);
+  } 
   let userInfos = output;
   return userInfos;
 }
