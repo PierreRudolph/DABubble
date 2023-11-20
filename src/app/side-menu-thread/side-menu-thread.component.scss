@@ -386,18 +386,18 @@
     width: 100%;
     height: 150px;
     box-sizing: border-box;
+    font-family: Nunito;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
 
     &:focus {
         outline: none;
     }
 
     &::placeholder {
-        color: var(--Text-gray, #686868);
-        font-family: Nunito;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: normal;
+        color: var(--Text-gray, #686868);       
     }
 }
 
