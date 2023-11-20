@@ -9,9 +9,16 @@ import { User } from 'src/moduls/user.class';
 export class UserProfileComponent {
 
   public user: User = new User();
-  public ref:any;
+  public ref: any;
 
-  closeDialog(){
+  closeDialog() {
     this.ref.close();
   }
+
+  // setNewMessage() {
+  //   this.newMessage = !this.newMessage;
+  //   console.log("value", this.newMessage);
+  //   this.isOpen.emit(this.newMessage);
+
+  // }
 }
