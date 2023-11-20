@@ -2,7 +2,7 @@ import { Component, Input, inject } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
-import { Firestore, addDoc, collection, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore } from '@angular/fire/firestore';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 
 
@@ -64,38 +64,6 @@ export class CreateAccountAvatarComponent {
       this.router.navigateByUrl('/login');
     }, 2500);
   }
-
-//   /**
-//    * Stores the given User in the Database
-//    * @param item JSON that contains the userinformations
-//    */
-//   async addUser(item: {}) {
-//     await addDoc(this.userRef(), item).catch(
-//       (err) => { console.error(err) }).then(
-//         (docRef) => {
-//           if (docRef) {
-//             this.idDoc = docRef.id;
-//             this.updateGame(this.idDoc);
-//           }
-//         });
-//   }
-
-//   getSingleUserRef(docId: string) {
-//     return doc(this.firestore, 'user', docId);
-//   }
-
-// /** * 
-//  * @param id Database id of the user is stored within the userinformations.
-//  */
-//   async updateGame(id: string) {
-//     let docRef = this.getSingleUserRef(id)
-//     await updateDoc(docRef, { "idDB": id }).catch(
-//       (err) => { console.log(err); });
-//   }
-
-//   userRef() {
-//     return collection(this.firestore, 'user');
-//   }
 
 /**
  * Sets the selected iconpath.

@@ -100,10 +100,10 @@ export class MainPageComponent {
         let u = new User(elem.data())
         if (u.uid == this.userUid) {
           this.user = u;
-          this.user.status = "Aktive";
+          this.user.status = "aktiv";
           google = false;
-          console.log("userdats",this.user);
-          this.chathelper.updateDB(this.user.idDB,"user",this.user.toJSON())
+          console.log("userdats", this.user);
+          this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON())
         }
         else { this.userList.push(u); }
       });
@@ -272,9 +272,10 @@ export class MainPageComponent {
 
   }
 
-  setCurrentTalkId(id:string){
-    console.log("curren talk ist",id);
+  setCurrentTalkId(id: string) {
+    console.log("curren talk ist", id);
     this.currentTalkId = id;
+    this.currentTalkData.iD = id;
   }
 
   setThreadList(list: any) {
@@ -375,10 +376,10 @@ export class MainPageComponent {
     }
   }
 
-  unsubscribe(u:boolean){
-    this.unsub() ;
-    this.unsubtalk ();
+  unsubscribe(u: boolean) {
+    this.unsub();
+    this.unsubtalk();
     this.unsubChannel();
-}
+  }
 }
 

@@ -56,7 +56,7 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
-
+ setTimeout(()=>{console.log("here is the data",this.currentTalkData);},1000);
   }
 
   /**
@@ -351,7 +351,9 @@ export class PrivateMessageComponent {
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let talkId = this.currentTalkData.idDB;
+    // let talkId = this.currentTalkData.idDB;
+    let talkId = this.currentTalkId;
+    console.log("current talk",this.currentTalkData);
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -368,8 +370,10 @@ export class PrivateMessageComponent {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
     }
+    console.log("talkid",talkId);
     this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile = sm;
     this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
+    this.chatHelper.updateDB(talkId, 'talk', { "idDB": talkId });
     this.showEmojisComment = false;
   }
 
