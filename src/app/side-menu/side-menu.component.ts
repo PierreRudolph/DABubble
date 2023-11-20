@@ -85,7 +85,6 @@ export class SideMenuComponent {
     this.newMessage = !this.newMessage;
     console.log("value", this.newMessage);
     this.isOpen.emit(this.newMessage);
-
   }
 
   openTalk(u: User) {
