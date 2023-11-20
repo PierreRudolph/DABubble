@@ -8,7 +8,7 @@
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (isOpen)="setNewMessage($event)" (newItemEventChanel)="setChannelNumber($event)"
     (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList" [threadList]="threadList"
-    class="side-menu" [screenWidth]="this.screenWidth"></app-side-menu>
+    class="side-menu" [screenWidth]="this.screenWidth"  [talkList]="talkList"></app-side-menu>
 
   <div class="main-content-div" *ngIf="setMobileView()" #mainContentDiv>
 

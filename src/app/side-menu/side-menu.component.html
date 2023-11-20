@@ -7,10 +7,46 @@
                 <p class="workspace-name">Code learning</p>
                 <img class="edit-pencil" src="assets/icons/edit-pencil-square.svg" (click)="setNewMessage()">
             </div>
-            <div class="inputMobile">
-                <input placeholder="Gehe zu...">
+            <div class="inputMobile"  >
+                <input placeholder="Gehe zu..."  (ngModelChange)="searchKey($event)" [(ngModel)]="text" ngModel>
                 <img src="assets/icons/search.svg">
             </div>
+            <div class="searchMobile" *ngIf="showPop()">
+                <div *ngFor="let threadTitles of threadTitleDec" class="field" (click)="openChannel(threadTitles.index)"
+                style="display: flex;flex-direction: column;">
+                <span class="nunitoBlack"><img src="../../assets/icons/workspaces.svg">  {{threadTitles.name}}</span>
+                <span class="nunitoBlack fs14">{{threadTitles.decription}}...</span>
+            </div>
+            <div *ngFor="let uInfo of userInfos" class="field" (click)="openTalk(uInfo)">
+                <div style="display: flex; position: relative;gap:20px;">
+                    <img src="{{uInfo.iconPath}}">
+                    <span class="nunitoBlack"> {{uInfo.name}}</span>
+                </div>
+            </div>
+            <div *ngFor="let tMess of threadMessages" class="field" (click)="openChannel(tMess.num)">
+                <div style="display: flex; flex-direction: column; position: relative;gap:5px;">
+                    <span class="nunitoBlack">#{{tMess.chanName}}</span>
+                    <span class="nunitoBlack fs18">{{tMess.name}}</span>
+                    <span> {{chathelper.makeSubstring(tMess.message,20)}}.... </span>
+                    <span>{{tMess.time}} Uhr am {{getdate(tMess)}}</span>
+                </div>
+            </div>
+            <div *ngFor="let talkMess of talkMessages" class="field" (click)="openTalk(getOtherUser(talkMess))">
+                <div style="display: flex; flex-direction: column; position: relative;gap:5px;">
+                    <span class="nunitoBlack">{{talkMess.nameMem1}} & {{talkMess.nameMem2}}</span>
+                    <span> {{chathelper.makeSubstring(talkMess.message,20)}}.... </span>
+                    <span>{{talkMess.time}} Uhr am {{getdateTalk(talkMess)}}</span>
+                </div>
+            </div>
+
+
+
+            </div>
+
+
+
+
+
             <div class="accordion-outer-div">
                 <img (click)="openCreateChannelDialog()" class="add-icon" src="assets/icons/add.svg">
                 <mat-accordion multi>

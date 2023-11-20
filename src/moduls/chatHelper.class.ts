@@ -412,4 +412,29 @@ searchProfiles(text: string,userList:any[],user:User) {
   return userInfos;
 }
 
+/**
+ * 
+ * @param info JSON of all infos of the private Message
+ * @param userList List of all Users
+ * @param user     current User
+ * @returns       returns the other user of the private message
+ */
+getOtherUser(info: any,userList:any[],user:User) {
+  let otherUser = new User();
+  let m1 = info.member1DBid;
+  let m2 = info.member2DBid;
+  if (m1 == m2) { otherUser = user; }
+  else {
+    userList.forEach((ul) => {
+      if ((ul.idDB == m1 && user.idDB == m2) || ul.idDB == m2 && user.idDB == m1) {
+
+        otherUser = ul;
+      }
+    });
+
+  }
+  console.log("other user", otherUser);
+  return otherUser;
+}
+
 }
