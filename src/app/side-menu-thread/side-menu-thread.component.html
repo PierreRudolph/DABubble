@@ -60,7 +60,8 @@
                             <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
                                 <span *ngFor="let mes of answ.messageSplits" style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
-                                        class="linkedUserName">{{mes.text}}</span>
+                                        class="linkedUserName"
+                                        [class.linkedUserNameRight]="fromLoggedInUser(answ)">{{mes.text}}</span>
                                     <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
                                 </span>
                             </diV>
