@@ -100,8 +100,10 @@ export class MainPageComponent {
         let u = new User(elem.data())
         if (u.uid == this.userUid) {
           this.user = u;
-          this.user.status = "aktiv";
+          this.user.status = "Aktive";
           google = false;
+          console.log("userdats",this.user);
+          this.chathelper.updateDB(this.user.idDB,"user",this.user.toJSON())
         }
         else { this.userList.push(u); }
       });
