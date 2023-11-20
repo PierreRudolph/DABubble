@@ -18,17 +18,24 @@ export class SideMenuComponent {
   public loaded: boolean = false;
   public channelActive: number;
   private madeChannel: any;
-  private chathelper: ChatHepler = new ChatHepler();
+  public chathelper: ChatHepler = new ChatHepler();
   public newMessage = false;
   @Input() user: User = new User();
   @Input() userList = [this.user];
-  @Input() threadList = [{ "channel": { "name": "channelname" } }]// [this.chathelper.createEmptyThread()];
+  @Input() talkList: any = [this.chathelper.createEmptyTalk()];
+  @Input() threadList = [this.chathelper.createEmptyThread()];
   @Input() screenWidth: number;
   @Output() isOpen = new EventEmitter<boolean>();
   @Output() newItemEventMenuHidden = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEventChanel = new EventEmitter<any>();
   @Output() newItemEvent = new EventEmitter<boolean>();
+
+  public threadTitleDec: any[] = [];
+  public threadMessages: any[] = [];
+  public talkMessages: any[] = [];
+  public userInfos: any[] = [];
+  public text="";
 
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
@@ -96,6 +103,15 @@ export class SideMenuComponent {
     this.addNewItem(u);
   }
 
+  getdate(info: any) {
+    return this.threadList[info.num].communikation[info.cIndex].date;
+  }
+
+  getdateTalk(info: any) {
+    return this.talkList[info.num].communikation[info.cIndex].date;
+  }
+
+
   openCreateChannelDialog() {
     // this.dialog.open(CreateChannelDialogComponent);
     // this.dialog.componentInstance();
@@ -151,5 +167,38 @@ export class SideMenuComponent {
         this.drawer.toggle();
       } else { }
   }
+
+  searchKey(text: string) {
+    this.text = text;
+    this.searchChannelNames(this.text);
+    this.searchProfiles(this.text);
+    this.searchChannelMessages(this.text);
+    this.searchPrivateMess(this.text);
+  }
+
+  searchChannelNames(text: string) {
+    this.threadTitleDec = this.chathelper.searchChannelNames(text, this.threadList);
+  }
+
+  searchPrivateMess(text: string) {
+    this.talkMessages = this.chathelper.searchPrivateMess(text, this.talkList);
+  }
+
+  searchProfiles(text: string) {
+    this.userInfos = this.chathelper.searchProfiles(text, this.userList, this.user);
+  }
+
+  searchChannelMessages(text: string) {
+    this.threadMessages = this.chathelper.searchChannelMessages(text, this.threadList);
+  } 
+
+  showPop() {
+    return this.text != "";
+  }
+
+  getOtherUser(info: any) {    
+    return this.chathelper.getOtherUser(info,this.userList,this.user);
+  }
+
 }
 

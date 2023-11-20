@@ -13,7 +13,7 @@ export class HeaderComponent {
   @Input() userList: any;
   public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
-  @Input() talkList: any = [this.chathelper.createNewTalk]
+  @Input() talkList: any = [this.chathelper.createEmptyTalk()]
   @Input() screenWidth: any;
   @Input() sideMenuHidden: boolean;
   private searchText: string = "";
@@ -59,22 +59,8 @@ export class HeaderComponent {
     this.talkMessages = this.chathelper.searchPrivateMess(text, this.talkList);
   }
 
-  getOtherUser(info: any) {
-    let otherUser = new User();
-    let m1 = info.member1DBid;
-    let m2 = info.member2DBid;
-    if (m1 == m2) { otherUser = this.user; }
-    else {
-      this.userList.forEach((ul) => {
-        if ((ul.idDB == m1 && this.user.idDB == m2) || ul.idDB == m2 && this.user.idDB == m1) {
-
-          otherUser = ul;
-        }
-      });
-
-    }
-    console.log("other user", otherUser);
-    return otherUser;
+  getOtherUser(info: any) {  
+    return this.chathelper.getOtherUser(info,this.userList,this.user);
   }
 
 
