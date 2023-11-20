@@ -1,4 +1,4 @@
-<div class="profileContainer">   
+<div class="profileContainer">
     <div *ngIf="!edit" class="profileDialog ">
         <div class="firstLine">
             <div class="nunitoBlack fs24">Profil</div>
@@ -9,14 +9,14 @@
         </div>
         <div class="firstLine">
             <div class="nunitoBlack fs32">{{user.name}}</div>
-            <a class="edit" (click)="editData()">bearbeiten</a>
+            <a class="edit" (click)="editData()">Bearbeiten</a>
         </div>
         <div class="styleState">
             <div class="dot"></div>
             <div class="state">{{user.status}}</div>
         </div>
         <div class="styleMail">
-            <img src="assets/img/mailBlack.svg">
+            <img src="assets/img/mail.svg">
             <div>
                 <div class="nunitoBlack fs20">E-Mail-Adresse</div>
                 <div class="userMail">{{user.email}}</div>
@@ -31,24 +31,25 @@
         <div>
             <img class="imgProfile" src="{{user.iconPath}}">
         </div>
-        <div class="inputContainer" [formGroup]="registerForm" >
+        <div class="inputContainer" [formGroup]="registerForm">
             <div class="editLabel">
                 <img src="assets/img/accountNameIcon.svg">
                 <div class="nunitoBlack fs20">vollständiger Name</div>
             </div>
-            <div class="editInput"><input formControlName="name" class="editInputField" placeholder="{{user.name}}" ></div>
+            <div class="editInput"><input formControlName="name" class="editInputField" placeholder="{{user.name}}">
+            </div>
             <div class="editLabel">
-                <img src="assets/img/mailBlack.svg">
+                <img src="assets/img/mail.svg">
                 <div class="nunitoBlack fs20">E-Mail-Adresse</div>
             </div>
-            <div class="editInput" ><input formControlName="email" class="editInputField" placeholder="{{user.email}}" >
+            <div class="editInput"><input formControlName="email" class="editInputField" placeholder="{{user.email}}">
             </div>
         </div>
         <div class="buttonContainer">
             <button (click)="closeDialog()" class="btn cancel ">Abbrechen</button>
             <button class="btn weiter" (click)="save()">Speichern</button>
         </div>
-       
+
     </div>
 </div>
-<div  class="dialogGrey" ></div>
+<div class="dialogGrey"></div>

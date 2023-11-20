@@ -219,28 +219,22 @@
     width: 70px;
     height: 70px;
     padding-right: 15px;
-}
-
-.popUpFlipContainer {
-    display: flex;
-    justify-content: flex-end;
-    right: unset;
-    left: 40px;
-
-    .flipCorner {
-        border-radius: 25px !important;
-        border-bottom-right-radius: 0 !important;
-    }
-
+    border-radius: 50%;
 }
 
 .popUpMessageContainer {
     position: absolute;
-    right: 80px;
-    top: 10px;
+    right: 0px;
+    top: -21px;
     opacity: 0;
     pointer-events: none;
     transition: all 100ms ease-out;
+}
+
+.popUpFlipContainer {
+
+    right: unset;
+    left: 0px;
 }
 
 .unHover {
@@ -286,7 +280,7 @@
     display: flex;
     gap: 5px;
     border-radius: 25px;
-    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
     border: solid 1px #ADB0D9;
     padding: 3px 20px 3px 20px;
     width: fit-content;
@@ -324,24 +318,9 @@
             right: 40px;
             opacity: 1;
         }
-    }
-}
 
-.messageInnerDivRight {
-    flex-direction: row-reverse;
-    transition: all 100ms ease-out;
-
-    .message {
-        background-color: #797EF3;
-        color: white;
-        border-radius: 30px;
-        border-top-right-radius: 0px;
-        transition: all 100ms ease-out;
-    }
-
-    &:hover {
-        .message {
-            background-color: #797EF3;
+        .popUpFlipContainer {
+            left: 40px;
         }
     }
 }
@@ -361,20 +340,19 @@
     }
 }
 
-.mes-name-clock-right {
-    flex-direction: row-reverse;
-
-}
-
 .mes-name {
     padding-right: 10px;
     font-size: 18px;
     font-weight: 700;
 }
 
-.mes-name-right {
-    padding-right: 0px;
-    padding-left: 10px;
+.messageRight {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.rowReverse {
+    flex-direction: row-reverse;
 }
 
 .editButtonContainer {
@@ -401,13 +379,6 @@
     border-radius: 20px;
     border-top-left-radius: 0px;
     width: fit-content;
-}
-
-.message-right {
-    color: white;
-    background-color: #444df2;
-    border-top-right-radius: 0px;
-    border-top-left-radius: 20px;
 }
 
 .reactions {

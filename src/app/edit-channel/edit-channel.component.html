@@ -56,7 +56,7 @@
         <span class="channel-creater-name"> {{channel.creator}}</span>
     </div>
 
-    <div class="dialogDiv" *ngIf="screenWidth<471">
+    <div class="dialogDiv" *ngIf="mobileScreenWidth()">
         <div class="dialogHeader">
             <span class="nunito fs24 wei700">Mitglieder</span>
             <img mat-dialog-close src="assets/img/close.svg">

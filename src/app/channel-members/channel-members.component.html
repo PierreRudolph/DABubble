@@ -13,7 +13,7 @@
             <span>{{user.name}} (Du)</span>
         </div>
 
-        <div *ngFor="let u of channel.members" class="contactDiv" >
+        <div *ngFor="let u of channel.members" class="contactDiv">
             <div style="position: relative;" *ngIf="!isMe(u)">
                 <img src="{{getIcon(u.memberID)}}">
                 <div [class.greenDot]="getAktive(u)" class="stateDot"></div>
