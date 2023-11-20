@@ -53,7 +53,7 @@ export class MainDialogProfilComponent {
   }
 
   async logOut() {
-    this.user.status = "inaktiv";
+    this.user.status = "Inaktiv";
     console.log("log out user data", this.user.idDB);
     await this.updateUser(this.user.idDB);
     let user = this.authService.getAuthServiceUser();

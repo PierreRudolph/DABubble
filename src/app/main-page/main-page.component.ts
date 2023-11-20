@@ -134,6 +134,7 @@ export class MainPageComponent {
     let ref = collection(this.firestore, 'talk');
     this.talkList = [];
     return onSnapshot(ref, (list) => {
+      console.log("id of the talk is", this.currentTalkId);
       list.forEach(elem => {
         if (elem.id == this.currentTalkId) {
           this.currentTalkData = elem.data();
@@ -269,6 +270,11 @@ export class MainPageComponent {
       this.child.setOtherUser(user);
     }, 750);
 
+  }
+
+  setCurrentTalkId(id:string){
+    console.log("curren talk ist",id);
+    this.currentTalkId = id;
   }
 
   setThreadList(list: any) {

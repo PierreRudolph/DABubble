@@ -31,7 +31,7 @@ export class PrivateMessageComponent {
   @Input() _setUser: boolean = false;
   private currentTalkId: string = "";
   @Input() talkList: any = [this.chatHepler.createEmptyTalk()];
-  public currentTalkData: any = this.chatHepler.createEmptyTalk();
+  @Input()  currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
   public textEdit: string = "";
   public exist = false;
@@ -51,6 +51,7 @@ export class PrivateMessageComponent {
   // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
   @Output() newItemEventTalkList = new EventEmitter<any>();
+  @Output() sendCurrentTalkId = new EventEmitter<string>();
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
@@ -183,13 +184,17 @@ export class PrivateMessageComponent {
     let talkOther = {//the id of the talk is saved in a List of the other user
       "talkID": this.currentTalkId,
       "oUDbID": this.user.idDB
-    }// other user database id
-    let uT = this.user.talkID;  //user talkliste         
-    let oT = this.otherChatUser.talkID;  //other talklist
-    uT.push(talkUser);
-    oT.push(talkOther);
-    this.chatHepler.updateDB(this.user.idDB, "user", { "talkID": uT });
-    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
+    }// other user database id 
+    this.user.talkID.push(talkUser);  //user talkliste         
+    this.otherChatUser.talkID.push(talkOther);  //other talklist
+    // console.log("other user ",this.otherChatUser);
+    // console.log("this user ",this.user);
+    // console.log("current",this.currentTalkId);
+    this.sendCurrentTalkId.emit(this.currentTalkId);
+    this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
+    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
+    // this.chatHepler.updateDB(this.user.idDB, "user", { "talkID": uT });
+    // this.chatHepler.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
   }
 
 
@@ -208,6 +213,7 @@ export class PrivateMessageComponent {
     }, 2000);
     t.idDB = this.currentTalkId;
     this.currentTalkData = t;
+    this.sendCurrentTalkId.emit(this.currentTalkId);
     // console.log("communikation Talk", this.currentTalkData);
     return t;
   }
@@ -234,8 +240,11 @@ export class PrivateMessageComponent {
       if (a.oUDbID === dbIDOther) {
         this.exist = true;
         talkId = a.talkID;
+        this.currentTalkId=talkId;
+        this.sendCurrentTalkId.emit(talkId);
       }
     });
+    
     this.openeningTalk(talkId);
   }
 
@@ -460,6 +469,10 @@ export class PrivateMessageComponent {
     dialogRef.afterClosed().subscribe(result => {
 
     });
+  }
+
+  giveCurrentData(){
+    console.log("talk:",this.currentTalkData);
   }
 
 }

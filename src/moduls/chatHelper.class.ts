@@ -68,7 +68,10 @@ export class ChatHepler {
 
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).then(
-      () => { console.log("update", id); }
+      () => {
+        console.log("update id   " + id + "  coll" + coll);
+        console.log("info",info);
+      }
     ).catch(
       (err) => { console.log(err); });
   }
@@ -175,36 +178,36 @@ export class ChatHepler {
   pushLinkedUsers(user: User, userList: any[], t: string) {
     let index = 0;
     let go = true;
-    let isPartList = [];   
+    let isPartList = [];
     let text = t;
     let add = 0;
-    let uList =[user];
-    userList.forEach((ul)=>{
+    let uList = [user];
+    userList.forEach((ul) => {
       uList.push(ul);
-    });   
+    });
     uList.forEach((u) => {
       go = true;
       while (go) {
         index = this.isPartOf(u.name, text);
-        if (index != -1) {         
+        if (index != -1) {
           let i = index + add;
-          let elem={
+          let elem = {
             "name": u.name,
             "index": i,
-          }        
-          isPartList.push(elem);         
+          }
+          isPartList.push(elem);
           text = text.substring(index + 1 + u.name.length);
-          add = t.length - text.length;         
+          add = t.length - text.length;
         } else {
           go = false;
-          text = t;        
+          text = t;
           add = 0;
         }
       }
-    });    
+    });
     return isPartList;
   }
- 
+
   /**
    * 
    * @param user User
@@ -253,11 +256,11 @@ export class ChatHepler {
    */
   isPartOf(name: string, text: string) {
     let part = '@' + name;
-    let index = text.indexOf(part);  
-    let sub = text.substring(index + part.length);   
+    let index = text.indexOf(part);
+    let sub = text.substring(index + part.length);
     let ret = -1;
     if ((sub.length > 0) && (index != -1)) {
-      let last = sub.charCodeAt(0);    
+      let last = sub.charCodeAt(0);
       if ((last < 65) || (last > 122)) {
         ret = index;
       }
@@ -268,173 +271,173 @@ export class ChatHepler {
     }
     return ret;
   }
- /**
-   * Stores the given User in the Database
-   * @param item JSON that contains the userinformations
-   */
- async addUser(item: {}) {
-  await addDoc(this.userRef(), item).catch(
-    (err) => { console.error(err) }).then(
-      (docRef) => {
-        if (docRef) {
-          let idDoc = docRef.id;
-          this.updateDB(idDoc,"user",{ "idDB": idDoc });
-        }
-      });
-}
-
-getSingleUserRef(docId: string) {
-  return doc(this.firestore, 'user', docId);
-}
-userRef() {
-  return collection(this.firestore, 'user');
-}
-
-/**
- * 
- * @param text Searchtext
- * @param threadList  List that contains the information from all Channels
- * @returns           List of all Channel that contain the text in the name or description
- */
-searchChannelNames(text: string,threadList:any[]) {
-  let output = [];
-  let searchText = text.toLowerCase();
-  let i = -1;
-  threadList.forEach((t) => {
-    i++;
-    if (t.channel.name.toLowerCase().includes(searchText) || t.channel.description.toLowerCase().includes(searchText)) {
-      let des = "";
-      if (t.channel.description.toLowerCase().includes(searchText)) {
-        des = this.makeSubstring(t.channel.description, 20)
-      }
-      output.push({ "name": t.channel.name, "index": i, "decription": des });
-    }
-  }); 
-  let threadTitleDec = output;
-  return threadTitleDec
-}
-
-makeSubstring(s: string, len: number) {
-  let l = s.length;
-  let min = Math.min(l, len);
-  let sub = s.substring(0, min);
-  // console.log("messageSub is", sub);
-  return sub;
-}
-
-/**
- * 
- * @param text Searchtext
- * @param talkList  List of all private talks of the logged in User
- * @returns         List of all private Messages that contain the text
- */
-searchPrivateMess(text: string, talkList:any[]) {
-  let output = [];
-  let searchText = text.toLowerCase();
-  let num = -1;
-  let cIndex = -1;
-  let mIndex = -1  
-  talkList.forEach((ch) => {
-    num++;
-    ch.communikation.forEach((com) => {
-      cIndex++;
-      com.messages.forEach((mes) => {
-        mIndex++;
-        if (mes.message.toLowerCase().includes(searchText)) {
-          output.push({
-            "nameMem1": ch.member1, "nameMem2": ch.member2,
-            "member1DBid": ch.member1DBid, "member2DBid": ch.member2DBid,
-            "num": num, "cIndex": cIndex,
-            "mIndex": mIndex, "message": mes.message, "time": mes.time
-          });
-        }
-      });
-      mIndex = -1;
-    });
-    cIndex = -1;
-  }); 
-  let talkMessages = output;
-  return talkMessages;
-}
-
-/**
- * 
- * @param text Searchtext
- * @param threadList  List that contains the information from all Channels
- * @returns           List of all threads that contain the given Text in the Messages
- */
-searchChannelMessages(text: string,threadList :any[]) {
-  let output = [];
-  let searchText = text.toLowerCase();
-  let num = -1;
-  let cIndex = -1;
-  let tIndex = -1
-  threadList.forEach((ch) => {
-    num++;
-    ch.communikation.forEach((com) => {
-      cIndex++;
-      com.threads.forEach((th) => {
-        tIndex++;
-        if (th.message.toLowerCase().includes(searchText)) {
-          output.push({ "chanName": ch.channel.name, "num": num, "cIndex": cIndex, "tIndex": tIndex, "name": th.name, "message": th.message, "time": th.time });
-        }
-      });
-      tIndex = -1;
-
-    });
-    cIndex = -1;
-  });  
-  let threadMessages = output;
-  return threadMessages;
-}
-
-/**
- * 
- * @param text Searchtext
- * @param userList List of all Users
- * @param user     logged in user
- * @returns        All serch result fom name and email
- */
-searchProfiles(text: string,userList:any[],user:User) {
-  let output = [];
-   let searchText = text.toLowerCase();
-  let i = -1;
-  userList.forEach((t) => {
-    i++;
-    if (t.name.toLowerCase().includes(searchText) || t.email.toLowerCase().includes(searchText)) {
-      output.push(t);
-    }
-  });
-  if (user.name.toLowerCase().includes(searchText) || user.email.toLowerCase().includes(searchText)) {
-    output.push(user);
-  } 
-  let userInfos = output;
-  return userInfos;
-}
-
-/**
- * 
- * @param info JSON of all infos of the private Message
- * @param userList List of all Users
- * @param user     current User
- * @returns       returns the other user of the private message
- */
-getOtherUser(info: any,userList:any[],user:User) {
-  let otherUser = new User();
-  let m1 = info.member1DBid;
-  let m2 = info.member2DBid;
-  if (m1 == m2) { otherUser = user; }
-  else {
-    userList.forEach((ul) => {
-      if ((ul.idDB == m1 && user.idDB == m2) || ul.idDB == m2 && user.idDB == m1) {
-
-        otherUser = ul;
-      }
-    });
-
+  /**
+    * Stores the given User in the Database
+    * @param item JSON that contains the userinformations
+    */
+  async addUser(item: {}) {
+    await addDoc(this.userRef(), item).catch(
+      (err) => { console.error(err) }).then(
+        (docRef) => {
+          if (docRef) {
+            let idDoc = docRef.id;
+            this.updateDB(idDoc, "user", { "idDB": idDoc });
+          }
+        });
   }
-  console.log("other user", otherUser);
-  return otherUser;
-}
+
+  getSingleUserRef(docId: string) {
+    return doc(this.firestore, 'user', docId);
+  }
+  userRef() {
+    return collection(this.firestore, 'user');
+  }
+
+  /**
+   * 
+   * @param text Searchtext
+   * @param threadList  List that contains the information from all Channels
+   * @returns           List of all Channel that contain the text in the name or description
+   */
+  searchChannelNames(text: string, threadList: any[]) {
+    let output = [];
+    let searchText = text.toLowerCase();
+    let i = -1;
+    threadList.forEach((t) => {
+      i++;
+      if (t.channel.name.toLowerCase().includes(searchText) || t.channel.description.toLowerCase().includes(searchText)) {
+        let des = "";
+        if (t.channel.description.toLowerCase().includes(searchText)) {
+          des = this.makeSubstring(t.channel.description, 20)
+        }
+        output.push({ "name": t.channel.name, "index": i, "decription": des });
+      }
+    });
+    let threadTitleDec = output;
+    return threadTitleDec
+  }
+
+  makeSubstring(s: string, len: number) {
+    let l = s.length;
+    let min = Math.min(l, len);
+    let sub = s.substring(0, min);
+    // console.log("messageSub is", sub);
+    return sub;
+  }
+
+  /**
+   * 
+   * @param text Searchtext
+   * @param talkList  List of all private talks of the logged in User
+   * @returns         List of all private Messages that contain the text
+   */
+  searchPrivateMess(text: string, talkList: any[]) {
+    let output = [];
+    let searchText = text.toLowerCase();
+    let num = -1;
+    let cIndex = -1;
+    let mIndex = -1
+    talkList.forEach((ch) => {
+      num++;
+      ch.communikation.forEach((com) => {
+        cIndex++;
+        com.messages.forEach((mes) => {
+          mIndex++;
+          if (mes.message.toLowerCase().includes(searchText)) {
+            output.push({
+              "nameMem1": ch.member1, "nameMem2": ch.member2,
+              "member1DBid": ch.member1DBid, "member2DBid": ch.member2DBid,
+              "num": num, "cIndex": cIndex,
+              "mIndex": mIndex, "message": mes.message, "time": mes.time
+            });
+          }
+        });
+        mIndex = -1;
+      });
+      cIndex = -1;
+    });
+    let talkMessages = output;
+    return talkMessages;
+  }
+
+  /**
+   * 
+   * @param text Searchtext
+   * @param threadList  List that contains the information from all Channels
+   * @returns           List of all threads that contain the given Text in the Messages
+   */
+  searchChannelMessages(text: string, threadList: any[]) {
+    let output = [];
+    let searchText = text.toLowerCase();
+    let num = -1;
+    let cIndex = -1;
+    let tIndex = -1
+    threadList.forEach((ch) => {
+      num++;
+      ch.communikation.forEach((com) => {
+        cIndex++;
+        com.threads.forEach((th) => {
+          tIndex++;
+          if (th.message.toLowerCase().includes(searchText)) {
+            output.push({ "chanName": ch.channel.name, "num": num, "cIndex": cIndex, "tIndex": tIndex, "name": th.name, "message": th.message, "time": th.time });
+          }
+        });
+        tIndex = -1;
+
+      });
+      cIndex = -1;
+    });
+    let threadMessages = output;
+    return threadMessages;
+  }
+
+  /**
+   * 
+   * @param text Searchtext
+   * @param userList List of all Users
+   * @param user     logged in user
+   * @returns        All serch result fom name and email
+   */
+  searchProfiles(text: string, userList: any[], user: User) {
+    let output = [];
+    let searchText = text.toLowerCase();
+    let i = -1;
+    userList.forEach((t) => {
+      i++;
+      if (t.name.toLowerCase().includes(searchText) || t.email.toLowerCase().includes(searchText)) {
+        output.push(t);
+      }
+    });
+    if (user.name.toLowerCase().includes(searchText) || user.email.toLowerCase().includes(searchText)) {
+      output.push(user);
+    }
+    let userInfos = output;
+    return userInfos;
+  }
+
+  /**
+   * 
+   * @param info JSON of all infos of the private Message
+   * @param userList List of all Users
+   * @param user     current User
+   * @returns       returns the other user of the private message
+   */
+  getOtherUser(info: any, userList: any[], user: User) {
+    let otherUser = new User();
+    let m1 = info.member1DBid;
+    let m2 = info.member2DBid;
+    if (m1 == m2) { otherUser = user; }
+    else {
+      userList.forEach((ul) => {
+        if ((ul.idDB == m1 && user.idDB == m2) || ul.idDB == m2 && user.idDB == m1) {
+
+          otherUser = ul;
+        }
+      });
+
+    }
+    console.log("other user", otherUser);
+    return otherUser;
+  }
 
 }
