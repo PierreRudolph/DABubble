@@ -416,3 +416,12 @@ app-impressum {
         padding: 2px 8px;
     }
 }
+
+.linkedUserNameRight {
+    color: white;
+
+    &:hover {
+        background-color: white;
+        color: #444df2;
+    }
+}

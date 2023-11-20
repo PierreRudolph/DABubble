@@ -61,7 +61,8 @@
                             <!-- {{thread.message}} -->
                             <span *ngFor="let mes of thread.messageSplits" style="width:100%">
                                 <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
-                                    class="linkedUserName">{{mes.text}}</span>
+                                    class="linkedUserName"
+                                    [class.linkedUserNameRight]="getFlip(thread)">{{mes.text}}</span>
                                 <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
                             </span>
                         </div>
