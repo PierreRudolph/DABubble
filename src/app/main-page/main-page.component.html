@@ -31,6 +31,6 @@
   <app-side-menu-thread *ngIf="openChat" class="side-menu" [screenWidth]="screenWidth" [threadList]="threadList"
     [user]="user" [threadC]="threadC" [userList]="userList" (newSetOpen)="setOpenValue($event)"
     (newItemEventOpenChat)="setOpenValue($event)" (callOpenTalk)="openMessage($event)"></app-side-menu-thread>
-  <app-main-dialog-profil [user]="user"></app-main-dialog-profil>
+  <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe($event)" ></app-main-dialog-profil>
 
 </div>

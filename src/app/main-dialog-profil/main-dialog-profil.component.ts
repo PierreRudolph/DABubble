@@ -1,10 +1,11 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 import { Router } from '@angular/router';
+import { ChatHepler } from 'src/moduls/chatHelper.class';
 
 @Component({
   selector: 'app-main-dialog-profil',
@@ -22,6 +23,8 @@ export class MainDialogProfilComponent {
   private unsub: any;
   public choiceDialog: boolean = false;
   public profileOpen = false;
+  private chatHepler: ChatHepler = new ChatHepler();
+  @Output() unsubscribe = new EventEmitter<boolean>();
 
   constructor(public authService: AuthService, public dialog: MatDialog, public router: Router) {
   
@@ -55,12 +58,14 @@ export class MainDialogProfilComponent {
   async logOut() {
     this.user.status = "Inaktiv";
     console.log("log out user data", this.user.idDB);
-    await this.updateUser(this.user.idDB);
+    // await this.updateUser(this.user.idDB);    
     let user = this.authService.getAuthServiceUser();
     if (user) {
-      this.authService.logout().then(() => {
-        console.log("logged out");
+      this.authService.logout().then((dat) => {
+        this.chatHepler.updateDB(this.user.idDB,"user",this.user.toJSON());
+        console.log("logged out",this.user);
         this.router.navigateByUrl("login");
+        this.unsubscribe.emit(true);
 
       })
         .catch((error) => {
@@ -76,7 +81,9 @@ export class MainDialogProfilComponent {
 
   async updateUser(id: string) {
     let docRef = this.getSingleUserRef(id)
-    await updateDoc(docRef, this.user.toJSON()).catch(
+    await updateDoc(docRef, this.user.toJSON()).then((data)=>{
+      console.log("logged out data",data);
+    }).catch(
       (err) => { console.log(err); });
   }
 

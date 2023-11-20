@@ -374,5 +374,11 @@ export class MainPageComponent {
       this.childSideThread.closeThread();
     }
   }
+
+  unsubscribe(u:boolean){
+    this.unsub() ;
+    this.unsubtalk ();
+    this.unsubChannel();
+}
 }
 
