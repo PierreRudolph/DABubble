@@ -416,11 +416,13 @@
 
     .searchMobile {
         width: 90%;
-        height: 100px;
+        height: 300px;
         border-radius: 30px;
         border: 1px solid #7e83f5;
         display: flex;
         flex-direction: column;
+        overflow-y: scroll;
+
     }
 
 
