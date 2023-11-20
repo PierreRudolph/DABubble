@@ -9,7 +9,7 @@
                 </div>
                 <img (click)="closeThread()" class="close-icon" src="assets/img/close.svg">
             </div>
-            <div class="sidenav-body">
+            <!-- <div class="sidenav-body"> -->
                 <div class="thread-starter">
                     <div class="message-div">
                         <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;"
@@ -36,6 +36,9 @@
                         <span class="answer-counter"> {{getAnswerLength()}} Antworten</span>
                     </div>
                 </div>
+
+
+            <div style="overflow-y: scroll;">
                 <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
                     <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
                         <div class="add-reaction" [class.add-reaction-right]="fromLoggedInUser(answ)">
@@ -57,30 +60,30 @@
                                     [class.mes-name-right]="fromLoggedInUser(answ)">{{getAnswerData(aIndex,'name')}}</span>
                                 <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
                             </div>
-                            <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
+                            <div class="message" [class.message-right]="fromLoggedInUser(answ)">
                                 <span *ngFor="let mes of answ.messageSplits" style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                         class="linkedUserName">{{mes.text}}</span>
                                     <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
                                 </span>
-                            </diV>
+                            </div>
 
-                            <!-- <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
-                            [class.popUpFlipContainer]="getFlip(thread)">
+                            <div [class.dNone]="!answ.edit" style="width:100%; display: flex;flex-direction: column;"
+                            [class.popUpFlipContainer]="getFlip(answ)">
                             <div style="position:relative">
                                 <div style="position:relative"> <textarea class="textAreaDirekt"
-                                        [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                                    <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit"
+                                        [(ngModel)]="textThreadEdit">{{answ.message}}  </textarea>
+                                    <img (click)="toggleEmojisDialogEdit(aIndex)" class="smileEdit"
                                         src="assets/img/smiley-icon.svg">
                                 </div>
-                                <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
+                                <emoji-mart class="emoji-div-Edit" *ngIf="showSmile(aIndex)" title="Pick your emoji…"
                                     (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
                             </div>
     
                             <div class="editButtonContainer">
-                                <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
-                                <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
-                            </div>  -->
+                                <button class="btn buttonLight" (click)="closeEdit()">Abbrechen</button>
+                                <button class="btn butttonBlue" (click)="saveEdit()">Speichern</button>
+                            </div> 
 
                             <diV class="reactions">
                                 <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
@@ -120,10 +123,16 @@
                                     </div>
                                 </div>
                             </diV>
+                        
+                          </div>
                         </div>
-                    </div>
                 </div>
             </div>
+            </div>
+
+
+
+
             <div class="textareaDirektMessage">
                 <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
                     placeholder="Antworten..."></textarea>

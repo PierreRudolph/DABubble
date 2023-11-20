@@ -35,7 +35,9 @@ export class SideMenuThreadComponent {
   showEmojisUpper: boolean | undefined;
   showEmojisLower: boolean | undefined;
   showEmojisTA: boolean | undefined;
+  showEmojisTAEdit:boolean|undefined;
   emojiText: string = "";
+  smileEdit:boolean=false;
 
   @ViewChild('sideMenuThreadDiv')
   sideMenuThreadDiv: any;
@@ -159,20 +161,58 @@ export class SideMenuThreadComponent {
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
     let threadId = this.threadList[n].channel.idDB;
-    let answ = this.makeAnswer();
-
-    if (this.editA) {
-      this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
-      this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer);
-    }
-    else {
+   
+    // if (this.editA) {
+    //   this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
+    //   this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer);
+    // }
+    // else {
+      let answ = this.makeAnswer();
       this.threadList[n].communikation[i].threads[j].answer.push(answ);
 
-    }
+    // }
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
     this.textThreadAnswer = "";
     this.editA = false;
   }
+
+  toggleEmojisDialogEdit(aIndex: number) {
+    this.editAIndex=aIndex;
+    this.smileEdit = !this.smileEdit;
+  }
+
+  showSmile(aIndex:number){
+    return this.editA &&(aIndex == this.editAIndex);
+  }
+
+    /**
+   * 
+   * @param m JSON of data of a Thread
+   * @returns Returns wheather the person that wrote the thread is the current user. Important for styling.
+   */
+    getFlip(m: any) {
+      return m.iD == this.user.idDB;
+    }
+
+
+  saveEdit(){
+    this.editA = false;
+    let n = this.threadC.chNum;
+    let i = this.threadC.coIndex;
+    let j = this.threadC.thIndex;     
+    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
+    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer);
+  }
+
+    /** * 
+ * @param e JSON of the emoji that should be shown in the message-edit within the channel
+ */
+    saveEmojiEdit(e: { emoji: { unified: string; }; }) {
+      let unicodeCode: string = e.emoji.unified;
+      let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
+      this.textThreadAnswer += emoji;
+      this.smileEdit = !this.smileEdit;
+    }
 
   /**
    * 
@@ -183,6 +223,10 @@ export class SideMenuThreadComponent {
     this.editA = true;
     this.textThreadAnswer = ans.message;
     this.editAIndex = index;
+  }
+
+  closeEdit(){
+    this.editA = false;
   }
 
   /** 
@@ -242,8 +286,18 @@ export class SideMenuThreadComponent {
    * blends in or out the emoji popup vor the textarea.
    */
   toggleEmojisDialogTA() {
+   
     this.showEmojisTA = !this.showEmojisTA;
   }
+
+  /**
+   * blends in or out the emoji popup vor the textarea.
+   */
+  toggleEmojisDialogTAEdit(aIndex:number) {   
+    this.editAIndex = aIndex;    
+    this.showEmojisTAEdit = !this.showEmojisTAEdit;
+  }
+
 
   /**
      * 
