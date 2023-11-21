@@ -572,4 +572,12 @@ export class ChannelWindowComponent {
   mobileScreenWidth() {
     return this.screenWidth < 830;
   }
+
+  // /** 
+  //    * @param index index of the answer
+  //    * @returns     returns the list of commenticons of the answer
+  //    */
+  // showSmilie(index: number) {
+  //   return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
+  // }
 }

@@ -397,7 +397,7 @@
     }
 
     &::placeholder {
-        color: var(--Text-gray, #686868);       
+        color: var(--Text-gray, #686868);
     }
 }
 
@@ -501,6 +501,10 @@
         width: 50px;
         height: 50px;
         padding: 0px;
+    }
+
+    .answers-div {
+        height: unset;
     }
 
     .mobileDNone {

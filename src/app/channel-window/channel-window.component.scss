@@ -74,11 +74,22 @@
     bottom: 0;
 }
 
+.reactIconsDiv {
+    display: flex;
+    gap: 3px;
+    max-width: 230px;
+    align-items: center;
+    overflow-y: auto;
+}
+
 .reactIcons {
-    padding: 3px 10px 3px 10px;
+    margin: 4px 0px;
+    padding: 3px 5px;
     border: 1px solid #7e83f5;
     border-radius: 20px;
     cursor: pointer;
+    display: flex;
+    gap: 3px;
 }
 
 .lila {
@@ -309,7 +320,11 @@
             background-color: white;
         }
 
-        .message-right {
+        // .message-right {
+        //     background-color: #797EF3;
+        // }
+
+        .messageRightStyle {
             background-color: #797EF3;
         }
 
@@ -379,6 +394,13 @@
     border-radius: 20px;
     border-top-left-radius: 0px;
     width: fit-content;
+}
+
+.messageRightStyle {
+    color: white;
+    background-color: #797EF3;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 20px;
 }
 
 .reactions {

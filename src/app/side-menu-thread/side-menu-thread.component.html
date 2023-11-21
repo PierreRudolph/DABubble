@@ -68,29 +68,30 @@
 
 
 
-                            <div [class.dNone]="!showEdit(aIndex)" style="width:100%; display: flex;flex-direction: column;"
-                            [class.popUpFlipContainer]="getFlip(answ)">
-                            <div style="position:relative">
-                                <div style="position:relative"> <textarea class="textAreaDirekt"
-                                        [(ngModel)]="textThreadEdit">{{answ.message}}  </textarea>
-                                    <img (click)="toggleEmojisDialogEdit(aIndex)" class="smileEdit"
-                                        src="assets/img/smiley-icon.svg">
+                            <div [class.dNone]="!showEdit(aIndex)"
+                                style="width:100%; display: flex;flex-direction: column;"
+                                [class.popUpFlipContainer]="getFlip(answ)">
+                                <div style="position:relative">
+                                    <div style="position:relative"> <textarea class="textAreaDirekt"
+                                            [(ngModel)]="textThreadEdit">{{answ.message}}  </textarea>
+                                        <img (click)="toggleEmojisDialogEdit(aIndex)" class="smileEdit"
+                                            src="assets/img/smiley-icon.svg">
+                                    </div>
+                                    <emoji-mart class="emoji-div-Edit" *ngIf="showSmile(aIndex)"
+                                        title="Pick your emoji…" (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
                                 </div>
-                                <emoji-mart class="emoji-div-Edit"  *ngIf="showSmile(aIndex)" title="Pick your emoji…"
-                                    (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
-                            </div>
-    
-                            <div class="editButtonContainer">
-                                <button class="btn buttonLight" (click)="closeEdit()">Abbrechen</button>
-                                <button class="btn butttonBlue" (click)="saveEdit()">Speichern</button>
-                            </div> 
+
+                                <div class="editButtonContainer">
+                                    <button class="btn buttonLight" (click)="closeEdit()">Abbrechen</button>
+                                    <button class="btn butttonBlue" (click)="saveEdit()">Speichern</button>
+                                </div>
                             </div>
 
 
 
                             <diV class="reactions">
                                 <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
-                                    <div class="reactions-tooltip">
+                                    <!-- <div class="reactions-tooltip">
                                         <div class="reactIconInTooltipDiv">
                                             <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
                                                 class="reactIconInTooltip">
@@ -100,16 +101,39 @@
                                         </div>
                                         <div class="reactions-username">
                                             <span>{{getAnswerData(aIndex,'name')}}</span>
-                                            <span>und Du</span>
+                                            <span *ngIf="">und Du</span>
                                         </div>
                                         <span>hat reagiert</span>
-                                    </div>
+                                    </div> -->
                                     <div class="reactIconsDiv">
+
+
                                         <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
                                             class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)"
                                             (click)="removeSmile(aIndex,sIndex)">
                                             <div>{{s.icon}}</div>
                                             <span>{{s.users.length}}</span>
+
+                                            <div class="reactions-tooltip">
+                                                <div class="reactIconInTooltipDiv">
+                                                    <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
+                                                        class="reactIconInTooltip">
+                                                        {{s.icon}}
+                                                        {{s.users.name}}
+                                                    </div>
+                                                </div>
+                                                <div class="reactions-username">
+                                                    <span>{{getAnswerData(aIndex,'name')}}</span>
+                                                    <span *ngIf="smileHelper.isUserInSmile(s.users,user)">und Du</span>
+                                                    <span *ngIf="!smileHelper.isUserInSmile(s.users,user)">und
+                                                        {{sIndex}} weitere</span>
+                                                </div>
+                                                <span *ngIf="smileHelper.isUserInSmile(s.users,user)">hat
+                                                    reagiert</span>
+                                                <span *ngIf="!smileHelper.isUserInSmile(s.users,user)">haben
+                                                    reagiert</span>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

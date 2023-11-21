@@ -259,7 +259,6 @@ export class SideMenuThreadComponent {
     let threadId = this.threadList[this.threadC.chNum].channel.idDB;
     console.log("answerIndex", this.answerIndex);
     let sm = this.getAnswerData(this.answerIndex, 'smile');
-
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
       let icon = {
@@ -408,6 +407,8 @@ export class SideMenuThreadComponent {
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
   }
+
+  checkIfActualUserAdd
 
   // /**
   //    * Blend in the popUp containing "Nachricht bearbeiten"

@@ -57,7 +57,7 @@
                         <span>{{thread.time}} Uhr</span>
                     </div>
                     <div style="width:100%" [class.messageRight]="getFlip(thread)">
-                        <div class="message" [class.dNone]="thread.edit">
+                        <div class="message" [class.messageRightStyle]="getFlip(thread)" [class.dNone]="thread.edit">
                             <!-- {{thread.message}} -->
                             <span *ngFor="let mes of thread.messageSplits" style="width:100%">
                                 <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
@@ -85,8 +85,7 @@
                         </div>
                     </div>
                     <diV class="reactions" [class.dNone]="thread.edit" [class.messageRight]="getFlip(thread)">
-
-                        <div style="display:flex;gap:3px ">
+                        <div class="reactIconsDiv">
                             <div *ngFor="let t of thread.smile; index as sIndex" class="reactIcons"
                                 [class.lila]="smileHelper.isUserInSmile(t.users,user)"
                                 (click)="removeSmileComment(i,j,sIndex)">
