@@ -11,10 +11,10 @@ import { Router } from '@angular/router';
 export class LoginScreenComponent {
 
   hide: boolean = true;
-  public screenWidth=0;
+  public screenWidth = 0;
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required,Validators.minLength(6)])
+    password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
   public loading: boolean = false;
 
@@ -23,36 +23,45 @@ export class LoginScreenComponent {
     window.addEventListener("resize", this.resizeWindow);
   }
 
-  resizeWindow(){
+  resizeWindow() {
     this.screenWidth = window.innerWidth;
   }
 
-  blendOutHeader(){
-    return window.innerWidth <835;
+  blendOutHeader() {
+    return window.innerWidth < 835;
   }
 
+
+
   async login() {
-    return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
-      // Login successful       
-      let user = this.authService.getAuthServiceUser();
-      let id = user._delegate.uid;
-      console.log("user", id);
-      localStorage.setItem('uid', id);
-      localStorage.removeItem('google'); 
-      localStorage.removeItem('googleName');  
-      // this.route.navigateByUrl("/main");
-      this.route.navigateByUrl("/main");
-    })
-      .catch((error) => {
-        console.log("fail");
+    // return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
+    // try {
+   this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
+        // Login successful       
+        let user = this.authService.getAuthServiceUser();
+        console.log("authservoce user", user);
+       if(user){
+        let id = user._delegate.uid;
+        console.log("user", id);
+        localStorage.setItem('uid', id);
+        localStorage.removeItem('google');
+        localStorage.removeItem('googleName');
+        this.route.navigateByUrl("/main");
+       }
+       else{
+        console.log("invalid login");
+       }
+      }).catch((error) => {
+        console.log("fail", error);
       });
+    // } catch (e) { console.log("Error is",e); }
   }
 
   async loginAsGuest() {
     return this.authService.logIn("gast@mail.com", "gggggg").then((res) => {
       // Login successful   
-      localStorage.removeItem('google'); 
-      localStorage.removeItem('googleName');   
+      localStorage.removeItem('google');
+      localStorage.removeItem('googleName');
       let user = this.authService.getAuthServiceUser();
       let id = user._delegate.uid;
       console.log("user", id);
@@ -71,11 +80,11 @@ export class LoginScreenComponent {
       then((dat) => {
         console.log("succesfully logged in with google", dat);
 
-        let user = this.authService.getAuthServiceUser();       
-        let userName =user._delegate.displayName; 
-        console.log("googleuserName",userName);     
+        let user = this.authService.getAuthServiceUser();
+        let userName = user._delegate.displayName;
+        console.log("googleuserName", userName);
 
-        localStorage.setItem('google', userName);       
+        localStorage.setItem('google', userName);
         // this.route.navigateByUrl("/login");
         this.route.navigateByUrl("/main");
       }).
@@ -89,7 +98,7 @@ export class LoginScreenComponent {
     // this.route.navigateByUrl("/main");
     if (user) {
       this.authService.logout();
-      console.log("userid is",user._delegate.uid);
+      console.log("userid is", user._delegate.uid);
     }
   }
 
