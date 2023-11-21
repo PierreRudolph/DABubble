@@ -45,7 +45,7 @@ export class ChannelWindowComponent {
   public openEditDialog: boolean = false;
   public addresses = false;
   private text: string = "";
-  public popUpText = { "du": "", "first": "", "other": "", "verb": "" }
+  public popUpText = { "du": "", "first": "", "other": "" ,"verb":""}
 
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
@@ -584,15 +584,16 @@ export class ChannelWindowComponent {
   showPopUpCommentUsers(i: number, j: number, sIndex: number) {
     // let back = { "du": "", "first": "", "other": "","verb":"hast" };
     let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];
-    let smileUsers = [];
+    let smileUsers = [];      
     smile.users.forEach((s) => {
       smileUsers.push(s.id);
-    });
-    this.popUpText = this.smileHelper.showPopUpCommentUsers(smileUsers, this.user, this.userList);
+    }); 
+    this.popUpText =this.smileHelper.showPopUpCommentUsers(smileUsers,this.user,this.userList); 
+   
   }
 
-  showBlendin(attr: string) {
-    return this.popUpText[attr] != "";
+  showBlendin(attr:string){
+  return this.popUpText[attr]!="";
   }
-
+ 
 }
