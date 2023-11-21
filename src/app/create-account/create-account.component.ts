@@ -19,7 +19,7 @@ export class CreateAccountComponent {
     data:new FormControl('', Validators.requiredTrue),
     name:new FormControl('', Validators.required),
     email:new FormControl('', [Validators.required, Validators.email]),
-    password:new FormControl('', Validators.required)
+    password:new FormControl('', [Validators.minLength(6),Validators.required])
  })
   public loading: boolean = false;
   public screenWidth=0;

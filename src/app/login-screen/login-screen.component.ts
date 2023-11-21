@@ -14,7 +14,7 @@ export class LoginScreenComponent {
   public screenWidth=0;
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required)
+    password: new FormControl('', [Validators.required,Validators.minLength(6)])
   })
   public loading: boolean = false;
 
@@ -28,7 +28,7 @@ export class LoginScreenComponent {
   }
 
   blendOutHeader(){
-    return window.innerWidth <650;
+    return window.innerWidth <835;
   }
 
   async login() {

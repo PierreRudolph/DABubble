@@ -21,8 +21,8 @@ export class ResetComponent implements OnInit, OnDestroy {
   actionCode: string = "";
   // public actionCodeChecked: boolean = false;
   public registerForm: FormGroup = new FormGroup({
-    password: new FormControl('', Validators.required),
-    passwordConfirm: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required,Validators.minLength(6)]),
+    passwordConfirm: new FormControl('', [Validators.required,Validators.minLength(6)]),
   })
 
   getValid() {
