@@ -231,7 +231,7 @@ export class SideMenuThreadComponent {
     this.editAIndex = index;
   }
 
-  showEdit(aIndex) {
+  showEdit(aIndex: number) {
     return this.editA && (this.editAIndex == aIndex);
   }
 
@@ -277,7 +277,12 @@ export class SideMenuThreadComponent {
     }
     this.setAnswerData(this.answerIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
-    this.toggleEmojisUpperDialog(this.answerIndex);
+    if (this.showEmojisUpper) {
+      this.toggleEmojisUpperDialog(this.answerIndex);
+    } else if (this.showEmojisLower) {
+      this.toggleEmojisLowerDialog
+    } else { }
+
 
   }
 
@@ -408,7 +413,53 @@ export class SideMenuThreadComponent {
     this.areaTextPrivate.emit(this.text);
   }
 
-  checkIfActualUserAdd
+
+  /**
+   * Checks if actual User add a smiley to the given answer.
+   * 
+   * @param answI index number of the given answer
+   * @returns true or false depending on, if actual user added a Smiley to the given Answer.
+   */
+  checkIfActualUserAddSmiley(answI: number) {
+    let smileys = this.getAnswerData(answI, 'smile');
+    let thisUserAddSmiley = false;
+    smileys.forEach((smiley: { users: any[]; }) => {
+      smiley.users.forEach(user => {
+        if (user.id == this.user.idDB) {
+          thisUserAddSmiley = true;
+          return;
+        }
+      });
+    });
+    return thisUserAddSmiley;
+  }
+
+
+  /**
+   * Loops thru the smiley Arrays to count how much different users add a smiley to the given answer.
+   * at the en of the function, we decrement the number 2 times, one time if the actual user add a smiley
+   * and the second time always because one user who add a smiley, would always shown in text.
+   * 
+   * @param answI index number of the given answer
+   * @returns number of users who added a smiley to the given answer.
+   */
+  getSmileyCountOfAnswer(answI: number) {
+    let smileys = this.getAnswerData(answI, 'smile');
+    let usersNumber = 0;
+    let usersArray = [];
+    smileys.forEach((smiley: { users: any[]; }) => {
+      smiley.users.forEach(user => {
+        if (!usersArray.includes(user.id)) {
+          usersArray.push(user.id);
+          usersNumber++;
+        }
+      });
+    });
+    if (this.checkIfActualUserAddSmiley(answI)) {
+      usersNumber--;
+    }
+    return usersNumber - 1;
+  }
 
   // /**
   //    * Blend in the popUp containing "Nachricht bearbeiten"

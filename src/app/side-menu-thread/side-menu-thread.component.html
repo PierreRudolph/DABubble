@@ -91,7 +91,8 @@
 
                             <diV class="reactions">
                                 <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
-                                    <!-- <div class="reactions-tooltip">
+                                    <!-- Anfang Tooltip -->
+                                    <div class="reactions-tooltip">
                                         <div class="reactIconInTooltipDiv">
                                             <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
                                                 class="reactIconInTooltip">
@@ -99,12 +100,31 @@
                                                 {{s.users.name}}
                                             </div>
                                         </div>
+
                                         <div class="reactions-username">
+                                            <!-- verschiedene Variationen des Textes der im Tooltip angezeigt wird -->
                                             <span>{{getAnswerData(aIndex,'name')}}</span>
-                                            <span *ngIf="">und Du</span>
+                                            <span
+                                                *ngIf="checkIfActualUserAddSmiley(aIndex)&&getSmileyCountOfAnswer(aIndex)==0">und
+                                            </span>
+                                            <span *ngIf="checkIfActualUserAddSmiley(aIndex)">Du</span>
+                                            <span
+                                                *ngIf="checkIfActualUserAddSmiley(aIndex)&&getSmileyCountOfAnswer(aIndex)>0 ">
+                                                und
+                                            </span>
+                                            <span
+                                                *ngIf="getSmileyCountOfAnswer(aIndex)>0&&checkIfActualUserAddSmiley(aIndex)">{{getSmileyCountOfAnswer(aIndex)}}
+                                                weitere</span>
                                         </div>
-                                        <span>hat reagiert</span>
-                                    </div> -->
+                                        <span
+                                            *ngIf="getSmileyCountOfAnswer(aIndex)>0||checkIfActualUserAddSmiley(aIndex)">haben
+                                            reagiert</span>
+                                        <span
+                                            *ngIf="getSmileyCountOfAnswer(aIndex)==0 &&!checkIfActualUserAddSmiley(aIndex)">hat
+                                            reagiert</span>
+                                        <!-- verschiedene Variationen des Textes der im Tooltip angezeigt wird -->
+                                    </div>
+                                    <!-- Ende Tooltip -->
                                     <div class="reactIconsDiv">
 
 
@@ -113,27 +133,6 @@
                                             (click)="removeSmile(aIndex,sIndex)">
                                             <div>{{s.icon}}</div>
                                             <span>{{s.users.length}}</span>
-
-                                            <div class="reactions-tooltip">
-                                                <div class="reactIconInTooltipDiv">
-                                                    <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
-                                                        class="reactIconInTooltip">
-                                                        {{s.icon}}
-                                                        {{s.users.name}}
-                                                    </div>
-                                                </div>
-                                                <div class="reactions-username">
-                                                    <span>{{getAnswerData(aIndex,'name')}}</span>
-                                                    <span *ngIf="smileHelper.isUserInSmile(s.users,user)">und Du</span>
-                                                    <span *ngIf="!smileHelper.isUserInSmile(s.users,user)">und
-                                                        {{sIndex}} weitere</span>
-                                                </div>
-                                                <span *ngIf="smileHelper.isUserInSmile(s.users,user)">hat
-                                                    reagiert</span>
-                                                <span *ngIf="!smileHelper.isUserInSmile(s.users,user)">haben
-                                                    reagiert</span>
-                                            </div>
-
                                         </div>
                                     </div>
                                 </div>
