@@ -69,8 +69,8 @@ export class ChatHepler {
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).then(
       () => {
-        console.log("update id   " + id + "  coll" + coll);
-        console.log("info",info);
+        // console.log("update id   " + id + "  coll" + coll);
+        // console.log("info",info);
       }
     ).catch(
       (err) => { console.log(err); });

@@ -7,49 +7,59 @@ import { GoogleAuthProvider } from "firebase/auth";
   providedIn: 'root'
 })
 export class AuthService {
-  public user:any;
-  public sub:any;
- constructor(private afAuth: AngularFireAuth) {
-  this.sub = afAuth.authState.subscribe(user => {
-  this.user = user;
-  console.log("subscribed to",this.user);
-  });
+  public user: any;
+  public sub: any;
+  constructor(private afAuth: AngularFireAuth) {
+    this.sub = afAuth.authState.subscribe(user => {
+      this.user = user;
+      console.log("subscribed to", this.user);
+    });
   }
-  
 
-  getAuth(){
+
+  getAuth() {
     return this.afAuth;
   }
 
- async signUp(email: string, password: string) {
+  async signUp(email: string, password: string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
-  getAuthServiceUser(){
+  getAuthServiceUser() {
     return this.user;
   }
 
   async logIn(email: string, password: string) {
-   return  this.afAuth.signInWithEmailAndPassword(email, password)
-      .then((res) => {       
-      })
-      .catch((error) => {
-        // An error occurred
-      });
+    let ret = this.afAuth.signInWithEmailAndPassword(email, password); 
+
+    return ret;
   }
 
+  // async logIn(email: string, password: string) {
+  //   try {
+  //     await this.afAuth.signInWithEmailAndPassword(
+  //       email: "barry.allen@example.com",
+  //       password: "SuperSecretPassword!",
+  //     );
+  //   } on AngularFireAuthException catch  (e) {
+  //     print('Failed with error code: ${e.code}');
+  //     print(e.message);
+  //   }
+
+
+
   logout() {
-    return this.afAuth.signOut();      
+    return this.afAuth.signOut();
   }
- 
-  async logInWithGoogle(){
+
+  async logInWithGoogle() {
     return this.afAuth.signInWithPopup(new GoogleAuthProvider());
   }
 
-  async forgotPassword(mail:string){
+  async forgotPassword(mail: string) {
     return this.afAuth.sendPasswordResetEmail(mail);
   }
 
-  
+
 
 }
