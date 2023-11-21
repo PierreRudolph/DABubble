@@ -1,6 +1,9 @@
+import { ChatHepler } from "./chatHelper.class";
 import { User } from "./user.class";
 
 export class SmileHelper{
+
+  private chathelper =  new ChatHepler()
     isUserInSmile(us: any[],user:User) {
         let ret = false;
         us.forEach((u) => {
@@ -39,4 +42,28 @@ export class SmileHelper{
         });
         return b;
       }
+
+      showPopUpCommentUsers(smileUsers:any[],user:User,userList:any[]) {
+        let back = { "du": "", "first": "", "other": "","verb":"hast" };
+       let a = 0;
+       
+        let ind = smileUsers.indexOf(user.idDB);
+        if (ind != -1) {
+          back.du = "Du";
+          a++;
+          smileUsers.splice(ind, 1);
+        }
+        if (smileUsers.length > 0) {
+         if(a==1){back.verb="haben";back.du = "Du und";}else{back.verb="hat";}
+          back.first = this.chathelper.getUsernameById(user, userList, smileUsers[0]);
+        }
+        if (smileUsers.length > 1) {      
+          back.other = " und andere";
+          back.verb="haben";
+        }   
+       return back;
+      }
+
+
+
 }
