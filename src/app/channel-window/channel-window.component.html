@@ -86,12 +86,21 @@
                     </div>
                     <diV class="reactions" [class.dNone]="thread.edit" [class.messageRight]="getFlip(thread)">
                         <div class="reactIconsDiv">
-                            <div *ngFor="let t of thread.smile; index as sIndex" class="reactIcons"
+                            <div *ngFor="let t of thread.smile; index as sIndex" 
                                 [class.lila]="smileHelper.isUserInSmile(t.users,user)"
-                                (click)="removeSmileComment(i,j,sIndex)">
+                                (click)="removeSmileComment(i,j,sIndex)" class="reactIcons" (mouseover)="showPopUpCommentUsers(i,j,sIndex)">
+                               <div >
                                 {{t.icon}}
                                 {{t.users.length}}
+                               </div>
+                               <div class="popUpComment" >
+                                    <div *ngIf="showBlendin('du')">{{popUpText.du}}</div>
+                                    <div *ngIf="showBlendin('first')">{{popUpText.first}}</div>
+                                    <div *ngIf="showBlendin('other')">{{popUpText.other}}</div>
+                                    <div >{{popUpText.verb}} diese Nachricht kommentiert</div>
+                               </div>
                             </div>
+                           
                         </div>
                         <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
                             src="assets/icons/add-reaction.svg">

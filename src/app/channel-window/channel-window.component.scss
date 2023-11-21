@@ -82,6 +82,21 @@
     overflow-y: auto;
 }
 
+.popUpComment {
+    background-color: #444df2;
+    border-radius: 30px;
+    border-bottom-left-radius: 0px;
+    color: white;
+    font-size: 16px;
+    font-family: Nunito;
+    display: none;
+    width:150px;
+    height:fit-content;
+    position: absolute;
+    bottom:50px;
+    padding: 20px;
+}
+
 .reactIcons {
     margin: 4px 0px;
     padding: 3px 5px;
@@ -90,10 +105,17 @@
     cursor: pointer;
     display: flex;
     gap: 3px;
+
+    &:hover{
+        .popUpComment{
+            display: unset;
+        }
+    }
 }
 
 .lila {
     background-color: #cbcdec;
+    border-radius: 20px;
 }
 
 .hoverStyleHeaderLeft {
@@ -224,6 +246,10 @@
     padding-bottom: 25px;
     margin-top: 25px;
 }
+
+  
+
+
 
 .charImg {
     object-fit: cover;

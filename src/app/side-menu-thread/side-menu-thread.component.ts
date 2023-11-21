@@ -436,7 +436,7 @@ export class SideMenuThreadComponent {
 
 
   /**
-   * Loops thru the smiley Arrays to count how much different users add a smiley to the given answer.
+   * Loops through the smiley Arrays to count how much different users add a smiley to the given answer.
    * at the en of the function, we decrement the number 2 times, one time if the actual user add a smiley
    * and the second time always because one user who add a smiley, would always shown in text.
    * 

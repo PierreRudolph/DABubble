@@ -440,4 +440,17 @@ export class ChatHepler {
     return otherUser;
   }
 
+  getUsernameById(user:User,userList:any[],id:string){
+    let name="";
+    userList.forEach((u)=>{
+     if(u.idDB==id){
+      name=u.name;
+     }
+    });
+    if(user.idDB==id){
+      name=user.name;
+     }
+    return name;
+  }
+
 }

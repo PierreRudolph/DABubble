@@ -45,6 +45,7 @@ export class ChannelWindowComponent {
   public openEditDialog: boolean = false;
   public addresses = false;
   private text: string = "";
+  public popUpText = { "du": "", "first": "", "other": "" ,"verb":""}
 
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
@@ -580,4 +581,35 @@ export class ChannelWindowComponent {
   // showSmilie(index: number) {
   //   return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
   // }
+  showPopUpCommentUsers(i: number, j: number, sIndex: number) {
+    let back = { "du": "", "first": "", "other": "","verb":"hast" };
+    let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];
+    let smileUsers = [];
+    let a = 0;
+    console.log("smile.users", smile.users);
+    smile.users.forEach((s) => {
+      smileUsers.push(s.id);
+    });
+    console.log("smileUsers", smileUsers);
+    let ind = smileUsers.indexOf(this.user.idDB);
+    if (ind != -1) {
+      back.du = "Du";
+      a++;
+      smileUsers.splice(ind, 1);
+    }
+    if (smileUsers.length > 0) {
+     if(a==1){back.verb="haben";back.du = "Du und";}else{back.verb="hat";}
+      back.first = this.chathelper.getUsernameById(this.user, this.userList, smileUsers[0]);
+    }
+    if (smileUsers.length > 1) {      
+      back.other = " und andere";
+      back.verb="haben";
+    }   
+    this.popUpText = back;
+  }
+
+  showBlendin(attr:string){
+  return this.popUpText[attr]!="";
+  }
+ 
 }
