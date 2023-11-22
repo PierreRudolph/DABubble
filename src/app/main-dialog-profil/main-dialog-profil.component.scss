@@ -1,3 +1,8 @@
+.profileOuterDiv {
+    position: absolute;
+    top: 0px;
+}
+
 .userAll {
     position: absolute;
     width: 300px;
@@ -112,6 +117,51 @@
     background-color: #92C83E;
 }
 
+.smallThickBorder {
+    //width: 62px;
+    border: 3px solid #D9D9D9;
+    margin: 8px 41%;
+    border-radius: 50px;
+}
+
+.textImgDiv {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    img {
+        display: none;
+    }
+}
+
+.textImgDivHoverStyle {
+    background-color: #eceefe;
+    color: #535AF1;
+}
+
+.accountIcon {
+    width: 30px;
+}
+
+.accountIconHoverStyle {
+    content: url('/assets/icons/account-circle-hover.svg');
+}
+
+.logoutIconHoverStyle {
+    content: url('/assets/icons/logout-hover.svg');
+}
+
+@keyframes mobile-slide-in {
+    from {
+        transform: translateY(250px);
+    }
+
+    to {
+        transform: translateY(0px);
+    }
+}
+
 @media (max-width:1220px) {
     .userName {
         display: none;
@@ -119,6 +169,11 @@
 }
 
 @media (max-width:830px) {
+
+    .profileOuterDiv {
+        position: unset;
+
+    }
 
     .profile {
         top: 13px;
@@ -136,5 +191,38 @@
 
     .arrowImg {
         display: none;
+    }
+
+    .choiceDialog {
+        align-items: unset;
+        right: 0px;
+        left: 0px;
+        bottom: 0px;
+        top: unset;
+        width: 100vw;
+        border-radius: 30px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        gap: 25px;
+        padding-bottom: 45px;
+        height: unset;
+        transform: translateY(250px);
+        animation: mobile-slide-in 225ms ease-in-out 100ms forwards;
+    }
+
+    .textImgDiv {
+        width: 155px;
+        border-radius: 30px;
+        justify-content: center;
+        padding: 10px;
+
+        img {
+            display: block;
+        }
+
+        &:active {
+            background-color: #eceefe;
+            color: #535AF1;
+        }
     }
 }

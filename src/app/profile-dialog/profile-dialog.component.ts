@@ -8,7 +8,7 @@ import { User } from 'src/moduls/user.class';
   styleUrls: ['./profile-dialog.component.scss']
 })
 export class ProfileDialogComponent {
-
+  @Input() screenWidth: number;
   @Input() user: User = new User();
   @Output() newItemEvent = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
@@ -20,7 +20,7 @@ export class ProfileDialogComponent {
   })
   constructor() { }
 
-  editData(){
+  editData() {
     this.edit = !this.edit;
   }
 
@@ -50,4 +50,7 @@ export class ProfileDialogComponent {
     this.closeDialog();
   }
 
+  mobileScreenWidth() {
+    return this.screenWidth < 830;
+  }
 }

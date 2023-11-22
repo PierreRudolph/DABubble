@@ -8,7 +8,7 @@
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (isOpen)="setNewMessage($event)" (newItemEventChanel)="setChannelNumber($event)"
     (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList" [threadList]="threadList"
-    class="side-menu" [screenWidth]="this.screenWidth"  [talkList]="talkList"></app-side-menu>
+    class="side-menu" [screenWidth]="this.screenWidth" [talkList]="talkList"></app-side-menu>
 
   <div class="main-content-div" *ngIf="setMobileView()" #mainContentDiv>
 
@@ -18,8 +18,9 @@
       (callOpenTalk)="openMessage($event)"></app-channel-window>
 
     <app-private-message class="privateMessage" *ngIf="showPrivateMessage() " [user]="user"
-      (newItemEventLoggedUser)="setLoggedInUser($event)" [talkList]="talkList"  (sendCurrentTalkId)="setCurrentTalkId($event)"
-      [userList]="userList" [currentTalkData]="currentTalkData"  ></app-private-message>  
+      (newItemEventLoggedUser)="setLoggedInUser($event)" [talkList]="talkList"
+      (sendCurrentTalkId)="setCurrentTalkId($event)" [userList]="userList"
+      [currentTalkData]="currentTalkData"></app-private-message>
 
     <app-send-new-message style="height:100%" [threadList]="this.threadList" [talkList]="talkList" [user]="user"
       [userList]="userList" (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)"
@@ -31,6 +32,7 @@
   <app-side-menu-thread *ngIf="openChat" class="side-menu" [screenWidth]="screenWidth" [threadList]="threadList"
     [user]="user" [threadC]="threadC" [userList]="userList" (newSetOpen)="setOpenValue($event)"
     (newItemEventOpenChat)="setOpenValue($event)" (callOpenTalk)="openMessage($event)"></app-side-menu-thread>
-  <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe($event)" ></app-main-dialog-profil>
+  <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe($event)"
+    [screenWidth]="screenWidth"></app-main-dialog-profil>
 
 </div>

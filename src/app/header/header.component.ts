@@ -59,8 +59,8 @@ export class HeaderComponent {
     this.talkMessages = this.chathelper.searchPrivateMess(text, this.talkList);
   }
 
-  getOtherUser(info: any) {  
-    return this.chathelper.getOtherUser(info,this.userList,this.user);
+  getOtherUser(info: any) {
+    return this.chathelper.getOtherUser(info, this.userList, this.user);
   }
 
 
@@ -97,7 +97,6 @@ export class HeaderComponent {
   }
 
   showNormalHeader() {
-
     return (this.screenWidth < 830 && !this.sideMenuHidden) || this.screenWidth > 830
   }
 
