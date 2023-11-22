@@ -56,7 +56,7 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
- setTimeout(()=>{console.log("here is the data",this.currentTalkData);},1000);
+
   }
 
   /**
@@ -148,8 +148,7 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   saveMessage() {
-    let mes = this.createMessageFromText(this.text);
-    console.log(mes)
+    let mes = this.createMessageFromText(this.text);    
     if (!this.exist) {
       this.startTalk(mes);
       this.exist = true;
@@ -186,15 +185,10 @@ export class PrivateMessageComponent {
       "oUDbID": this.user.idDB
     }// other user database id 
     this.user.talkID.push(talkUser);  //user talkliste         
-    this.otherChatUser.talkID.push(talkOther);  //other talklist
-    // console.log("other user ",this.otherChatUser);
-    // console.log("this user ",this.user);
-    // console.log("current",this.currentTalkId);
+    this.otherChatUser.talkID.push(talkOther);  //other talklist       
     this.sendCurrentTalkId.emit(this.currentTalkId);
     this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
-    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
-    // this.chatHepler.updateDB(this.user.idDB, "user", { "talkID": uT });
-    // this.chatHepler.updateDB(this.otherChatUser.idDB, "user", { "talkID": oT });
+    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON()); 
   }
 
 
@@ -213,8 +207,7 @@ export class PrivateMessageComponent {
     }, 2000);
     t.idDB = this.currentTalkId;
     this.currentTalkData = t;
-    this.sendCurrentTalkId.emit(this.currentTalkId);
-    // console.log("communikation Talk", this.currentTalkData);
+    this.sendCurrentTalkId.emit(this.currentTalkId);   
     return t;
   }
 
@@ -224,19 +217,13 @@ export class PrivateMessageComponent {
 
   openTalk() {
     let talkId = "";
-    console.log("openTalk");
     this.exist = false;
     this.talkOpen = true;
     let dbIDOther = this.otherChatUser.idDB;
-    let talks = this.user.talkID; // list of all the talks of the user   
-    // console.log("talks ", talks);
-    // console.log("otherChatUser ", dbIDOther);
-    // console.log("user ", this.user);
-
+    let talks = this.user.talkID; // list of all the talks of the user       
     talks.forEach(t => {
       let a: any;
-      a = t;
-      console.log(" dbIDOther ", dbIDOther + "  a.oUDbID:" + a.oUDbID);
+      a = t;     
       if (a.oUDbID === dbIDOther) {
         this.exist = true;
         talkId = a.talkID;
@@ -255,15 +242,13 @@ export class PrivateMessageComponent {
    * @param talkId Id of the talk, that should be opend
    */
   openeningTalk(talkId: string) {
-    if (this.exist) {
-      console.log("talk exist");
+    if (this.exist) {     
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
-    } else {
-      console.log("not exist");
+    } else { 
       this.currentTalkData = this.chatHepler.createEmptyTalk()
       this.currentTalkData.communikation = [];//---------------------------
-      console.log("current data ", this.currentTalkData);
+      
     }
   }
 
@@ -276,19 +261,9 @@ export class PrivateMessageComponent {
   }
 
   setOtherUser(user: User) {
-    this.otherChatUser = user;
-    console.log("other user private", this.otherChatUser);
-    console.log("data", this.currentTalkData);
+    this.otherChatUser = user;  
     this.openTalk();
-
-  }
-
-  // async updateDB(id: string, coll: string, info: {}) {
-
-  //   let docRef = doc(this.firestore, coll, id);
-  //   await updateDoc(docRef, info).catch(
-  //     (err) => { console.log(err); });
-  // }
+  }   
 
   /**
    * Stores a new talk in firebase.
@@ -352,8 +327,7 @@ export class PrivateMessageComponent {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     // let talkId = this.currentTalkData.idDB;
-    let talkId = this.currentTalkId;
-    console.log("current talk",this.currentTalkData);
+    let talkId = this.currentTalkId;   
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -369,8 +343,7 @@ export class PrivateMessageComponent {
       if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
-    }
-    console.log("talkid",talkId);
+    }    
     this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile = sm;
     this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
     this.chatHelper.updateDB(talkId, 'talk', { "idDB": talkId });
@@ -385,8 +358,7 @@ export class PrivateMessageComponent {
    */
   removeSmile(i: number, sIndex: number) {
     let talkId = this.currentTalkData.idDB;
-    let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;
-    console.log("sm", this.currentTalkData.communikation[this.communikationIndex].messages[i]);
+    let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;  
     let newUserList = this.smileHelper.removeUser(sm[sIndex].users, this.user)
     sm[sIndex].users = newUserList;
     if (sm[sIndex].users.length == 0) {
@@ -413,41 +385,11 @@ export class PrivateMessageComponent {
     this.showEmojisComment = !this.showEmojisComment;
     this.communikationIndex = i;
     this.emojiMessageIndex = mIndex;
+  } 
+
+  openMailAddresses() { 
+    this.addresses = !this.addresses; 
   }
-
-  test() {
-    console.log("teeeeeeeest");
-  }
-
-  // addEmoji(selected: Emoji) {
-  //   const emoji: string = (selected.emoji as any).native;
-  //   const input = this.textArea.nativeElement;
-  //   input.focus();
-  //   console.log(emoji)
-  //   //this.emojiPicker_open = false;
-  //   //let unicodeCode: string = selected.emoji.unified;
-  //   //let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-  //   // if (document.execCommand) { // document.execCommand is absolute but it //add support for undo redo and insert emoji at carrot position
-  //   //   //any one has better solution ?
-
-  //   //   var event = new Event('input');
-  //   //   document.execCommand('insertText', false, emoji);
-  //   //   return;
-  //   // }
-  //   // insert emoji on carrot position
-  //   const [start, end] = [input.selectionStart, input.selectionEnd];
-  //   input.setRangeText(emoji, start, end, 'end');
-  // }
-
-  openMailAddresses() {
-    //  this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, "Der Name ist @Maria Müller. Und was noch @Perry Rhodan. @Julia Wessolleck");
-    // this.chathelper.isPartOf("Maria Müller","Der Name ist @Maria Müller. Und was noch @Perry Rhodan");
-    // this.chathelper.splitAtName(this.user, this.userList,"Der Name ist @Maria Müller. Und was noch @Perry Rhodan")
-
-    this.addresses = !this.addresses;
-    console.log("addresses", this.addresses);
-  }
-
 
   openProfileOfUser(user: any) {
     let t = user.text.substring(1);
@@ -475,8 +417,6 @@ export class PrivateMessageComponent {
     });
   }
 
-  giveCurrentData(){
-    console.log("talk:",this.currentTalkData);
-  }
+  
 
 }

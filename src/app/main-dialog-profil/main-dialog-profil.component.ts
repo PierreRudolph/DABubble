@@ -33,9 +33,6 @@ export class MainDialogProfilComponent {
 
   setUser(user: User) {
     this.user = user;
-    console.log("received user", user);
-    // this.updateName(this.user.idDB, this.user.name);
-    // this.updateState(this.user.idDB, "email", this.user.email);
     this.updateUser(this.user.idDB);
   }
 
@@ -58,21 +55,19 @@ export class MainDialogProfilComponent {
 
   async logOut() {
     this.user.status = "Inaktiv";
-    console.log("log out user data", this.user.idDB);
     // await this.updateUser(this.user.idDB);    
     let user = this.authService.getAuthServiceUser();
     if (user) {
       this.authService.logout().then((dat) => {
         this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
-        console.log("logged out", this.user);
         this.router.navigateByUrl("login");
         this.unsubscribe.emit(true);
 
       })
         .catch((error) => {
-          // An error occurred
+          console.log("error", error);
         });;
-      console.log("userid is", user._delegate.uid);
+
     }
   }
 
@@ -83,7 +78,6 @@ export class MainDialogProfilComponent {
   async updateUser(id: string) {
     let docRef = this.getSingleUserRef(id)
     await updateDoc(docRef, this.user.toJSON()).then((data) => {
-      console.log("logged out data", data);
     }).catch(
       (err) => { console.log(err); });
   }

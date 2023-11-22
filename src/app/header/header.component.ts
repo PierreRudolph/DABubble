@@ -64,8 +64,7 @@ export class HeaderComponent {
   }
 
 
-  callOpenChan(n: number) {
-    console.log("call Cgan");
+  callOpenChan(n: number) {    
     this.callOpenChannel.emit(n);
     this.isOpen.emit(false);
   }

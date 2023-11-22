@@ -61,14 +61,10 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
-  constructor(public authService: AuthService, public router: Router) {
-    console.log("threadist construktor", this.threadList);
-    console.log("channel name", this.threadList[0].channel.name);
-    console.log("current", this.currentTalkData);
+  constructor(public authService: AuthService, public router: Router) {    
     this.currentTalkData.communikation = [];
 
-    setTimeout(() => {
-      console.log("call construktor");
+    setTimeout(() => {    
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden      
       this.unsub = this.subUserInfo();
@@ -77,10 +73,7 @@ export class MainPageComponent {
     setTimeout(() => {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
-    }, 1500);
-
-    console.log("private comp", this.child);
-
+    }, 1500);   
     this.getScreenWidth();
 
   }
@@ -101,8 +94,7 @@ export class MainPageComponent {
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
-          google = false;
-          console.log("userdats", this.user);
+          google = false;      
           this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON())
         }
         else { this.userList.push(u); }
@@ -119,8 +111,7 @@ export class MainPageComponent {
     this.user.name = this.userAuth._delegate.displayName;
     this.user.email = this.userAuth._delegate.email;
     this.user.iconPath = "assets/img/Google.svg";
-    this.user.status = "aktiv";
-    console.log("googleName", this.user.name);
+    this.user.status = "aktiv";  
     this.chathelper.addUser(this.user.toJSON());
 
   }
@@ -133,12 +124,10 @@ export class MainPageComponent {
   subTalkInfo() {
     let ref = collection(this.firestore, 'talk');
     this.talkList = [];
-    return onSnapshot(ref, (list) => {
-      console.log("id of the talk is", this.currentTalkId);
+    return onSnapshot(ref, (list) => {  
       list.forEach(elem => {
         if (elem.id == this.currentTalkId) {
-          this.currentTalkData = elem.data();
-          console.log("curretn talk sub", this.currentTalkData);
+          this.currentTalkData = elem.data();         
         }
         //Only talks of the current user are saved
         if (elem.data()['member1DBid'] == this.user.idDB || elem.data()['member2DBid'] == this.user.idDB) {
@@ -156,7 +145,6 @@ export class MainPageComponent {
   subChannelList() {
     let ref = collection(this.firestore, 'thread');
     return onSnapshot(ref, (list) => {
-      console.log("change channel");
       let cl: any = []
       list.forEach(elem => {
         if (this.isUserInMemberList(elem.data())) {
@@ -225,10 +213,6 @@ export class MainPageComponent {
     this.openChat = true;
   }
 
-  // giveValue(v: number) {
-  //   console.log(v);
-  // }
-
   setOpenValue(e: boolean) {
     this.openChat = e;
     if (!this.openChat && this.sideMenuHidden) {
@@ -264,16 +248,13 @@ export class MainPageComponent {
     this.talkOpen = true;
     this.channelOpen = false;
     setTimeout(() => {
-      this.otherChatUser = user;
-      console.log("other user", this.otherChatUser);
-      // this.setUser = !this.setUser;
+      this.otherChatUser = user;     
       this.child.setOtherUser(user);
     }, 750);
 
   }
 
-  setCurrentTalkId(id: string) {
-    console.log("curren talk ist", id);
+  setCurrentTalkId(id: string) {   
     this.currentTalkId = id;
     this.currentTalkData.iD = id;
   }
