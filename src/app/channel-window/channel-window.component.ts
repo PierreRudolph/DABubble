@@ -26,6 +26,7 @@ export class ChannelWindowComponent {
   public editChannelOpen: boolean | false;
   public addPeopleOpen: boolean | false;
   public channelMembersOpen: boolean | false;
+  public openEditDialog: boolean = false;
   public smileEdit = false;
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
@@ -38,32 +39,27 @@ export class ChannelWindowComponent {
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   @Output() isOpen = new EventEmitter<boolean>();
   public smileHelper: SmileHelper = new SmileHelper();
-  public channelHelper:ChannelHelper = new ChannelHelper()
-  // private dialogPosTop: string = '215px';
-  // private editChanPosLeft: string = '445px';
-  // private membersDialogPosRight: string = '110px';
-  // private addMembersDialogPosRight: string = '60px';
+  public channelHelper: ChannelHelper = new ChannelHelper()
 
-  private dialogClasses: Array<string> = ['dialogBorToLeNone'];
-  public openEditDialog: boolean = false;
+  private dialogClasses: Array<string> = ['dialogBorToLeNone']; 
   public addresses = false;
   private text: string = "";
-  public popUpText = { "du": "", "first": "", "other": "" ,"verb":""};
-  private cA:any;
+  public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
+  private cA: any;
 
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
 
-  constructor(public dialog: MatDialog) {   
+  constructor(public dialog: MatDialog) {
     setTimeout(() => {
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 1000);
   }
 
-  scrollDown(){
-    setTimeout(() => {       
+  scrollDown() {
+    setTimeout(() => {
       this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 1500);
   }
@@ -78,20 +74,15 @@ export class ChannelWindowComponent {
     this.toggleEditChanBol();
     let dialogRef = this.dialog.open(EditChannelComponent,
       { panelClass: this.dialogClasses, position: { left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop } });
-    dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
-    dialogRef.componentInstance.userList = this.userList;//Kopie
-    dialogRef.componentInstance.user = this.user;//Kopie
-    dialogRef.componentInstance.screenWidth = this.screenWidth;
+    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.number, this.userList, this.user, this.screenWidth);
     dialogRef.afterClosed().subscribe(() => {
       this.toggleEditChanBol();
     });
   }
 
-
   showBegin(com: any) {
     return com.date == "";
-  } 
-
+  }
 
   setEditDialogMobileStyle() {
     if (this.mobileScreenWidth()) {
@@ -105,10 +96,10 @@ export class ChannelWindowComponent {
    * Sets the Position of channel-members-dialog and add-people-dialog,
    * depending on whether side-menu-thread(==openChat), is open or closed.
    */
-  setPositionOfDialogs() {  
-    this.channelHelper.setPositionOfDialogs(this.openChat,this.mobileScreenWidth());
-   
-  }  
+  setPositionOfDialogs() {
+    this.channelHelper.setPositionOfDialogs(this.openChat, this.mobileScreenWidth());
+
+  }
 
   toggleEditChanBol() {
     this.editChannelOpen = !this.editChannelOpen;
@@ -162,13 +153,13 @@ export class ChannelWindowComponent {
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    this.saveEmojiCommentHelper(emoji);   
+    this.saveEmojiCommentHelper(emoji);
     this.showEmojisTread = !this.showEmojisTread;
   }
 
-  saveEmojiCommentHelper(emoji:any){
+  saveEmojiCommentHelper(emoji: any) {
     let threadId = this.threadList[this.number].channel.idDB;
-    let sm = this.createEmojiData(emoji);
+    let sm = this.channelHelper.createEmojiData(emoji,this.getTreadData(this.threadIndex, 'smile'),this.smileHelper,this.user);
     this.setTreadData(this.threadIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
@@ -179,32 +170,7 @@ export class ChannelWindowComponent {
    */
   saveEmojiCom(cIndex: number, tIndex: number, e: any) { // warum speichert die funktion den emoji nicht?   
     this.setIndices(cIndex, tIndex);
-    this.saveEmojiCommentHelper(e);    
-  }
-
-  /**
-   * Creates the emoji data, that shell be stored.
-   */
-  createEmojiData(emoji: string) {
-    let sm = this.getTreadData(this.threadIndex, 'smile');
-
-    let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
-    if (smileIndex == -1) {
-      let icon = {
-        "icon": emoji,
-        "users": [
-          { "id": this.user.idDB }
-        ]
-      };
-      sm.push(icon);
-    } else {
-      let usersIcon = sm[smileIndex].users;
-
-      if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
-        sm[smileIndex].users.push({ "id": this.user.idDB });
-      }
-    }
-    return sm;
+    this.saveEmojiCommentHelper(e);
   }
 
   toggleEmojisDialog() {
@@ -228,7 +194,7 @@ export class ChannelWindowComponent {
    * @param i Communication-Index
    * @param j Message-Index
    */
-  openThisThread(n: number, i: number, j: number) {   
+  openThisThread(n: number, i: number, j: number) {
     this.threadC.setValue(n, i, j);
     this.newItemEventChannel.emit(this.threadC);
   }
@@ -269,10 +235,10 @@ export class ChannelWindowComponent {
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
     let threadId = this.threadList[indexCannel].channel.idDB;
-    let question = this.channelHelper.getQuestion(this.user,this.chathelper,this.textThread,this.userList)
+    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList)
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
-      let th = this.threadList[indexCannel].communikation;    
+      let th = this.threadList[indexCannel].communikation;
       this.chathelper.updateDB(threadId, "thread", { "communikation": th });
     }
     else {
@@ -416,7 +382,7 @@ export class ChannelWindowComponent {
    * @param input Key event
    */
   keyDownFunction(input: any) {
-   
+
     if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
       this.sendQuestion(this.number);
@@ -448,11 +414,7 @@ export class ChannelWindowComponent {
     let dialogRef = this.dialog.open(ChannelMembersComponent);
     this.setChannelMembersDialogPos(dialogRef);
     this.setChannelMembersValues(dialogRef);
-    this.subscribeChannelMembersDialog(dialogRef);
-    dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
-    dialogRef.componentInstance.userList = this.userList;//Kopie
-    dialogRef.componentInstance.user = this.user;//Kopie
-
+    this.subscribeChannelMembersDialog(dialogRef);    
   }
   /**
    * sets the position of the Dialog that contains all assigned members.
@@ -467,9 +429,9 @@ export class ChannelWindowComponent {
    * Gives the needet variables to the Dialog
    * @param dialogRef MatDialogRef of ChannelMembersComponent
    */
-  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {  
+  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     console.log("members");
-    this.channelHelper.setChannelMembersValues(dialogRef,this.user,this.threadList,this.number,this.userList);    
+    this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.threadList, this.number, this.userList);
   }
 
   /**
@@ -494,7 +456,7 @@ export class ChannelWindowComponent {
     this.addresses = !this.addresses;
   }
 
-  openProfileOfUser(user: any) {
+  openProfileOfUser(user: any) {    
     let t = user.text.substring(1);
     if (this.user.name == t) { this.openDialog(this.user) }
     else {
@@ -502,7 +464,6 @@ export class ChannelWindowComponent {
         if (u.name == t) { this.openDialog(u); }
       });
     }
-
   }
 
   chooseUser(u: User) {
@@ -537,19 +498,17 @@ export class ChannelWindowComponent {
    * @param j Index of the tread
    * @param sIndex  Index of the smile
    */
-  showPopUpCommentUsers(i: number, j: number, sIndex: number) {    
-  
+  showPopUpCommentUsers(i: number, j: number, sIndex: number) {
     let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];
-    let smileUsers = [];      
+    let smileUsers = [];
     smile.users.forEach((s) => {
       smileUsers.push(s.id);
-    });    
-    this.popUpText =this.smileHelper.showPopUpCommentUsers(smileUsers,this.user,this.userList); 
-   
+    });
+    this.popUpText = this.smileHelper.showPopUpCommentUsers(smileUsers, this.user, this.userList);
   }
 
-  showBlendin(attr:string){
-  return this.popUpText[attr]!="";
+  showBlendin(attr: string) {
+    return this.popUpText[attr] != "";
   }
- 
+
 }
