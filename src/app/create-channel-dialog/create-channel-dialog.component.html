@@ -1,15 +1,16 @@
 <div class="dialog-div ">
 
-    <div class="dialog-header" *ngIf="fristPage">
+    <div class="dialog-header" *ngIf="fristPage||mobileScreenWidth()">
         <span class="nunito fs24 wei700">Channel erstellen</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
-    <div *ngIf="fristPage" class="explanation">Channels dienen deinem Team zur Kommunikation. Am besten sollten sie
+    <div *ngIf="fristPage||mobileScreenWidth()" class="explanation">Channels dienen deinem Team zur Kommunikation. Am
+        besten sollten sie
         themenbezigen sein
         #marketing zum Beispiel.
     </div>
 
-    <form *ngIf="fristPage" (ngSubmit)="onSubmit()" #channelForm="ngForm">
+    <form *ngIf="fristPage||mobileScreenWidth()" (ngSubmit)="onSubmit()" #channelForm="ngForm">
         <div>
             <h2 class="fs18 wei700">Channel-Name</h2>
             <input name="channelName" class="input-field" [(ngModel)]="channelName"
@@ -26,7 +27,7 @@
         </div>
 
         <div class="create-btn-div">
-            <button [disabled]="!channelForm.form.valid" type="submit" class="btn">Erstellen</button>
+            <button [disabled]="!channelForm.form.valid" type="submit" class="btn createBtn">Erstellen</button>
         </div>
     </form>
 
@@ -56,22 +57,23 @@
         <div style="position: relative;">
             <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
                 *ngIf="isChecked" class="inputText" type="text" placeholder="Name eingeben">
-          <div style="display: flex; gap:10px">
-            <div class="addedMember" *ngFor="let cu of currentlyAddedUser">
-                <img style="width:20px;height:20px" src="{{cu.iconPath}}">
-                <div class="nunitoBlack fs14 wei400">{{cu.name}}</div>
-                <img style="width:20px;height:20px;cursor: pointer;" (click)="deleteUser(cu)" src="assets/img/close.svg">
-            </div>
-          </div>
-           <div *ngIf="isPopUpOpen()" class="popUp">
-            <div class="row" (click)="addMember(e)" *ngFor="let e of filteredMembers">
-                <div class="portraitChannel" >
-                    <img src="{{e.iconPath}}">
-                    <div class="dot" [class.green]="e.status=='aktiv'"></div>
+            <div style="display: flex; gap:10px">
+                <div class="addedMember" *ngFor="let cu of currentlyAddedUser">
+                    <img style="width:20px;height:20px" src="{{cu.iconPath}}">
+                    <div class="nunitoBlack fs14 wei400">{{cu.name}}</div>
+                    <img style="width:20px;height:20px;cursor: pointer;" (click)="deleteUser(cu)"
+                        src="assets/img/close.svg">
                 </div>
-                <div class="nunitoBlack fs18 wei400">{{e.name}}</div>
             </div>
-           </div>
+            <div *ngIf="isPopUpOpen()" class="popUp">
+                <div class="row" (click)="addMember(e)" *ngFor="let e of filteredMembers">
+                    <div class="portraitChannel">
+                        <img src="{{e.iconPath}}">
+                        <div class="dot" [class.green]="e.status=='aktiv'"></div>
+                    </div>
+                    <div class="nunitoBlack fs18 wei400">{{e.name}}</div>
+                </div>
+            </div>
         </div>
 
         <div class="create-btn-div">

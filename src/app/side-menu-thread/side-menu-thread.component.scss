@@ -403,8 +403,8 @@
 
 .sendArrow {
     position: absolute;
-    right: 55px;
-    bottom: 20px;
+    right: 70px;
+    bottom: 40px;
     cursor: pointer;
 }
 
@@ -463,11 +463,11 @@
     color: white;
     font-size: 16px;
     font-family: Nunito;
-    display: none;    
-    width:150px;
-    height:fit-content;
+    display: none;
+    width: 150px;
+    height: fit-content;
     position: absolute;
-    bottom:50px;
+    bottom: 50px;
     padding: 20px;
 }
 
@@ -480,8 +480,8 @@
     display: flex;
     gap: 3px;
 
-    &:hover{
-        .popUpComment{
+    &:hover {
+        .popUpComment {
             display: flex;
             flex-direction: column;
             align-items: center;

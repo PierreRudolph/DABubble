@@ -1,3 +1,7 @@
+.privateMesOuterDiv {
+    height: 100%;
+}
+
 .main-page {
     display: flex;
     width: calc(100vw - 40px);
@@ -50,7 +54,7 @@
     border-radius: 100%;
     position: absolute;
     background-color: #ADB0D9;
-    right: 5px;
+    right: 20px;
     bottom: 7px;
     border: 2px white solid;
 }
@@ -95,7 +99,6 @@
 }
 
 .textareaDirektMessage {
-    margin-top: 50px;
     padding: 0 45px 0 45px;
     position: relative;
     box-sizing: border-box;
@@ -105,18 +108,17 @@
     display: flex;
     gap: 25px;
     align-items: flex-end;
-    height: calc(100% - 455px);
+    height: calc(100% - 450px);
 }
 
 .mainFieldWithoutInfo {
-    height: calc(100% - 340px);
-    ;
+    height: calc(100% - 303px);
 }
 
 .sendArrow {
     position: absolute;
-    right: 55px;
-    bottom: 10px;
+    right: 70px;
+    bottom: 20px;
     cursor: pointer;
 }
 
@@ -371,9 +373,69 @@
     align-items: center;
 }
 
+.charImgHeader {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
 .charImg {
     object-fit: cover;
     width: 70px;
     height: 70px;
     border-radius: 50%;
+}
+
+.info {
+    padding-left: 45px;
+    color: #686868;
+    margin-bottom: 30px;
+}
+
+.charImgInfo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+@media (max-width:830px) {
+    .privateMesOuterDiv {
+        width: 100vw;
+    }
+
+    .mainFieldDirektMessage {
+        height: calc(100% - 460px);
+    }
+
+    .mainFieldWithoutInfo {
+        height: calc(100% - 254px);
+    }
+
+    .direktMesHeader {
+        border-radius: 0px;
+        height: 80px;
+        padding: 10px 16px;
+    }
+
+    .textareaDirektMessage {
+        padding: 0px 16px;
+    }
+
+    .info {
+        padding: 0px 16px;
+    }
+
+    .iconContainerTextArea {
+        left: 40px;
+    }
+
+    .sendArrow {
+        right: 40px;
+    }
+
+    .chatIconButtom {
+        padding: 0px 16px;
+    }
 }
