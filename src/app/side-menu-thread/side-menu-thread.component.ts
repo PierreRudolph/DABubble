@@ -36,12 +36,14 @@ export class SideMenuThreadComponent {
   public openChat: boolean;
   public addresses = false;
 
+
   showEmojisUpper: boolean | undefined = false;
   showEmojisLower: boolean | undefined;
   showEmojisTA: boolean | undefined;
   showEmojisTAEdit: boolean | undefined;
   emojiText: string = "";
   smileEdit: boolean = false;
+  public popUpText = { "du": "", "first": "", "other": "" ,"verb":""}
 
   @ViewChild('sideMenuThreadDiv')
   sideMenuThreadDiv: any;
@@ -414,25 +416,25 @@ export class SideMenuThreadComponent {
   }
 
 
-  /**
-   * Checks if actual User add a smiley to the given answer.
-   * 
-   * @param answI index number of the given answer
-   * @returns true or false depending on, if actual user added a Smiley to the given Answer.
-   */
-  checkIfActualUserAddSmiley(answI: number) {
-    let smileys = this.getAnswerData(answI, 'smile');
-    let thisUserAddSmiley = false;
-    smileys.forEach((smiley: { users: any[]; }) => {
-      smiley.users.forEach(user => {
-        if (user.id == this.user.idDB) {
-          thisUserAddSmiley = true;
-          return;
-        }
-      });
-    });
-    return thisUserAddSmiley;
-  }
+  // /**
+  //  * Checks if actual User add a smiley to the given answer.
+  //  * 
+  //  * @param answI index number of the given answer
+  //  * @returns true or false depending on, if actual user added a Smiley to the given Answer.
+  //  */
+  // checkIfActualUserAddSmiley(answI: number) {
+  //   let smileys = this.getAnswerData(answI, 'smile');
+  //   let thisUserAddSmiley = false;
+  //   smileys.forEach((smiley: { users: any[]; }) => {
+  //     smiley.users.forEach(user => {
+  //       if (user.id == this.user.idDB) {
+  //         thisUserAddSmiley = true;
+  //         return;
+  //       }
+  //     });
+  //   });
+  //   return thisUserAddSmiley;
+  // }
 
 
   /**
@@ -443,23 +445,37 @@ export class SideMenuThreadComponent {
    * @param answI index number of the given answer
    * @returns number of users who added a smiley to the given answer.
    */
-  getSmileyCountOfAnswer(answI: number) {
-    let smileys = this.getAnswerData(answI, 'smile');
-    let usersNumber = 0;
-    let usersArray = [];
-    smileys.forEach((smiley: { users: any[]; }) => {
-      smiley.users.forEach(user => {
-        if (!usersArray.includes(user.id)) {
-          usersArray.push(user.id);
-          usersNumber++;
-        }
-      });
+  // getSmileyCountOfAnswer(answI: number) {
+  //   let smileys = this.getAnswerData(answI, 'smile');
+  //   let usersNumber = 0;
+  //   let usersArray = [];
+  //   smileys.forEach((smiley: { users: any[]; }) => {
+  //     smiley.users.forEach(user => {
+  //       if (!usersArray.includes(user.id)) {
+  //         usersArray.push(user.id);
+  //         usersNumber++;
+  //       }
+  //     });
+  //   });
+  //   if (this.checkIfActualUserAddSmiley(answI)) {
+  //     usersNumber--;
+  //   }
+  //   return usersNumber - 1;
+  // }
+
+  showPopUpCommentUsers(aIndex:number, sIndex: number) {    
+  
+    let smile = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[aIndex].smile[sIndex];
+    let smileUsers = [];      
+    smile.users.forEach((s) => {
+      smileUsers.push(s.id);
     });
-    if (this.checkIfActualUserAddSmiley(answI)) {
-      usersNumber--;
-    }
-    return usersNumber - 1;
+    this.popUpText =this.smileHelper.showPopUpCommentUsers(smileUsers,this.user,this.userList); 
   }
+
+  showBlendin(attr:string){
+    return this.popUpText[attr]!="";
+    }
 
   // /**
   //    * Blend in the popUp containing "Nachricht bearbeiten"

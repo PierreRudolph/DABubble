@@ -27,8 +27,8 @@
               <div class="message" [class.dNone]="m.edit">
                 <!-- {{m.message}}  -->
                 <span *ngFor="let mes of m.messageSplits" style="width:100%">
-                  <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)"
-                    style="background-color: #535AF1;cursor:pointer;">{{mes.text}}</span>
+                  <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)" class="linkedUserName"
+                    [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
                   <span *ngIf="!chatHelper.isLink(mes)">{{mes.text}}</span>
                 </span>
               </div>
