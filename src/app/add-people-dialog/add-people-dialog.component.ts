@@ -136,4 +136,8 @@ export class AddPeopleDialogComponent {
   closeDialog() {
     this.dialogReference.close(this.channelJSON);
   }
+
+  mobileScreenWidth() {
+    return this.screenWidth < 830;
+  }
 }

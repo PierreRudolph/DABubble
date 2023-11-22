@@ -17,6 +17,7 @@ export class MainDialogProfilComponent {
   // private userAuth: any; //authenticated user
   // public user: User = new User();//authenticated user
   @Input() user: User = new User();
+  @Input() screenWidth: number;
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   // private userUid: string = ""; //uid od the user
@@ -27,8 +28,8 @@ export class MainDialogProfilComponent {
   @Output() unsubscribe = new EventEmitter<boolean>();
 
   constructor(public authService: AuthService, public dialog: MatDialog, public router: Router) {
-  
-  } 
+
+  }
 
   setUser(user: User) {
     this.user = user;
@@ -47,7 +48,7 @@ export class MainDialogProfilComponent {
   }
 
   openProfile() {
-    this.choiceDialog = !this.choiceDialog;
+    //this.choiceDialog = !this.choiceDialog;
     this.profileOpen = true;
   }
 
@@ -62,8 +63,8 @@ export class MainDialogProfilComponent {
     let user = this.authService.getAuthServiceUser();
     if (user) {
       this.authService.logout().then((dat) => {
-        this.chatHepler.updateDB(this.user.idDB,"user",this.user.toJSON());
-        console.log("logged out",this.user);
+        this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
+        console.log("logged out", this.user);
         this.router.navigateByUrl("login");
         this.unsubscribe.emit(true);
 
@@ -81,10 +82,14 @@ export class MainDialogProfilComponent {
 
   async updateUser(id: string) {
     let docRef = this.getSingleUserRef(id)
-    await updateDoc(docRef, this.user.toJSON()).then((data)=>{
-      console.log("logged out data",data);
+    await updateDoc(docRef, this.user.toJSON()).then((data) => {
+      console.log("logged out data", data);
     }).catch(
       (err) => { console.log(err); });
+  }
+
+  mobileScreenWidth() {
+    return this.screenWidth < 830;
   }
 
   // async addUser(item: {}) {

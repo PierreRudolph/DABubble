@@ -1,5 +1,6 @@
-<div style="position: absolute;top:0; ">
+<div class="profileOuterDiv ">
     <div class="profile" (click)="openChoie()" style="cursor: pointer;">
+
         <span class="userName">{{user.name}}</span>
         <div style="position: relative;">
             <img class="avatarImg" src="{{user.iconPath}}">
@@ -10,10 +11,15 @@
         <img class="arrowImg" src="assets/img/arrowDown.svg">
     </div>
     <div *ngIf="choiceDialog" class="choiceDialog">
-        <div style="cursor: pointer;" (click)="openProfile()">Profile</div>
-        <div style="cursor: pointer;" (click)="logOut()">Logout</div>
+        <div class="smallThickBorder" *ngIf="mobileScreenWidth()"></div>
+        <div class="textImgDiv" [class.textImgDivHoverStyle]="profileOpen" (click)="openProfile()"><img
+                class="accountIcon" [class.accountIconHoverStyle]="profileOpen"
+                src="assets/icons/account-circle.svg">Profile</div>
+        <div class="textImgDiv" (click)="logOut()"><img src="assets/icons/logout.svg">Logout</div>
     </div>
+
     <div *ngIf="choiceDialog" class="dialogGrey" (click)="openChoie()"></div>
+
     <app-profile-dialog [user]="user" (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)"
-        *ngIf="profileOpen"></app-profile-dialog>
+        *ngIf="profileOpen" [screenWidth]="screenWidth"></app-profile-dialog>
 </div>

@@ -2,14 +2,15 @@
     <div *ngIf="!edit" class="profileDialog ">
         <div class="firstLine">
             <div class="nunitoBlack fs24">Profil</div>
-            <img (click)="closeDialog()" style="cursor: pointer;" src="assets/img/close.svg">
+            <img (click)="closeDialog()" class="closeIcon" src="assets/img/close.svg">
         </div>
         <div>
             <img class="imgProfile" src="{{user.iconPath}}">
         </div>
         <div class="firstLine">
             <div class="nunitoBlack fs32">{{user.name}}</div>
-            <a class="edit" (click)="editData()">Bearbeiten</a>
+            <a *ngIf="!mobileScreenWidth()" class="edit" (click)="editData()">Bearbeiten</a>
+            <img *ngIf="mobileScreenWidth()" class="editPencil" (click)="editData()" src="assets/icons/edit-pencil.svg">
         </div>
         <div class="styleState">
             <div class="dot"></div>
@@ -25,7 +26,8 @@
     </div>
     <div *ngIf="edit" class="profileDialog">
         <div class="firstLine">
-            <div class="nunitoBlack fs24">Profil</div>
+            <div *ngIf="edit" class="nunitoBlack fs24">Dein Profil bearbeiten</div>
+            <div *ngIf="!edit" class="nunitoBlack fs24">Profil</div>
             <img (click)="closeDialog()" style="cursor: pointer;" src="assets/img/close.svg">
         </div>
         <div>
@@ -34,7 +36,7 @@
         <div class="inputContainer" [formGroup]="registerForm">
             <div class="editLabel">
                 <img src="assets/img/accountNameIcon.svg">
-                <div class="nunitoBlack fs20">vollständiger Name</div>
+                <div class="nunitoBlack fs20">Vollständiger Name</div>
             </div>
             <div class="editInput"><input formControlName="name" class="editInputField" placeholder="{{user.name}}">
             </div>

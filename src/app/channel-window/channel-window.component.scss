@@ -89,11 +89,11 @@
     color: white;
     font-size: 16px;
     font-family: Nunito;
-    display: none;    
-    width:150px;
-    height:fit-content;
+    display: none;
+    width: 150px;
+    height: fit-content;
     position: absolute;
-    bottom:50px;
+    bottom: 50px;
     padding: 20px;
 }
 
@@ -106,8 +106,8 @@
     display: flex;
     gap: 3px;
 
-    &:hover{
-        .popUpComment{
+    &:hover {
+        .popUpComment {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -249,7 +249,7 @@
     margin-top: 25px;
 }
 
-  
+
 
 
 
@@ -595,7 +595,6 @@
 }
 
 .textareaDirektMessage {
-    margin-top: 20px;
     padding: 0 45px 0 45px;
     position: relative;
     box-sizing: border-box;
@@ -672,7 +671,7 @@
     }
 
     .channel-body {
-        height: calc(100% - 250px);
+        height: calc(100% - 225px);
         margin-top: 50px;
     }
 
