@@ -247,9 +247,11 @@ export class MainPageComponent {
   setOtherUser(user: User) {
     this.talkOpen = true;
     this.channelOpen = false;
+
     setTimeout(() => {
-      this.otherChatUser = user;     
+      this.otherChatUser = user;       
       this.child.setOtherUser(user);
+      
     }, 750);
 
   }

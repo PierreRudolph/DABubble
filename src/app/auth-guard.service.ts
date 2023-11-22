@@ -14,9 +14,7 @@ export class AuthGuardService {
     let user = this.authService.getAuthServiceUser();
     let userid = user ? user._delegate.uid : 'no';
     let id = localStorage.getItem("uid");
-    let google = localStorage.getItem("google");
-    console.log("item", id);
-    console.log("useritem", userid);
+    let google = localStorage.getItem("google"); 
     let allow = (id != null && id == userid) || (google != null);
     console.log("navigation allowed?:", allow);
     

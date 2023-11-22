@@ -52,15 +52,11 @@ export class SideMenuThreadComponent {
   // openEditDialog: boolean;
   // textEdit: any;
 
-  constructor(public dialog: MatDialog) {
-    setTimeout(() => {
-      console.log("this user is", this.user);
-    }, 500);
+  constructor(public dialog: MatDialog) {    
   }
 
   closeThread() {
-    this.drawer.close();
-    console.log(this.drawer);
+    this.drawer.close();    
     this.openChat = false;
     this.newItemEventOpenChat.emit(this.openChat);
     setTimeout(() => {
@@ -258,8 +254,7 @@ export class SideMenuThreadComponent {
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
-    console.log("answerIndex", this.answerIndex);
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;  
     let sm = this.getAnswerData(this.answerIndex, 'smile');
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -413,55 +408,7 @@ export class SideMenuThreadComponent {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
-  }
-
-
-  // /**
-  //  * Checks if actual User add a smiley to the given answer.
-  //  * 
-  //  * @param answI index number of the given answer
-  //  * @returns true or false depending on, if actual user added a Smiley to the given Answer.
-  //  */
-  // checkIfActualUserAddSmiley(answI: number) {
-  //   let smileys = this.getAnswerData(answI, 'smile');
-  //   let thisUserAddSmiley = false;
-  //   smileys.forEach((smiley: { users: any[]; }) => {
-  //     smiley.users.forEach(user => {
-  //       if (user.id == this.user.idDB) {
-  //         thisUserAddSmiley = true;
-  //         return;
-  //       }
-  //     });
-  //   });
-  //   return thisUserAddSmiley;
-  // }
-
-
-  /**
-   * Loops through the smiley Arrays to count how much different users add a smiley to the given answer.
-   * at the en of the function, we decrement the number 2 times, one time if the actual user add a smiley
-   * and the second time always because one user who add a smiley, would always shown in text.
-   * 
-   * @param answI index number of the given answer
-   * @returns number of users who added a smiley to the given answer.
-   */
-  // getSmileyCountOfAnswer(answI: number) {
-  //   let smileys = this.getAnswerData(answI, 'smile');
-  //   let usersNumber = 0;
-  //   let usersArray = [];
-  //   smileys.forEach((smiley: { users: any[]; }) => {
-  //     smiley.users.forEach(user => {
-  //       if (!usersArray.includes(user.id)) {
-  //         usersArray.push(user.id);
-  //         usersNumber++;
-  //       }
-  //     });
-  //   });
-  //   if (this.checkIfActualUserAddSmiley(answI)) {
-  //     usersNumber--;
-  //   }
-  //   return usersNumber - 1;
-  // }
+  } 
 
   showPopUpCommentUsers(aIndex:number, sIndex: number) {    
   

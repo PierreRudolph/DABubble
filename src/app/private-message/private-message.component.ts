@@ -29,9 +29,9 @@ export class PrivateMessageComponent {
   public openChat = false;
   @Input() otherChatUser: User = new User();
   @Input() _setUser: boolean = false;
-  private currentTalkId: string = "";
+  public currentTalkId: string = "";
   @Input() talkList: any = [this.chatHepler.createEmptyTalk()];
-  @Input()  currentTalkData: any = this.chatHepler.createEmptyTalk();
+  @Input() currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
   public textEdit: string = "";
   public exist = false;
@@ -47,6 +47,7 @@ export class PrivateMessageComponent {
   chatHelper: ChatHepler = new ChatHepler();
   public messageInformation: any[] = [];
   public addresses = false;
+  private mA;
 
   // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -56,7 +57,10 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
-
+    setTimeout(() => {
+      this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
+      this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
+    }, 1500);
   }
 
   /**
@@ -148,7 +152,7 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   saveMessage() {
-    let mes = this.createMessageFromText(this.text);    
+    let mes = this.createMessageFromText(this.text);
     if (!this.exist) {
       this.startTalk(mes);
       this.exist = true;
@@ -188,9 +192,14 @@ export class PrivateMessageComponent {
     this.otherChatUser.talkID.push(talkOther);  //other talklist       
     this.sendCurrentTalkId.emit(this.currentTalkId);
     this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
-    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON()); 
+    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
   }
 
+
+  showData() {
+    console.log("current talk", this.currentTalkData);
+    console.log("current talk Id", this.currentTalkId);
+  }
 
   /** Called when a new private talk is started.
    * 
@@ -207,9 +216,23 @@ export class PrivateMessageComponent {
     }, 2000);
     t.idDB = this.currentTalkId;
     this.currentTalkData = t;
-    this.sendCurrentTalkId.emit(this.currentTalkId);   
+    this.sendCurrentTalkId.emit(this.currentTalkId);
     return t;
   }
+
+  keyDownFunction(input: any) {
+    // console.log("key", input);
+    // console.log("doc", doc);
+    // if (input.key == "Enter") {
+    //   input.preventDefault();
+    //   this.saveMessage();
+
+    // }
+    // if (input.shiftKey && (input.key == "Space")) {
+    //   console.log("Bot keys", input);
+    // }
+  }
+
 
   /**
    * Determines the talk-id with otherChatUser and opens it.
@@ -223,15 +246,15 @@ export class PrivateMessageComponent {
     let talks = this.user.talkID; // list of all the talks of the user       
     talks.forEach(t => {
       let a: any;
-      a = t;     
+      a = t;
       if (a.oUDbID === dbIDOther) {
         this.exist = true;
         talkId = a.talkID;
-        this.currentTalkId=talkId;
+        this.currentTalkId = talkId;
         this.sendCurrentTalkId.emit(talkId);
       }
     });
-    
+
     this.openeningTalk(talkId);
   }
 
@@ -242,13 +265,13 @@ export class PrivateMessageComponent {
    * @param talkId Id of the talk, that should be opend
    */
   openeningTalk(talkId: string) {
-    if (this.exist) {     
+    if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
-    } else { 
+    } else {
       this.currentTalkData = this.chatHepler.createEmptyTalk()
       this.currentTalkData.communikation = [];//---------------------------
-      
+
     }
   }
 
@@ -261,9 +284,12 @@ export class PrivateMessageComponent {
   }
 
   setOtherUser(user: User) {
-    this.otherChatUser = user;  
+    this.currentTalkId = "";
+    this.otherChatUser = user;
     this.openTalk();
-  }   
+    //  setTimeout(()=>{ this.mA.scrollTop = this.mA.scrollHeight;},1500);
+    setTimeout(() => { this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' }) }, 1500);
+  }
 
   /**
    * Stores a new talk in firebase.
@@ -327,7 +353,7 @@ export class PrivateMessageComponent {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     // let talkId = this.currentTalkData.idDB;
-    let talkId = this.currentTalkId;   
+    let talkId = this.currentTalkId;
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -343,7 +369,7 @@ export class PrivateMessageComponent {
       if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
         sm[smileIndex].users.push({ "id": this.user.idDB });
       }
-    }    
+    }
     this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile = sm;
     this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
     this.chatHelper.updateDB(talkId, 'talk', { "idDB": talkId });
@@ -358,7 +384,7 @@ export class PrivateMessageComponent {
    */
   removeSmile(i: number, sIndex: number) {
     let talkId = this.currentTalkData.idDB;
-    let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;  
+    let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;
     let newUserList = this.smileHelper.removeUser(sm[sIndex].users, this.user)
     sm[sIndex].users = newUserList;
     if (sm[sIndex].users.length == 0) {
@@ -385,10 +411,10 @@ export class PrivateMessageComponent {
     this.showEmojisComment = !this.showEmojisComment;
     this.communikationIndex = i;
     this.emojiMessageIndex = mIndex;
-  } 
+  }
 
-  openMailAddresses() { 
-    this.addresses = !this.addresses; 
+  openMailAddresses() {
+    this.addresses = !this.addresses;
   }
 
   openProfileOfUser(user: any) {
@@ -417,6 +443,6 @@ export class PrivateMessageComponent {
     });
   }
 
-  
+
 
 }

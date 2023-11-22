@@ -68,17 +68,14 @@ export class ChatHepler {
 
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).then(
-      () => {
-        // console.log("update id   " + id + "  coll" + coll);
-        // console.log("info",info);
+      () => {       
       }
     ).catch(
       (err) => { console.log(err); });
   }
 
 
-  createEmptyThread(): any {
-    console.log("call new Thread");
+  createEmptyThread(): any {    
     let t = {
       "channel":
       {
@@ -320,8 +317,7 @@ export class ChatHepler {
   makeSubstring(s: string, len: number) {
     let l = s.length;
     let min = Math.min(l, len);
-    let sub = s.substring(0, min);
-    // console.log("messageSub is", sub);
+    let sub = s.substring(0, min);    
     return sub;
   }
 
@@ -436,7 +432,7 @@ export class ChatHepler {
       });
 
     }
-    console.log("other user", otherUser);
+    
     return otherUser;
   }
 
