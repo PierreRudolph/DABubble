@@ -50,7 +50,7 @@
     border-radius: 100%;
     position: absolute;
     background-color: #ADB0D9;
-    right: 5px;
+    right: 20px;
     bottom: 7px;
     border: 2px white solid;
 }
@@ -95,7 +95,6 @@
 }
 
 .textareaDirektMessage {
-    margin-top: 50px;
     padding: 0 45px 0 45px;
     position: relative;
     box-sizing: border-box;
@@ -105,18 +104,17 @@
     display: flex;
     gap: 25px;
     align-items: flex-end;
-    height: calc(100% - 455px);
+    height: calc(100% - 450px);
 }
 
 .mainFieldWithoutInfo {
-    height: calc(100% - 340px);
-    ;
+    height: calc(100% - 303px);
 }
 
 .sendArrow {
     position: absolute;
-    right: 55px;
-    bottom: 10px;
+    right: 70px;
+    bottom: 20px;
     cursor: pointer;
 }
 
@@ -369,6 +367,13 @@
     height: fit-content;
     background-color: white;
     align-items: center;
+}
+
+.charImgHeader {
+    object-fit: cover;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
 .charImg {
