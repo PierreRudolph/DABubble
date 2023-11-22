@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
 import { User } from 'src/moduls/user.class';
 import { CreateChannelDialogComponent } from '../create-channel-dialog/create-channel-dialog.component';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
@@ -30,7 +30,7 @@ export class SideMenuComponent {
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEventChanel = new EventEmitter<any>();
   @Output() newItemEvent = new EventEmitter<boolean>();
-
+  private dialogClasses: Array<string>;
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
   public talkMessages: any[] = [];
@@ -115,15 +115,24 @@ export class SideMenuComponent {
   openCreateChannelDialog() {
     // this.dialog.open(CreateChannelDialogComponent);
     // this.dialog.componentInstance();
-    let dialogRef = this.dialog.open(CreateChannelDialogComponent);
+    this.setCreateChannelDialogMobileStyle();
+    let dialogRef = this.dialog.open(CreateChannelDialogComponent, { panelClass: this.dialogClasses });
     dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
     dialogRef.componentInstance.dialogReference = dialogRef;
+    dialogRef.componentInstance.screenWidth = this.screenWidth;
     dialogRef.afterClosed().subscribe(result => {
       this.madeChannel = result;
       if (result != "") { this.addChannel(); }
 
     });
+  }
+
+  setCreateChannelDialogMobileStyle() {
+    if (this.mobileScreenWidth) {
+      this.dialogClasses = ['maxWidth100', 'dialogBorRadNone'];
+    }
+
   }
 
   openChannel(n: number) {
@@ -153,12 +162,12 @@ export class SideMenuComponent {
   }
 
   setDrawerValues() {
-    if (this.screenWidth < 830 && this.sideMenuHidden) {
+    if (this.mobileScreenWidth() && this.sideMenuHidden) {
       this.drawer.toggle();
       this.toggleDrawerBol();
       setTimeout(() => { this.sideMenuDiv.nativeElement.classList.remove('dNone'); }, 80);
     } else
-      if (this.screenWidth < 830 && !this.sideMenuHidden) {
+      if (this.mobileScreenWidth() && !this.sideMenuHidden) {
         this.sideMenuDiv.nativeElement.classList.add('dNone');
         this.toggleDrawerBol();
         this.drawer.toggle();
@@ -198,6 +207,10 @@ export class SideMenuComponent {
 
   getOtherUser(info: any) {
     return this.chathelper.getOtherUser(info, this.userList, this.user);
+  }
+
+  mobileScreenWidth() {
+    return this.screenWidth < 830;
   }
 
 }

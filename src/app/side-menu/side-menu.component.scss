@@ -407,6 +407,9 @@
     }
 
     .accordion-outer-div {
+        height: calc(100% - 73px);
+        overflow-y: auto;
+
         margin: 25px 25px;
     }
 

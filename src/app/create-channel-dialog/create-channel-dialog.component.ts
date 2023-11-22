@@ -11,7 +11,7 @@ import { User } from 'src/moduls/user.class';
 })
 export class CreateChannelDialogComponent {
   public channel: Channel = new Channel();
-  public channelJSON :any= {};
+  public channelJSON: any = {};
   channelName: string = "";
   channelDescription: string = "";
   channelMembers: any = [];
@@ -20,6 +20,7 @@ export class CreateChannelDialogComponent {
   public userList = [this.user];
   public dialogReference: MatDialogRef<CreateChannelDialogComponent>;
   public fristPage = true;
+  public screenWidth: number;
   isChecked: boolean | undefined;
   //membersList: any = ['Elias', 'Brigitte', 'Thorben'];
   searchedMembers: Array<string> = [];
@@ -28,9 +29,9 @@ export class CreateChannelDialogComponent {
   searchText: any;
 
   public filteredMembers: User[] = [];
-  public currentlyAddedUser:User[]=[];
+  public currentlyAddedUser: User[] = [];
 
-  constructor(public addPeopleDialog: MatDialog) {  
+  constructor(public addPeopleDialog: MatDialog) {
 
   }
 
@@ -40,32 +41,31 @@ export class CreateChannelDialogComponent {
    */
   addMember(u: User) {
     let inList = false;  // "strict": false, in compileoptions    
-    this.currentlyAddedUser.forEach(ul => {     
+    this.currentlyAddedUser.forEach(ul => {
       if (ul.idDB == u.idDB) { inList = true };
     });
     if (!inList) {
-      this.currentlyAddedUser.push(u);   
-    }     
+      this.currentlyAddedUser.push(u);
+    }
   }
 
   /**   
    * @param us User that should be deleted
    */
-  deleteUser(us:User){
-    let array:User[]=[];
-    this.currentlyAddedUser.forEach((u)=>{
-      if(u.idDB!=us.idDB)
-      {
+  deleteUser(us: User) {
+    let array: User[] = [];
+    this.currentlyAddedUser.forEach((u) => {
+      if (u.idDB != us.idDB) {
         array.push(u);
       }
     });
     this.currentlyAddedUser = array;
   }
- 
-/** * 
- * @returns Wheather a person is found when serching the name.
- */
-  isPopUpOpen() {  
+
+  /** * 
+   * @returns Wheather a person is found when serching the name.
+   */
+  isPopUpOpen() {
     return this.filteredMembers.length > 0;
   }
 
@@ -76,19 +76,19 @@ export class CreateChannelDialogComponent {
     let filterValue = this.searchText.toLowerCase();
     this.filteredMembers = []
     this.userList.forEach((u) => {
-     this.setMemberToList(u);
+      this.setMemberToList(u);
     });
-    this.setMemberToList(this.user);   
+    this.setMemberToList(this.user);
   }
 
-   /**  
-   * Sets all User that are containing the searchText in the Name to the filteredMembers
-   * @param u User
-   */
-   setMemberToList(u: User) {
+  /**  
+  * Sets all User that are containing the searchText in the Name to the filteredMembers
+  * @param u User
+  */
+  setMemberToList(u: User) {
     let filterValue = this.searchText.toLowerCase();
     if ((filterValue != "")) {
-      let n = u.name;      
+      let n = u.name;
       if (n.toLowerCase().includes(filterValue)) {
         this.filteredMembers.push(u);
       }
@@ -97,14 +97,18 @@ export class CreateChannelDialogComponent {
 
   onSubmit() {
     this.createNewChannel();
+
     this.fristPage = false;
+
   }
 
   /**
    * Mak the new channel
    */
-  make() {    
+  make() {
+
     this.fristPage = true;
+
     let radioBAll: any = document.getElementById("allMember");
     let memberList = [];
 
@@ -113,13 +117,13 @@ export class CreateChannelDialogComponent {
       this.userList.forEach((u) => {
         memberList.push({ "memberName": u.name, "memberID": u.idDB });
       });
-     
-    }else{ //Only a part of the users are selected as members
-      this.currentlyAddedUser.forEach((us)=>{
-      memberList.push({ "memberName": us.name, "memberID": us.idDB });
+
+    } else { //Only a part of the users are selected as members
+      this.currentlyAddedUser.forEach((us) => {
+        memberList.push({ "memberName": us.name, "memberID": us.idDB });
       });
-    } 
-    this.channel.members = memberList;   
+    }
+    this.channel.members = memberList;
     this.channelJSON = this.channel.toJSON();
     this.channelJSON.creator = this.user.name;
     this.closeDialog();
@@ -142,14 +146,16 @@ export class CreateChannelDialogComponent {
   setValue() {
     this.isChecked = !this.isChecked;
   }
- 
-/** Initiate the filtering of members by the given keyword 
- * @param data  Searchstring, that shell be included in the userlist
- */
+
+  /** Initiate the filtering of members by the given keyword 
+   * @param data  Searchstring, that shell be included in the userlist
+   */
   searchKey(data: string) {
     this.searchText = data;
     this.filterMember();
-   
-  }
 
+  }
+  mobileScreenWidth() {
+    return this.screenWidth < 830;
+  }
 }

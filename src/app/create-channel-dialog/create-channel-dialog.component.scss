@@ -142,9 +142,9 @@
 
 }
 
-.addedMember{
+.addedMember {
     display: flex;
-    gap:5px;
+    gap: 5px;
     padding: 5px;
     border: 1px solid #cbcdec;
     border-radius: 10px;
@@ -226,4 +226,40 @@
 
 .add-people {
     display: none;
+}
+
+@media (max-width:830px) {
+    .dialog-div {
+        width: 100vw;
+        height: 100vh;
+        padding: 40px 20px;
+        box-sizing: border-box;
+        border-radius: 0px !important;
+    }
+
+
+
+    .dialog-div-add {
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        width: 100%;
+        padding: 40px 20px;
+        box-sizing: border-box;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0px -3px 10px 0px #00000033;
+        background-color: white;
+    }
+
+    .checkbox-div {
+        height: unset;
+        gap: 15px;
+    }
+
+
+
+
 }
