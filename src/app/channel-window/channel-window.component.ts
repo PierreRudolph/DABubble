@@ -45,13 +45,25 @@ export class ChannelWindowComponent {
   public openEditDialog: boolean = false;
   public addresses = false;
   private text: string = "";
-  public popUpText = { "du": "", "first": "", "other": "" ,"verb":""}
+  public popUpText = { "du": "", "first": "", "other": "" ,"verb":""};
+  private cA:any;
 
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
 
   constructor(public dialog: MatDialog) {   
+    setTimeout(() => {
+      this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
+      this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
+    }, 1500);
+  }
+
+  scrollDown(){
+    setTimeout(() => { 
+      console.log("call scroll down");    
+      this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
+    }, 2000);
   }
 
   /**
@@ -174,37 +186,30 @@ export class ChannelWindowComponent {
   }
 
   /**
-   * stors the given emoji
-   * 
+   * stors the given emoji   * 
    * @param e JSON of the emoji
    */
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.number].channel.idDB;
-
-    let sm = this.createEmojiData(emoji);
-
-    this.setTreadData(this.threadIndex, 'smile', sm);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    this.saveEmojiCommentHelper(emoji);   
     this.showEmojisTread = !this.showEmojisTread;
   }
 
-  /**
-   * stors the specific emoji, Claps or Checkmark
-   * 
-   * @param e JSON of the emoji
-   */
-  saveEmojiCom(cIndex: number, tIndex: number, e: any) { // warum speichert die funktion den emoji nicht?
-
-    let emoji = e;
-    this.setIndices(cIndex, tIndex);
+  saveEmojiCommentHelper(emoji:any){
     let threadId = this.threadList[this.number].channel.idDB;
     let sm = this.createEmojiData(emoji);
-
     this.setTreadData(this.threadIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
-    // this.showEmojisTread = !this.showEmojisTread;
+  }
+
+  /**
+   * stors the specific emoji, Claps or Checkmark   * 
+   * @param e JSON of the emoji
+   */
+  saveEmojiCom(cIndex: number, tIndex: number, e: any) { // warum speichert die funktion den emoji nicht?   
+    this.setIndices(cIndex, tIndex);
+    this.saveEmojiCommentHelper(e);    
   }
 
   /**
@@ -568,30 +573,13 @@ export class ChannelWindowComponent {
     return this.screenWidth < 830;
   }
 
-  // /** 
-  //    * @param index index of the answer
-  //    * @returns     returns the list of commenticons of the answer
-  //    */
-  // showSmilie(index: number) {
-  //   return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
-  // }
   showPopUpCommentUsers(i: number, j: number, sIndex: number) {    
   
     let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];
     let smileUsers = [];      
     smile.users.forEach((s) => {
       smileUsers.push(s.id);
-    });
-    
-    // let threadSmile = this.threadList[this.number].communikation[i].threads[j].smile;
-    // let smileUsers = [];    
-    // threadSmile.forEach((t) => {
-    //   t.users.forEach((s) => {
-    //     if(smileUsers.indexOf(s.id)==-1)
-    //     {smileUsers.push(s.id);}
-    //   }); 
-    // });  
-   
+    });    
     this.popUpText =this.smileHelper.showPopUpCommentUsers(smileUsers,this.user,this.userList); 
    
   }

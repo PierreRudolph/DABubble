@@ -61,10 +61,10 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
-  constructor(public authService: AuthService, public router: Router) {    
+  constructor(public authService: AuthService, public router: Router) {
     this.currentTalkData.communikation = [];
 
-    setTimeout(() => {    
+    setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden      
       this.unsub = this.subUserInfo();
@@ -73,7 +73,7 @@ export class MainPageComponent {
     setTimeout(() => {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
-    }, 1500);   
+    }, 1500);
     this.getScreenWidth();
 
   }
@@ -94,7 +94,7 @@ export class MainPageComponent {
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
-          google = false;      
+          google = false;
           this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON())
         }
         else { this.userList.push(u); }
@@ -111,7 +111,7 @@ export class MainPageComponent {
     this.user.name = this.userAuth._delegate.displayName;
     this.user.email = this.userAuth._delegate.email;
     this.user.iconPath = "assets/img/Google.svg";
-    this.user.status = "aktiv";  
+    this.user.status = "aktiv";
     this.chathelper.addUser(this.user.toJSON());
 
   }
@@ -124,10 +124,10 @@ export class MainPageComponent {
   subTalkInfo() {
     let ref = collection(this.firestore, 'talk');
     this.talkList = [];
-    return onSnapshot(ref, (list) => {  
+    return onSnapshot(ref, (list) => {
       list.forEach(elem => {
         if (elem.id == this.currentTalkId) {
-          this.currentTalkData = elem.data();         
+          this.currentTalkData = elem.data();
         }
         //Only talks of the current user are saved
         if (elem.data()['member1DBid'] == this.user.idDB || elem.data()['member2DBid'] == this.user.idDB) {
@@ -180,6 +180,8 @@ export class MainPageComponent {
   callOpenChan(num: number) {
     this.setChannelNumber(num);
     this.openChat = false;
+    setTimeout(()=>{this.childChannel.scrollDown();},500);
+
 
   }
 
@@ -231,6 +233,7 @@ export class MainPageComponent {
     this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
     this.sideMenu.newMessage = false;
+    setTimeout(()=>{this.childChannel.scrollDown();},500);
   }
 
   /**  
@@ -249,14 +252,14 @@ export class MainPageComponent {
     this.channelOpen = false;
 
     setTimeout(() => {
-      this.otherChatUser = user;       
+      this.otherChatUser = user;
       this.child.setOtherUser(user);
-      
+
     }, 750);
 
   }
 
-  setCurrentTalkId(id: string) {   
+  setCurrentTalkId(id: string) {
     this.currentTalkId = id;
     this.currentTalkData.iD = id;
   }

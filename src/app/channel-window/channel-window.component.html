@@ -21,7 +21,7 @@
     </div>
 </div>
 
-<div class="channel-body" [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])">
+<div class="channel-body" id="channelBody" [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])">
     <div class="message-div" *ngFor="let com of this.threadList[number].communikation, index as i ">
         <div class="dateIcon" *ngIf="!showBegin(com)">
             <div class="sendDate">{{this.threadList[number].communikation[i].date}}</div>
