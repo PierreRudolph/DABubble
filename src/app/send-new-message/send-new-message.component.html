@@ -1,4 +1,4 @@
-<div style="height: 100%; display: flex; flex-direction: column;">
+<div class="newMesOuterDiv">
   <div class="newMesHeader">
     <div class="nunitoBlack">Neue Nachricht</div>
     <input *ngIf="!error" (ngModelChange)="searchKey($event)" ngModel type="input" class="address"
@@ -18,7 +18,7 @@
       </div>
     </div>
   </div>
-  <div style="padding:  32px 45px 45px 45px; ">
+  <div class="textArea">
     <div style="position: relative;">
       <textarea #textArea class="textAreaDirekt" [(ngModel)]="text"></textarea>
       <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">

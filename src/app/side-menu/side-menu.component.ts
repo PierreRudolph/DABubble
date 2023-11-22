@@ -30,7 +30,7 @@ export class SideMenuComponent {
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEventChanel = new EventEmitter<any>();
   @Output() newItemEvent = new EventEmitter<boolean>();
-  private dialogClasses: Array<string>;
+  private dialogClasses: Array<string> = [];
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
   public talkMessages: any[] = [];
@@ -124,14 +124,14 @@ export class SideMenuComponent {
     dialogRef.afterClosed().subscribe(result => {
       console.log("close channelcreator");
       this.madeChannel = result;
-      console.log("result",result);
+      console.log("result", result);
       if (result && result != "") { this.addChannel(); }
 
     });
   }
 
   setCreateChannelDialogMobileStyle() {
-    if (this.mobileScreenWidth) {
+    if (this.mobileScreenWidth()) {
       this.dialogClasses = ['maxWidth100', 'dialogBorRadNone'];
     }
 

@@ -8,8 +8,9 @@
     height: 100%;
     transition: all 225ms ease-in-out;
 }
-.posAddr{
-    bottom:-140px;
+
+.posAddr {
+    bottom: -140px;
 }
 
 .sidenav {
@@ -177,6 +178,7 @@
     border-radius: 20px;
     border-top-left-radius: 0px;
     line-height: 26px;
+    word-wrap: anywhere;
 }
 
 .message-right {

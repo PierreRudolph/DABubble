@@ -152,7 +152,7 @@
     content: url('/assets/icons/logout-hover.svg');
 }
 
-@keyframes mobile-slide-in {
+@keyframes mobileSlideIn {
     from {
         transform: translateY(250px);
     }
@@ -207,7 +207,7 @@
         padding-bottom: 45px;
         height: unset;
         transform: translateY(250px);
-        animation: mobile-slide-in 225ms ease-in-out 100ms forwards;
+        animation: mobileSlideIn 225ms ease-in-out 100ms forwards;
     }
 
     .textImgDiv {
