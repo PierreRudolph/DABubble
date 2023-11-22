@@ -1,7 +1,6 @@
 .main-page {
     display: flex;
     width: calc(100vw - 40px);
-    // width: fit-content;
     height: calc(100vh - 140px);
     margin-top: 115px;
     margin-left: 20px;
@@ -35,7 +34,6 @@
 .main-content-div {
     width: 100%;
     background-color: white;
-    //margin-right: 20px; war zuviel abstand zur seite wenn thread geschlossen
     border-radius: 30px;
     display: flex;
     flex-direction: column;
@@ -107,10 +105,6 @@
     display: flex;
     gap: 25px;
     align-items: flex-end;
-    //height: 470px;
-    //width: 100%; verusacht overflow wenn thread geschlossen
-    // margin-bottom: 24px;
-    padding: 0 45px 0 45px;
     height: calc(100% - 455px);
 }
 
@@ -127,7 +121,7 @@
 }
 
 .messageArea {
-    overflow-y: scroll;
+    overflow-y: auto;
     width: 100%;
     height: 100%;
 
@@ -200,8 +194,16 @@
         }
 
         .popUpMessageContainer {
-            display: unset !important;
+            pointer-events: all;
+            right: 40px;
+            opacity: 1;
         }
+
+        .popUpMessageContainerFlip {
+            left: 40px;
+        }
+
+
     }
 }
 
@@ -260,51 +262,10 @@
 
 .popUpMessageContainerFlip {
     right: unset;
-    left: 40px;
-
-    .flipCorner {
-        border-radius: 25px !important;
-        border-bottom-right-radius: 0 !important;
-    }
-
-}
-
-.popUpMessageContainer {
-    position: absolute;
-    right: 40px;
-    top: 10px;
-    display: none !important;
-}
-
-.unHover {
-    &:hover {
-        .popUpMessageContainer {
-            display: none !important;
-        }
-    }
-}
-
-.popUpMessage {
-    display: flex;
-    gap: 5px;
-    border-radius: 25px;
-    border-bottom-left-radius: 0;
-    border: solid 1px #ADB0D9;
-    padding: 3px 20px 3px 20px;
-    width: fit-content;
-    height: fit-content;
-    background-color: white;
-    align-items: center;
+    left: 0px;
 
 
 }
-
-// .flipMessage{
-//     border-radius: 25px;
-//     border-top-right-radius: 0;
-//     left:unset;
-//     right: 30px;
-// }
 
 .popUpIcons {
     cursor: pointer;
@@ -372,6 +333,47 @@
     background-color: #cbcdec;
 }
 
+.popUpMessageContainer {
+    position: absolute;
+    right: 0px;
+    top: -21px;
+    opacity: 0;
+    pointer-events: none;
+    transition: all 100ms ease-out;
+}
 
+.popUpFlipContainer {
 
+    right: unset;
+    left: 0px;
+}
 
+.unHover {
+    transition: all 100ms ease-out;
+
+    &:hover {
+        .popUpMessageContainer {
+            display: none !important;
+        }
+    }
+}
+
+.popUpMessage {
+    display: flex;
+    gap: 5px;
+    border-radius: 25px;
+    border-bottom-right-radius: 0px;
+    border: solid 1px #ADB0D9;
+    padding: 3px 20px 3px 20px;
+    width: fit-content;
+    height: fit-content;
+    background-color: white;
+    align-items: center;
+}
+
+.charImg {
+    object-fit: cover;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}

@@ -1,21 +1,21 @@
 <div class="direktMesHeader">
   <div style="position: relative;width:70px;" *ngIf="talkOpen">
-    <img style="width:65px;height:auto;border-radius: 100%;" src="{{otherChatUser.iconPath}}">
-    <div [class.greenDot]="otherChatUser.getAktive()"  class="stateDot"></div>
+    <img class="charImg" src="{{otherChatUser.iconPath}}">
+    <div [class.greenDot]="otherChatUser.getAktive()" class="stateDot"></div>
   </div>
   <div class="nunitoBlack">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
 </div>
 
 <div class="mainFieldDirektMessage" [class.mainFieldWithoutInfo]="exist">
   <div class="messageArea" *ngIf="talkOpen">
-    <div style="margin:30px 20px 20px 20px" *ngFor="let c of this.currentTalkData.communikation,index as i">
+    <div style="margin:30px 0px" *ngFor="let c of this.currentTalkData.communikation,index as i">
 
       <div class="dateIcon">
         <div class="sendDate">{{c.date}}</div>
         <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
       </div>
 
-      <div style="margin:20px" *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
+      <div style="margin:35px 0px" *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
         <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
           <img style="width: 70px;" src="{{getIconFromName(m.iD)}}">
           <div class="message-inner-div">
@@ -24,14 +24,14 @@
               <span style="color:#b7bade">{{m.time}} Uhr</span>
             </div>
             <div [class.popUpFlipContainer]="getFlip(m)">
-              <div class="message" [class.dNone]="m.edit" >    
+              <div class="message" [class.dNone]="m.edit">
                 <!-- {{m.message}}  -->
                 <span *ngFor="let mes of m.messageSplits" style="width:100%">
-                  <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)"   class="linkedUserName"
-                  [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
+                  <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)" class="linkedUserName"
+                    [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
                   <span *ngIf="!chatHelper.isLink(mes)">{{mes.text}}</span>
-                </span>          
-              </div>                         
+                </span>
+              </div>
             </div>
             <div [class.popUpFlipContainer]="getFlip(m)">
               <div style="display:flex;gap:5px; margin-top:10px">
@@ -106,7 +106,7 @@
     <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
     <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
       (emojiClick)="saveEmoji($event)"></emoji-mart>
-     
+
   </div>
   <div class="addressBox" *ngIf="addresses">
     <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
