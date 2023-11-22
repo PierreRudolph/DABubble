@@ -1,3 +1,7 @@
+.privateMesOuterDiv {
+    height: 100%;
+}
+
 .main-page {
     display: flex;
     width: calc(100vw - 40px);
@@ -381,4 +385,57 @@
     width: 70px;
     height: 70px;
     border-radius: 50%;
+}
+
+.info {
+    padding-left: 45px;
+    color: #686868;
+    margin-bottom: 30px;
+}
+
+.charImgInfo {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+@media (max-width:830px) {
+    .privateMesOuterDiv {
+        width: 100vw;
+    }
+
+    .mainFieldDirektMessage {
+        height: calc(100% - 460px);
+    }
+
+    .mainFieldWithoutInfo {
+        height: calc(100% - 254px);
+    }
+
+    .direktMesHeader {
+        border-radius: 0px;
+        height: 80px;
+        padding: 10px 16px;
+    }
+
+    .textareaDirektMessage {
+        padding: 0px 16px;
+    }
+
+    .info {
+        padding: 0px 16px;
+    }
+
+    .iconContainerTextArea {
+        left: 40px;
+    }
+
+    .sendArrow {
+        right: 40px;
+    }
+
+    .chatIconButtom {
+        padding: 0px 16px;
+    }
 }

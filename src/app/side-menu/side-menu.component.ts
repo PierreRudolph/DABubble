@@ -35,7 +35,7 @@ export class SideMenuComponent {
   public threadMessages: any[] = [];
   public talkMessages: any[] = [];
   public userInfos: any[] = [];
-  public text="";
+  public text = "";
 
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
@@ -89,7 +89,8 @@ export class SideMenuComponent {
   }
 
   setNewMessage() {
-    this.newMessage = !this.newMessage;
+    this.newMessage = true;
+    //this.newMessage = !this.newMessage;
     console.log("value", this.newMessage);
     this.isOpen.emit(this.newMessage);
   }
@@ -189,14 +190,14 @@ export class SideMenuComponent {
 
   searchChannelMessages(text: string) {
     this.threadMessages = this.chathelper.searchChannelMessages(text, this.threadList);
-  } 
+  }
 
   showPop() {
     return this.text != "";
   }
 
-  getOtherUser(info: any) {    
-    return this.chathelper.getOtherUser(info,this.userList,this.user);
+  getOtherUser(info: any) {
+    return this.chathelper.getOtherUser(info, this.userList, this.user);
   }
 
 }

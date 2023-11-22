@@ -377,7 +377,7 @@
     cursor: pointer;
     border-radius: 25px;
     padding: 20px;
-    align-items: flex-start;  
+    align-items: flex-start;
     display: flex;
 
     img {
@@ -473,5 +473,9 @@
 
     .dNone {
         display: none;
+    }
+
+    .scrollableContactDiv {
+        max-height: calc(100vh - 367px);
     }
 }
