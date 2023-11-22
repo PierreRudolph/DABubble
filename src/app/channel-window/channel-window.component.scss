@@ -108,7 +108,9 @@
 
     &:hover {
         .popUpComment {
-            display: unset;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
     }
 }

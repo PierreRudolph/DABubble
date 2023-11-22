@@ -581,22 +581,22 @@ export class ChannelWindowComponent {
   // showSmilie(index: number) {
   //   return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
   // }
-  showPopUpCommentUsers(i: number, j: number, sIndex: number) {
+  showPopUpCommentUsers(i: number, j: number, sIndex: number) {    
   
-    // let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];
-    // let smileUsers = [];      
-    // smile.users.forEach((s) => {
-    //   smileUsers.push(s.id);
-    // });
+    let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];
+    let smileUsers = [];      
+    smile.users.forEach((s) => {
+      smileUsers.push(s.id);
+    });
     
-    let threadSmile = this.threadList[this.number].communikation[i].threads[j].smile;
-    let smileUsers = [];    
-    threadSmile.forEach((t) => {
-      t.users.forEach((s) => {
-        if(smileUsers.indexOf(s.id)==-1)
-        {smileUsers.push(s.id);}
-      }); 
-    });  
+    // let threadSmile = this.threadList[this.number].communikation[i].threads[j].smile;
+    // let smileUsers = [];    
+    // threadSmile.forEach((t) => {
+    //   t.users.forEach((s) => {
+    //     if(smileUsers.indexOf(s.id)==-1)
+    //     {smileUsers.push(s.id);}
+    //   }); 
+    // });  
    
     this.popUpText =this.smileHelper.showPopUpCommentUsers(smileUsers,this.user,this.userList); 
    
