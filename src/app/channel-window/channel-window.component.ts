@@ -8,6 +8,7 @@ import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 import { ChannelMembersComponent } from '../channel-members/channel-members.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { ChannelHelper } from 'src/moduls/channelHelper.class';
 
 @Component({
   selector: 'app-channel-window',
@@ -37,10 +38,12 @@ export class ChannelWindowComponent {
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   @Output() isOpen = new EventEmitter<boolean>();
   public smileHelper: SmileHelper = new SmileHelper();
-  private dialogPosTop: string = '215px';
-  private editChanPosLeft: string = '445px';
-  private membersDialogPosRight: string = '110px';
-  private addMembersDialogPosRight: string = '60px';
+  public channelHelper:ChannelHelper = new ChannelHelper()
+  // private dialogPosTop: string = '215px';
+  // private editChanPosLeft: string = '445px';
+  // private membersDialogPosRight: string = '110px';
+  // private addMembersDialogPosRight: string = '60px';
+
   private dialogClasses: Array<string> = ['dialogBorToLeNone'];
   public openEditDialog: boolean = false;
   public addresses = false;
@@ -56,25 +59,25 @@ export class ChannelWindowComponent {
     setTimeout(() => {
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
-    }, 1500);
+    }, 1000);
   }
 
   scrollDown(){
     setTimeout(() => {       
       this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
-    }, 2000);
+    }, 1500);
   }
 
   /**
    * Openes the dialog for editing the Channel
    */
   openEditChannelDialog() {
-    this.setEditChanPos();
+    this.channelHelper.setEditChanPos(this.sideMenuHidden);
     this.setEditDialogMobileStyle();
 
     this.toggleEditChanBol();
     let dialogRef = this.dialog.open(EditChannelComponent,
-      { panelClass: this.dialogClasses, position: { left: this.editChanPosLeft, top: this.dialogPosTop } });
+      { panelClass: this.dialogClasses, position: { left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop } });
     dialogRef.componentInstance.channel = this.threadList[this.number].channel;//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
     dialogRef.componentInstance.user = this.user;//Kopie
@@ -87,26 +90,13 @@ export class ChannelWindowComponent {
 
   showBegin(com: any) {
     return com.date == "";
-  }
-
-
-  /**
-   * Sets the position of the edit channel Window
-   * depending on whether side-menu(==sideMenuHidden), is open or closed.
-   */
-  setEditChanPos() {
-    if (this.sideMenuHidden) {
-      this.editChanPosLeft = '60px';
-    } else {
-      this.editChanPosLeft = '445px';
-    }
-  }
+  } 
 
 
   setEditDialogMobileStyle() {
     if (this.mobileScreenWidth()) {
-      this.editChanPosLeft = '0px';
-      this.dialogPosTop = '0px';
+      this.channelHelper.editChanPosLeft = '0px';
+      this.channelHelper.dialogPosTop = '0px';
       this.dialogClasses = ['maxWidth100', 'dialogBorRadNone'];
     }
   }
@@ -115,29 +105,10 @@ export class ChannelWindowComponent {
    * Sets the Position of channel-members-dialog and add-people-dialog,
    * depending on whether side-menu-thread(==openChat), is open or closed.
    */
-  setPositionOfDialogs() {
-    if (this.openChat) {
-      this.membersDialogPosRight = '615px';
-      this.addMembersDialogPosRight = '565px';
-    } else {
-      this.membersDialogPosRight = '110px';
-      this.addMembersDialogPosRight = '60px';
-    }
-    this.setPositionOfDialogsMobile();
-  }
-
-
-  /**
-   * Sets the Position of channel-members-dialog and add-people-dialog,
-   * depending on screenWidth.
-   */
-  setPositionOfDialogsMobile() {
-    if (this.mobileScreenWidth()) {
-      this.membersDialogPosRight = '0px';
-      this.addMembersDialogPosRight = '0px';
-      this.dialogPosTop = '0px';
-    }
-  }
+  setPositionOfDialogs() {  
+    this.channelHelper.setPositionOfDialogs(this.openChat,this.mobileScreenWidth());
+   
+  }  
 
   toggleEditChanBol() {
     this.editChannelOpen = !this.editChannelOpen;
@@ -290,24 +261,6 @@ export class ChannelWindowComponent {
   }
 
   /**
-   * 
-   * @returns Creates a new Question as JSON
-   */
-  getQuestion() {
-    let question = {
-      "name": this.user.name,
-      "iD": this.user.idDB, //of person that writes the message
-      "edit": false,
-      "smile": [],
-      "time": this.chathelper.parseTime(new Date(Date.now())),
-      "message": this.textThread,
-      "messageSplits": this.chathelper.getLinkedUsers(this.user, this.userList, this.textThread),
-      "answer": []
-    }
-    return question;
-  }
-
-  /**
    * Send a Question 
    * @param indexCannel index it the channel in that the question shell be released.
    */
@@ -316,7 +269,7 @@ export class ChannelWindowComponent {
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
     let threadId = this.threadList[indexCannel].channel.idDB;
-    let question = this.getQuestion();
+    let question = this.channelHelper.getQuestion(this.user,this.chathelper,this.textThread,this.userList)
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
       let th = this.threadList[indexCannel].communikation;    
@@ -378,7 +331,7 @@ export class ChannelWindowComponent {
       dialogRef.addPanelClass('maxWidth100');
       return;
     }
-    dialogRef.updatePosition({ right: this.addMembersDialogPosRight, top: this.dialogPosTop });
+    dialogRef.updatePosition({ right: this.channelHelper.addMembersDialogPosRight, top: this.channelHelper.dialogPosTop });
   }
 
   //Bitte kommentieren
@@ -508,20 +461,15 @@ export class ChannelWindowComponent {
     dialogRef.addPanelClass('dialogBorToReNone');
     if (this.mobileScreenWidth())
       return;
-    dialogRef.updatePosition({ right: this.membersDialogPosRight, top: this.dialogPosTop });
+    dialogRef.updatePosition({ right: this.channelHelper.membersDialogPosRight, top: this.channelHelper.dialogPosTop });
   }
-
-
   /**
-   * Goves the needet variables to the Dialog
+   * Gives the needet variables to the Dialog
    * @param dialogRef MatDialogRef of ChannelMembersComponent
    */
-  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-    let instance = dialogRef.componentInstance;
-    instance.user = new User(this.user.toJSON());
-    instance.channel = this.threadList[this.number].channel;
-    instance.userList = this.userList;
-    instance.dialogRef = dialogRef;
+  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {  
+    console.log("members");
+    this.channelHelper.setChannelMembersValues(dialogRef,this.user,this.threadList,this.number,this.userList);    
   }
 
   /**
@@ -545,7 +493,6 @@ export class ChannelWindowComponent {
   openMailAddresses() {
     this.addresses = !this.addresses;
   }
-
 
   openProfileOfUser(user: any) {
     let t = user.text.substring(1);
