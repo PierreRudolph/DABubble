@@ -106,7 +106,7 @@ export class CreateChannelDialogComponent {
    * Mak the new channel
    */
   make() {
-
+    this.addMember(this.user);
     this.fristPage = true;
 
     let radioBAll: any = document.getElementById("allMember");
