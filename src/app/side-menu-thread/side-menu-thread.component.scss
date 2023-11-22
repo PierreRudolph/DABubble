@@ -456,6 +456,39 @@
     scale: 2.5;
 }
 
+.popUpComment {
+    background-color: #444df2;
+    border-radius: 30px;
+    border-bottom-left-radius: 0px;
+    color: white;
+    font-size: 16px;
+    font-family: Nunito;
+    display: none;    
+    width:150px;
+    height:fit-content;
+    position: absolute;
+    bottom:50px;
+    padding: 20px;
+}
+
+.reactIcons {
+    margin: 4px 0px;
+    padding: 3px 5px;
+    border: 1px solid #7e83f5;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    gap: 3px;
+
+    &:hover{
+        .popUpComment{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
 .lila {
     background-color: #cbcdec;
 }

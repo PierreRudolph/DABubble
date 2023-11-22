@@ -91,18 +91,19 @@
 
                             <diV class="reactions">
                                 <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
-                                    <!-- Anfang Tooltip -->
-                                    <div class="reactions-tooltip">
+                                 
+                                    <!-- <div class="reactions-tooltip">
                                         <div class="reactIconInTooltipDiv">
                                             <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
                                                 class="reactIconInTooltip">
                                                 {{s.icon}}
                                                 {{s.users.name}}
                                             </div>
-                                        </div>
+
+                                        </div>                                     
 
                                         <div class="reactions-username">
-                                            <!-- verschiedene Variationen des Textes der im Tooltip angezeigt wird -->
+                                         
                                             <span>{{getAnswerData(aIndex,'name')}}</span>
                                             <span
                                                 *ngIf="checkIfActualUserAddSmiley(aIndex)&&getSmileyCountOfAnswer(aIndex)==0">und
@@ -122,17 +123,29 @@
                                         <span
                                             *ngIf="getSmileyCountOfAnswer(aIndex)==0 &&!checkIfActualUserAddSmiley(aIndex)">hat
                                             reagiert</span>
-                                        <!-- verschiedene Variationen des Textes der im Tooltip angezeigt wird -->
-                                    </div>
-                                    <!-- Ende Tooltip -->
+                                    
+                                    </div> -->
+                                 
                                     <div class="reactIconsDiv">
 
 
                                         <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
                                             class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)"
-                                            (click)="removeSmile(aIndex,sIndex)">
+                                            (click)="removeSmile(aIndex,sIndex)" class="reactIcons"
+                                            (mouseover)="showPopUpCommentUsers(aIndex,sIndex)">
+                                         <div>
                                             <div>{{s.icon}}</div>
                                             <span>{{s.users.length}}</span>
+                                         </div>
+
+                                            <div class="popUpComment">
+                                                <div style="scale: 1.5;margin-bottom: 10px;">{{s.icon}}</div>
+                                                <div *ngIf="showBlendin('du')" class="wei700">{{popUpText.du}}</div>
+                                                <div *ngIf="showBlendin('first')" class="wei700">{{popUpText.first}}</div>
+                                                <div *ngIf="showBlendin('other')" class="wei700">{{popUpText.other}}</div>
+                                                <div>{{popUpText.verb}} reagiert</div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
