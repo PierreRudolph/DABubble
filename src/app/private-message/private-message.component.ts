@@ -221,16 +221,12 @@ export class PrivateMessageComponent {
   }
 
   keyDownFunction(input: any) {
-    // console.log("key", input);
-    // console.log("doc", doc);
-    // if (input.key == "Enter") {
-    //   input.preventDefault();
-    //   this.saveMessage();
-
-    // }
-    // if (input.shiftKey && (input.key == "Space")) {
-    //   console.log("Bot keys", input);
-    // }
+    console.log("key", input);
+    console.log("doc", doc);
+    if (input.key == "Enter" && !input.shiftKey) {
+      input.preventDefault();
+      this.saveMessage();
+    }
   }
 
 

@@ -99,7 +99,7 @@
 
 <div *ngIf="talkOpen" class="textareaDirektMessage">
   <textarea #textArea class="textAreaDirekt" [(ngModel)]="text"
-    placeholder="Nachricht an {{otherChatUser.name}}"></textarea>
+    placeholder="Nachricht an {{otherChatUser.name}}" (keydown)="keyDownFunction($event)"></textarea>
   <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
   <div class="iconContainerTextArea">
     <img class="textAreaIconPlus" src="assets/img/plus-icon.svg" >

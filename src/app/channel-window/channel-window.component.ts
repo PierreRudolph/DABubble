@@ -60,8 +60,7 @@ export class ChannelWindowComponent {
   }
 
   scrollDown(){
-    setTimeout(() => { 
-      console.log("call scroll down");    
+    setTimeout(() => {       
       this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 2000);
   }
@@ -457,6 +456,14 @@ export class ChannelWindowComponent {
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     this.textEdit += emoji;
     this.smileEdit = !this.smileEdit;
+  }
+
+  keyDownFunction(input: any) {
+   
+    if (input.key == "Enter" && !input.shiftKey) {
+      input.preventDefault();
+      this.sendQuestion(this.number);
+    }
   }
 
   /**    

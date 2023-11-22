@@ -135,7 +135,7 @@
 
 <div class="textareaDirektMessage">
     <textarea class="textAreaDirekt" [(ngModel)]="textThread"
-        placeholder="Nachricht an #{{this.threadList[number].channel.name}}"></textarea>
+        placeholder="Nachricht an #{{this.threadList[number].channel.name}}" (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
         <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">

@@ -155,6 +155,13 @@ export class SideMenuThreadComponent {
     return answ;
   }
 
+  keyDownFunction(input: any) {  
+    if (input.key == "Enter" && !input.shiftKey) {
+      input.preventDefault();
+      this.saveAnswer();
+    }
+  }
+
   /**
    * Saves the answer
    */

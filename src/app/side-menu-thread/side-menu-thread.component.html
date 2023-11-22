@@ -168,8 +168,8 @@
             </div>
             <div class="textareaDirektMessage">
                 <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
-                    placeholder="Antworten..."></textarea>
-                <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
+                    placeholder="Antworten..."  (keydown)="keyDownFunction($event)"></textarea>
+                <img class="sendArrow" (click)="saveAnswer()"  src="assets/img/sendArrow.svg">
                 <div style="position:relative">
                     <div class="iconContainerTextArea">
                         <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
