@@ -20,11 +20,7 @@ export class EditChannelComponent {
   public screenWidth: number;
   threadList: any;
 
-  constructor(public dialog: MatDialog) {
-    setTimeout(() => {
-      console.log("Channel is", this.channel);
-
-    }, 1000);
+  constructor(public dialog: MatDialog) {   
   }
 
   editChannelName() {

@@ -51,11 +51,7 @@ export class ChannelWindowComponent {
   @Output() areaTextPrivate = new EventEmitter<string>();
 
 
-  constructor(public dialog: MatDialog) {
-    console.log("threadlist channel", this.threadList);
-    setTimeout(() => {
-      console.log("threadlist channel", this.threadList);
-    }, 500);
+  constructor(public dialog: MatDialog) {   
   }
 
   /**
@@ -257,8 +253,7 @@ export class ChannelWindowComponent {
    * @param i Communication-Index
    * @param j Message-Index
    */
-  openThisThread(n: number, i: number, j: number) {
-    console.log("number:" + n + " communikation:" + i + "  ThreadIndex:" + j);
+  openThisThread(n: number, i: number, j: number) {   
     this.threadC.setValue(n, i, j);
     this.newItemEventChannel.emit(this.threadC);
   }
@@ -320,8 +315,7 @@ export class ChannelWindowComponent {
     let question = this.getQuestion();
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
-      let th = this.threadList[indexCannel].communikation;
-      console.log("upload data ", th);
+      let th = this.threadList[indexCannel].communikation;    
       this.chathelper.updateDB(threadId, "thread", { "communikation": th });
     }
     else {

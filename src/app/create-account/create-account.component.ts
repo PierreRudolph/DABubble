@@ -57,7 +57,7 @@ export class CreateAccountComponent {
      };
     this.user = new User(userInfo);
     this.userInfo = JSON.stringify(userInfo);
-    console.log(userInfo);
+
     this.addNewItem(this.user);    
    } 
 

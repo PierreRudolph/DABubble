@@ -36,25 +36,23 @@ export class LoginScreenComponent {
   async login() {
     // return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
     // try {
-   this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
-        // Login successful       
-        let user = this.authService.getAuthServiceUser();
-        console.log("authservoce user", user);
-       if(user){
+    this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
+      // Login successful       
+      let user = this.authService.getAuthServiceUser();
+      if (user) {
         let id = user._delegate.uid;
-        console.log("user", id);
         localStorage.setItem('uid', id);
         localStorage.removeItem('google');
         localStorage.removeItem('googleName');
         this.route.navigateByUrl("/main");
-       }
-       else{
+      }
+      else {
         console.log("invalid login");
-       }
-      }).catch((error) => {
-        console.log("fail", error);
-      });
-    // } catch (e) { console.log("Error is",e); }
+      }
+    }).catch((error) => {
+      console.log("fail", error);
+    });
+
   }
 
   async loginAsGuest() {
@@ -64,14 +62,12 @@ export class LoginScreenComponent {
       localStorage.removeItem('googleName');
       let user = this.authService.getAuthServiceUser();
       let id = user._delegate.uid;
-      console.log("user", id);
-      console.log("Logegd in as Guest");
       localStorage.setItem('uid', id);
       // this.route.navigateByUrl("/main");
       this.route.navigateByUrl("/main");
     })
       .catch((error) => {
-        console.log("fail");
+        console.log("fail", error);
       });
   }
 
@@ -79,27 +75,12 @@ export class LoginScreenComponent {
     this.authService.logInWithGoogle().
       then((dat) => {
         console.log("succesfully logged in with google", dat);
-
         let user = this.authService.getAuthServiceUser();
-        let userName = user._delegate.displayName;
-        console.log("googleuserName", userName);
-
+        let userName = user._delegate.displayName;      
         localStorage.setItem('google', userName);
         // this.route.navigateByUrl("/login");
         this.route.navigateByUrl("/main");
       }).
-      catch((err) => { });
+      catch((err) => { console.log("fail", err); });
   }
-
-  getCuttenUser() {
-    //nur als test
-    let user = this.authService.getAuthServiceUser();
-    // console.log("userid is",user._delegate.uid);
-    // this.route.navigateByUrl("/main");
-    if (user) {
-      this.authService.logout();
-      console.log("userid is", user._delegate.uid);
-    }
-  }
-
 }

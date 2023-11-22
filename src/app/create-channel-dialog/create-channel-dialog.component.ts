@@ -39,19 +39,13 @@ export class CreateChannelDialogComponent {
    * @param u User 
    */
   addMember(u: User) {
-    let inList = false;  // "strict": false, in compileoptions
-    console.log("actual member", this.currentlyAddedUser);
-    this.currentlyAddedUser.forEach(ul => {    
-      console.log("memberID "+ul.idDB+ "  Userid:"+ u.idDB );
+    let inList = false;  // "strict": false, in compileoptions    
+    this.currentlyAddedUser.forEach(ul => {     
       if (ul.idDB == u.idDB) { inList = true };
     });
     if (!inList) {
-      this.currentlyAddedUser.push(u);
-      console.log("currently users", this.currentlyAddedUser);
-    }
-    else {
-      console.log("Uster ist bereits in der Liste");
-    }   
+      this.currentlyAddedUser.push(u);   
+    }     
   }
 
   /**   
@@ -80,13 +74,11 @@ export class CreateChannelDialogComponent {
    */
   filterMember() {
     let filterValue = this.searchText.toLowerCase();
-    console.log("filtered Value", filterValue);
     this.filteredMembers = []
     this.userList.forEach((u) => {
      this.setMemberToList(u);
     });
-    this.setMemberToList(this.user);
-    console.log("filtered Member List", this.filteredMembers);
+    this.setMemberToList(this.user);   
   }
 
    /**  
@@ -96,8 +88,7 @@ export class CreateChannelDialogComponent {
    setMemberToList(u: User) {
     let filterValue = this.searchText.toLowerCase();
     if ((filterValue != "")) {
-      let n = u.name;
-      console.log("name low ", n.toLowerCase() + " " + filterValue);
+      let n = u.name;      
       if (n.toLowerCase().includes(filterValue)) {
         this.filteredMembers.push(u);
       }

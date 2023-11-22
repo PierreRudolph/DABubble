@@ -26,10 +26,7 @@ export class CreateAccountAvatarComponent {
   public chathelper: ChatHepler = new ChatHepler();
 
   constructor(public authService: AuthService, private router: Router) {
-    let u = authService.getAuthServiceUser();
-    console.log("mein user", u);
-    // setTimeout(() => { this.user.name = "Laura Schröder"; }, 125);
-
+    let u = authService.getAuthServiceUser(); 
   }
 
   /**
@@ -48,8 +45,7 @@ export class CreateAccountAvatarComponent {
       this.navigatePage();
     })
       .catch((error) => {
-        this.wait = false;
-        console.log("register fail", error);
+        this.wait = false;       
       })
   }
 
