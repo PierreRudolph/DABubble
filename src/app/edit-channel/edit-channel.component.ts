@@ -20,7 +20,7 @@ export class EditChannelComponent {
   public screenWidth: number;
   threadList: any;
 
-  constructor(public dialog: MatDialog) {   
+  constructor(public dialog: MatDialog) {
   }
 
   editChannelName() {
@@ -116,7 +116,7 @@ export class EditChannelComponent {
     setTimeout(() => {
       dialogRef.addPanelClass('transition225');
       dialogRef.updatePosition({ bottom: '-20px' });
-    }, 500)
+    }, 225)
   }
 
   mobileScreenWidth() {

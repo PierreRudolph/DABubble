@@ -1,5 +1,5 @@
 <div class="dialog-div ">
-
+    <div class="blendOutDiv" *ngIf="!fristPage&&mobileScreenWidth()"></div>
     <div class="dialog-header" *ngIf="fristPage||mobileScreenWidth()">
         <span class="nunito fs24 wei700">Channel erstellen</span>
         <img mat-dialog-close src="assets/img/close.svg">
@@ -31,8 +31,10 @@
         </div>
     </form>
 
-
     <div class="dialog-div-add" *ngIf="!fristPage">
+
+        <div class="smallThickBorder" *ngIf="mobileScreenWidth()"></div>
+
         <div class="dialog-header-add">
             <span class="nunito fs24 wei700">Leute hinzufügen</span>
             <img mat-dialog-close src="assets/img/close.svg">
