@@ -122,8 +122,10 @@ export class SideMenuComponent {
     dialogRef.componentInstance.dialogReference = dialogRef;
     dialogRef.componentInstance.screenWidth = this.screenWidth;
     dialogRef.afterClosed().subscribe(result => {
+      console.log("close channelcreator");
       this.madeChannel = result;
-      if (result != "") { this.addChannel(); }
+      console.log("result",result);
+      if (result && result != "") { this.addChannel(); }
 
     });
   }

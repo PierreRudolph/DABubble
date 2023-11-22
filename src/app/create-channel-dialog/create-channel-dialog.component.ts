@@ -106,7 +106,7 @@ export class CreateChannelDialogComponent {
    * Mak the new channel
    */
   make() {
-    this.addMember(this.user);
+    this.addMember(this.user); // the person thhat creates the channel is automatikly the creator
     this.fristPage = true;
 
     let radioBAll: any = document.getElementById("allMember");

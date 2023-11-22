@@ -458,6 +458,10 @@ export class ChannelWindowComponent {
     this.smileEdit = !this.smileEdit;
   }
 
+  /**Stope the default function when clicking on enter
+   * 
+   * @param input Key event
+   */
   keyDownFunction(input: any) {
    
     if (input.key == "Enter" && !input.shiftKey) {
@@ -580,6 +584,12 @@ export class ChannelWindowComponent {
     return this.screenWidth < 830;
   }
 
+  /**
+   * Blends in a PopUp up window with the emoji icon and the people that commented the message with the emoji
+   * @param i Index of the communication
+   * @param j Index of the tread
+   * @param sIndex  Index of the smile
+   */
   showPopUpCommentUsers(i: number, j: number, sIndex: number) {    
   
     let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];

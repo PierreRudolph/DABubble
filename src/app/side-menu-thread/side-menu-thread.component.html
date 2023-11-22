@@ -153,7 +153,7 @@
                                     src="assets/icons/add-reaction.svg">
                                 <emoji-mart class="emojiDivUpper emojiDivLower" *ngIf="showEmojiLower(aIndex)"
                                     title="Pick your emoji…" (emojiClick)="saveEmoji($event)"></emoji-mart>
-                                <div class="addressBox" *ngIf="addresses">
+                                <div class="addressBox posAddr" *ngIf="addresses">
                                     <div class="addressElements" (click)="chooseUser(user)"><img
                                             src="{{user.iconPath}}">
                                         {{user.name}}</div>
