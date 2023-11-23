@@ -65,14 +65,9 @@
 
 .reactIconsDiv {
     gap: 3px;
-    max-width: 230px;
+    max-width: 500px;
     overflow-y: auto;
 }
-
-
-
-
-
 
 .lila {
     background-color: #cbcdec;
@@ -515,5 +510,28 @@
 
     .textareaDirektMessage {
         padding: 0px 20px;
+    }
+
+    .iconContainerTextArea {
+        left: 35px;
+    }
+
+
+}
+
+@media (max-width:555px) {
+    .reactIconsDiv {
+        max-width: 200px;
+    }
+}
+
+@media (max-width:400px) {
+    .charImg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .reactIconsDiv {
+        max-width: 180px;
     }
 }

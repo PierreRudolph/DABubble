@@ -51,7 +51,7 @@
                                     <div class="editMessageT">Nachricht bearbeiten</div>
                                 </div>  -->
                         </div>
-                        <img class="char-img" src="{{getImagePortrait(aIndex)}}">
+                        <img class="charImg" src="{{getImagePortrait(aIndex)}}">
                         <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
                             <div class="mes-name-clock" [class.mes-name-clock-right]="fromLoggedInUser(answ)">
                                 <span class="mes-name"
@@ -135,8 +135,8 @@
                                             (click)="removeSmile(aIndex,sIndex)" class="reactIcons"
                                             (mouseover)="showPopUpCommentUsers(aIndex,sIndex)">
                                             <div>
-                                                <div>{{s.icon}}</div>
-                                                <span>{{s.users.length}}</span>
+                                                {{s.icon}}
+                                                {{s.users.length}}
                                             </div>
 
                                             <div class="popUpComment nunito posAbs">

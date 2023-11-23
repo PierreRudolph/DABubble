@@ -40,7 +40,7 @@
             placeholder=" {{channel.description}}">
         <div class="border-div border-div-editing" *ngIf="chanDescOnEdit"></div>
         <span class="fs18 wei700" *ngIf="chanDescOnEdit">Erstellt von</span>
-        <span class="channel-creater-name" *ngIf="chanDescOnEdit">Noah Braun</span>
+        <span class="channel-creater-name" *ngIf="chanDescOnEdit">{{channel.creator}}</span>
     </div>
     <div class="channel-description-outer-div" *ngIf="!chanDescOnEdit">
 
@@ -59,7 +59,6 @@
     <div class="dialogDiv" *ngIf="mobileScreenWidth()">
         <div class="dialogHeader">
             <span class="nunito fs24 wei700">Mitglieder</span>
-            <img mat-dialog-close src="assets/img/close.svg">
         </div>
         <div class="members">
 

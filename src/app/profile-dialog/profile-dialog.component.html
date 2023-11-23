@@ -24,7 +24,7 @@
             </div>
         </div>
     </div>
-    <div *ngIf="edit" class="profileDialog">
+    <div *ngIf="edit" class="profileDialog" [class.mobileEdit]="edit">
         <div class="firstLine">
             <div *ngIf="edit" class="nunitoBlack fs24">Dein Profil bearbeiten</div>
             <div *ngIf="!edit" class="nunitoBlack fs24">Profil</div>

@@ -23,26 +23,6 @@ body {
     background-color: rgb(236, 238, 254);
 }
 
-.mat-body,
-.mat-body-2,
-.mat-typography .mat-body,
-.mat-typography .mat-body-2,
-.mat-typography {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: 'Nunito', sans-serif;
-    letter-spacing: .0178571429em;
-}
-
-.mat-h2,
-.mat-headline-6,
-.mat-typography .mat-h2,
-.mat-typography .mat-headline-6,
-.mat-typography h2 {
-    font-family: 'Nunito';
-}
-
 .nunito {
     font-family: 'Nunito';
 }
@@ -230,7 +210,27 @@ app-impressum {
     }
 }
 
-//Angular Material Dialog overwriting
+//Angular Material overwriting
+.mat-body,
+.mat-body-2,
+.mat-typography .mat-body,
+.mat-typography .mat-body-2,
+.mat-typography {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: 'Nunito', sans-serif;
+    letter-spacing: .0178571429em;
+}
+
+.mat-h2,
+.mat-headline-6,
+.mat-typography .mat-h2,
+.mat-typography .mat-headline-6,
+.mat-typography h2 {
+    font-family: 'Nunito';
+}
+
 .remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body {
     padding: 5px 30px;
 }
@@ -256,7 +256,13 @@ app-impressum {
     border-radius: 0px !important;
 }
 
-//Angular Material Dialog overwriting
+@media (max-width:400px) {
+    .remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body {
+        padding: 5px 0px;
+    }
+}
+
+//Angular Material overwriting
 
 //overwrite emoji-mart dark-mode
 .emoji-mart-dark {
@@ -471,6 +477,11 @@ app-impressum {
     cursor: pointer;
     display: flex;
     gap: 3px;
+
+    div:nth-of-type(1) {
+        display: flex;
+        min-width: 33px;
+    }
 
     &:hover {
         .popUpComment {
