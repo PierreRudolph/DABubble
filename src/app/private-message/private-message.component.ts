@@ -8,6 +8,7 @@ import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-private-message',
@@ -18,9 +19,10 @@ export class PrivateMessageComponent {
   // private userAuth: any; //authenticated user
   @Input() user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
+  public fireStorage:AngularFireStorage = inject(AngularFireStorage);
   private chatHepler: ChatHepler = new ChatHepler();
   @Input() userList: any;
-
+  public dataUpload={"link":"","title":""};
   // private userUid: string = ""; //uid od the user
   // private unsub: any;
   // private unsubtalk: any;
@@ -118,10 +120,13 @@ export class PrivateMessageComponent {
       "edit": false,
       "smile": [],
       "time": this.chatHepler.parseTime(new Date(Date.now())),
+      "url":{"link":this.dataUpload.link,"title":this.dataUpload.title},
       "message": text,
       "messageSplits": this.chatHelper.getLinkedUsers(this.user, this.userList, text),
     }
     this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, text);
+    this.dataUpload.link="";
+    this.dataUpload.title="";
     return mes;
   }
 
@@ -439,6 +444,30 @@ export class PrivateMessageComponent {
     });
   }
 
+  /**
+ * Saves the uploaded portrait as base64 code in the data. 
+ * @param event Uploaded file
+ */
+  async onSelect(event: any) {
+    const file =event.target.files[0];
+   
+    if (file) {
+      const path= `yt/${file.name}`;
+      const upoadTask = await this.fireStorage.upload(path,file);
+      this.dataUpload.link = await upoadTask.ref.getDownloadURL();
+      this.dataUpload.title=file.name;
+      console.log("link",this.dataUpload.link);
+      console.log("title",this.dataUpload.title);
+      };
+    }
+
+    showBlendin(){
+      return this.dataUpload.link!="";
+    }
+    showLink(link:string){
+      return link!="";
+    }
+  }
 
 
-}
+

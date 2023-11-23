@@ -27,6 +27,7 @@ export class ChatHepler {
             }
           ],
           "time": "",
+          "url":{"link":"","title":""},
           "message": "",
           "messageSplits": [{ "type": "", "text": "" }],
         }]
@@ -56,6 +57,7 @@ export class ChatHepler {
             }
           ],
           "time": "",
+          "url":{"link":"","title":""},
           "message": "",
           "messageSplits": [{ "type": "t", "text": "" }],
         }]

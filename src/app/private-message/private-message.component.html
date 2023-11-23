@@ -26,6 +26,12 @@
               </div>
               <div [class.popUpFlipContainer]="getFlip(m)">
                 <div class="message" [class.dNone]="m.edit">
+                  <div *ngIf="showLink(m.url.link)">
+                  <a href="{{m.url.link}}" target="_blank">
+                    <img style=" width: 50px;height: auto;" [src]="m.url.link ||'http://placehold.it/180'" alt="your image" />
+                  </a>
+                   <div>{{m.url.title}}</div>
+                  </div>
                   <!-- {{m.message}}  -->
                   <span *ngFor="let mes of m.messageSplits" style="width:100%">
                     <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)" class="linkedUserName"
@@ -98,11 +104,17 @@
   </div>
 
   <div *ngIf="talkOpen" class="textareaDirektMessage">
+    <div class="dataUpload nunitoBlack fs18" *ngIf="showBlendin()">
+      <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
+      {{dataUpload.title}}
+    </div>
     <textarea #textArea class="textAreaDirekt" [(ngModel)]="text" placeholder="Nachricht an {{otherChatUser.name}}"
       (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
-      <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
+      <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
+      <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
+      <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
       <div style="width:2px;background-color: #ADB0D9 ;"></div>
       <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
       <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">

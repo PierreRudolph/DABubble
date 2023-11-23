@@ -37,6 +37,9 @@ import { EditChannelComponent } from './edit-channel/edit-channel.component';
 import { ChannelMembersComponent } from './channel-members/channel-members.component';
 import { SendNewMessageComponent } from './send-new-message/send-new-message.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import {AngularFireStorageModule} from '@angular/fire/compat/storage';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +63,8 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     EditChannelComponent,
     ChannelMembersComponent,
     SendNewMessageComponent,
-    UserProfileComponent
+    UserProfileComponent,
+   
   ],
   imports: [
     BrowserModule,
@@ -75,7 +79,9 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
     MatSidenavModule,
     MatExpansionModule,
     MatDialogModule,
-    PickerComponent
+    PickerComponent,
+    AngularFireStorageModule,
+
   ],
   providers: [AuthGuardService],
   bootstrap: [AppComponent]
