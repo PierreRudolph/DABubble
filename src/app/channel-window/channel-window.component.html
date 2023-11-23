@@ -59,8 +59,13 @@
                         <span>{{thread.time}} Uhr</span>
                     </div>
                     <div style="width:100%" [class.messageRight]="getFlip(thread)">
-                        <div class="message fs18" [class.messageRightStyle]="getFlip(thread)"
-                            [class.dNone]="thread.edit">
+                        <div class="message fs18" [class.messageRightStyle]="getFlip(thread)" [class.dNone]="thread.edit">
+                            <div *ngIf="showLink(thread.url.link)">
+                                <a href="{{thread.url.link}}" target="_blank">
+                                  <img style=" width: 50px;height: auto;" [src]="thread.url.link ||'http://placehold.it/180'" alt="your image" />
+                                </a>
+                                 <div>{{thread.url.title}}</div>
+                                </div>
                             <!-- {{thread.message}} -->
                             <span *ngFor="let mes of thread.messageSplits" style="width:100%">
                                 <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
@@ -73,7 +78,8 @@
                     <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
                         [class.messageRight]="getFlip(thread)">
                         <div style="position:relative">
-                            <div style="position:relative"> <textarea class="textAreaDirekt fs18 nunito wei400"
+                            <div style="position:relative">                              
+                                <textarea class="textAreaDirekt fs18 nunito wei400"
                                     [(ngModel)]="textEdit">{{thread.message}}  </textarea>
                                 <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit posAbs"
                                     src="assets/img/smiley-icon.svg">
@@ -138,12 +144,19 @@
 </div>
 
 <div class="textareaDirektMessage">
+      <!-- upload *ngIf="showBlendIn()" -->
+      <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()" >
+        <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
+        {{dataUpload.title}}
+      </div>
     <textarea class="textAreaDirekt" [(ngModel)]="textThread"
         placeholder="Nachricht an #{{this.threadList[number].channel.name}}"
         (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow posAbs" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
-        <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
+        <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
+        <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
+        <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
         <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">

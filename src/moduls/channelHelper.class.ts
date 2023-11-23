@@ -63,17 +63,21 @@ setEditChanPos(sideMenuHidden:boolean) {
    * 
    * @returns Creates a new Question as JSON
    */
-  getQuestion(user:User,chathelper:ChatHepler,textThread:string,userList:User[]) {
+  getQuestion(user:User,chathelper:ChatHepler,textThread:string,userList:User[],dataUpload:any) {
+    console.log("dataUpload",dataUpload);
     let question = {
       "name": user.name,
       "iD": user.idDB, //of person that writes the message
       "edit": false,
       "smile": [],
       "time": chathelper.parseTime(new Date(Date.now())),
+      "url":{"link":dataUpload.link,"title":dataUpload.title},
       "message":textThread,
       "messageSplits": chathelper.getLinkedUsers(user,userList, textThread),
       "answer": []
     }
+    dataUpload.link="";
+    dataUpload.title="";
     return question;
   }
 

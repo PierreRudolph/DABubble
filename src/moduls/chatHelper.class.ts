@@ -1,9 +1,11 @@
 import { Firestore, addDoc, collection, doc, updateDoc } from "@angular/fire/firestore";
 import { inject } from '@angular/core';
 import { User } from "./user.class";
+import { AngularFireStorage } from "@angular/fire/compat/storage";
 
 export class ChatHepler {
   public firestore: Firestore = inject(Firestore);
+  public fireStorage:AngularFireStorage = inject(AngularFireStorage);
 
   createEmptyTalk(): {} {
     let t = {
@@ -105,6 +107,7 @@ export class ChatHepler {
                 }
               ],
               "time": "",
+              "url":{"link":"","title":""},
               "message": "",
               "messageSplits": [{ "type": "", "text": "" }],
               "answer": [
@@ -121,6 +124,7 @@ export class ChatHepler {
                     }
                   ],
                   "time": "",
+                  "url":{"link":"","title":""},
                   "message": "",
                   "messageSplits": [{ "type": "", "text": "" }],
                 }
@@ -450,5 +454,25 @@ export class ChatHepler {
      }
     return name;
   }
+
+   /**
+ * Saves the uploaded portrait as base64 code in the data. 
+ * @param event Uploaded file
+ */
+   async onSelect(event: any,dataUpload:any) {
+    const file =event.target.files[0];
+   
+    if (file) {
+      const path= `yt/${file.name}`;
+      const upoadTask = await this.fireStorage.upload(path,file);
+      dataUpload.link = await upoadTask.ref.getDownloadURL();
+      dataUpload.title=file.name;
+      console.log("link",dataUpload.link);
+      console.log("title",dataUpload.title);
+      };
+    }
+
+  
+  
 
 }

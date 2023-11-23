@@ -384,25 +384,7 @@
     border-radius: 100%;
 }
 
-.dataUpload {
-    position: absolute;
-    bottom:50px;
-    background-color: white;
-    width:200px;
-    height:fit-content;
-    padding: 20px;
-    border-radius: 30px;
-    border: 1px solid #444df2;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    gap:30px;
-    img {
-        
-        width: 50px;
-        height: auto;
-    }
-}
+
 
 @media (max-width:830px) {
     .privateMesOuterDiv {

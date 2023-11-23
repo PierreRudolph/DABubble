@@ -40,12 +40,13 @@ export class ChannelWindowComponent {
   @Output() isOpen = new EventEmitter<boolean>();
   public smileHelper: SmileHelper = new SmileHelper();
   public channelHelper: ChannelHelper = new ChannelHelper()
-
+ 
   private dialogClasses: Array<string> = ['dialogBorToLeNone']; 
   public addresses = false;
   private text: string = "";
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
   private cA: any;
+  public dataUpload={"link":"","title":""};
 
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
@@ -235,7 +236,7 @@ export class ChannelWindowComponent {
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
     let threadId = this.threadList[indexCannel].channel.idDB;
-    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList)
+    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList,this.dataUpload)
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
       let th = this.threadList[indexCannel].communikation;
@@ -507,6 +508,23 @@ export class ChannelWindowComponent {
 
   showBlendin(attr: string) {
     return this.popUpText[attr] != "";
+  }
+
+  showBlendIn(){
+    return this.dataUpload.link!="";
+  }
+
+  /**
+ * Saves the uploaded portrait.
+ * @param event Uploaded file
+ */
+  async onSelect(event: any) {
+   await  this.chathelper.onSelect(event,this.dataUpload);
+    console.log("delect dataUpload",this.dataUpload);   
+    }
+
+  showLink(link:string){
+    return link!="";
   }
 
 }

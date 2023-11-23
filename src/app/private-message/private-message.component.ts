@@ -19,7 +19,7 @@ export class PrivateMessageComponent {
   // private userAuth: any; //authenticated user
   @Input() user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
-  public fireStorage:AngularFireStorage = inject(AngularFireStorage);
+  // public fireStorage:AngularFireStorage = inject(AngularFireStorage);
   private chatHepler: ChatHepler = new ChatHepler();
   @Input() userList: any;
   public dataUpload={"link":"","title":""};
@@ -445,20 +445,11 @@ export class PrivateMessageComponent {
   }
 
   /**
- * Saves the uploaded portrait as base64 code in the data. 
+ * Saves the uploaded portrait.
  * @param event Uploaded file
  */
   async onSelect(event: any) {
-    const file =event.target.files[0];
-   
-    if (file) {
-      const path= `yt/${file.name}`;
-      const upoadTask = await this.fireStorage.upload(path,file);
-      this.dataUpload.link = await upoadTask.ref.getDownloadURL();
-      this.dataUpload.title=file.name;
-      console.log("link",this.dataUpload.link);
-      console.log("title",this.dataUpload.title);
-      };
+    this.chatHelper.onSelect(event,this.dataUpload);   
     }
 
     showBlendin(){
