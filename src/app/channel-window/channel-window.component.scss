@@ -6,10 +6,7 @@
 .channel-header {
     background-color: white;
     z-index: 1;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
-    position: absolute;
     top: 0px;
     left: 0px;
     width: 100%;
@@ -23,8 +20,6 @@
 
 .channel-header-left {
     cursor: pointer;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
     border-radius: 20px;
     padding: 6px 10px;
@@ -37,8 +32,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-        font-size: 24px;
-        font-weight: 700;
     }
 
     &:hover {
@@ -46,8 +39,6 @@
 
         span {
             max-width: 250px;
-            font-size: 24px;
-            font-weight: 700;
             color: #7e83f5;
         }
 
@@ -62,58 +53,20 @@
 }
 
 .emojiDiv {
-    position: absolute;
     bottom: -415px;
     left: 92px;
     z-index: 3;
 }
 
 .emoji-div {
-    position: absolute;
     left: 170px;
     bottom: 0;
 }
 
 .reactIconsDiv {
-    display: flex;
     gap: 3px;
-    max-width: 230px;
-    align-items: center;
+    max-width: 500px;
     overflow-y: auto;
-}
-
-.popUpComment {
-    background-color: #444df2;
-    border-radius: 30px;
-    border-bottom-left-radius: 0px;
-    color: white;
-    font-size: 16px;
-    font-family: Nunito;
-    display: none;
-    width: 150px;
-    height: fit-content;
-    position: absolute;
-    bottom: 50px;
-    padding: 20px;
-}
-
-
-.reactIcons {
-    margin: 4px 0px;
-    padding: 3px 5px;
-    border: 1px solid #7e83f5;
-    border-radius: 20px;
-    cursor: pointer;
-    display: flex;
-    gap: 3px;
-
-    &:hover {
-        .popUpComment {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-    }
 }
 
 .lila {
@@ -149,8 +102,6 @@
 }
 
 .channel-header-right {
-    display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
@@ -159,8 +110,6 @@
     position: relative;
     width: 142px;
     border-radius: 20px;
-    display: flex;
-    align-items: center;
     justify-content: flex-end;
     padding: 3px 10px;
     transition: all 100ms ease-out;
@@ -171,6 +120,7 @@
         width: 40px;
         border: 3px solid white;
         border-radius: 30px;
+
     }
 
     img:nth-of-type(1) {
@@ -180,20 +130,18 @@
 
     img:nth-of-type(2) {
         z-index: 2;
-        position: absolute;
         left: 55px;
+        position: absolute;
 
     }
 
     img:nth-of-type(3) {
         z-index: 1;
-        position: absolute;
         left: 22px;
+        position: absolute;
     }
 
     span {
-        font-size: 20px;
-        font-weight: 600;
         padding-left: 10px;
     }
 
@@ -250,10 +198,6 @@
     margin-top: 25px;
 }
 
-
-
-
-
 .charImg {
     object-fit: cover;
     width: 70px;
@@ -263,7 +207,6 @@
 }
 
 .popUpMessageContainer {
-    position: absolute;
     right: 0px;
     top: -21px;
     opacity: 0;
@@ -272,7 +215,6 @@
 }
 
 .popUpFlipContainer {
-
     right: unset;
     left: 0px;
 }
@@ -317,7 +259,6 @@
 }
 
 .popUpMessage {
-    display: flex;
     gap: 5px;
     border-radius: 25px;
     border-bottom-right-radius: 0px;
@@ -326,7 +267,6 @@
     width: fit-content;
     height: fit-content;
     background-color: white;
-    align-items: center;
 }
 
 .message-inner-div {
@@ -336,9 +276,7 @@
     gap: 30px;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 40px 20px 40px;
-    // padding-right: 40px;
-    // padding-left: 40px;
+    padding: 20px 40px;
 
     transition: all 100ms ease-out;
 
@@ -348,10 +286,6 @@
         .message {
             background-color: white;
         }
-
-        // .message-right {
-        //     background-color: #797EF3;
-        // }
 
         .messageRightStyle {
             background-color: #797EF3;
@@ -386,8 +320,6 @@
 
 .mes-name {
     padding-right: 10px;
-    font-size: 18px;
-    font-weight: 700;
 }
 
 .messageRight {
@@ -413,13 +345,11 @@
     gap: 30px;
     flex-direction: column;
     width: 100%;
-    align-items: flex-end;
 }
 
 .message {
     background-color: #eceefe;
     padding: 13px;
-    font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
     width: fit-content;
@@ -435,33 +365,7 @@
 
 .reactions {
     margin-top: 10px;
-    display: flex;
-    align-items: center;
     position: relative;
-}
-
-.reaction-emoji-counter {
-    cursor: pointer;
-    position: relative;
-    border: 1px solid #b7bade;
-    border-radius: 20px;
-    padding: 5px 10px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-    min-width: 45px;
-    transition: all 100ms ease-out;
-
-    img {
-        width: 24px;
-    }
-
-    &:hover {
-        .reactions-tooltip {
-            display: flex;
-        }
-    }
 }
 
 .add-reaction-icon {
@@ -477,65 +381,6 @@
     }
 }
 
-.reactions-tooltip {
-    display: none;
-    align-items: center;
-    position: absolute;
-    width: max-content;
-    right: -160px;
-    top: -109px;
-    flex-direction: column;
-    background-color: #444df2;
-    border-radius: 30px;
-    border-bottom-left-radius: 0px;
-    padding: 15px 10px;
-
-    span {
-        color: white;
-        font-size: 16px;
-    }
-
-    img {
-        padding: 0px;
-        width: 30px;
-        margin-bottom: 8px;
-    }
-}
-
-.reactions-username {
-    span {
-        font-size: 18px;
-        font-weight: 700;
-    }
-
-    span:nth-of-type(2) {
-        padding-left: 7px;
-    }
-}
-
-.add-reaction {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    pointer-events: none;
-    transition: all 225ms ease-in-out;
-    opacity: 0;
-    position: absolute;
-    right: 0px;
-    top: 8px;
-    background-color: white;
-    border: 1px solid #b7bade;
-    border-radius: 25px;
-    border-bottom-right-radius: 25px;
-    border-bottom-right-radius: 0px;
-    padding: 5px;
-
-    img {
-        width: 40px;
-        padding: 0px 7px;
-    }
-}
-
 .answers-info {
     display: flex;
     margin-top: 10px;
@@ -544,7 +389,6 @@
 .answers-counter {
     cursor: pointer;
     color: #444df2;
-    font-size: 18px;
     margin-right: 20px;
     transition: all 100ms ease-out;
 
@@ -574,59 +418,30 @@
     width: 100%;
     height: 150px;
     box-sizing: border-box;
-    font-family: Nunito;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
     position: relative;
-
 
     &:focus {
         outline: none;
     }
 
     &::placeholder {
-        color: var(--Text-gray, #686868);
+        color: #686868;
         font-family: Nunito;
         font-size: 18px;
-        font-style: normal;
         font-weight: 400;
-        line-height: normal;
     }
 }
 
 .textareaDirektMessage {
-    padding: 0 45px 0 45px;
+    padding: 0 45px;
     position: relative;
     box-sizing: border-box;
 }
 
 .sendArrow {
-    position: absolute;
     right: 70px;
     bottom: 20px;
     cursor: pointer;
-}
-
-.sendDate {
-    border-radius: 18px;
-    position: absolute;
-    width: 200px;
-    height: 36px;
-    top: calc(50% - 20px);
-    left: calc(50% - 100px);
-    border: solid 1px #ADB0D9;
-    color: var(--Black, #000);
-    font-family: Nunito;
-    font-size: 18px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white;
 }
 
 .dateIcon {
@@ -638,7 +453,6 @@
 
 .smileEdit {
     cursor: pointer;
-    position: absolute;
     left: 10px;
     bottom: 10px;
     transition: all 100ms ease-out;
@@ -696,5 +510,28 @@
 
     .textareaDirektMessage {
         padding: 0px 20px;
+    }
+
+    .iconContainerTextArea {
+        left: 35px;
+    }
+
+
+}
+
+@media (max-width:555px) {
+    .reactIconsDiv {
+        max-width: 200px;
+    }
+}
+
+@media (max-width:400px) {
+    .charImg {
+        width: 30px;
+        height: 30px;
+    }
+
+    .reactIconsDiv {
+        max-width: 180px;
     }
 }

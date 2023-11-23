@@ -38,7 +38,8 @@
                 </div>
                 <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
                     <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
-                        <div class="add-reaction" [class.add-reaction-right]="fromLoggedInUser(answ)">
+                        <div class="add-reaction flexMiddleX posAbs"
+                            [class.add-reaction-right]="fromLoggedInUser(answ)">
                             <img (click)="toggleEmojisUpperDialog(aIndex)" class="changeFace"
                                 src="assets/icons/add-reaction.svg">
                             <emoji-mart class="emojiDivUpper" [class.emojiDivUpperRight]="fromLoggedInUser(answ)"
@@ -50,7 +51,7 @@
                                     <div class="editMessageT">Nachricht bearbeiten</div>
                                 </div>  -->
                         </div>
-                        <img class="char-img" src="{{getImagePortrait(aIndex)}}">
+                        <img class="charImg" src="{{getImagePortrait(aIndex)}}">
                         <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
                             <div class="mes-name-clock" [class.mes-name-clock-right]="fromLoggedInUser(answ)">
                                 <span class="mes-name"
@@ -91,7 +92,7 @@
 
                             <diV class="reactions">
                                 <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
-                                 
+
                                     <!-- <div class="reactions-tooltip">
                                         <div class="reactIconInTooltipDiv">
                                             <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
@@ -125,7 +126,7 @@
                                             reagiert</span>
                                     
                                     </div> -->
-                                 
+
                                     <div class="reactIconsDiv">
 
 
@@ -133,16 +134,18 @@
                                             class="reactIcons" [class.lila]="smileHelper.isUserInSmile(s.users,user)"
                                             (click)="removeSmile(aIndex,sIndex)" class="reactIcons"
                                             (mouseover)="showPopUpCommentUsers(aIndex,sIndex)">
-                                         <div>
-                                            <div>{{s.icon}}</div>
-                                            <span>{{s.users.length}}</span>
-                                         </div>
+                                            <div>
+                                                {{s.icon}}
+                                                {{s.users.length}}
+                                            </div>
 
-                                            <div class="popUpComment">
+                                            <div class="popUpComment nunito posAbs">
                                                 <div style="scale: 1.5;margin-bottom: 10px;">{{s.icon}}</div>
                                                 <div *ngIf="showBlendin('du')" class="wei700">{{popUpText.du}}</div>
-                                                <div *ngIf="showBlendin('first')" class="wei700">{{popUpText.first}}</div>
-                                                <div *ngIf="showBlendin('other')" class="wei700">{{popUpText.other}}</div>
+                                                <div *ngIf="showBlendin('first')" class="wei700">{{popUpText.first}}
+                                                </div>
+                                                <div *ngIf="showBlendin('other')" class="wei700">{{popUpText.other}}
+                                                </div>
                                                 <div>{{popUpText.verb}} reagiert</div>
                                             </div>
 
@@ -168,8 +171,8 @@
             </div>
             <div class="textareaDirektMessage">
                 <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
-                    placeholder="Antworten..."  (keydown)="keyDownFunction($event)"></textarea>
-                <img class="sendArrow" (click)="saveAnswer()"  src="assets/img/sendArrow.svg">
+                    placeholder="Antworten..." (keydown)="keyDownFunction($event)"></textarea>
+                <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
                 <div style="position:relative">
                     <div class="iconContainerTextArea">
                         <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">

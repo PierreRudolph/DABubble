@@ -114,6 +114,8 @@
 .accordion-outer-div {
     margin-top: 25px;
     position: relative;
+    overflow-y: auto;
+    max-height: calc(100vh - 306px);
 }
 
 .mar-top {
@@ -182,10 +184,10 @@
     font-size: 20px;
 }
 
-.scrollableContactDiv {
-    overflow: auto;
-    max-height: calc(100vh - 455px);
-}
+// .scrollableContactDiv {
+//     overflow: auto;
+//     max-height: calc(100vh - 455px);
+// }
 
 .add-icon {
     cursor: pointer;
@@ -407,9 +409,8 @@
     }
 
     .accordion-outer-div {
-        height: calc(100% - 73px);
+        max-height: calc(100vh - 210px);
         overflow-y: auto;
-
         margin: 25px 25px;
     }
 
@@ -427,8 +428,6 @@
         overflow-y: scroll;
 
     }
-
-
 
     .inputMobile {
         display: block;
@@ -479,7 +478,15 @@
         display: none;
     }
 
-    .scrollableContactDiv {
-        max-height: calc(100vh - 367px);
+    //     .scrollableContactDiv {
+    //         //max-height: calc(100vh - 367px);
+    //         height: 100%;
+    //     }
+}
+
+@media (max-width:400px) {
+    .accordion-outer-div {
+        margin: 25px 0px;
     }
+
 }

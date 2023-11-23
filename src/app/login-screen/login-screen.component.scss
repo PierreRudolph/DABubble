@@ -14,17 +14,14 @@
     box-sizing: border-box;
 }
 
-
-.buttonBlue{
-
-    background-color: white ;
+.buttonBlue {
+    background-color: white;
     color: #444DF2;
-    border: 1px solid #444DF2 ;
+    border: 1px solid #444DF2;
 
-    &:hover{
+    &:hover {
         color: white;
         background-color: #444DF2;
-        
     }
 }
 
@@ -340,7 +337,6 @@
         top: calc(50% - 276px);
         padding: 35px 26px 35px 26px;
         gap: 20px;
-
     }
 
     .headline {
@@ -348,7 +344,6 @@
     }
 
     .inputWind {
-
         width: 358px;
         height: 50px;
         padding: 13px 32px 13px 30px;
@@ -370,8 +365,6 @@
         width: 300px;
         animation-name: mobile-fade-position;
     }
-
-
 
     .logoContainer {
         animation-name: mobile-logo-animation;
@@ -397,8 +390,6 @@
 }
 
 @media screen and (max-width:400px) {
-
-
     .logInDialog {
         width: 320px;
         left: calc(50% - 160px);
@@ -415,7 +406,6 @@
 
     .googleLoginButt {
         width: 300px !important;
-
     }
 
     .btn {

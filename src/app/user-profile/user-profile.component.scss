@@ -165,3 +165,17 @@
         filter: invert(0.1);
     }
 }
+
+@media (max-width:535px) {
+    .profileDialog {
+        width: 400px;
+        left: calc(50% - 200px);
+    }
+}
+
+@media (max-width:435px) {
+    .profileDialog {
+        width: 300px;
+        left: calc(50% - 150px);
+    }
+}

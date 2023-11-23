@@ -194,3 +194,16 @@
         border-radius: 30px;
     }
 }
+
+@media (max-width:555px) {
+    .profileDialog {
+        width: unset;
+        right: 20px;
+        left: 20px;
+        top: calc(100vh - 680px);
+    }
+
+    .mobileEdit {
+        top: calc(100vh - 735px);
+    }
+}
