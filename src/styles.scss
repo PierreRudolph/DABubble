@@ -23,27 +23,6 @@ body {
     background-color: rgb(236, 238, 254);
 }
 
-.remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body {
-    padding: 5px 30px;
-}
-
-.mat-drawer-inner-container {
-    overflow: hidden !important;
-}
-
-.mat-mdc-dialog-container .mat-mdc-dialog-surface {
-    border-radius: 30px !important;
-    overflow-y: unset !important;
-}
-
-.dialogBorToLeNone .mat-mdc-dialog-surface {
-    border-top-left-radius: 0px !important;
-}
-
-.dialogBorToReNone .mat-mdc-dialog-surface {
-    border-top-right-radius: 0px !important;
-}
-
 .mat-body,
 .mat-body-2,
 .mat-typography .mat-body,
@@ -173,7 +152,7 @@ body {
         background-color: gray;
         cursor: unset;
     }
-   
+
 }
 
 .buttonLight {
@@ -251,6 +230,33 @@ app-impressum {
     }
 }
 
+//Angular Material Dialog overwriting
+.remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body {
+    padding: 5px 30px;
+}
+
+.mat-drawer-inner-container {
+    overflow: hidden !important;
+}
+
+.mat-mdc-dialog-container .mat-mdc-dialog-surface {
+    border-radius: 30px !important;
+    overflow-y: unset !important;
+}
+
+.dialogBorToLeNone .mat-mdc-dialog-surface {
+    border-top-left-radius: 0px !important;
+}
+
+.dialogBorToReNone .mat-mdc-dialog-surface {
+    border-top-right-radius: 0px !important;
+}
+
+.dialogBorRadNone .mat-mdc-dialog-surface {
+    border-radius: 0px !important;
+}
+
+//Angular Material Dialog overwriting
 
 //overwrite emoji-mart dark-mode
 .emoji-mart-dark {
@@ -281,6 +287,8 @@ app-impressum {
     border: 1px solid #d9d9d9;
     background-color: #fff;
 }
+
+//overwrite emoji-mart dark-mode
 
 .iconContainerTextArea {
     transition: all 225ms ease-in-out;
@@ -328,14 +336,10 @@ app-impressum {
     transition: all 225ms ease-in-out;
 }
 
-.addPeopleDialogMobileStyle {
-    width: 100%;
-    height: 360px;
-}
-
-.dialogBorRadNone .mat-mdc-dialog-surface {
-    border-radius: 0px !important;
-}
+// .addPeopleDialogMobileStyle {
+//     width: 100%;
+//     height: 360px;
+// }
 
 .redC {
     color: red;
@@ -350,7 +354,14 @@ app-impressum {
     }
 }
 
+.posAbs {
+    position: absolute;
+}
 
+.flexMiddleX {
+    display: flex;
+    align-items: center;
+}
 
 .address {
     border-radius: 30px;
@@ -419,10 +430,73 @@ app-impressum {
 }
 
 .linkedUserNameRight {
-    color: #242dca;    
+    color: #242dca;
 
     // &:hover {
     //     background-color: white;
     //     // color: #444df2;
     // }
+}
+
+.sendDate {
+    background-color: white;
+    border-radius: 18px;
+    width: 200px;
+    height: 36px;
+    top: calc(50% - 20px);
+    left: calc(50% - 100px);
+    border: solid 1px #ADB0D9;
+    color: #000;
+    justify-content: center;
+}
+
+.popUpComment {
+    background-color: #444df2;
+    border-radius: 30px;
+    border-bottom-left-radius: 0px;
+    color: white;
+    font-size: 16px;
+    display: none;
+    width: 150px;
+    height: fit-content;
+    bottom: 50px;
+    padding: 20px;
+}
+
+.reactIcons {
+    margin: 4px 0px;
+    padding: 3px 5px;
+    border: 1px solid #7e83f5;
+    border-radius: 20px;
+    cursor: pointer;
+    display: flex;
+    gap: 3px;
+
+    &:hover {
+        .popUpComment {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+}
+
+.add-reaction {
+    cursor: pointer;
+    pointer-events: none;
+    transition: all 225ms ease-in-out;
+    opacity: 0;
+    right: 0px;
+    top: 8px;
+    background-color: white;
+    border: 1px solid #b7bade;
+    border-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border-bottom-right-radius: 0px;
+    padding: 5px;
+
+    img {
+        width: 40px;
+        padding: 0px 7px;
+    }
 }
