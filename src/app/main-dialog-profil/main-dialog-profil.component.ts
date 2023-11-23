@@ -62,6 +62,8 @@ export class MainDialogProfilComponent {
         this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
         this.router.navigateByUrl("login");
         this.unsubscribe.emit(true);
+        localStorage.removeItem("uid");
+        localStorage.removeItem("google");
 
       })
         .catch((error) => {

@@ -38,17 +38,18 @@ export class LoginScreenComponent {
     // try {
     this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
       // Login successful       
-      let user = this.authService.getAuthServiceUser();
-      if (user) {
-        let id = user._delegate.uid;
-        localStorage.setItem('uid', id);
-        localStorage.removeItem('google');
-        localStorage.removeItem('googleName');
-        this.route.navigateByUrl("/main");
-      }
-      else {
-        console.log("invalid login");
-      }
+      setTimeout(() => {
+        let user = this.authService.getAuthServiceUser();
+        if (user) {
+          let id = user._delegate.uid;
+          localStorage.setItem('uid', id);
+          localStorage.removeItem('google');
+          this.route.navigateByUrl("/main");
+        }
+        else {
+          console.log("invalid login");
+        }
+      }, 500);
     }).catch((error) => {
       console.log("fail", error);
     });
@@ -59,12 +60,13 @@ export class LoginScreenComponent {
     return this.authService.logIn("gast@mail.com", "gggggg").then((res) => {
       // Login successful   
       localStorage.removeItem('google');
-      localStorage.removeItem('googleName');
-      let user = this.authService.getAuthServiceUser();
-      let id = user._delegate.uid;
-      localStorage.setItem('uid', id);
-      // this.route.navigateByUrl("/main");
-      this.route.navigateByUrl("/main");
+
+      setTimeout(() => {
+        let user = this.authService.getAuthServiceUser();
+        let id = user._delegate.uid;
+        localStorage.setItem('uid', id);
+        this.route.navigateByUrl("/main");
+      }, 500)
     })
       .catch((error) => {
         console.log("fail", error);
@@ -75,11 +77,13 @@ export class LoginScreenComponent {
     this.authService.logInWithGoogle().
       then((dat) => {
         console.log("succesfully logged in with google", dat);
-        let user = this.authService.getAuthServiceUser();
-        let userName = user._delegate.displayName;      
-        localStorage.setItem('google', userName);
-        // this.route.navigateByUrl("/login");
-        this.route.navigateByUrl("/main");
+        setTimeout(() => {
+          let user = this.authService.getAuthServiceUser();
+          let userName = user._delegate.displayName;
+          localStorage.setItem('google', userName);
+          // this.route.navigateByUrl("/login");
+          this.route.navigateByUrl("/main");
+        }, 500);
       }).
       catch((err) => { console.log("fail", err); });
   }

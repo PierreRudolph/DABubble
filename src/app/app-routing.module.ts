@@ -15,6 +15,7 @@ import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-prof
 const routes: Routes = [
   // 
   {path: 'main', component: MainPageComponent},
+  // {path: 'main', component: MainPageComponent,canActivate: [AuthGuardService]},
   // {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   {path: 'login', component: LoginScreenComponent },
   {path: 'forget', component: ForgotPasswordComponent },
