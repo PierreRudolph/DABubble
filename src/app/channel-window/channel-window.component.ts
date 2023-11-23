@@ -54,7 +54,7 @@ export class ChannelWindowComponent {
   constructor(public dialog: MatDialog) {
     setTimeout(() => {
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
-      this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
+      // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 1000);
   }
 
