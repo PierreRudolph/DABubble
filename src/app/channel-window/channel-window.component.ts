@@ -165,7 +165,7 @@ export class ChannelWindowComponent {
   }
 
   /**
-   * stors the specific emoji, Claps or Checkmark   * 
+   * stors the specific emoji, Claps or Checkmark    
    * @param e JSON of the emoji
    */
   saveEmojiCom(cIndex: number, tIndex: number, e: any) { // warum speichert die funktion den emoji nicht?   
@@ -255,7 +255,6 @@ export class ChannelWindowComponent {
     this.textThread = "";
   }
 
-
   setIndices(cIndex: number, tIndex: number) {
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
@@ -320,8 +319,7 @@ export class ChannelWindowComponent {
     this.addPeopleOpen = !this.addPeopleOpen;
   }
 
-  /**
-   * 
+  /** 
    * @param m JSON of data of a Channel-Message
    * @returns Returns wheather the person that wrote the message is the current user. Important for styling.
    */

@@ -74,9 +74,9 @@ export class MainPageComponent {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
-    this.getScreenWidth();
-
+    this.getScreenWidth();   
   }
+ 
 
 
   /**
@@ -180,7 +180,7 @@ export class MainPageComponent {
   callOpenChan(num: number) {
     this.setChannelNumber(num);
     this.openChat = false;
-    setTimeout(()=>{this.childChannel.scrollDown();},500);
+    setTimeout(() => { this.childChannel.scrollDown(); }, 500);
 
 
   }
@@ -233,7 +233,7 @@ export class MainPageComponent {
     this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
     this.sideMenu.newMessage = false;
-    setTimeout(()=>{this.childChannel.scrollDown();},500);
+    setTimeout(() => { this.childChannel.scrollDown(); }, 500);
   }
 
   /**  
