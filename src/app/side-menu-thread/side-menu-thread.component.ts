@@ -35,7 +35,7 @@ export class SideMenuThreadComponent {
   public smileHelper: SmileHelper = new SmileHelper();
   public openChat: boolean;
   public addresses = false;
-
+  public dataUploadThread={"link":"","title":""};
 
   showEmojisUpper: boolean | undefined = false;
   showEmojisLower: boolean | undefined;
@@ -149,9 +149,12 @@ export class SideMenuThreadComponent {
       "edit": false,
       "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
+      "url":{"link":this.dataUploadThread.link,"title":this.dataUploadThread.title},
       "message": this.textThreadAnswer,
       "messageSplits": this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer),
     }
+    this.dataUploadThread.link="";
+    this.dataUploadThread.title="";
     return answ;
   }
 
@@ -430,6 +433,23 @@ export class SideMenuThreadComponent {
 
   showBlendin(attr:string){
     return this.popUpText[attr]!="";
+    }
+
+    showBlendIn(){
+      return this.dataUploadThread.link!="";
+    }
+  
+    /**
+   * Saves the uploaded portrait.
+   * @param event Uploaded file
+   */
+    async onSelection(event: any) {
+     await  this.chathelper.onSelect(event,this.dataUploadThread);
+      console.log("delect dataUploadthread",this.dataUploadThread);   
+      }
+  
+    showLink(link:string){
+      return link!="";
     }
 
   // /**

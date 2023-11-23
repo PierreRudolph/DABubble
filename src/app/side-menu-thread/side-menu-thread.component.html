@@ -59,6 +59,13 @@
                                 <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
                             </div>
                             <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
+                                <!-- messages/links -->
+                                <div *ngIf="showLink(answ.url.link)">
+                                    <a href="{{answ.url.link}}" target="_blank">
+                                      <img style=" width: 50px;height: auto;" [src]="answ.url.link ||'http://placehold.it/180'" alt="your image" />
+                                    </a>
+                                     <div>{{answ.url.title}}</div>
+                                    </div>
                                 <span *ngFor="let mes of answ.messageSplits" style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                         class="linkedUserName"
@@ -170,12 +177,19 @@
                 </div>
             </div>
             <div class="textareaDirektMessage">
+                <!-- upload *ngIf="showBlendIn()" -->
+                <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
+                    <img [src]="dataUploadThread.link ||'http://placehold.it/180'" alt="your image" />
+                    {{dataUploadThread.title}}
+                </div>
                 <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
                     placeholder="Antworten..." (keydown)="keyDownFunction($event)"></textarea>
                 <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
                 <div style="position:relative">
                     <div class="iconContainerTextArea">
-                        <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
+                        <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
+                        <input type="file" id="imgthread" style="display:none;" (change)="onSelection($event)">
+                        <label for="imgthread"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
                         <div style="width:2px;background-color: #ADB0D9 ;"></div>
                         <img class="textAreaIconSmiley" (click)="toggleEmojisDialogTA()"
                             src="assets/img/smiley-icon.svg">
