@@ -322,7 +322,8 @@ export class SideMenuThreadComponent {
      * @param aIndex index of the answer where the emoji popUp shell be blend in
      * @returns 
      */
-  showEmojiUpper(aIndex: number) {
+  showEmojiUpper(aIndex: number) {   
+    
     return (this.answerIndex === aIndex) && this.showEmojisUpper;
   }
 

@@ -385,8 +385,8 @@
 
 .sendArrow {
     position: absolute;
-    right: 70px;
-    bottom: 40px;
+    right: 45px;
+    bottom: 15px;
     cursor: pointer;
 }
 
@@ -402,6 +402,7 @@
 
 .emojiDivUpperRight {
     right: 240px;
+ 
 }
 
 .emojiDivLower {
@@ -439,6 +440,15 @@
 }
 
 @media (max-width:830px) {
+
+    .emojiDivUpperRight {
+        right: unset;
+     
+    }
+
+    .posAddr{
+        bottom:-320px;
+    }
     .threadOuterDiv {
         width: 100vw;
     }
@@ -496,6 +506,12 @@
     .charImg {
         width: 30px;
         height: 30px;
+    }
+
+    .emojiDivUpperRight {
+        right: unset;
+        left:-20px;
+     
     }
 
     .reactIconsDiv {
