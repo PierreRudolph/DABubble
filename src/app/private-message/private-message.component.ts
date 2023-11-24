@@ -50,6 +50,7 @@ export class PrivateMessageComponent {
   public messageInformation: any[] = [];
   public addresses = false;
   private mA;
+  
 
   // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -59,9 +60,10 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
+    console.log("call construktor private message");
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
-      this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
+      // this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
     }, 1500);
   }
 

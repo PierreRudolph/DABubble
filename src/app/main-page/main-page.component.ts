@@ -39,6 +39,7 @@ export class MainPageComponent {
   public textThread = "";
   public areaText = "";
   public load = false;
+  public privateOpen = false;
   public sideMenuHidden: boolean;
   //-----------------
   public number: number = 0;
@@ -180,6 +181,7 @@ export class MainPageComponent {
   callOpenChan(num: number) {
     this.setChannelNumber(num);
     this.openChat = false;
+    this.privateOpen = false;
     setTimeout(() => { this.childChannel.scrollDown(); }, 500);
 
 
@@ -238,6 +240,7 @@ export class MainPageComponent {
     this.number = number;
     this.channelOpen = true;
     this.talkOpen = false;
+    this.privateOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
     this.sideMenu.newMessage = false;
 
@@ -259,6 +262,9 @@ export class MainPageComponent {
   setOtherUser(user: User) {
     this.talkOpen = true;
     this.channelOpen = false;
+    console.log("get Channel Open", this.channelOpen);
+    this.privateOpen = true;
+    this.openChat = false;
 
     setTimeout(() => {
       this.otherChatUser = user;
@@ -317,6 +323,8 @@ export class MainPageComponent {
     this.threadC = c;
     this.openChat = true;
     this.started = true;
+    this.privateOpen = false;
+    console.log("blend in private messages", this.privateOpen);
     this.hideMainContentDivOn1400();
     setTimeout(() => {
       this.hideMainContentDivOn830();
@@ -348,7 +356,9 @@ export class MainPageComponent {
 
   showMainContentDivOn1400() {
     if (this.screenWidth <= 1400 && this.screenWidth > 830) {
-      this.channelOpen = true//experimentell
+      if (!this.privateOpen) {
+        this.channelOpen = true//experimentell
+      }     
       this.mainContentDiv.nativeElement.classList.remove('dNone');
     }
   }
@@ -369,10 +379,11 @@ export class MainPageComponent {
   }
 
   showPrivateMessage() {
-    return !this.channelOpen && !this.newMessOpen;
+    // return !this.channelOpen && !this.newMessOpen;
+    return this.privateOpen && !this.newMessOpen;
   }
 
-  showChannel() {
+  showChannel() { 
     return this.channelOpen && !this.newMessOpen;
   }
 
