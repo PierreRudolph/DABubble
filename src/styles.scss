@@ -262,6 +262,14 @@ app-impressum {
     }
 }
 
+app-sidenav {
+    display: flex;
+}
+
+mat-drawer-container {
+    flex: 1 1 auto;
+}
+
 //Angular Material overwriting
 
 //overwrite emoji-mart dark-mode
@@ -426,10 +434,10 @@ app-impressum {
 
 .dataUpload {
     position: absolute;
-    bottom:50px;
+    bottom: 50px;
     background-color: white;
     width:250px;
-    height:fit-content;
+    height:fit-content;   
     padding: 20px;
     border-radius: 30px;
     border: 1px solid #444df2;
@@ -437,8 +445,10 @@ app-impressum {
     display: flex;
     align-items: center;
     gap:20px;
+   
+
     img {
-        
+
         width: 50px;
         height: auto;
     }

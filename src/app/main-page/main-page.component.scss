@@ -45,6 +45,12 @@
     height: 100%;
 }
 
+@media (max-width:1400px) {
+    .sideMenuThread {
+        width: 100%
+    }
+}
+
 @media (max-width:830px) {
     .main-page {
         width: 100vw;
@@ -55,6 +61,10 @@
 
     .side-menu {
         width: 100%;
+    }
+
+    .sideMenuThread {
+        width: 100%
     }
 
     .channel-window {
