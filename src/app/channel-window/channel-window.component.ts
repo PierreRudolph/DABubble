@@ -54,15 +54,19 @@ export class ChannelWindowComponent {
 
   constructor(public dialog: MatDialog) {
     setTimeout(() => {
+      console.log("callsonst cannel wind");
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
-    }, 1000);
+    }, 500);
   }
 
   scrollDown() {
     setTimeout(() => {
+      console.log("ca",this.cA);
+     if(this.cA){
       this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
-    }, 1500);
+     }
+    }, 1000);
   }
 
   /**
