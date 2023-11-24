@@ -195,13 +195,13 @@ export class MainPageComponent {
     this.sideMenu.newMessage = false;
   }
 
-  setdataUploadChannel(dataUpload:any){
- setTimeout(()=>{ this.childChannel.dataUpload = dataUpload;},500);
+  setdataUploadChannel(dataUpload: any) {
+    setTimeout(() => { this.childChannel.dataUpload = dataUpload; }, 500);
   }
 
-  setdataUploadPrivate(dataUpload:any){
-    setTimeout(()=>{ this.child.dataUpload = dataUpload;},500);
-     }
+  setdataUploadPrivate(dataUpload: any) {
+    setTimeout(() => { this.child.dataUpload = dataUpload; }, 500);
+  }
 
   /**   
    * @param h Sets wheather the sidemenu shoud be hidden or not
@@ -341,18 +341,21 @@ export class MainPageComponent {
 
   hideMainContentDivOn1400() {
     if (this.screenWidth <= 1400 && this.screenWidth > 830) {
+      this.channelOpen = false;//experimentell
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
 
   showMainContentDivOn1400() {
     if (this.screenWidth <= 1400 && this.screenWidth > 830) {
+      this.channelOpen = true//experimentell
       this.mainContentDiv.nativeElement.classList.remove('dNone');
     }
   }
 
   hideMainContentDivOn830() {
     if (this.screenWidth < 830) {
+      this.channelOpen = false;//experimentell
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
@@ -387,6 +390,20 @@ export class MainPageComponent {
     this.unsub();
     this.unsubtalk();
     this.unsubChannel();
+  }
+
+  setMobileThreadView() {//experimentell
+
+    if (this.screenWidth > 1400) {
+
+      return true
+    } if (this.screenWidth <= 1400 && this.channelOpen) {
+      return false
+    } else {
+      return true;
+    }
+
+
   }
 }
 

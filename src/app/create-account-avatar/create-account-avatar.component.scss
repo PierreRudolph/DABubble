@@ -41,9 +41,9 @@ h1 {
 .logoContainer {
     position: absolute;
     display: flex;
-    left: 50px;
-    top: 10px;
-    gap:10px;
+    left: 75px;
+    top: 75px;
+    gap: 10px;
 }
 
 
@@ -147,9 +147,11 @@ h1 {
         padding: 26px 21px 26px 21px;
         gap: 20px;
     }
+
     .headder {
         height: 800px;
     }
+
     .headline {
         font-size: 32px;
     }
@@ -211,19 +213,19 @@ h1 {
 
 @media screen and (min-width:650px) {
 
- 
+
     .chooseListSmall {
         display: none;
     }
 }
 
 @media screen and (max-width:650px) {
-    .popUp3 {       
-        font-size: 18px;       
-        padding: 20px;        
-        width: fit-content;       
+    .popUp3 {
+        font-size: 18px;
+        padding: 20px;
+        width: fit-content;
     }
-    }
+}
 
 @media screen and (max-width:400px) {
     .logInDialog {
@@ -236,4 +238,3 @@ h1 {
     }
 
 }
-

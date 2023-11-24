@@ -1,25 +1,23 @@
 .logInDialog {
+    position: relative;
     width: 606px;
-    height: 740px;
-    position: absolute;
-    left: calc(50% - 303px);
-    top: calc(50% - 370px);
     background-color: white;
     border-radius: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 50px;
-    gap: 30px;
+    padding: 40px 50px;
+    gap: 35px;
     box-sizing: border-box;
 }
 
 .logoContainer {
     position: absolute;
     display: flex;
-    left: 50px;
-    top: 10px;
-    gap:10px;
+    height: 70px;
+    left: 75px;
+    top: 75px;
+    gap: 16px;
 }
 
 .headline {
@@ -51,19 +49,27 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    padding: 18px 30px 18px 30px;
+    padding: 18px 30px;
     box-sizing: border-box;
+    border: 1px solid transparent;
 
     input {
         border: none;
         background-color: #ECEEFE;
         font-family: 'Nunito';
         font-size: 18px;
-        width:fit-content;
 
         &:focus {
             outline: none;
         }
+    }
+
+    &:hover {
+        border-color: #686868;
+    }
+
+    &:focus-within {
+        border-color: #535AF1;
     }
 }
 
@@ -93,22 +99,51 @@
 
 .arrowBack {
     position: absolute;
-    left: 32px;
+    left: 40px;
     cursor: pointer;
+
+    &:hover {
+        content: url('/assets/img/arrow-back-hover.svg');
+    }
+}
+
+.discription {
+    span {
+        a {
+            padding: 5px 0px;
+            text-decoration: none;
+            border-radius: 30px;
+            color: #797EF3;
+        }
+    }
+
+    &:hover {
+        span {
+            a {
+                color: #444DF2;
+                background-color: #ECEEFE;
+                font-weight: 500;
+            }
+        }
+
+        #privacyAgreement+::before {
+            background-color: #ECEEFE;
+        }
+    }
+
 }
 
 #privacyAgreement {
     display: none;
-    // border-color: #57E8A2;
-    // background-color: #a5f3cd;
 }
 
 #privacyAgreement+::before {
     // wählt wegen + den span aus
+    cursor: pointer;
     content: "\2713";
-    display: inline-block;
-    width: 13px;
     height: 13px;
+    width: 13px;
+    display: inline-block;
     border-radius: 10%;
     border-style: solid;
     border-width: 2px;
@@ -117,9 +152,11 @@
     padding-left: 3px;
     box-sizing: content-box;
     margin-right: 10px;
-    background-color: white;
     color: white;
-    // color: black;
+
+    &:hover {
+        //background-color: #ECEEFE;
+    }
 }
 
 .red {
@@ -128,44 +165,13 @@
 
 #privacyAgreement:checked+*::before {
     content: "\2713";
-    display: inline-block;
-    width: 13px;
-    height: 13px;
-    // height: 12px;
-    border-radius: 10%;
-    border-style: solid;
-    border-width: 2px;
     color: #797EF3;
-    background-color: white;
-    border-color: #797EF3;
-    padding-bottom: 3px;
-    padding-left: 3px;
-    box-sizing: content-box;
-    margin-right: 10px;
+    border-color: #444DF2;
+    background-color: #ECEEFE;
 }
 
 #checkSpan {
     font-size: 16px;
-}
-
-
-.impData {
-    display: flex;
-    gap: 15px;
-    position: absolute;
-    bottom: 50px;
-    width: 200px;
-    left: calc(50% - 100px);
-
-    a {
-        color: var(--Purple-2, #797EF3);
-        font-family: Figtree;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 120%;
-        text-decoration: none;
-    }
 }
 
 @media screen and (max-width:650px) {
@@ -176,6 +182,7 @@
         top: 200px;
         padding: 20px;
         gap: 20px;
+
         .headline {
             font-size: 32px;
         }
@@ -184,7 +191,7 @@
     .input {
         width: 350px;
         height: 50px;
-        gap:10px;
+        gap: 10px;
         padding: 13px 32px 13px 32px;
     }
 
@@ -195,28 +202,28 @@
         top: 50px;
     }
 
-    .impData{
-        bottom:130px;
-  }
-    
+    .impData {
+        bottom: 130px;
+    }
+
 }
 
 @media screen and (max-width:400px) {
     .logInDialog {
-        width:320px;
+        width: 320px;
         height: fit-content;
         left: calc(50% - 160px);
-        top: 160px;      
-       
+        top: 160px;
+
         .headline {
             font-size: 26px;
         }
     }
 
     .input {
-        width: 300px;       
+        width: 300px;
         padding: 10px 25px 10px 25px;
     }
 
-   
+
 }

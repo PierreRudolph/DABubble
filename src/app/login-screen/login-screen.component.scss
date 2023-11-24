@@ -49,7 +49,7 @@
     display: flex;
     align-items: center;
     gap: 30px;
-    padding: 18px 30px 18px 30px;
+    padding: 18px 30px;
     box-sizing: border-box;
     border: 1px solid transparent;
 
@@ -214,9 +214,10 @@
     align-items: center;
     left: calc(50% - 112px);
     top: 70px;
-    width: 224px;
+    //width: 224px;
     justify-content: flex-start;
     z-index: 1;
+    gap: 16px;
 
     div {
         display: flex;

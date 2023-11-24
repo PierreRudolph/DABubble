@@ -1,18 +1,18 @@
-<div class="headder" >
-    <div class="logoContainer" >
-       <img src="assets/img/logo.svg">
-       <img src="assets/img/LogoName.svg">
+<div class="headder">
+    <div class="logoContainer">
+        <img src="assets/img/logo.svg">
+        <img src="assets/img/LogoName.svg">
     </div>
- </div>
+</div>
 
-<div class="logInDialog" >
-    <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow_back.svg"></a>
-    <h1 class="nunito headline">Wähle deinen Avatar</h1> 
+<div class="logInDialog">
+    <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow-back.svg"></a>
+    <h1 class="nunito headline">Wähle deinen Avatar</h1>
     <div [class.pad0]="!padding" class="profile">
-        <img  class="profileImg" src="{{portraitPath}}">
+        <img class="profileImg" src="{{portraitPath}}">
     </div>
-    <div class="name">{{user.name}}</div> 
-    <div class="chooseList">Aus der Liste wählen</div>  
+    <div class="name">{{user.name}}</div>
+    <div class="chooseList">Aus der Liste wählen</div>
     <div class="icons">
         <img class="imgIcon" (click)="setPortraitPath('assets/img/ch1.svg')" src="assets/img/ch1.svg">
         <img class="imgIcon" (click)="setPortraitPath('assets/img/ch2.svg')" src="assets/img/ch2.svg">
@@ -21,21 +21,20 @@
         <img class="imgIcon" (click)="setPortraitPath('assets/img/ch5.svg')" src="assets/img/ch5.svg">
         <img class="imgIcon" (click)="setPortraitPath('assets/img/ch6.svg')" src="assets/img/ch6.svg">
     </div>
-    <div class="chooseList">eigenes Bild verwenden     
-        <input type="file" id="img"  style="display:none;"  (change)="onSelect($event)">
+    <div class="chooseList">eigenes Bild verwenden
+        <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
         <label for="img" class="btn upload">Datei hochladen</label>
     </div>
-    <div class="chooseListSmall">Or you can     
-        <input type="file" id="img"  style="display:none;"  (change)="onSelect($event)">
+    <div class="chooseListSmall">Or you can
+        <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
         <label for="img" class="btn upload">Upload foto</label>
     </div>
     <div class="weiterContainer">
-       <button  (click)="register()" [disabled]="wait" class="btn weiter">Weiter</button>      
-    </div> 
-    <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Konto erfolgreich erstellt!</div>  
- </div>
- <div class="impData">
+        <button (click)="register()" [disabled]="wait" class="btn weiter">Weiter</button>
+    </div>
+    <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Konto erfolgreich erstellt!</div>
+</div>
+<div class="impData">
     <a routerLink="/imprint" target="_blank">Impressum</a>
     <a href="">Datenschutz</a>
- </div>
-
+</div>

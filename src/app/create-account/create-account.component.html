@@ -1,11 +1,10 @@
-<div style="width:100vw;position: relative;height:900px ">
-   <div class="logoContainer" >
-      <img src="assets/img/logo.svg">
-      <img src="assets/img/LogoName.svg">
-   </div>
+<div class="logoContainer">
+   <img src="assets/img/logo.svg">
+   <img src="assets/img/LogoName.svg">
 </div>
+
 <div class="logInDialog" [formGroup]="registerForm">
-   <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow_back.svg"></a>
+   <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow-back.svg"></a>
    <h1 class="nunito headline">Konto erstellen</h1>
    <p class="nunito loginDis">Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DABubble-Konto.</p>
 
@@ -22,10 +21,9 @@
       <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password">
    </div>
    <div style="width:100%; display:flex;justify-self: start;padding-left: 20px;">
-      <label for="privacyAgreement" class="discription"> <input (click)="clickBox()" formControlName="data" type="checkbox"
-            id="privacyAgreement"/>
-         <span id="checkSpan">Ich stimme der <a routerLink="/data" style="color: #797EF3;cursor: pointer;"
-               target="_blank">Datenschutzerklärung</a> zu.</span>
+      <label for="privacyAgreement" class="discription"> <input (click)="clickBox()" formControlName="data"
+            type="checkbox" id="privacyAgreement" />
+         <span id="checkSpan">Ich stimme der <a routerLink="/data" target="_blank">Datenschutzerklärung</a> zu.</span>
       </label>
    </div>
    <div class="weiterContainer">
@@ -33,6 +31,10 @@
    </div>
 </div>
 <div class="impData">
-   <a routerLink="/imprint" target="_blank">Impressum</a>
-   <a href="">Datenschutz</a>
+   <div>
+      <a routerLink="/imprint" target="_blank">Impressum</a>
+   </div>
+   <div>
+      <a href="">Datenschutz</a>
+   </div>
 </div>
