@@ -527,4 +527,9 @@ export class ChannelWindowComponent {
     return link!="";
   }
 
+  closeUpload(){
+    this.dataUpload.link="";
+    this.dataUpload.title="";
+  }
+
 }

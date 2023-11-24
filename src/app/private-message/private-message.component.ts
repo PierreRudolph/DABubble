@@ -458,6 +458,12 @@ export class PrivateMessageComponent {
     showLink(link:string){
       return link!="";
     }
+
+    closeUpload(){
+      this.dataUpload.link="";
+      this.dataUpload.title="";
+    }
+
   }
 
 

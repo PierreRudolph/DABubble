@@ -452,6 +452,11 @@ export class SideMenuThreadComponent {
       return link!="";
     }
 
+    closeUpload(){
+      this.dataUploadThread.link="";
+      this.dataUploadThread.title="";
+    }
+
   // /**
   //    * Blend in the popUp containing "Nachricht bearbeiten"
   //    */

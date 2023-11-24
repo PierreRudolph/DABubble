@@ -22,6 +22,12 @@
                                     Uhr</span>
                             </div>
                             <diV class="message">
+                                <div *ngIf="showLink(threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link)">
+                                    <a href="{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link}}" target="_blank">
+                                      <img class="linkImg" [src]="threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link ||'http://placehold.it/180'" alt="your image" />
+                                    </a>
+                                     <div>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.title}}</div>
+                                    </div>
                                 <span
                                     *ngFor="let mes of threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].messageSplits"
                                     style="width:100%">
@@ -181,6 +187,7 @@
                 <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
                     <img [src]="dataUploadThread.link ||'http://placehold.it/180'" alt="your image" />
                     {{dataUploadThread.title}}
+                    <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
                 </div>
                 <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
                     placeholder="Antworten..." (keydown)="keyDownFunction($event)"></textarea>

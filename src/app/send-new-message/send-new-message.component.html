@@ -20,10 +20,17 @@
   </div>
   <div class="textArea">
     <div style="position: relative;">
+      <div class="dataUpload nunitoBlack fs18" *ngIf="showBlendIn()">
+        <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
+        {{dataUpload.title}}
+        <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
+      </div>
       <textarea #textArea class="textAreaDirekt" [(ngModel)]="text"></textarea>
       <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
       <div class="iconContainerTA">
-        <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">
+        <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
+        <input type="file" id="imgNewMes" style="display:none;" (change)="onSelect($event)">
+        <label for="imgNewMes"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
         <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">

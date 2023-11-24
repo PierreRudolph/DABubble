@@ -107,6 +107,7 @@
     <div class="dataUpload nunitoBlack fs18" *ngIf="showBlendin()">
       <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
       {{dataUpload.title}}
+      <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
     </div>
     <textarea #textArea class="textAreaDirekt" [(ngModel)]="text" placeholder="Nachricht an {{otherChatUser.name}}"
       (keydown)="keyDownFunction($event)"></textarea>
