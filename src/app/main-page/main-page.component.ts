@@ -224,15 +224,11 @@ export class MainPageComponent {
   }
 
   setOpenValue(e: boolean) {
-    // if (this.screenWidth <= 1400 && this.screenWidth > 830 && this.openChat == true) {
-    //   this.mainContentDiv.nativeElement.classList.remove('dNone');
-    // }
     this.showMainContentDivOn1400();
     this.openChat = e;
     if (!this.openChat && this.sideMenuHidden) {
       this.setMobileSideMenuValues();
     }
-    //this.closeSideMenuThreadMobile();
   }
   /**
    * Sets the id of the current channel. Sets the required variables for visibility.
@@ -323,7 +319,7 @@ export class MainPageComponent {
     this.started = true;
     this.hideMainContentDivOn1400();
     setTimeout(() => {
-      //this.hideMainContentDivOnMobile();
+      this.hideMainContentDivOn830();
       this.childSideThread.openSideMenuThread();
     }, 250);
   }
@@ -364,9 +360,7 @@ export class MainPageComponent {
 
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
-    if (this.channelOpen) {
-      this.setMobileSideMenuValues();
-    }
+
     this.setMobileSideMenuValues();
     this.closeSideMenuThreadMobile();
   }
