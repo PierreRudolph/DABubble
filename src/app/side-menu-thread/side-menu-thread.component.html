@@ -62,7 +62,7 @@
                                 <!-- messages/links -->
                                 <div *ngIf="showLink(answ.url.link)">
                                     <a href="{{answ.url.link}}" target="_blank">
-                                      <img style=" width: 50px;height: auto;" [src]="answ.url.link ||'http://placehold.it/180'" alt="your image" />
+                                      <img class="linkImg" [src]="answ.url.link ||'http://placehold.it/180'" alt="your image" />
                                     </a>
                                      <div>{{answ.url.title}}</div>
                                     </div>
