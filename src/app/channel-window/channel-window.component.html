@@ -48,8 +48,9 @@
                         <img class="popUpIcons" [class.dNone]="!getFlip(thread)" (click)="openEditPopUp()"
                             src="assets/img/more_vert.svg">
                     </div>
-                    <div class="editMessage " [class.show]="openEditDialog" (click)="openEditWindow(thread)">
-                        <div class="editMessageT">Nachricht bearbeiten</div>
+                    <div class="editMessage posPop " [class.show]="openEditDialog" >
+                        <div class="editMessageT" (click)="openEditWindow(thread)">Nachricht bearbeiten</div>
+                        <div class="editMessageT"  (click)="deleteMessage(number,i,j)">Nachricht löschen</div>
                     </div>
                 </div>
                 <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}">
@@ -151,7 +152,7 @@
         {{dataUpload.title}}
         <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
       </div>
-    <textarea class="textAreaDirekt" [(ngModel)]="textThread"
+    <textarea class="textAreaDirekt nunitoBlack" [(ngModel)]="textThread"
         placeholder="Nachricht an #{{this.threadList[number].channel.name}}"
         (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow posAbs" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">

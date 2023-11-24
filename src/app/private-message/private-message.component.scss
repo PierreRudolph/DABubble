@@ -424,4 +424,11 @@
     .chatIconButtom {
         padding: 0px 16px;
     }
+
+    @media (max-width:400px) {
+        .posPop {
+            right: unset;
+            left: -20px;
+        }
+    }
 }

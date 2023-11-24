@@ -144,6 +144,7 @@ export class PrivateMessageComponent {
       if (date == today) {
         this.currentTalkData.communikation[len - 1].messages.push(mes);
       } else {
+        if(date==""){this.currentTalkData.communikation=[];}
         let com = {
           "date": this.chatHepler.parseDate(new Date(Date.now())),
           "messages": [mes]
@@ -166,6 +167,7 @@ export class PrivateMessageComponent {
       this.saveMessageExist(mes);
     }
     setTimeout(() => {
+      this.currentTalkData.idDB= this.currentTalkId;
       this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }, 750);
     this.text = "";
@@ -226,9 +228,7 @@ export class PrivateMessageComponent {
   }
 
   keyDownFunction(input: any) {
-    console.log("key", input);
-    console.log("doc", doc);
-    if (input.key == "Enter" && !input.shiftKey) {
+       if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
       this.saveMessage();
     }
@@ -462,6 +462,19 @@ export class PrivateMessageComponent {
     closeUpload(){
       this.dataUpload.link="";
       this.dataUpload.title="";
+    }
+
+    deleteMessage(i:number,mIndex:number){
+      if( this.currentTalkData.communikation[i].messages.length>1)
+      {
+        this.currentTalkData.communikation[i].messages.splice(mIndex,1);}
+      else{
+        if(this.currentTalkData.communikation.length>1){
+          this.currentTalkData.communikation.splice(i,1);
+        }
+        else{this.currentTalkData.communikation=[{"date":"","messages":[]}];}
+      }
+      this.chatHelper.updateDB(this.currentTalkId,"talk",{"communikation":this.currentTalkData.communikation});      
     }
 
   }

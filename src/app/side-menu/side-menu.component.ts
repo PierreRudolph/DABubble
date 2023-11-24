@@ -98,8 +98,7 @@ export class SideMenuComponent {
   openTalk(u: User) {
     this.newMessage = false;
     this.isOpen.emit(false);
-    this.setDrawerValues();
-    console.log("openUserTalk", u);
+    this.setDrawerValues();   
     this.addNewItem(u);
   }
 
