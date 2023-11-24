@@ -51,11 +51,13 @@
                             <emoji-mart class="emojiDivUpper" [class.emojiDivUpperRight]="fromLoggedInUser(answ)"
                                 *ngIf="showEmojiUpper(aIndex)" title="Pick your emoji…"
                                 (emojiClick)="saveEmoji($event)"></emoji-mart>
+                               
                             <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg"
-                                (click)="openAnswerEditMode(answ,aIndex)">
-                            <!-- <div class="editMessage " [class.show]="openEditDialog" (click)="openEditWindow(thread)">
-                                    <div class="editMessageT">Nachricht bearbeiten</div>
-                                </div>  -->
+                              (click)="openEditPopUp()" >
+                            <div class="editMessageThread" *ngIf="openEditDialog"  >
+                                    <div class="editMessageT"  (click)="openAnswerEditMode(answ,aIndex)">Nachricht bearbeiten</div>
+                                    <div class="editMessageT"  (click)="deleteMessage(aIndex)">Nachricht löschen</div>
+                                </div> 
                         </div>
                         <img class="charImg" src="{{getImagePortrait(aIndex)}}">
                         <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">

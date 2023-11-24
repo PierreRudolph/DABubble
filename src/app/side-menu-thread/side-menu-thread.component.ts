@@ -35,15 +35,16 @@ export class SideMenuThreadComponent {
   public smileHelper: SmileHelper = new SmileHelper();
   public openChat: boolean;
   public addresses = false;
-  public dataUploadThread={"link":"","title":""};
+  public dataUploadThread = { "link": "", "title": "" };
 
   showEmojisUpper: boolean | undefined = false;
   showEmojisLower: boolean | undefined;
   showEmojisTA: boolean | undefined;
   showEmojisTAEdit: boolean | undefined;
+  openEditDialog = false;
   emojiText: string = "";
   smileEdit: boolean = false;
-  public popUpText = { "du": "", "first": "", "other": "" ,"verb":""}
+  public popUpText = { "du": "", "first": "", "other": "", "verb": "" }
 
   @ViewChild('sideMenuThreadDiv')
   sideMenuThreadDiv: any;
@@ -52,11 +53,11 @@ export class SideMenuThreadComponent {
   // openEditDialog: boolean;
   // textEdit: any;
 
-  constructor(public dialog: MatDialog) {    
+  constructor(public dialog: MatDialog) {
   }
 
   closeThread() {
-    this.drawer.close();    
+    this.drawer.close();
     this.openChat = false;
     this.newItemEventOpenChat.emit(this.openChat);
     setTimeout(() => {
@@ -149,16 +150,16 @@ export class SideMenuThreadComponent {
       "edit": false,
       "smile": [],
       "time": this.chathelper.parseTime(new Date(Date.now())),
-      "url":{"link":this.dataUploadThread.link,"title":this.dataUploadThread.title},
+      "url": { "link": this.dataUploadThread.link, "title": this.dataUploadThread.title },
       "message": this.textThreadAnswer,
       "messageSplits": this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer),
     }
-    this.dataUploadThread.link="";
-    this.dataUploadThread.title="";
+    this.dataUploadThread.link = "";
+    this.dataUploadThread.title = "";
     return answ;
   }
 
-  keyDownFunction(input: any) {  
+  keyDownFunction(input: any) {
     if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
       this.saveAnswer();
@@ -235,6 +236,7 @@ export class SideMenuThreadComponent {
    */
   openAnswerEditMode(ans: any, index: number) {
     this.editA = true;
+    this.openEditDialog = false;
     this.textThreadEdit = ans.message;
     this.editAIndex = index;
   }
@@ -264,7 +266,7 @@ export class SideMenuThreadComponent {
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;  
+    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
     let sm = this.getAnswerData(this.answerIndex, 'smile');
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -325,8 +327,8 @@ export class SideMenuThreadComponent {
      * @param aIndex index of the answer where the emoji popUp shell be blend in
      * @returns 
      */
-  showEmojiUpper(aIndex: number) {   
-    
+  showEmojiUpper(aIndex: number) {
+
     return (this.answerIndex === aIndex) && this.showEmojisUpper;
   }
 
@@ -419,43 +421,59 @@ export class SideMenuThreadComponent {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
-  } 
+  }
 
-  showPopUpCommentUsers(aIndex:number, sIndex: number) {    
-  
+  showPopUpCommentUsers(aIndex: number, sIndex: number) {
+
     let smile = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[aIndex].smile[sIndex];
-    let smileUsers = [];      
+    let smileUsers = [];
     smile.users.forEach((s) => {
       smileUsers.push(s.id);
     });
-    this.popUpText =this.smileHelper.showPopUpCommentUsers(smileUsers,this.user,this.userList); 
+    this.popUpText = this.smileHelper.showPopUpCommentUsers(smileUsers, this.user, this.userList);
   }
 
-  showBlendin(attr:string){
-    return this.popUpText[attr]!="";
-    }
+  showBlendin(attr: string) {
+    return this.popUpText[attr] != "";
+  }
 
-    showBlendIn(){
-      return this.dataUploadThread.link!="";
-    }
-  
-    /**
-   * Saves the uploaded portrait.
-   * @param event Uploaded file
-   */
-    async onSelection(event: any) {
-     await  this.chathelper.onSelect(event,this.dataUploadThread);
-      console.log("delect dataUploadthread",this.dataUploadThread);   
-      }
-  
-    showLink(link:string){
-      return link!="";
-    }
+  showBlendIn() {
+    return this.dataUploadThread.link != "";
+  }
 
-    closeUpload(){
-      this.dataUploadThread.link="";
-      this.dataUploadThread.title="";
-    }
+  /**
+ * Saves the uploaded portrait.
+ * @param event Uploaded file
+ */
+  async onSelection(event: any) {
+    await this.chathelper.onSelect(event, this.dataUploadThread);
+    console.log("delect dataUploadthread", this.dataUploadThread);
+  }
+
+  showLink(link: string) {
+    return link != "";
+  }
+
+  closeUpload() {
+    this.dataUploadThread.link = "";
+    this.dataUploadThread.title = "";
+  }
+
+  /**
+* Blend in the popUp containing "Nachricht bearbeiten"
+*/
+  openEditPopUp() {
+    this.openEditDialog = !this.openEditDialog;
+  }
+
+  deleteMessage(aIndex: number) {
+    this.openEditDialog = false;
+    let number = this.threadC.chNum;
+    let i = this.threadC.coIndex;
+    let j = this.threadC.thIndex;
+    this.threadList[number].communikation[i].threads[j].answer.splice(aIndex, 1);
+    this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
+  }
 
   // /**
   //    * Blend in the popUp containing "Nachricht bearbeiten"

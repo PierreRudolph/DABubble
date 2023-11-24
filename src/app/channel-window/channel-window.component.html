@@ -152,7 +152,7 @@
         {{dataUpload.title}}
         <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
       </div>
-    <textarea class="textAreaDirekt" [(ngModel)]="textThread"
+    <textarea class="textAreaDirekt nunitoBlack" [(ngModel)]="textThread"
         placeholder="Nachricht an #{{this.threadList[number].channel.name}}"
         (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow posAbs" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
