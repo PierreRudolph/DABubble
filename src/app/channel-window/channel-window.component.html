@@ -62,7 +62,7 @@
                         <div class="message fs18" [class.messageRightStyle]="getFlip(thread)" [class.dNone]="thread.edit">
                             <div *ngIf="showLink(thread.url.link)">
                                 <a href="{{thread.url.link}}" target="_blank">
-                                  <img style=" width: 50px;height: auto;" [src]="thread.url.link ||'http://placehold.it/180'" alt="your image" />
+                                  <img class="linkImg" [src]="thread.url.link ||'http://placehold.it/180'" alt="your image" />
                                 </a>
                                  <div>{{thread.url.title}}</div>
                                 </div>

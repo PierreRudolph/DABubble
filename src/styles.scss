@@ -417,6 +417,15 @@ mat-drawer-container {
     }
 }
 
+.linkImg{
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+    &:hover{
+        transform: scale(1.1);
+    }
+}
+
 .dataUpload {
     position: absolute;
     bottom: 50px;

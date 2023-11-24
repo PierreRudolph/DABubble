@@ -28,7 +28,7 @@
                 <div class="message" [class.dNone]="m.edit">
                   <div *ngIf="showLink(m.url.link)">
                   <a href="{{m.url.link}}" target="_blank">
-                    <img style=" width: 50px;height: auto;" [src]="m.url.link ||'http://placehold.it/180'" alt="your image" />
+                    <img class="linkImg" [src]="m.url.link ||'http://placehold.it/180'" alt="your image" />
                   </a>
                    <div>{{m.url.title}}</div>
                   </div>
