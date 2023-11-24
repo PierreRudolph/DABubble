@@ -195,6 +195,14 @@ export class MainPageComponent {
     this.sideMenu.newMessage = false;
   }
 
+  setdataUploadChannel(dataUpload:any){
+ setTimeout(()=>{ this.childChannel.dataUpload = dataUpload;},500);
+  }
+
+  setdataUploadPrivate(dataUpload:any){
+    setTimeout(()=>{ this.child.dataUpload = dataUpload;},500);
+     }
+
   /**   
    * @param h Sets wheather the sidemenu shoud be hidden or not
    */

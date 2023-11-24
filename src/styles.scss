@@ -446,19 +446,26 @@ mat-drawer-container {
     }
 }
 
+.cross{
+    position: absolute;
+    right:0;
+    cursor: pointer;
+}
+
 .dataUpload {
     position: absolute;
     bottom: 50px;
     background-color: white;
-    width: 200px;
-    height: fit-content;
+    width:250px;
+    height:fit-content;   
     padding: 20px;
     border-radius: 30px;
     border: 1px solid #444df2;
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap:20px;
+   
 
     img {
 

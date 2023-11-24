@@ -65,6 +65,7 @@
                                   <img class="linkImg" [src]="thread.url.link ||'http://placehold.it/180'" alt="your image" />
                                 </a>
                                  <div>{{thread.url.title}}</div>
+                               
                                 </div>
                             <!-- {{thread.message}} -->
                             <span *ngFor="let mes of thread.messageSplits" style="width:100%">
@@ -148,6 +149,7 @@
       <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()" >
         <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
         {{dataUpload.title}}
+        <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
       </div>
     <textarea class="textAreaDirekt" [(ngModel)]="textThread"
         placeholder="Nachricht an #{{this.threadList[number].channel.name}}"
