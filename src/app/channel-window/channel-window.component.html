@@ -50,6 +50,7 @@
                     </div>
                     <div class="editMessage " [class.show]="openEditDialog" (click)="openEditWindow(thread)">
                         <div class="editMessageT">Nachricht bearbeiten</div>
+                        <div class="editMessageT"  (click)="deleteMessage(number,i,j)">Nachricht löschen</div>
                     </div>
                 </div>
                 <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}">

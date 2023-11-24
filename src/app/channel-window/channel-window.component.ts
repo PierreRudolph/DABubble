@@ -532,4 +532,9 @@ export class ChannelWindowComponent {
     this.dataUpload.title="";
   }
 
+  deleteMessage(number:number,i:number,j:number){
+    this.openEditDialog= false;
+  this.channelHelper.deleteMessage(number,i,j,this.chathelper,this.threadList);
+  }
+
 }
