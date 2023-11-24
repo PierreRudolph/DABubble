@@ -171,6 +171,7 @@
     font-weight: 500;
     line-height: normal;   
     top: 65px;
+    left:50px;
     width: 250px;   
     cursor: pointer;
     z-index: 2;
@@ -557,6 +558,11 @@
 }
 
 @media (max-width:400px) {
+
+    .editMessageThread {
+        left:-20px;
+    }
+
     .charImg {
         width: 30px;
         height: 30px;

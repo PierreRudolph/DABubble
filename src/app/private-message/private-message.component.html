@@ -72,7 +72,7 @@
                 <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
                   src="assets/img/more_vert.svg">
               </div>
-              <div class="editMessage" [class.show]="openEditDialog">
+              <div class="editMessage posPop" [class.show]="openEditDialog">
                 <div class="editMessageT"  (click)="openEditWindow(m)">Nachricht bearbeiten</div>
                 <div class="editMessageT"  (click)="deleteMessage(i,mIndex)">Nachricht löschen</div>
               </div>

@@ -542,6 +542,12 @@
 }
 
 @media (max-width:400px) {
+
+    .posPop {
+        right: unset;
+        left: -20px;
+    }
+
     .charImg {
         width: 30px;
         height: 30px;
