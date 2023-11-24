@@ -40,13 +40,13 @@ export class ChannelWindowComponent {
   @Output() isOpen = new EventEmitter<boolean>();
   public smileHelper: SmileHelper = new SmileHelper();
   public channelHelper: ChannelHelper = new ChannelHelper()
- 
-  private dialogClasses: Array<string> = ['dialogBorToLeNone']; 
+
+  private dialogClasses: Array<string> = ['dialogBorToLeNone'];
   public addresses = false;
   private text: string = "";
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
   private cA: any;
-  public dataUpload={"link":"","title":""};
+  public dataUpload = { "link": "", "title": "" };
 
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
@@ -160,7 +160,7 @@ export class ChannelWindowComponent {
 
   saveEmojiCommentHelper(emoji: any) {
     let threadId = this.threadList[this.number].channel.idDB;
-    let sm = this.channelHelper.createEmojiData(emoji,this.getTreadData(this.threadIndex, 'smile'),this.smileHelper,this.user);
+    let sm = this.channelHelper.createEmojiData(emoji, this.getTreadData(this.threadIndex, 'smile'), this.smileHelper, this.user);
     this.setTreadData(this.threadIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
@@ -236,7 +236,7 @@ export class ChannelWindowComponent {
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
     let threadId = this.threadList[indexCannel].channel.idDB;
-    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList,this.dataUpload)
+    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList, this.dataUpload)
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
       let th = this.threadList[indexCannel].communikation;
@@ -413,7 +413,7 @@ export class ChannelWindowComponent {
     let dialogRef = this.dialog.open(ChannelMembersComponent);
     this.setChannelMembersDialogPos(dialogRef);
     this.setChannelMembersValues(dialogRef);
-    this.subscribeChannelMembersDialog(dialogRef);    
+    this.subscribeChannelMembersDialog(dialogRef);
   }
   /**
    * sets the position of the Dialog that contains all assigned members.
@@ -455,7 +455,7 @@ export class ChannelWindowComponent {
     this.addresses = !this.addresses;
   }
 
-  openProfileOfUser(user: any) {    
+  openProfileOfUser(user: any) {
     let t = user.text.substring(1);
     if (this.user.name == t) { this.openDialog(this.user) }
     else {
@@ -510,8 +510,8 @@ export class ChannelWindowComponent {
     return this.popUpText[attr] != "";
   }
 
-  showBlendIn(){
-    return this.dataUpload.link!="";
+  showBlendIn() {
+    return this.dataUpload.link != "";
   }
 
   /**
@@ -519,22 +519,22 @@ export class ChannelWindowComponent {
  * @param event Uploaded file
  */
   async onSelect(event: any) {
-   await  this.chathelper.onSelect(event,this.dataUpload);
-    console.log("delect dataUpload",this.dataUpload);   
-    }
-
-  showLink(link:string){
-    return link!="";
+    await this.chathelper.onSelect(event, this.dataUpload);
+    console.log("delect dataUpload", this.dataUpload);
   }
 
-  closeUpload(){
-    this.dataUpload.link="";
-    this.dataUpload.title="";
+  showLink(link: string) {
+    return link != "";
   }
 
-  deleteMessage(number:number,i:number,j:number){
-    this.openEditDialog= false;
-  this.channelHelper.deleteMessage(number,i,j,this.chathelper,this.threadList);
+  closeUpload() {
+    this.dataUpload.link = "";
+    this.dataUpload.title = "";
+  }
+
+  deleteMessage(number: number, i: number, j: number) {
+    this.openEditDialog = false;
+    this.channelHelper.deleteMessage(number, i, j, this.chathelper, this.threadList);
   }
 
 }

@@ -115,6 +115,7 @@ export class ChannelHelper {
   }
 
   deleteMessage(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]) {
+    console.log("id ist",threadList[number].channel.idDB);
     if (threadList[number].communikation[i].threads.length > 1) {
         threadList[number].communikation[i].threads.splice(j,1);
     }
@@ -122,10 +123,10 @@ export class ChannelHelper {
       if (threadList[number].communikation.length > 1) {
         threadList[number].communikation.splice(i,1);
       }
-      else { threadList[number].communikation = []; }
+      else { threadList[number].communikation = [{"date":"","treads":[]}]; }
     }
     console.log("id ist",threadList[number].channel.idDB);
-    chatHelper.updateDB(threadList[number].channel.idDB, "talk", { "communikation": threadList[number].communikation});
+    chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation});
   }
 
 

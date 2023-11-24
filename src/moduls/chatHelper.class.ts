@@ -69,7 +69,6 @@ export class ChatHepler {
   }
 
   async updateDB(id: string, coll: string, info: {}) {
-
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).then(
       () => {       
