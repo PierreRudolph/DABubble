@@ -24,7 +24,7 @@ body {
 }
 
 .nunito {
-    font-family: 'Nunito';
+    font-family: 'Nunito' !important;
 }
 
 .nunitoBlack {
@@ -99,21 +99,40 @@ body {
 
 .impData {
     display: flex;
-    gap: 15px;
+    justify-content: space-between;
     position: absolute;
     bottom: 50px;
-    width: 200px;
-    left: calc(50% - 100px);
+    width: 250px;
+    left: calc(50% - 125px);
 
-    a {
-        color: var(--Purple-2, #797EF3);
-        font-family: Figtree;
-        font-size: 18px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 120%;
-        text-decoration: none;
+
+
+    div {
+        border: 1px solid transparent;
+        padding: 10px 15px;
+        padding-right: 30px;
+
+        a {
+            color: #797EF3;
+            font-family: Figtree;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 120%;
+            text-decoration: none;
+        }
+
+        &:hover {
+            border-radius: 30px;
+            border-color: #ADB0D9;
+
+            a {
+                color: #444DF2;
+                font-weight: 500;
+            }
+        }
     }
+
 }
 
 .arrowBack {
@@ -417,11 +436,12 @@ mat-drawer-container {
     }
 }
 
-.linkImg{
+.linkImg {
     width: 50px;
     height: auto;
     cursor: pointer;
-    &:hover{
+
+    &:hover {
         transform: scale(1.1);
     }
 }

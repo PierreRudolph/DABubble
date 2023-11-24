@@ -52,8 +52,12 @@
 </div>
 
 <div class="impData" *ngIf="!blendOutHeader()">
-   <a routerLink="/imprint" target="_blank">Impressum</a>
-   <a href="">Datenschutz</a>
+   <div>
+      <a routerLink="/imprint" target="_blank">Impressum</a>
+   </div>
+   <div>
+      <a href="">Datenschutz</a>
+   </div>
 </div>
 
 <div [class.dNone]="route.url !='/login'" class="loginHeaderbottom" *ngIf="blendOutHeader()">

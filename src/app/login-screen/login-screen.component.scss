@@ -51,6 +51,7 @@
     gap: 30px;
     padding: 18px 30px 18px 30px;
     box-sizing: border-box;
+    border: 1px solid transparent;
 
     input {
         border: none;
@@ -62,30 +63,44 @@
             outline: none;
         }
     }
+
+    &:hover {
+        border-color: #686868;
+    }
+
+    &:focus-within {
+        border-color: #535AF1;
+    }
 }
 
 .pwForget {
-    color: var(--Purple-2, #797EF3);
+    color: #797EF3;
     font-family: Figtree;
     font-size: 18px;
-    font-style: normal;
     font-weight: 400;
     line-height: 120%;
     text-decoration: none;
+    padding: 5px 15px;
+
+    &:hover {
+        background-color: #ECEEFE;
+        font-weight: 500;
+        border-radius: 30px;
+        color: #444DF2;
+    }
 }
 
 .or {
     background-color: white;
     position: absolute;
-    width: 50px;
-    height: 36px;
-    top: calc(50% - 24px);
-    left: calc(50% - 40px);
+    // width: 50px;
+    // height: 36px;
+    top: calc(50% - 25px);
+    left: calc(50% - 50px);
     font-family: Nunito;
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
-    line-height: normal;
     padding: 15px;
 }
 
@@ -109,6 +124,16 @@
     font-style: normal;
     font-weight: 400;
     line-height: 120%;
+    transition: all 100ms ease-out;
+
+    &:hover {
+        border: 1px solid #444DF2;
+        font-weight: 700;
+    }
+
+    &:active {
+        border-color: #686868;
+    }
 }
 
 .intro {
@@ -347,6 +372,10 @@
         width: 358px;
         height: 50px;
         padding: 13px 32px 13px 30px;
+
+        input {
+            width: 100%;
+        }
     }
 
     .googleLoginButt {
@@ -373,6 +402,10 @@
         div {
             padding: 0px;
         }
+    }
+
+    .logoContainerStatic {
+        gap: 10px;
     }
 
     .shrink-logo {
