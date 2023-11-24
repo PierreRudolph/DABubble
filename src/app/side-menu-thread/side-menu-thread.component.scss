@@ -402,11 +402,12 @@
 
 .emojiDivUpperRight {
     right: unset;
-    left:10px;
- 
+    left: 10px;
+
 }
-.posUpload{
-    bottom:165px;
+
+.posUpload {
+    bottom: 165px;
 }
 
 .emojiDivLower {
@@ -443,23 +444,42 @@
     left: 15px;
 }
 
-@media (max-width:830px) {
-
-    .emojiDivUpperRight {
-        right: unset;
-     
-    }
-
-    .posAddr{
-        bottom:-320px;
-    }
+@media (max-width:1400px) {
     .threadOuterDiv {
-        width: 100vw;
+        width: 100%;
+    }
+
+    .sidenav {
+        width: 100%;
     }
 
     .margin-left {
         margin-left: 0px;
     }
+
+    .sidenav-header {
+        width: 100%;
+    }
+}
+
+@media (max-width:830px) {
+
+    .emojiDivUpperRight {
+        right: unset;
+
+    }
+
+    .posAddr {
+        bottom: -320px;
+    }
+
+    .threadOuterDiv {
+        width: 100vw;
+    }
+
+    // .margin-left {
+    //     margin-left: 0px;
+    // }
 
     .sidenav {
         width: 100vw;
@@ -514,8 +534,8 @@
 
     .emojiDivUpperRight {
         right: unset;
-        left:-20px;
-     
+        left: -20px;
+
     }
 
     .reactIconsDiv {

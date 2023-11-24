@@ -74,9 +74,9 @@ export class MainPageComponent {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
-    this.getScreenWidth();   
+    this.getScreenWidth();
   }
- 
+
 
 
   /**
@@ -216,11 +216,14 @@ export class MainPageComponent {
   }
 
   setOpenValue(e: boolean) {
+    // if (this.screenWidth <= 1400 && this.screenWidth > 830 && this.openChat == true) {
+    //   this.mainContentDiv.nativeElement.classList.remove('dNone');
+    // }
+    this.showMainContentDivOn1400();
     this.openChat = e;
     if (!this.openChat && this.sideMenuHidden) {
       this.setMobileSideMenuValues();
     }
-
     //this.closeSideMenuThreadMobile();
   }
   /**
@@ -233,6 +236,8 @@ export class MainPageComponent {
     this.talkOpen = false;
     this.currentThreadId = this.threadList[number].channel.idDB;
     this.sideMenu.newMessage = false;
+
+    this.showMainContentDivOn1400();
     setTimeout(() => { this.childChannel.scrollDown(); }, 500);
   }
 
@@ -275,6 +280,8 @@ export class MainPageComponent {
 
   setOpen(value: boolean) {
     this.openChat = value;
+
+    this.showMainContentDivOn1400();
   }
 
   setLoggedInUser(u: any) {
@@ -306,8 +313,9 @@ export class MainPageComponent {
     this.threadC = c;
     this.openChat = true;
     this.started = true;
+    this.hideMainContentDivOn1400();
     setTimeout(() => {
-      this.hideMainContentDivOnMobile();
+      //this.hideMainContentDivOnMobile();
       this.childSideThread.openSideMenuThread();
     }, 250);
   }
@@ -327,19 +335,30 @@ export class MainPageComponent {
     return !(this.screenWidth < 830 && !this.sideMenuHidden);
   }
 
-  hideMainContentDivOnMobile() {
+  hideMainContentDivOn1400() {
+    if (this.screenWidth <= 1400 && this.screenWidth > 830) {
+      this.mainContentDiv.nativeElement.classList.add('dNone');
+    }
+  }
+
+  showMainContentDivOn1400() {
+    if (this.screenWidth <= 1400 && this.screenWidth > 830) {
+      this.mainContentDiv.nativeElement.classList.remove('dNone');
+    }
+  }
+
+  hideMainContentDivOn830() {
     if (this.screenWidth < 830) {
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
-
   }
 
 
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
-    // if (this.channelOpen) {
-    //   this.setMobileSideMenuValues();
-    // }
+    if (this.channelOpen) {
+      this.setMobileSideMenuValues();
+    }
     this.setMobileSideMenuValues();
     this.closeSideMenuThreadMobile();
   }

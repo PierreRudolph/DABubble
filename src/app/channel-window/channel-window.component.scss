@@ -93,8 +93,8 @@
     }
 }
 
-.posUpload{
-    bottom:165px;
+.posUpload {
+    bottom: 165px;
 }
 
 .tag-icon {
@@ -466,6 +466,18 @@
     }
 }
 
+@media (max-width:900px) {
+    .added-members {
+        padding: 3px 5px;
+        padding-left: 0px;
+    }
+
+    .channel-header-left {
+        padding: 6px 5px;
+        gap: 0px;
+    }
+}
+
 @media (max-width:830px) {
 
     .channel-header {
@@ -476,6 +488,8 @@
 
     .channel-header-left {
         font-size: 20px;
+        padding: 6px 10px;
+        gap: 10px;
 
         img {
             width: 30px;
@@ -519,8 +533,6 @@
     .iconContainerTextArea {
         left: 35px;
     }
-
-
 }
 
 @media (max-width:555px) {
