@@ -9,6 +9,7 @@ import { CreateAccountMainComponent } from './create-account-main/create-account
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { ResetComponent } from './reset/reset.component';
 import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-profil.component';
+import { DatenschutzComponent } from './datenschutz/datenschutz.component';
 
 
 
@@ -18,6 +19,7 @@ const routes: Routes = [
   // {path: 'main', component: MainPageComponent,canActivate: [AuthGuardService]},
   // {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   {path: 'login', component: LoginScreenComponent },
+  {path: 'datenschutz', component: DatenschutzComponent },
   {path: 'forget', component: ForgotPasswordComponent },
   {path: 'reset', component: ResetComponent },
   {path: '', component: MainPageComponent },
