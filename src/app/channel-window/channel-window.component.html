@@ -64,8 +64,9 @@
                     <div style="width:100%" [class.messageRight]="getFlip(thread)">
                         <div class="message fs18" [class.messageRightStyle]="getFlip(thread)" [class.dNone]="thread.edit">
                             <div *ngIf="showLink(thread.url.link)">
-                                <a href="{{thread.url.link}}" target="_blank">
+                                <a class="upload" href="{{thread.url.link}}" target="_blank">
                                   <img class="linkImg" [src]="thread.url.link ||'http://placehold.it/180'" alt="your image" />
+                                  <img class="deleteUpload" src="assets/img/close.svg" (click)="deleteUp($event,i,j)" *ngIf="getFlip(thread)">
                                 </a>
                                  <div>{{thread.url.title}}</div>
                                

@@ -27,8 +27,9 @@
               <div [class.popUpFlipContainer]="getFlip(m)">
                 <div class="message" [class.dNone]="m.edit">
                   <div *ngIf="showLink(m.url.link)">
-                  <a href="{{m.url.link}}" target="_blank">
+                  <a class="upload" href="{{m.url.link}}" target="_blank">
                     <img class="linkImg" [src]="m.url.link ||'http://placehold.it/180'" alt="your image" />
+                    <img class="deleteUpload" src="assets/img/close.svg" (click)="deleteUp($event,i,mIndex)" *ngIf="getFlip(m)">
                   </a>
                    <div>{{m.url.title}}</div>
                   </div>

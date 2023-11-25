@@ -475,6 +475,19 @@
     left: 15px;
 }
 
+.deleteUpload{
+    display: none;
+ }
+ 
+ .upload{
+    &:hover{
+     .deleteUpload{
+         display: unset!important;
+         cursor: pointer;
+      }
+    }
+ }
+
 @media (max-width:1400px) {
     .threadOuterDiv {
         width: 100%;

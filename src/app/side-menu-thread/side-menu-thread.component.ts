@@ -476,6 +476,21 @@ export class SideMenuThreadComponent {
     this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
   }
 
+  deleteUp(e:any,aIndex: number){
+    e.preventDefault();
+    let number = this.threadC.chNum;
+    let i = this.threadC.coIndex;
+    let j = this.threadC.thIndex;
+    
+    if (this.threadList[number].communikation[i].threads[j].answer[aIndex].message!="") {
+
+      this.threadList[number].communikation[i].threads[j].answer[aIndex].url={"link":"","title":""};
+    }else{
+      this.deleteMessage(aIndex);
+    }
+    this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
+  }
+
   // /**
   //    * Blend in the popUp containing "Nachricht bearbeiten"
   //    */

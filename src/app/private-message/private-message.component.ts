@@ -482,6 +482,19 @@ export class PrivateMessageComponent {
     this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
   }
 
+  deleteUp(e:any,i:number,mIndex:number){
+    e.preventDefault();
+    if (this.currentTalkData.communikation[i].messages[mIndex].message!="") {
+      this.currentTalkData.communikation[i].messages[mIndex].url={"link":"","title":""};
+    }else{
+      this. deleteMessage(i,mIndex);
+    }
+
+    this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
+  }
+
+ 
+
 }
 
 

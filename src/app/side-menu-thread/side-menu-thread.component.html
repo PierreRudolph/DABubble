@@ -69,8 +69,9 @@
                             <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
                                 <!-- messages/links -->
                                 <div *ngIf="showLink(answ.url.link)">
-                                    <a href="{{answ.url.link}}" target="_blank">
+                                    <a class="upload" href="{{answ.url.link}}" target="_blank">
                                       <img class="linkImg" [src]="answ.url.link ||'http://placehold.it/180'" alt="your image" />
+                                      <img class="deleteUpload" src="assets/img/close.svg" (click)="deleteUp($event,aIndex)" *ngIf="fromLoggedInUser(answ)">
                                     </a>
                                      <div>{{answ.url.title}}</div>
                                     </div>

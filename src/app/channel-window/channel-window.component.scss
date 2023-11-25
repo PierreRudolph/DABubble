@@ -63,6 +63,19 @@
     bottom: 0;
 }
 
+.deleteUpload{
+    display: none;
+ }
+ 
+ .upload{
+    &:hover{
+     .deleteUpload{
+         display: unset!important;
+         cursor: pointer;
+      }
+    }
+ }
+
 .reactIconsDiv {
     gap: 3px;
     max-width: 500px;

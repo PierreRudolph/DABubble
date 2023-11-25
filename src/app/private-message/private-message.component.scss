@@ -388,6 +388,19 @@
             padding: 20px 45px 10px 45px;
 }
 
+.deleteUpload{
+   display: none;
+}
+
+.upload{
+   &:hover{
+    .deleteUpload{
+        display: unset!important;
+        cursor: pointer;
+     }
+   }
+}
+
 
 @media (max-width:830px) {
     .privateMesOuterDiv {

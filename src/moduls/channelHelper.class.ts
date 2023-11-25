@@ -129,5 +129,15 @@ export class ChannelHelper {
     chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation});
   }
 
+  deleteUp(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]){
+   
+    if (threadList[number].communikation[i].threads[j].message!="") {
+      threadList[number].communikation[i].threads[j].url={"link":"","title":""};
+    }else{
+      this.deleteMessage(number, i, j, chatHelper,threadList);
+    }
+     chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation});
+  }
+
 
 }

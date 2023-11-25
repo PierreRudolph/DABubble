@@ -542,4 +542,9 @@ export class ChannelWindowComponent {
     this.channelHelper.deleteMessage(number, i, j, this.chathelper, this.threadList);
   }
 
+  deleteUp(e:any,i:number,j:number){
+    e.preventDefault();
+    this.channelHelper.deleteUp(this.number, i, j, this.chathelper, this.threadList);
+  }
+
 }
