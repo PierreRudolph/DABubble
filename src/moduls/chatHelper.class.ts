@@ -469,6 +469,7 @@ export class ChatHepler {
       console.log("link",dataUpload.link);
       console.log("title",dataUpload.title);
       };
+      event=null;
     }
 
   

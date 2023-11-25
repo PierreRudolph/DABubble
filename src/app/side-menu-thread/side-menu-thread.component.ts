@@ -50,11 +50,15 @@ export class SideMenuThreadComponent {
   sideMenuThreadDiv: any;
   @ViewChild('drawer')
   drawer!: MatDrawer;
+  private upload:any;
   // openEditDialog: boolean;
   // textEdit: any;
 
   constructor(public dialog: MatDialog) {
     console.log("channel open thread");
+    setTimeout(()=>{
+      this.upload =(document.getElementById("imgthread") as HTMLInputElement | null); 
+    });
   }
 
   closeThread() {
@@ -448,7 +452,7 @@ export class SideMenuThreadComponent {
  */
   async onSelection(event: any) {
     await this.chathelper.onSelect(event, this.dataUploadThread);
-    console.log("delect dataUploadthread", this.dataUploadThread);
+    this.upload.value="";
   }
 
   showLink(link: string) {
@@ -490,21 +494,5 @@ export class SideMenuThreadComponent {
     }
     this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
   }
-
-  // /**
-  //    * Blend in the popUp containing "Nachricht bearbeiten"
-  //    */
-  // openEditPopUp() {
-  //   this.openEditDialog = !this.openEditDialog;
-  // }
-
-
-  // /**    
-  //    * @param m JSON of data of a Channel-Message
-  //    */
-  // openEditWindow(m: any) {
-  //   this.openEditDialog = !this.openEditDialog;
-  //   m.edit = true;
-  //   this.textEdit = m.message;
-  // }
+ 
 }

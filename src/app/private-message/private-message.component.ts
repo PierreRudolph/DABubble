@@ -50,6 +50,7 @@ export class PrivateMessageComponent {
   public messageInformation: any[] = [];
   public addresses = false;
   private mA;
+  private upload:any;
 
 
   // @Output() newItemEventUserList = new EventEmitter<any>();
@@ -63,6 +64,7 @@ export class PrivateMessageComponent {
     console.log("call construktor private message");
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
+      this.upload =(document.getElementById("imgPrivate") as HTMLInputElement | null); 
       // this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
     }, 1500);
   }
@@ -453,8 +455,9 @@ export class PrivateMessageComponent {
  * Saves the uploaded portrait.
  * @param event Uploaded file
  */
-  async onSelect(event: any) {
-    this.chatHelper.onSelect(event, this.dataUpload);
+  async onSelect(event: any) {           
+    await this.chatHelper.onSelect(event, this.dataUpload);
+    this.upload.value="";
   }
 
   showBlendin() {

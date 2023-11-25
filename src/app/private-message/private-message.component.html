@@ -131,8 +131,9 @@
       (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
-      <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
-      <input type="file" id="imgPrivate" style="display:none;" (change)="onSelect($event)">
+      <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">  -->
+
+      <input type="file" id="imgPrivate" style="display:none;"  (change)="onSelect($event)">
       <label for="imgPrivate"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
       <div style="width:2px;background-color: #ADB0D9 ;"></div>
       <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">

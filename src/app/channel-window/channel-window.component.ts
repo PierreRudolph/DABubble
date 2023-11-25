@@ -47,7 +47,7 @@ export class ChannelWindowComponent {
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
   private cA: any;
   public dataUpload = { "link": "", "title": "" };
-
+  private upload:any;
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
@@ -56,6 +56,7 @@ export class ChannelWindowComponent {
     setTimeout(() => {
       console.log("callsonst cannel wind");
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
+      this.upload =(document.getElementById("img") as HTMLInputElement | null);
       // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 500);
   }
@@ -525,7 +526,7 @@ export class ChannelWindowComponent {
  */
   async onSelect(event: any) {
     await this.chathelper.onSelect(event, this.dataUpload);
-    console.log("delect dataUpload", this.dataUpload);
+    this.upload.value="";
   }
 
   showLink(link: string) {
