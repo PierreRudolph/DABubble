@@ -269,6 +269,8 @@
 }
 
 
+
+
 .popUpFlip {
     border-radius: 25px;
     border-bottom-right-radius: 0;
@@ -390,15 +392,26 @@
 
 .deleteUpload{
    display: none;
+   position: absolute;
+   right:-30px
 }
 
 .upload{
+    position: relative;
    &:hover{
     .deleteUpload{
         display: unset!important;
         cursor: pointer;
+        width:30px;
+        height: 30px;
+        z-index: 3;
+
      }
    }
+}
+
+.posUpload {
+    bottom: 60px;
 }
 
 
