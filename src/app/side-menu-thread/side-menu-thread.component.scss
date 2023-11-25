@@ -477,13 +477,20 @@
 
 .deleteUpload{
     display: none;
+    position: absolute;
+    right:-30px
  }
  
  .upload{
+     position: relative;
     &:hover{
      .deleteUpload{
          display: unset!important;
          cursor: pointer;
+         width:30px;
+         height: 30px;
+         z-index: 3;
+ 
       }
     }
  }
