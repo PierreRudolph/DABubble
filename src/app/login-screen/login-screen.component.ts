@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./login-screen.component.scss']
 })
 export class LoginScreenComponent {
-
   hide: boolean = true;
   public screenWidth = 0;
   public registerForm: FormGroup = new FormGroup({
@@ -32,10 +31,11 @@ export class LoginScreenComponent {
   }
 
 
-
   async login() {
     // return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
     // try {
+
+
     this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
       // Login successful       
       setTimeout(() => {

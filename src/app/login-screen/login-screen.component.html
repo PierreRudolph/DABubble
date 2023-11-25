@@ -22,11 +22,14 @@
 
    <div class="inputWind">
       <img src="assets/img/mail.svg">
-      <input formControlName="email" placeholder="beispielname@email.com">
+      <input formControlName="email" placeholder="beispielname@email.com" title="email">
+      <span *ngIf="registerForm.controls['email'].status=='INVALID'">*Diese E-Mail-Adresse ist leider ungültig.</span>
    </div>
    <div class="inputWind">
       <img src="assets/img/lock.svg">
-      <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password">
+      <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password" title="password">
+      <span *ngIf="registerForm.controls['password'].status=='INVALID'">Das Passwort muss min. 6 Zeichen lang
+         sein.</span>
    </div>
    <a routerLink="/forget" class="pwForget">Passwort vergessen?</a>
 
@@ -46,7 +49,8 @@
       Anmeldung mit Google
    </button>
    <div style="display: flex; gap:30px;">
-      <button class="btn buttonLight" [disabled]="registerForm.invalid" (click)="login()">Anmelden</button>
+
+      <button class="btn buttonLight" (click)=" login()">Anmelden</button>
       <button class="btn buttonBlue" (click)="loginAsGuest()">Gäste-Login</button>
    </div>
 </div>
@@ -56,7 +60,7 @@
       <a routerLink="/imprint" target="_blank">Impressum</a>
    </div>
    <div>
-      <a href="">Datenschutz</a>
+      <a href="/datenschutz" target="_blank">Datenschutz</a>
    </div>
 </div>
 

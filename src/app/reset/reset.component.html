@@ -1,28 +1,36 @@
-<div class="logoContainerStatic" >
+<div class="logoContainerStatic">
    <img src="assets/img/logo.svg">
    <img src="assets/img/LogoName.svg">
 </div>
-<div class="heightGiver" ></div>
+<div class="heightGiver"></div>
 <div class="forgetInDialog" [formGroup]="registerForm">
-    <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow_back.svg"></a>
-    <h1 class="nunito headline">Passwort zurücksetzen</h1>
-    <div class="input">
-       <img src="assets/img/lock.svg">
-       <input type="password" formControlName="password" placeholder="neues Passwort">
-    </div>
-    <div class="input">
-        <img src="assets/img/lock.svg">
-        <input type="password" formControlName="passwordConfirm" placeholder="Neues Kennwort bestätigen">
-     </div>  
-    <div class="weiterContainer">
-       <!-- <button [disabled]="registerForm.invalid && (registerForm.value.password === registerForm.value.passwordConfirm)" 
-       (click)="changePw()" class="btn weiter">Passwort ändern</button> -->
-       <button [disabled]="getValid()" (click)="handleResetPassword()" class="btn weiter">Passwort ändern</button>
-    </div>
+   <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow-back.svg"></a>
+   <h1 class="nunito headline">Passwort zurücksetzen</h1>
+   <div class="input">
+      <img src="assets/img/lock.svg">
+      <input type="password" formControlName="password" placeholder="neues Passwort">
 
-    <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Anmelden!</div>  
- </div>
- <div class="impData">
-    <a routerLink="/imprint" target="_blank">Impressum</a>
-    <a href="">Datenschutz</a>
- </div>
+      <span *ngIf="registerForm.controls['password'].status=='INVALID'">Das Passwort muss min. 6 Zeichen lang
+         sein.</span>
+
+   </div>
+   <div class="input">
+      <img src="assets/img/lock.svg">
+      <input type="password" formControlName="passwordConfirm" placeholder="Neues Kennwort bestätigen">
+
+      <span *ngIf="registerForm.controls['password'].status=='INVALID'">Das Passwort muss min. 6 Zeichen lang
+         sein.</span>
+
+   </div>
+   <div class="weiterContainer">
+      <!-- <button [disabled]="registerForm.invalid && (registerForm.value.password === registerForm.value.passwordConfirm)" 
+       (click)="changePw()" class="btn weiter">Passwort ändern</button> -->
+      <button [disabled]="getValid()" (click)="handleResetPassword()" class="btn weiter">Passwort ändern</button>
+   </div>
+
+   <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Anmelden!</div>
+</div>
+<div class="impData">
+   <a routerLink="/imprint" target="_blank">Impressum</a>
+   <a href="">Datenschutz</a>
+</div>
