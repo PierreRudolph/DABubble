@@ -320,6 +320,7 @@ export class MainPageComponent {
    * c is given to SideMenuThreadComponent, that needs the informations.
    */
   setThreadC(c: ThreadConnector) {
+    console.log("set threadC");
     this.threadC = c;
     this.openChat = true;
     this.started = true;
@@ -327,9 +328,11 @@ export class MainPageComponent {
     console.log("blend in private messages", this.privateOpen);
     this.hideMainContentDivOn1400();
     setTimeout(() => {
-      this.hideMainContentDivOn830();
-      this.childSideThread.openSideMenuThread();
+      this.hideMainContentDivOn830();   
     }, 250);
+    setTimeout(() => {     
+      this.childSideThread.openSideMenuThread();
+    }, 350);
   }
 
 

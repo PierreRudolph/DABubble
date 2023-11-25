@@ -17,7 +17,7 @@
         </div>
 
         <div style="margin:35px 0px" *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
-          <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
+               <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
             <img class="charImg" src="{{getIconFromName(m.iD)}}">
             <div class="message-inner-div">
               <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(m)">
@@ -49,7 +49,7 @@
                   </div>
                 </div>
               </div>
-              <div [class.dNone]="!m.edit">
+              <!-- <div [class.dNone]="!m.edit"  class="posEditWind">
                 <div style="position:relative">
                   <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
                   <img (click)="toggleEmojisDialogEdit()" class="smileEdit" src="assets/img/smile.svg">
@@ -61,7 +61,7 @@
                   <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
                   <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
                 </div>
-              </div>
+              </div> -->
             </div>
             <div class="popUpMessageContainer" [class.popUpMessageContainerFlip]="getFlip(m)">
               <div class="popUpMessage" [class.flipCorner]="getFlip(m)">
@@ -79,10 +79,26 @@
             </div>
             <emoji-mart class="emojiDivComment" *ngIf="isEmojisCommentShown(i,mIndex)" title="Pick your emoji…"
               (emojiClick)="saveEmojiComment($event)"></emoji-mart>
+          </div>      
+       <!-- edit message part -->
+          <div [class.dNone]="!m.edit"  class="posEditWind">
+            <div style="position:relative">
+              <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
+              <img (click)="toggleEmojisDialogEdit()" class="smileEdit" src="assets/img/smile.svg">
+              <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit"
+                (emojiClick)="saveEmoji($event)"></emoji-mart>
+            </div>
+
+            <div class="editButtonContainer">
+              <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
+              <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
+            </div>
           </div>
 
-        </div>
-
+       
+       
+       
+        </div> 
       </div>
     </div>
 
@@ -105,7 +121,7 @@
   </div>
 
   <div *ngIf="talkOpen" class="textareaDirektMessage">
-    <div class="dataUpload nunitoBlack fs18" *ngIf="showBlendin()">
+    <div class="dataUpload nunitoBlack fs18 posUpload" *ngIf="showBlendin()">
       <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
       {{dataUpload.title}}
       <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >

@@ -22,7 +22,7 @@ export class PrivateMessageComponent {
   // public fireStorage:AngularFireStorage = inject(AngularFireStorage);
   private chatHepler: ChatHepler = new ChatHepler();
   @Input() userList: any;
-  public dataUpload={"link":"","title":""};
+  public dataUpload = { "link": "", "title": "" };
   // private userUid: string = ""; //uid od the user
   // private unsub: any;
   // private unsubtalk: any;
@@ -50,7 +50,7 @@ export class PrivateMessageComponent {
   public messageInformation: any[] = [];
   public addresses = false;
   private mA;
-  
+
 
   // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -122,13 +122,13 @@ export class PrivateMessageComponent {
       "edit": false,
       "smile": [],
       "time": this.chatHepler.parseTime(new Date(Date.now())),
-      "url":{"link":this.dataUpload.link,"title":this.dataUpload.title},
+      "url": { "link": this.dataUpload.link, "title": this.dataUpload.title },
       "message": text,
       "messageSplits": this.chatHelper.getLinkedUsers(this.user, this.userList, text),
     }
     this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, text);
-    this.dataUpload.link="";
-    this.dataUpload.title="";
+    this.dataUpload.link = "";
+    this.dataUpload.title = "";
     return mes;
   }
 
@@ -146,7 +146,7 @@ export class PrivateMessageComponent {
       if (date == today) {
         this.currentTalkData.communikation[len - 1].messages.push(mes);
       } else {
-        if(date==""){this.currentTalkData.communikation=[];}
+        if (date == "") { this.currentTalkData.communikation = []; }
         let com = {
           "date": this.chatHepler.parseDate(new Date(Date.now())),
           "messages": [mes]
@@ -169,7 +169,7 @@ export class PrivateMessageComponent {
       this.saveMessageExist(mes);
     }
     setTimeout(() => {
-      this.currentTalkData.idDB= this.currentTalkId;
+      this.currentTalkData.idDB = this.currentTalkId;
       this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }, 750);
     this.text = "";
@@ -230,7 +230,7 @@ export class PrivateMessageComponent {
   }
 
   keyDownFunction(input: any) {
-       if (input.key == "Enter" && !input.shiftKey) {
+    if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
       this.saveMessage();
     }
@@ -291,7 +291,10 @@ export class PrivateMessageComponent {
     this.otherChatUser = user;
     this.openTalk();
     //  setTimeout(()=>{ this.mA.scrollTop = this.mA.scrollHeight;},1500);
-    setTimeout(() => { this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' }) }, 1500);
+    setTimeout(() => {
+      if (this.mA) { this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' }); }
+
+    }, 1500);
   }
 
   /**
@@ -451,35 +454,35 @@ export class PrivateMessageComponent {
  * @param event Uploaded file
  */
   async onSelect(event: any) {
-    this.chatHelper.onSelect(event,this.dataUpload);   
-    }
-
-    showBlendin(){
-      return this.dataUpload.link!="";
-    }
-    showLink(link:string){
-      return link!="";
-    }
-
-    closeUpload(){
-      this.dataUpload.link="";
-      this.dataUpload.title="";
-    }
-
-    deleteMessage(i:number,mIndex:number){
-      if( this.currentTalkData.communikation[i].messages.length>1)
-      {
-        this.currentTalkData.communikation[i].messages.splice(mIndex,1);}
-      else{
-        if(this.currentTalkData.communikation.length>1){
-          this.currentTalkData.communikation.splice(i,1);
-        }
-        else{this.currentTalkData.communikation=[{"date":"","messages":[]}];}
-      }
-      this.chatHelper.updateDB(this.currentTalkId,"talk",{"communikation":this.currentTalkData.communikation});      
-    }
-
+    this.chatHelper.onSelect(event, this.dataUpload);
   }
+
+  showBlendin() {
+    return this.dataUpload.link != "";
+  }
+  showLink(link: string) {
+    return link != "";
+  }
+
+  closeUpload() {
+    this.dataUpload.link = "";
+    this.dataUpload.title = "";
+  }
+
+  deleteMessage(i: number, mIndex: number) {
+    if (this.currentTalkData.communikation[i].messages.length > 1) {
+      this.currentTalkData.communikation[i].messages.splice(mIndex, 1);
+    }
+    else {
+      if (this.currentTalkData.communikation.length > 1) {
+        this.currentTalkData.communikation.splice(i, 1);
+      }
+      else { this.currentTalkData.communikation = [{ "date": "", "messages": [] }]; }
+    }
+    this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
+  }
+
+}
 
 
 

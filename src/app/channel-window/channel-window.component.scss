@@ -273,10 +273,21 @@
     background-color: white;
 }
 
+.innerContainer{
+    position: relative;
+    align-items: flex-start;
+    display: flex;
+    gap: 30px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px 40px;
+}
+
 .message-inner-div {
     position: relative;
     align-items: flex-start;
     display: flex;
+    flex-direction: column;
     gap: 30px;
     width: 100%;
     box-sizing: border-box;
@@ -542,6 +553,10 @@
 }
 
 @media (max-width:400px) {
+
+    .innerContainer{
+        padding: 5px;
+    }
 
     .posPop {
         right: unset;

@@ -200,6 +200,7 @@ export class ChannelWindowComponent {
    * @param j Message-Index
    */
   openThisThread(n: number, i: number, j: number) {
+    console.log("call open");
     this.threadC.setValue(n, i, j);
     this.newItemEventChannel.emit(this.threadC);
   }

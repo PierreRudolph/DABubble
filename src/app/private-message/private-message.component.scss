@@ -296,7 +296,7 @@
 
 .emoji-div-Edit {
     position: absolute;
-    bottom: 50px;
+    bottom: 25px;
     left: 50px;
     z-index: 3;
 
@@ -384,6 +384,9 @@
     border-radius: 100%;
 }
 
+.posEditWind{
+            padding: 20px 45px 10px 45px;
+}
 
 
 @media (max-width:830px) {
@@ -426,6 +429,39 @@
     }
 
     @media (max-width:400px) {
+
+   
+        .editButtonContainer{
+            gap:0;
+        }
+
+        .emoji-div-Edit {
+            position: absolute;
+            bottom: 50px;
+            left: -25px;
+            z-index: 3;        
+        }
+
+        .posEditWind{
+
+        }
+
+        .emojiDivComment{
+            left:5px;
+            z-index:3;
+            top:60px;
+        }
+
+        .emoji-div {
+           left:-25px;
+        
+        }
+
+        .posUpload {
+            bottom: 70px;
+        }
+
+
         .posPop {
             right: unset;
             left: -20px;

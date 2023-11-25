@@ -33,9 +33,11 @@
             <img src="assets/icons/add-reaction.svg">
         </div>
         <div class="messageDataPart">
-
-            <div class="message-inner-div" [class.rowReverse]="fromLoggedInUser(thread)"
+            <!-- [class.rowReverse]="fromLoggedInUser(thread)" -->
+            <div class="message-inner-div" 
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
+
+               <div class="innerContainer">
                 <div class="popUpMessageContainer posAbs" [class.popUpFlipContainer]="getFlip(thread)">
                     <div class="popUpMessage flexMiddleX">
                         <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
@@ -77,6 +79,9 @@
                             </span>
                         </div>
                     </div>
+
+
+<!-- 
                     <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
                         [class.messageRight]="getFlip(thread)">
                         <div style="position:relative">
@@ -94,7 +99,10 @@
                             <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
                             <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
                         </div>
-                    </div>
+                    </div> -->
+
+
+
                     <diV class="reactions flexMiddleX" [class.dNone]="thread.edit"
                         [class.messageRight]="getFlip(thread)">
                         <div class="reactIconsDiv flexMiddleX">
@@ -135,6 +143,27 @@
 
                     </div>
                 </div>
+               </div>
+
+                <!-- edit channel message -->
+                <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
+                [class.messageRight]="getFlip(thread)">
+                <div style="position:relative">
+                    <div style="position:relative">                              
+                        <textarea class="textAreaDirekt fs18 nunito wei400"
+                            [(ngModel)]="textEdit">{{thread.message}}  </textarea>
+                        <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit posAbs"
+                            src="assets/img/smiley-icon.svg">
+                    </div>
+                    <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
+                        (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
+                </div>
+
+                <div class="editButtonContainer">
+                    <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
+                    <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
+                </div>
+            </div>
 
             </div>
         </div>

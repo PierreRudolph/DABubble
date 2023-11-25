@@ -54,6 +54,7 @@ export class SideMenuThreadComponent {
   // textEdit: any;
 
   constructor(public dialog: MatDialog) {
+    console.log("channel open thread");
   }
 
   closeThread() {
