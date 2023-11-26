@@ -131,7 +131,7 @@
                             (emojiClick)="saveEmojiComment($event)"></emoji-mart>
                     </diV>
 
-                    <div class="answers-info" *ngIf="thread.answer.length>0">
+                    <div class="answers-info" *ngIf="thread.answer.length>0"  [class.answerInfoFlip]="getFlip(thread)" >
                         <div class="answers-counter fs18" (click)="openThisThread(number,i,j)">
                             <span> {{thread.answer.length}}</span>
                             <span>Antworten</span>
