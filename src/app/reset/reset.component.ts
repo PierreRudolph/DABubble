@@ -14,15 +14,14 @@ import { Subject } from 'rxjs';
 export class ResetComponent implements OnInit, OnDestroy {
   ngUnsubscribe: Subject<any> = new Subject<any>();
   mode: string = "";
-  
+
   public hide: boolean = true;
   public move: boolean = false;
-
   actionCode: string = "";
   // public actionCodeChecked: boolean = false;
   public registerForm: FormGroup = new FormGroup({
-    password: new FormControl('', [Validators.required,Validators.minLength(6)]),
-    passwordConfirm: new FormControl('', [Validators.required,Validators.minLength(6)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    passwordConfirm: new FormControl('', [Validators.required, Validators.minLength(6)]),
   })
 
   getValid() {
@@ -47,7 +46,7 @@ export class ResetComponent implements OnInit, OnDestroy {
         // if (!params) this.router.navigateByUrl('login');    // wieder einkommeniteren
         // is the link a valid reset link
         this.mode = params['mode'];
-        this.actionCode = params['oobCode'];    
+        this.actionCode = params['oobCode'];
 
         switch (params['mode']) {
           case "resetPassword": {
@@ -60,7 +59,7 @@ export class ResetComponent implements OnInit, OnDestroy {
               alert(e);
               // this.router.navigate(['/auth/login']);   // wieder einkommeniteren
             });
-          } break         
+          } break
           default: {
             console.log('query parameters are missing');
             //  this.router.navigateByUrl('login');          // // wieder einkommeniteren
@@ -72,39 +71,41 @@ export class ResetComponent implements OnInit, OnDestroy {
   /**
    *  End all subscriptions listening to ngUnsubscribe
    */
-  ngOnDestroy() {   
+  ngOnDestroy() {
     this.ngUnsubscribe.complete();
   }
 
-    /**
-   * Attempt to confirm the password reset with firebase and
-   * navigate user back to home.
-   */
-    handleResetPassword() {
+  /**
+ * Attempt to confirm the password reset with firebase and
+ * navigate user back to home.
+ */
+  handleResetPassword() {
 
-      if ((this.registerForm.value.password != this.registerForm.value.passwordConfirm)) {
-        alert('New Password and Confirm Password do not match');
-        return;
-      }
-      // Save the new password.
-      this.authService.getAuth().confirmPasswordReset(
-          this.actionCode,   
-          this.registerForm.value.password
-      )
+    if ((this.registerForm.value.password != this.registerForm.value.passwordConfirm)) {
+      alert('New Password and Confirm Password do not match');
+      return;
+    }
+    // Save the new password.
+    this.authService.getAuth().confirmPasswordReset(
+      this.actionCode,
+      this.registerForm.value.password
+    )
       .then(resp => {
         // Password reset has been confirmed and new password updated.
         this.hide = false;
         this.move = true;
-        setTimeout(()=>{
+        setTimeout(() => {
           this.hide = true;
           this.move = false;
           this.router.navigateByUrl('login');
-        },2500);
-       
+        }, 2500);
+
       }).catch(e => {
         // Error occurred during confirmation. The code might have
         // expired or the password is too weak.
         alert(e);
       });
-    }
+  }
+
+
 }

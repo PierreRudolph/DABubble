@@ -12,11 +12,12 @@
 
       <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Das Passwort muss min. 6 Zeichen lang
          sein.</span>
-
+      <span *ngIf="getValid()&&registerForm.controls['password'].touched">Passwörter stimmen nicht überein!</span>
    </div>
    <div class="input">
       <img src="assets/img/lock.svg">
       <input type="password" formControlName="passwordConfirm" placeholder="Neues Kennwort bestätigen">
+      <span *ngIf="getValid()&&registerForm.controls['password'].touched">Passwörter stimmen nicht überein!</span>
    </div>
    <div class="weiterContainer">
       <!-- <button [disabled]="registerForm.invalid && (registerForm.value.password === registerForm.value.passwordConfirm)" 
@@ -29,10 +30,8 @@
 <div class="impData">
    <div>
       <a routerLink="/imprint" target="_blank">Impressum</a>
-
    </div>
    <div>
       <a href="/datenschutz">Datenschutz</a>
-
    </div>
 </div>
