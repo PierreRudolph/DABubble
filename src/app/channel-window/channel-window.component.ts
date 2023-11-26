@@ -142,8 +142,8 @@ export class ChannelWindowComponent {
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
     let threadId = this.threadList[this.number].channel.idDB;
     this.commIndex = cIndex;
-    let userSmiles = this.getTreadData(tIndex, 'smile');
-    let newUserList = this.smileHelper.removeUser(userSmiles[tIndex].users, this.user)
+    let userSmiles = this.getTreadData(tIndex, 'smile');   
+    let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
     userSmiles[sIndex].users = newUserList;
     if (userSmiles[sIndex].users.length == 0) {
       userSmiles.splice(sIndex, 1);

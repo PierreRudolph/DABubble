@@ -115,7 +115,7 @@
                                     {{t.icon}}
                                     {{t.users.length}}
                                 </div>
-                                <div class="popUpComment posAbs nunitio">
+                                <div class="popUpComment posAbsChan nunitio"  [class.posAbsChanFlip]="getFlip(thread)">
                                     <div style="scale: 1.5;margin-bottom: 10px;">{{t.icon}}</div>
                                     <div *ngIf="showBlendin('du')" class="wei700">{{popUpText.du}}</div>
                                     <div *ngIf="showBlendin('first')" class="wei700">{{popUpText.first}}</div>

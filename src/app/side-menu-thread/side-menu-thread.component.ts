@@ -50,14 +50,14 @@ export class SideMenuThreadComponent {
   sideMenuThreadDiv: any;
   @ViewChild('drawer')
   drawer!: MatDrawer;
-  private upload:any;
+  private upload: any;
   // openEditDialog: boolean;
   // textEdit: any;
 
   constructor(public dialog: MatDialog) {
     console.log("channel open thread");
-    setTimeout(()=>{
-      this.upload =(document.getElementById("imgthread") as HTMLInputElement | null); 
+    setTimeout(() => {
+      this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);
     });
   }
 
@@ -291,11 +291,13 @@ export class SideMenuThreadComponent {
     }
     this.setAnswerData(this.answerIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
-    if (this.showEmojisUpper) {
-      this.toggleEmojisUpperDialog(this.answerIndex);
-    } else if (this.showEmojisLower) {
-      this.toggleEmojisLowerDialog
-    } else { }
+    // if (this.showEmojisUpper) {
+    //   this.toggleEmojisUpperDialog(this.answerIndex);
+    // } else if (this.showEmojisLower) {
+    //   this.toggleEmojisLowerDialog
+    // } else { }
+    this.showEmojisUpper = false;
+    this.showEmojisLower = false;
 
 
   }
@@ -452,7 +454,7 @@ export class SideMenuThreadComponent {
  */
   async onSelection(event: any) {
     await this.chathelper.onSelect(event, this.dataUploadThread);
-    this.upload.value="";
+    this.upload.value = "";
   }
 
   showLink(link: string) {
@@ -480,19 +482,19 @@ export class SideMenuThreadComponent {
     this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
   }
 
-  deleteUp(e:any,aIndex: number){
+  deleteUp(e: any, aIndex: number) {
     e.preventDefault();
     let number = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
-    
-    if (this.threadList[number].communikation[i].threads[j].answer[aIndex].message!="") {
 
-      this.threadList[number].communikation[i].threads[j].answer[aIndex].url={"link":"","title":""};
-    }else{
+    if (this.threadList[number].communikation[i].threads[j].answer[aIndex].message != "") {
+
+      this.threadList[number].communikation[i].threads[j].answer[aIndex].url = { "link": "", "title": "" };
+    } else {
       this.deleteMessage(aIndex);
     }
     this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
   }
- 
+
 }
