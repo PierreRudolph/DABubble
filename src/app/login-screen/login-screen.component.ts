@@ -35,24 +35,25 @@ export class LoginScreenComponent {
     // return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
     // try {
 
+    console.log(this.registerForm.controls['password'].errors?.['minlength'])
 
-    this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
-      // Login successful       
-      setTimeout(() => {
-        let user = this.authService.getAuthServiceUser();
-        if (user) {
-          let id = user._delegate.uid;
-          localStorage.setItem('uid', id);
-          localStorage.removeItem('google');
-          this.route.navigateByUrl("/main");
-        }
-        else {
-          console.log("invalid login");
-        }
-      }, 500);
-    }).catch((error) => {
-      console.log("fail", error);
-    });
+    // this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
+    //   // Login successful       
+    //   setTimeout(() => {
+    //     let user = this.authService.getAuthServiceUser();
+    //     if (user) {
+    //       let id = user._delegate.uid;
+    //       localStorage.setItem('uid', id);
+    //       localStorage.removeItem('google');
+    //       this.route.navigateByUrl("/main");
+    //     }
+    //     else {
+    //       console.log("invalid login");
+    //     }
+    //   }, 500);
+    // }).catch((error) => {
+    //   console.log("fail", error);
+    // });
 
   }
 
