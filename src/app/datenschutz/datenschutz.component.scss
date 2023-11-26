@@ -1,5 +1,29 @@
-.dataContainer{
-    padding: 20px;
-    width: 95vw;
+// .dataContainer {
+//     padding: 20px;
+//     width: 95vw;
+//     box-sizing: border-box;
+// }
+
+.DataPolicyDiv {
+    width: calc(100vw - 80px);
+    height: calc(100vh - 80px);
+    background-color: white;
+    border-radius: 30px;
+    display: flex;
+    flex-direction: column;
+    padding: 50px;
+    gap: 30px;
     box-sizing: border-box;
+    margin: 40px;
+    overflow-y: auto;
+
+    h1 {
+        color: #444DF2;
+        font-size: 46px;
+        font-weight: 700;
+    }
+
+    span {
+        font-size: 20px;
+    }
 }
