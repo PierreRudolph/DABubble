@@ -1,4 +1,4 @@
-<div class="logoContainerStatic">
+<div class="logoContainer">
    <img src="assets/img/logo.svg">
    <img src="assets/img/LogoName.svg">
 </div>
@@ -10,17 +10,13 @@
       <img src="assets/img/lock.svg">
       <input type="password" formControlName="password" placeholder="neues Passwort">
 
-      <span *ngIf="registerForm.controls['password'].status=='INVALID'">Das Passwort muss min. 6 Zeichen lang
+      <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Das Passwort muss min. 6 Zeichen lang
          sein.</span>
 
    </div>
    <div class="input">
       <img src="assets/img/lock.svg">
       <input type="password" formControlName="passwordConfirm" placeholder="Neues Kennwort bestätigen">
-
-      <span *ngIf="registerForm.controls['password'].status=='INVALID'">Das Passwort muss min. 6 Zeichen lang
-         sein.</span>
-
    </div>
    <div class="weiterContainer">
       <!-- <button [disabled]="registerForm.invalid && (registerForm.value.password === registerForm.value.passwordConfirm)" 
@@ -31,6 +27,12 @@
    <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Anmelden!</div>
 </div>
 <div class="impData">
-   <a routerLink="/imprint" target="_blank">Impressum</a>
-   <a href="">Datenschutz</a>
+   <div>
+      <a routerLink="/imprint" target="_blank">Impressum</a>
+
+   </div>
+   <div>
+      <a href="/datenschutz">Datenschutz</a>
+
+   </div>
 </div>

@@ -25,6 +25,7 @@
     gap: 30px;
     padding: 18px 30px 18px 30px;
     box-sizing: border-box;
+    border: 1px solid transparent;
 
     input {
         border: none;
@@ -35,6 +36,25 @@
         &:focus {
             outline: none;
         }
+    }
+
+    span {
+        position: absolute;
+        bottom: -24px;
+        left: 0px;
+        color: #ED1E79;
+        position: absolute;
+        bottom: -24px;
+        left: 0px;
+        color: #ED1E79;
+    }
+
+    &:hover {
+        border-color: #686868;
+    }
+
+    &:focus-within {
+        border-color: #535AF1;
     }
 }
 
@@ -104,22 +124,31 @@
     }
 }
 
-.logoContainerStatic {
+// .logoContainerStatic {
+//     position: absolute;
+//     display: flex;
+//     align-items: center;
+//     left: calc(50% - 112px);
+//     top: 92px;
+//     width: 224px;
+//     justify-content: flex-start;
+//     z-index: 1;
+
+//     div {
+//         display: flex;
+//         align-items: center;
+//         z-index: 1;
+//         padding: 20px;
+//     }
+// }
+
+.logoContainer {
     position: absolute;
     display: flex;
-    align-items: center;
-    left: calc(50% - 112px);
-    top: 92px;
-    width: 224px;
-    justify-content: flex-start;
-    z-index: 1;
-
-    div {
-        display: flex;
-        align-items: center;
-        z-index: 1;
-        padding: 20px;
-    }
+    height: 70px;
+    left: 75px;
+    top: 75px;
+    gap: 16px;
 }
 
 .heightGiver {
@@ -166,6 +195,10 @@
         padding: 13px 32px 13px 30px;
 
     }
+}
+
+.arrowBack {
+    top: 25px
 }
 
 @media screen and (max-width:400px) {
