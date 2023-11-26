@@ -11,14 +11,18 @@
    <div class="input">
       <img src="assets/img/person_filled.svg">
       <input formControlName="name" type="text" placeholder="Name und Nachname">
+      <span *ngIf="this.registerForm.controls['name'].errors?.['pattern']">*Bitte Vor und Nachname eingeben.</span>
    </div>
    <div class="input">
       <img src="assets/img/mail.svg">
       <input formControlName="email" placeholder="beispielname@email.com">
+      <span *ngIf="registerForm.controls['email'].errors?.['email']">*Diese E-Mail-Adresse ist leider ungültig.</span>
    </div>
    <div class="input">
       <img src="assets/img/lock.svg">
       <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password">
+      <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Das Passwort muss min. 6 Zeichen lang
+         sein.</span>
    </div>
    <div style="width:100%; display:flex;justify-self: start;padding-left: 20px;">
       <label for="privacyAgreement" class="discription"> <input (click)="clickBox()" formControlName="data"
@@ -26,8 +30,9 @@
          <span id="checkSpan">Ich stimme der <a routerLink="/data" target="_blank">Datenschutzerklärung</a> zu.</span>
       </label>
    </div>
+
    <div class="weiterContainer">
-      <button [disabled]="registerForm.invalid" (click)="weiter()" class="btn weiter">Weiter</button>
+      <button (click)="weiter()" [disabled]="registerForm.invalid" class="btn weiter">Weiter</button>
    </div>
 </div>
 <div class="impData">

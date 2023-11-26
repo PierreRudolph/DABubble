@@ -11,12 +11,13 @@ import { Router } from '@angular/router';
 export class LoginScreenComponent {
   hide: boolean = true;
   public screenWidth = 0;
+  private emailPattern = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\\u0022(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\\u0022)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
+
   public registerForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.required, Validators.email]),
+    email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
   public loading: boolean = false;
-
 
   constructor(public authService: AuthService, public route: Router) {
     window.addEventListener("resize", this.resizeWindow);

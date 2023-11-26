@@ -23,7 +23,7 @@
    <div class="inputWind">
       <img src="assets/img/mail.svg">
       <input formControlName="email" placeholder="beispielname@email.com" title="email">
-      <span *ngIf="registerForm.controls['email'].errors?.['email']">*Diese E-Mail-Adresse ist leider ungültig.</span>
+      <span *ngIf="registerForm.controls['email'].errors?.['pattern']">*Diese E-Mail-Adresse ist leider ungültig.</span>
    </div>
    <div class="inputWind">
       <img src="assets/img/lock.svg">
@@ -50,7 +50,7 @@
    </button>
    <div style="display: flex; gap:30px;">
 
-      <button class="btn buttonLight" [disabled]="registerForm.status=='INVALID'" (click)=" login()">Anmelden</button>
+      <button class="btn buttonLight" [disabled]="registerForm.invalid" (click)=" login()">Anmelden</button>
       <button class="btn buttonBlue" (click)="loginAsGuest()">Gäste-Login</button>
    </div>
 </div>
