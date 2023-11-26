@@ -44,7 +44,7 @@ export class ResetComponent implements OnInit, OnDestroy {
       .subscribe(params => {
         // if we didn't receive any parameters, 
         // we can't do anything
-        if (!params) this.router.navigateByUrl('login');    
+        // if (!params) this.router.navigateByUrl('login');    // wieder einkommeniteren
         // is the link a valid reset link
         this.mode = params['mode'];
         this.actionCode = params['oobCode'];    
@@ -58,12 +58,12 @@ export class ResetComponent implements OnInit, OnDestroy {
               // Invalid or expired action code. Ask user to try to reset the password
               // again.
               alert(e);
-              this.router.navigate(['/auth/login']); 
+              // this.router.navigate(['/auth/login']);   // wieder einkommeniteren
             });
           } break         
           default: {
             console.log('query parameters are missing');
-             this.router.navigateByUrl('login');          
+            //  this.router.navigateByUrl('login');          // // wieder einkommeniteren
           }
         }
       })
