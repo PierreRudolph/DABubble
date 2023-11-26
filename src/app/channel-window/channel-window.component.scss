@@ -317,6 +317,11 @@
     padding: 20px 40px;
 }
 
+.flippInnerContainer{
+    flex-direction: row-reverse;
+    padding-right: 0px;
+}
+
 .message-inner-div {
     position: relative;
     align-items: flex-start;
@@ -618,7 +623,7 @@
     }
 }
 
-@media  (max-width: 833px) and (min-width: 1000px) {
+@media  (max-width: 1000px) and (min-width: 825px) {
     .emoji-div {
         left: 110px!important;
         bottom: 70px!important;
