@@ -37,7 +37,7 @@
             <div class="message-inner-div" 
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
 
-               <div class="innerContainer">
+               <div class="innerContainer" [class.flippInnerContainer]="getFlip(thread)" >
                 <div class="popUpMessageContainer posAbs" [class.popUpFlipContainer]="getFlip(thread)">
                     <div class="popUpMessage flexMiddleX">
                         <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
