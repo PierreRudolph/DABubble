@@ -76,7 +76,7 @@
                                 <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                     class="linkedUserName"
                                     [class.linkedUserNameRight]="getFlip(thread)">{{mes.text}}</span>
-                                <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
+                                <span [innerHTML]="mes.text | transformPipe" *ngIf="!chathelper.isLink(mes)"></span>
                             </span>
                         </div>
                     </div>

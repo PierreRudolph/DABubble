@@ -1,4 +1,4 @@
-import { Component, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter,Pipe, PipeTransform  } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -10,6 +10,7 @@ import { ChannelMembersComponent } from '../channel-members/channel-members.comp
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ChannelHelper } from 'src/moduls/channelHelper.class';
 
+// @Pipe({name: 'replaceLineBreaks'})
 @Component({
   selector: 'app-channel-window',
   templateUrl: './channel-window.component.html',
@@ -28,6 +29,7 @@ export class ChannelWindowComponent {
   public channelMembersOpen: boolean | false;
   public openEditDialog: boolean = false;
   public smileEdit = false;
+ 
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
@@ -51,7 +53,7 @@ export class ChannelWindowComponent {
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
-
+ 
   constructor(public dialog: MatDialog) {
     setTimeout(() => {
       console.log("callsonst cannel wind\n neue Zeile");
@@ -60,6 +62,8 @@ export class ChannelWindowComponent {
       // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 500);
   }
+
+
 
   scrollDown() {
     setTimeout(() => {
@@ -238,6 +242,7 @@ export class ChannelWindowComponent {
    * @param indexCannel index it the channel in that the question shell be released.
    */
   sendQuestion(indexCannel: number) {
+    
     let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
@@ -392,11 +397,7 @@ export class ChannelWindowComponent {
       input.preventDefault();
       this.sendQuestion(this.number);
     }
-    if (input.key == "Enter" && input.shiftKey) {
-      input.preventDefault();
-      this.textThread = this.textThread + `\n`;
-      console.log(this.textThread);
-    }
+    
   }
 
   /**    

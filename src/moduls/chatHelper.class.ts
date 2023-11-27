@@ -5,7 +5,7 @@ import { AngularFireStorage } from "@angular/fire/compat/storage";
 
 export class ChatHepler {
   public firestore: Firestore = inject(Firestore);
-  public fireStorage:AngularFireStorage = inject(AngularFireStorage);
+  public fireStorage: AngularFireStorage = inject(AngularFireStorage);
 
   createEmptyTalk(): {} {
     let t = {
@@ -29,7 +29,7 @@ export class ChatHepler {
             }
           ],
           "time": "",
-          "url":{"link":"","title":""},
+          "url": { "link": "", "title": "" },
           "message": "",
           "messageSplits": [{ "type": "", "text": "" }],
         }]
@@ -59,7 +59,7 @@ export class ChatHepler {
             }
           ],
           "time": "",
-          "url":{"link":"","title":""},
+          "url": { "link": "", "title": "" },
           "message": "",
           "messageSplits": [{ "type": "t", "text": "" }],
         }]
@@ -71,14 +71,14 @@ export class ChatHepler {
   async updateDB(id: string, coll: string, info: {}) {
     let docRef = doc(this.firestore, coll, id);
     await updateDoc(docRef, info).then(
-      () => {       
+      () => {
       }
     ).catch(
       (err) => { console.log(err); });
   }
 
 
-  createEmptyThread(): any {    
+  createEmptyThread(): any {
     let t = {
       "channel":
       {
@@ -106,9 +106,9 @@ export class ChatHepler {
                 }
               ],
               "time": "",
-              "url":{"link":"","title":""},
+              "url": { "link": "", "title": "" },
               "message": "",
-              "messageSplits": [{ "type": "", "text": "" }],
+              "messageSplits": [{ "type": "", "text":""}],
               "answer": [
                 {
                   "name": "",
@@ -123,7 +123,7 @@ export class ChatHepler {
                     }
                   ],
                   "time": "",
-                  "url":{"link":"","title":""},
+                  "url": { "link": "", "title": "" },
                   "message": "",
                   "messageSplits": [{ "type": "", "text": "" }],
                 }
@@ -217,6 +217,33 @@ export class ChatHepler {
    * @param text     Text that sould be stored
    * @returns        Gives back alist of type { "type": "", "text": "" }. Stores type l for the q name part and type t for the other parts
    */
+  // getLinkedUsers(user: User, userList: any[], text: string) {
+  //   let messageInformation = [];
+  //   let t = text;
+  //   let s = "";
+  //   let ut = "";
+  //   let end = 0;
+  //   let isPart = [];
+  //   let subtrakt = 0;
+
+  //   isPart = this.pushLinkedUsers(user, userList, t);
+  //   isPart = this.sortParts(isPart);
+  //   isPart.forEach((us) => {
+  //     us.index = us.index - subtrakt;
+  //     s = t.substring(0, us.index);
+  //     end = ('@' + us.name).length + us.index;
+  //     ut = t.substring(us.index, end);
+  //     let rest = t.substring(end);
+  //     t = rest;
+  //     subtrakt = text.length - rest.length;
+  //     messageInformation.push({ "type": "t", "text": s });
+  //     messageInformation.push({ "type": "l", "text": ut });
+  //   });
+  //   if (t.length > 0) {
+  //     messageInformation.push({ "type": "t", "text": t });
+  //   }
+  //   return messageInformation;
+  // }
   getLinkedUsers(user: User, userList: any[], text: string) {
     let messageInformation = [];
     let t = text;
@@ -243,7 +270,7 @@ export class ChatHepler {
       messageInformation.push({ "type": "t", "text": t });
     }
     return messageInformation;
-  }
+  }  
 
   /** gibes back wheather element is type link(contains @ name) */
   isLink(type: any) {
@@ -273,7 +300,7 @@ export class ChatHepler {
     }
     return ret;
   }
-  
+
   /**
     * Stores the given User in the Database
     * @param item JSON that contains the userinformations
@@ -323,7 +350,7 @@ export class ChatHepler {
   makeSubstring(s: string, len: number) {
     let l = s.length;
     let min = Math.min(l, len);
-    let sub = s.substring(0, min);    
+    let sub = s.substring(0, min);
     return sub;
   }
 
@@ -438,7 +465,7 @@ export class ChatHepler {
       });
 
     }
-    
+
     return otherUser;
   }
 
@@ -449,36 +476,36 @@ export class ChatHepler {
    * @param id        Id of the User where I wan tto get the name from 
    * @returns  name of the user with the given id
    */
-  getUsernameById(user:User,userList:any[],id:string){
-    let name="";
-    userList.forEach((u)=>{
-     if(u.idDB==id){
-      name=u.name;
-     }
+  getUsernameById(user: User, userList: any[], id: string) {
+    let name = "";
+    userList.forEach((u) => {
+      if (u.idDB == id) {
+        name = u.name;
+      }
     });
-    if(user.idDB==id){
-      name=user.name;
-     }
+    if (user.idDB == id) {
+      name = user.name;
+    }
     return name;
   }
 
-   /**
- * Savesthe filename and filepath of uploaded link in dataUpload
- * @param  dataUpload   JSON where the link and filename of the uploaded file is stored
- * @param event Uploaded file
- */
-   async onSelect(event: any,dataUpload:any) {
-    const file =event.target.files[0];
-   
+  /**
+* Savesthe filename and filepath of uploaded link in dataUpload
+* @param  dataUpload   JSON where the link and filename of the uploaded file is stored
+* @param event Uploaded file
+*/
+  async onSelect(event: any, dataUpload: any) {
+    const file = event.target.files[0];
+
     if (file) {
-      const path= `yt/${file.name}`;
-      const upoadTask = await this.fireStorage.upload(path,file);
+      const path = `yt/${file.name}`;
+      const upoadTask = await this.fireStorage.upload(path, file);
       dataUpload.link = await upoadTask.ref.getDownloadURL();
-      dataUpload.title=file.name;
-      console.log("link",dataUpload.link);
-      console.log("title",dataUpload.title);
-      };
-      event=null;
-    }  
+      dataUpload.title = file.name;
+      console.log("link", dataUpload.link);
+      console.log("title", dataUpload.title);
+    };
+    event = null;
+  }
 
 }
