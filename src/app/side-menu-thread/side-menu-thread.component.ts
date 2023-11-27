@@ -175,6 +175,7 @@ export class SideMenuThreadComponent {
    * Saves the answer
    */
   saveAnswer() {
+   console.log(this.textThreadAnswer);
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
