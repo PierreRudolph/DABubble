@@ -165,6 +165,10 @@
 
     .logoContainerStatic {
         top: 60px;
+
+        img:nth-of-type(1) {
+            height: 55px;
+        }
     }
 
 

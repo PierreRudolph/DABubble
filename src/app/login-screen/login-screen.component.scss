@@ -331,6 +331,18 @@
     }
 }
 
+@keyframes super-mobile-fade-position {
+    50% {
+        left: calc(50% - 150px);
+        top: calc(50% - 45px);
+    }
+
+    100% {
+        left: calc(50% - 150px);
+        top: 15px;
+    }
+}
+
 @keyframes mobile-logo-name-animation {
     0% {
         width: 0px;
@@ -347,11 +359,11 @@
 
     100% {
         font-size: 35px;
-        width: 180px;
+        width: 168px;
     }
 }
 
-@media screen and (max-width:836px) {
+@media screen and (max-width:830px) {
 
     .makeAccount {
         text-decoration: none;
@@ -409,19 +421,24 @@
 
     .logoContainer {
         animation-name: mobile-logo-animation;
-        width: 70px;
+        width: 55px;
 
         div {
             padding: 0px;
         }
     }
 
+
     .logoContainerStatic {
         gap: 10px;
+
+        img:nth-of-type(1) {
+            height: 55px;
+        }
     }
 
     .shrink-logo {
-        height: 70px;
+        height: 55px;
         animation: none;
     }
 
@@ -434,11 +451,25 @@
     }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:430px) {
+    .logo-outer-div {
+        animation-name: super-mobile-fade-position;
+    }
+
     .logInDialog {
         width: 320px;
         left: calc(50% - 160px);
-        top: calc(50% - 276px);
+        top: calc(50% - 235px);
+        gap: 10px;
+        padding: 15px 20px;
+
+        h1 {
+            margin-bottom: 0px;
+        }
+    }
+
+    .loginDis {
+        margin-bottom: 0px;
     }
 
     .headline {
@@ -447,13 +478,41 @@
 
     .inputWind {
         width: 300px;
+        margin-bottom: 10px;
     }
 
     .googleLoginButt {
-        width: 300px !important;
+        width: 100%;
+        height: unset;
+        padding: 5px 0px;
+        gap: 2px;
     }
 
     .btn {
-        padding: 6px 15px 6px 15px;
+        padding: 10px;
+    }
+
+    .logoContainerStatic {
+        top: 15px;
+    }
+
+    .loginHeaderbottom {
+        bottom: 15px;
+        gap: 10px;
+    }
+}
+
+@media (max-height:930px) {
+    .logo-outer-div {
+        animation-name: super-mobile-fade-position;
+    }
+
+    .logoContainerStatic {
+        top: 15px;
+    }
+
+    .loginHeaderbottom {
+        bottom: 15px;
+        gap: 10px;
     }
 }

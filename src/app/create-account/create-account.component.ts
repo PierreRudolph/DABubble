@@ -46,22 +46,20 @@ export class CreateAccountComponent {
    * Is executed when clicking in "weiter" in the create new account
    */
   weiter() {
-    console.log(this.registerForm.controls['name'].errors?.['pattern'])
+    let userInfo = {
+      "name": this.registerForm.value.name,
+      "email": this.registerForm.value.email,
+      "password": this.registerForm.value.password,
+      "iconPath": "",
+      "status": "",
+      "uid": "",
+      "idDB": "",
+      "talkID": []
+    };
+    this.user = new User(userInfo);
+    this.userInfo = JSON.stringify(userInfo);
 
-    // let userInfo = {
-    //   "name": this.registerForm.value.name,
-    //   "email": this.registerForm.value.email,
-    //   "password": this.registerForm.value.password,
-    //   "iconPath": "",
-    //   "status": "",
-    //   "uid": "",
-    //   "idDB": "",
-    //   "talkID": []
-    // };
-    // this.user = new User(userInfo);
-    // this.userInfo = JSON.stringify(userInfo);
-
-    // this.addNewItem(this.user);
+    this.addNewItem(this.user);
   }
 
   clickBox() {

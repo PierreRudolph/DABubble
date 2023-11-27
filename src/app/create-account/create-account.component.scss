@@ -1,5 +1,5 @@
 .logInDialog {
-    position: relative;
+    position: absolute;
     width: 606px;
     background-color: white;
     border-radius: 30px;
@@ -185,12 +185,12 @@
     font-size: 16px;
 }
 
-@media screen and (max-width:650px) {
+@media screen and (max-width:830px) {
     .logInDialog {
         width: 398px;
         height: fit-content;
-        left: calc(50% - 198px);
-        top: 200px;
+        left: calc(50% - 196px);
+        top: calc(50% - 276px);
         padding: 20px;
         gap: 20px;
 
@@ -200,35 +200,49 @@
     }
 
     .input {
-        width: 350px;
+        width: 100%;
         height: 50px;
         gap: 10px;
         padding: 13px 32px 13px 32px;
+        margin-bottom: 10px;
     }
 
     .logoContainer {
         position: absolute;
         width: 200px;
         left: calc(50% - 100px);
-        top: 50px;
+        top: 70px;
+
+        img:nth-of-type(1) {
+            height: 55px;
+        }
     }
 
     .impData {
-        bottom: 130px;
+        bottom: 50px;
     }
 
+    .arrowBack {
+        left: 20px;
+    }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:430px) {
     .logInDialog {
         width: 320px;
         height: fit-content;
         left: calc(50% - 160px);
-        top: 160px;
+        top: calc(50% - 250px);
+        gap: 12px;
 
         .headline {
             font-size: 26px;
+            margin-bottom: 0px;
         }
+    }
+
+    .btn {
+        padding: 10px 10px;
     }
 
     .input {
@@ -236,5 +250,23 @@
         padding: 10px 25px 10px 25px;
     }
 
+    .logoContainer {
+        top: 15px;
+    }
 
+    .impData {
+        bottom: 15px;
+        gap: 10px;
+    }
+}
+
+@media (max-height:930px) {
+    .logoContainer {
+        top: 15px;
+    }
+
+    .impData {
+        bottom: 15px;
+        gap: 10px;
+    }
 }
