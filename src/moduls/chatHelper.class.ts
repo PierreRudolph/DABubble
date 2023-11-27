@@ -217,33 +217,6 @@ export class ChatHepler {
    * @param text     Text that sould be stored
    * @returns        Gives back alist of type { "type": "", "text": "" }. Stores type l for the q name part and type t for the other parts
    */
-  // getLinkedUsers(user: User, userList: any[], text: string) {
-  //   let messageInformation = [];
-  //   let t = text;
-  //   let s = "";
-  //   let ut = "";
-  //   let end = 0;
-  //   let isPart = [];
-  //   let subtrakt = 0;
-
-  //   isPart = this.pushLinkedUsers(user, userList, t);
-  //   isPart = this.sortParts(isPart);
-  //   isPart.forEach((us) => {
-  //     us.index = us.index - subtrakt;
-  //     s = t.substring(0, us.index);
-  //     end = ('@' + us.name).length + us.index;
-  //     ut = t.substring(us.index, end);
-  //     let rest = t.substring(end);
-  //     t = rest;
-  //     subtrakt = text.length - rest.length;
-  //     messageInformation.push({ "type": "t", "text": s });
-  //     messageInformation.push({ "type": "l", "text": ut });
-  //   });
-  //   if (t.length > 0) {
-  //     messageInformation.push({ "type": "t", "text": t });
-  //   }
-  //   return messageInformation;
-  // }
   getLinkedUsers(user: User, userList: any[], text: string) {
     let messageInformation = [];
     let t = text;
@@ -270,8 +243,8 @@ export class ChatHepler {
       messageInformation.push({ "type": "t", "text": t });
     }
     return messageInformation;
-  }  
-
+  }
+ 
   /** gibes back wheather element is type link(contains @ name) */
   isLink(type: any) {
     return type.type == 'l';
