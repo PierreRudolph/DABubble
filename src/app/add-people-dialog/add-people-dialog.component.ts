@@ -43,8 +43,10 @@ export class AddPeopleDialogComponent {
     console.log("actual member", this.currentlyAddedUser);
     this.currentlyAddedUser.forEach(ul => {
       console.log("memberID " + ul.idDB + "  Userid:" + u.idDB);
-      if ((ul.idDB == u.idDB) || this.isAlreadyMember(u)) { inList = true };
+      if (ul.idDB == u.idDB) { inList = true };
     });
+    if (this.isAlreadyMember(u)) { inList = true; }
+
     if (!inList) {
       this.currentlyAddedUser.push(u);
       console.log("currently users", this.currentlyAddedUser);

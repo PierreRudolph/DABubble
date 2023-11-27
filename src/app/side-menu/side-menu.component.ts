@@ -15,7 +15,7 @@ export class SideMenuComponent {
   public chPanelOpen: boolean | undefined;
   public mesPanelOpen: boolean | undefined;
   public firestore: Firestore = inject(Firestore);
-  public loaded: boolean = false;
+  public loaded: boolean = true;
   public channelActive: number;
   private madeChannel: any;
   public chathelper: ChatHepler = new ChatHepler();
@@ -40,10 +40,7 @@ export class SideMenuComponent {
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
 
-  constructor(public dialog: MatDialog) {
-    setTimeout(() => {
-      this.loaded = true; //wegen ladeproblemen
-    }, 3000);
+  constructor(public dialog: MatDialog) {   
   }
 
   getName(num: number) {

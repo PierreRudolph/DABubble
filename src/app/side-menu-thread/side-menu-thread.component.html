@@ -171,15 +171,7 @@
                                 <img (click)="toggleEmojisLowerDialog(aIndex)" class="add-reaction-icon"
                                     src="assets/icons/add-reaction.svg">
                                 <emoji-mart class="emojiDivUpper emojiDivLower" *ngIf="showEmojiLower(aIndex)"
-                                    title="Pick your emoji…" (emojiClick)="saveEmoji($event)"></emoji-mart>
-                                <div class="addressBox posAddr" *ngIf="addresses">
-                                    <div class="addressElements" (click)="chooseUser(user)"><img
-                                            src="{{user.iconPath}}">
-                                        {{user.name}}</div>
-                                    <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
-                                        <img src="{{usL.iconPath}}"> {{usL.name}}
-                                    </div>
-                                </div>
+                                    title="Pick your emoji…" (emojiClick)="saveEmoji($event)"></emoji-mart>                        
                             </diV>
                         </div>
                     </div>
@@ -204,6 +196,14 @@
                         <img class="textAreaIconSmiley" (click)="toggleEmojisDialogTA()"
                             src="assets/img/smiley-icon.svg">
                         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
+                    </div>
+                    <div class="addressBox posAddr" *ngIf="addresses">
+                        <div class="addressElements" (click)="chooseUser(user)"><img
+                                src="{{user.iconPath}}">
+                            {{user.name}}</div>
+                        <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
+                            <img src="{{usL.iconPath}}"> {{usL.name}}
+                        </div>
                     </div>
                     <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…"
                         (emojiClick)="saveEmojiTextArea($event)" (darkMode)="false"></emoji-mart>

@@ -57,6 +57,7 @@ export class PrivateMessageComponent {
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
   @Output() newItemEventTalkList = new EventEmitter<any>();
   @Output() sendCurrentTalkId = new EventEmitter<string>();
+  @Output() callOpenUser = new EventEmitter<User>();
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
@@ -447,7 +448,10 @@ export class PrivateMessageComponent {
     dialogRef.componentInstance.user = new User(user.toJSON());
     dialogRef.componentInstance.ref = dialogRef;
     dialogRef.afterClosed().subscribe(result => {
-
+      if (user) {
+        this.callOpenUser.emit(user);
+      
+      }
     });
   }
 
@@ -495,6 +499,8 @@ export class PrivateMessageComponent {
 
     this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
   }
+
+  
 
  
 

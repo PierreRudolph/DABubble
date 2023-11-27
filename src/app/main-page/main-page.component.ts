@@ -75,6 +75,10 @@ export class MainPageComponent {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
+
+    setTimeout(() => {
+   console.log("userList",this.userList);
+    }, 4000);
     this.getScreenWidth();
   }
 
@@ -417,7 +421,7 @@ export class MainPageComponent {
       return true;
     }
 
-
   }
+
 }
 

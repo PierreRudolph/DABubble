@@ -27,6 +27,18 @@ export class EditChannelComponent {
     this.toggleChanNameOnEdit();
   }
 
+  leaveChannel() {
+    let member = this.channel.members;
+    let list = [];
+    member.forEach((m) => {
+      if (m.memberID != this.user.idDB) {
+        list.push(m);
+      }
+    });
+    this.channel.members=list;
+    this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
+  }
+
   /**
    * Saves the new name of the channel
    */

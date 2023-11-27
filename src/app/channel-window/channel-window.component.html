@@ -81,29 +81,6 @@
                         </div>
                     </div>
 
-
-<!-- 
-                    <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
-                        [class.messageRight]="getFlip(thread)">
-                        <div style="position:relative">
-                            <div style="position:relative">                              
-                                <textarea class="textAreaDirekt fs18 nunito wei400"
-                                    [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                                <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit posAbs"
-                                    src="assets/img/smiley-icon.svg">
-                            </div>
-                            <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
-                                (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
-                        </div>
-
-                        <div class="editButtonContainer">
-                            <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
-                            <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
-                        </div>
-                    </div> -->
-
-
-
                     <diV class="reactions flexMiddleX" [class.dNone]="thread.edit"
                         [class.messageRight]="getFlip(thread)">
                         <div class="reactIconsDiv flexMiddleX">

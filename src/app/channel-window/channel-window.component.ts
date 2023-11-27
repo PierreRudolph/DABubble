@@ -47,7 +47,7 @@ export class ChannelWindowComponent {
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
   private cA: any;
   public dataUpload = { "link": "", "title": "" };
-  private upload:any;
+  private upload: any;
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
@@ -56,18 +56,18 @@ export class ChannelWindowComponent {
     setTimeout(() => {
       console.log("callsonst cannel wind");
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
-      this.upload =(document.getElementById("img") as HTMLInputElement | null);
+      this.upload = (document.getElementById("img") as HTMLInputElement | null);
       // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 500);
   }
 
   scrollDown() {
     setTimeout(() => {
-      console.log("ca",this.cA);
-     if(this.cA){
-      this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
-     }
-    }, 1000);
+      console.log("ca", this.cA);
+      if (this.cA) {
+        this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
+      }
+    }, 750);
   }
 
   /**
@@ -142,7 +142,7 @@ export class ChannelWindowComponent {
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
     let threadId = this.threadList[this.number].channel.idDB;
     this.commIndex = cIndex;
-    let userSmiles = this.getTreadData(tIndex, 'smile');   
+    let userSmiles = this.getTreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
     userSmiles[sIndex].users = newUserList;
     if (userSmiles[sIndex].users.length == 0) {
@@ -392,6 +392,11 @@ export class ChannelWindowComponent {
       input.preventDefault();
       this.sendQuestion(this.number);
     }
+    if (input.key == "Enter" && input.shiftKey) {
+      input.preventDefault();
+      this.textThread = this.textThread + `\n`;
+      console.log(this.textThread);
+    }
   }
 
   /**    
@@ -475,10 +480,10 @@ export class ChannelWindowComponent {
     this.textThread += '@' + u.name;
     this.addresses = !this.addresses;
   }
-/**
- * Opens the dialog of the given User
- * @param user 
- */
+  /**
+   * Opens the dialog of the given
+   * @param user 
+   */
   openDialog(user: User): void {
     const dialogRef = this.dialog.open(UserProfileComponent);
     dialogRef.componentInstance.user = new User(user.toJSON());
@@ -529,7 +534,7 @@ export class ChannelWindowComponent {
  */
   async onSelect(event: any) {
     await this.chathelper.onSelect(event, this.dataUpload);
-    this.upload.value="";
+    this.upload.value = "";
   }
 
   showLink(link: string) {
@@ -552,7 +557,7 @@ export class ChannelWindowComponent {
    * @param i  communication index
    * @param j   thread index
    */
-  deleteUp(e:any,i:number,j:number){
+  deleteUp(e: any, i: number, j: number) {
     e.preventDefault();
     this.channelHelper.deleteUp(this.number, i, j, this.chathelper, this.threadList);
   }
