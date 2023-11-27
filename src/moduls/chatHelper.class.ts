@@ -273,6 +273,7 @@ export class ChatHepler {
     }
     return ret;
   }
+  
   /**
     * Stores the given User in the Database
     * @param item JSON that contains the userinformations
@@ -441,6 +442,13 @@ export class ChatHepler {
     return otherUser;
   }
 
+  /**
+   * 
+   * @param user 
+   * @param userList 
+   * @param id        Id of the User where I wan tto get the name from 
+   * @returns  name of the user with the given id
+   */
   getUsernameById(user:User,userList:any[],id:string){
     let name="";
     userList.forEach((u)=>{
@@ -455,7 +463,8 @@ export class ChatHepler {
   }
 
    /**
- * Saves the uploaded portrait as base64 code in the data. 
+ * Savesthe filename and filepath of uploaded link in dataUpload
+ * @param  dataUpload   JSON where the link and filename of the uploaded file is stored
  * @param event Uploaded file
  */
    async onSelect(event: any,dataUpload:any) {
@@ -470,9 +479,6 @@ export class ChatHepler {
       console.log("title",dataUpload.title);
       };
       event=null;
-    }
-
-  
-  
+    }  
 
 }

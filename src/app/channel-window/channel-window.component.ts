@@ -475,7 +475,10 @@ export class ChannelWindowComponent {
     this.textThread += '@' + u.name;
     this.addresses = !this.addresses;
   }
-
+/**
+ * Opens the dialog of the given User
+ * @param user 
+ */
   openDialog(user: User): void {
     const dialogRef = this.dialog.open(UserProfileComponent);
     dialogRef.componentInstance.user = new User(user.toJSON());
@@ -543,6 +546,12 @@ export class ChannelWindowComponent {
     this.channelHelper.deleteMessage(number, i, j, this.chathelper, this.threadList);
   }
 
+  /**
+   * Deletes the uploaded file from a channel message
+   * @param e Event
+   * @param i  communication index
+   * @param j   thread index
+   */
   deleteUp(e:any,i:number,j:number){
     e.preventDefault();
     this.channelHelper.deleteUp(this.number, i, j, this.chathelper, this.threadList);

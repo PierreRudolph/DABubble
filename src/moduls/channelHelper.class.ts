@@ -81,6 +81,16 @@ export class ChannelHelper {
     return question;
   }
 
+  /**
+   * Send the required data up to the dialog where the channel can be edited
+   * @param dialogRef   MatDialogRef of the dialog
+   * @param threadList  Lists of all Channelkmunikations
+   * @param number  Number of thhe channel
+   * @param userList 
+   * @param user 
+   * @param screenWidth 
+   * @returns 
+   */
   setValuesToEditDialog(dialogRef: MatDialogRef<EditChannelComponent, any>, threadList: any[], number: number, userList: User[], user: User, screenWidth: number) {
     dialogRef.componentInstance.channel = threadList[number].channel;//Kopie
     dialogRef.componentInstance.userList = userList;//Kopie
@@ -114,6 +124,14 @@ export class ChannelHelper {
     return sm;
   }
 
+  /**
+   * Deletes the message
+   * @param number  Channelnumber
+   * @param i       Communication number
+   * @param j       threadnumber
+   * @param chatHelper   
+   * @param threadList 
+   */
   deleteMessage(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]) {
     console.log("id ist",threadList[number].channel.idDB);
     if (threadList[number].communikation[i].threads.length > 1) {
@@ -129,6 +147,14 @@ export class ChannelHelper {
     chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation});
   }
 
+  /**
+   * Deletes the uploaded file 
+   * @param number  Channelnumber
+   * @param i       Communication number
+   * @param j       threadnumber
+   * @param chatHelper   
+   * @param threadList 
+   */
   deleteUp(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]){
    
     if (threadList[number].communikation[i].threads[j].message!="") {
