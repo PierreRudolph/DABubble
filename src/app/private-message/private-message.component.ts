@@ -292,6 +292,7 @@ export class PrivateMessageComponent {
   setOtherUser(user: User) {
     this.currentTalkId = "";
     this.otherChatUser = user;
+    console.log("Other user is",this.otherChatUser);
     this.openTalk();
     //  setTimeout(()=>{ this.mA.scrollTop = this.mA.scrollHeight;},1500);
     setTimeout(() => {

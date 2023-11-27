@@ -54,7 +54,7 @@ export class ChannelWindowComponent {
 
   constructor(public dialog: MatDialog) {
     setTimeout(() => {
-      console.log("callsonst cannel wind");
+      console.log("callsonst cannel wind\n neue Zeile");
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
       // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
