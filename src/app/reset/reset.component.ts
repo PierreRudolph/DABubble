@@ -57,12 +57,12 @@ export class ResetComponent implements OnInit, OnDestroy {
               // Invalid or expired action code. Ask user to try to reset the password
               // again.
               alert(e);
-               this.router.navigate(['/auth/login']);   // wieder einkommeniteren
+               this.router.navigate(['/auth/login']);   // wieder einkommentieren
             });
           } break
           default: {
             console.log('query parameters are missing');
-              this.router.navigateByUrl('login');          // // wieder einkommeniteren
+            this.router.navigateByUrl('login');          // // wieder einkommeniteren
           }
         }
       })

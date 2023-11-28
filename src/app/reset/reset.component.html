@@ -1,6 +1,6 @@
 <div class="logoContainer">
    <img src="assets/img/logo.svg">
-   <img src="assets/img/LogoName.svg">
+   <img class="nameLogo" src="assets/img/LogoName.svg">
 </div>
 <div class="heightGiver"></div>
 <div class="forgetInDialog" [formGroup]="registerForm">
@@ -25,7 +25,7 @@
       <button [disabled]="getValid()" (click)="handleResetPassword()" class="btn weiter">Passwort ändern</button>
    </div>
 
-   <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Anmelden!</div>
+   <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Passwort geändert!</div>
 </div>
 <div class="impData">
    <div>
