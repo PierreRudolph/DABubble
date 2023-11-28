@@ -51,14 +51,17 @@ export class SideMenuThreadComponent {
   @ViewChild('drawer')
   drawer!: MatDrawer;
   private upload: any;
+  private tA:any;
   // openEditDialog: boolean;
   // textEdit: any;
 
   constructor(public dialog: MatDialog) {
     console.log("channel open thread");
-    setTimeout(() => {
-      this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);
-    });
+    this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);
+    setTimeout(() => {    
+      this.tA = (document.getElementById("threadWindow") as HTMLInputElement | null);
+      if (this.tA) { this.tA.scrollTo({ top: this.tA.scrollHeight, behavior: 'smooth' }); }
+    },1000);
   }
 
   closeThread() {

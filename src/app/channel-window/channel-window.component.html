@@ -11,11 +11,11 @@
         <div class="added-members flexMiddleX" (click)="openChannelMembersDialog()"
             [class.hoverStyleChannelMembers]="channelMembersOpen" mat-button>
             <img *ngFor=" let m of this.threadList[number].channel.members.slice(0,3)"
-                src="{{getIconPathQuestionUser(m.memberID)}}">
+                src="{{getIconPathQuestionUser(m.memberID)}}" >          
             <span class="fs20 wei600">{{this.threadList[number].channel.members.length}}</span>
         </div>
         <img *ngIf="!mobileScreenWidth()" class="add-people" (click)="openAddPeopleDialog()"
-            [class.hoverStyleAddPeople]="addPeopleOpen" src="assets/icons/add-people.svg" mat-button>
+            [class.hoverStyleAddPeople]="addPeopleOpen" src="assets/icons/add-people.svg" mat-button>       
         <img *ngIf="mobileScreenWidth()" class="add-people" (click)="openChannelMembersDialog()"
             src="assets/icons/add-people.svg" mat-button>
     </div>

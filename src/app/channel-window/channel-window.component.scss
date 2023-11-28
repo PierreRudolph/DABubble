@@ -358,6 +358,9 @@
     }
 }
 
+
+
+
 .messageContent {
     display: flex;
     flex-direction: column;
@@ -634,9 +637,12 @@
     }
 }
 
+
 @media (max-width: 1000px) and (min-width: 825px) {
     .emoji-div {
         left: 110px !important;
         bottom: 70px !important;
     }
+  
+
 }
