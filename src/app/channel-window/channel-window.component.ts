@@ -55,19 +55,18 @@ export class ChannelWindowComponent {
 
  
   constructor(public dialog: MatDialog) {
-    setTimeout(() => {
-      console.log("callsonst cannel wind\n neue Zeile");
+    setTimeout(() => {     
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
       // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 500);
   }
 
-
-
+/**
+ * Scrolls to the end of the channel window
+ */
   scrollDown() {
-    setTimeout(() => {
-      console.log("ca", this.cA);
+    setTimeout(() => {   
       if (this.cA) {
         this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
       }
@@ -204,8 +203,7 @@ export class ChannelWindowComponent {
    * @param i Communication-Index
    * @param j Message-Index
    */
-  openThisThread(n: number, i: number, j: number) {
-    console.log("call open");
+  openThisThread(n: number, i: number, j: number) {   
     this.threadC.setValue(n, i, j);
     this.newItemEventChannel.emit(this.threadC);
   }
@@ -440,8 +438,7 @@ export class ChannelWindowComponent {
    * Gives the needet variables to the Dialog
    * @param dialogRef MatDialogRef of ChannelMembersComponent
    */
-  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-    console.log("members");
+  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {   
     this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.threadList, this.number, this.userList);
   }
 

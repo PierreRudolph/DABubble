@@ -27,12 +27,7 @@ export class AddPeopleDialogComponent {
   public mobileFromBottom: boolean | false;
 
   constructor(public addPeopleDialog: MatDialog) {
-    setTimeout(() => {
-      console.log(this.channel);
-      console.log('userlist ist', this.userList);
-    }, 1000);
-
-  }
+    }
 
   /**
    * Adds the given User do the currentlyAddedUser
@@ -40,20 +35,14 @@ export class AddPeopleDialogComponent {
    */
   addMember(u: User) {
     let inList = false;  // "strict": false, in compileoptions    
-    console.log("actual member", this.currentlyAddedUser);
-    this.currentlyAddedUser.forEach(ul => {
-      console.log("memberID " + ul.idDB + "  Userid:" + u.idDB);
+    this.currentlyAddedUser.forEach(ul => {   
       if (ul.idDB == u.idDB) { inList = true };
     });
     if (this.isAlreadyMember(u)) { inList = true; }
 
     if (!inList) {
       this.currentlyAddedUser.push(u);
-      console.log("currently users", this.currentlyAddedUser);
-    }
-    else {
-      console.log("Uster ist bereits in der Liste");
-    }
+       }   
   }
 
   isAlreadyMember(user: User) {
@@ -85,9 +74,7 @@ export class AddPeopleDialogComponent {
   /**
    * Only shows the list of member
    */
-  filterMember() {
-
-    console.log("filtered Value");
+  filterMember() {  
     this.filteredMembers = [];
     this.userList.forEach((u) => {
       this.setMemberToList(u);
@@ -102,8 +89,7 @@ export class AddPeopleDialogComponent {
   setMemberToList(u: User) {
     let filterValue = this.searchText.toLowerCase();
     if ((filterValue != "")) {
-      let n = u.name;
-      console.log("name low ", n.toLowerCase() + " " + filterValue);
+      let n = u.name;     
       if (n.toLowerCase().includes(filterValue)) {
         this.filteredMembers.push(u);
       }

@@ -61,10 +61,6 @@ export class CreateAccountComponent {
     this.userInfo = JSON.stringify(userInfo);
 
     this.addNewItem(this.user);
-  }
-
-  clickBox() {
-    console.log("return check value", this.registerForm.value.data);
-  }
+  } 
 
 }

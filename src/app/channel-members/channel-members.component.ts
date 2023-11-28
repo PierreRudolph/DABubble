@@ -19,9 +19,7 @@ export class ChannelMembersComponent {
   public dialogRef: MatDialogRef<ChannelMembersComponent>;
   private addMembers: boolean | false;
 
-  constructor() { 
-   setTimeout(()=>{ console.log("member",this.channel.members);},500);
-  }
+  constructor() { }
 
   /**
    * 

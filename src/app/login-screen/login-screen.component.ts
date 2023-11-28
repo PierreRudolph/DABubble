@@ -46,10 +46,7 @@ export class LoginScreenComponent {
           localStorage.setItem('uid', id);
           localStorage.removeItem('google');
           this.route.navigateByUrl("/main");
-        }
-        else {
-          console.log("invalid login");
-        }
+        }      
       }, 500);
     }).catch((error) => {
       console.log("fail", error);
@@ -76,8 +73,7 @@ export class LoginScreenComponent {
 
   async logInWithGoogle() {
     this.authService.logInWithGoogle().
-      then((dat) => {
-        console.log("succesfully logged in with google", dat);
+      then((dat) => {     
         setTimeout(() => {
           let user = this.authService.getAuthServiceUser();
           let userName = user._delegate.displayName;

@@ -55,8 +55,7 @@ export class SideMenuThreadComponent {
   // openEditDialog: boolean;
   // textEdit: any;
 
-  constructor(public dialog: MatDialog) {
-    console.log("channel open thread");
+  constructor(public dialog: MatDialog) {   
     this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);
     setTimeout(() => {    
       this.tA = (document.getElementById("threadWindow") as HTMLInputElement | null);
@@ -177,22 +176,13 @@ export class SideMenuThreadComponent {
   /**
    * Saves the answer
    */
-  saveAnswer() {
-   console.log(this.textThreadAnswer);
+  saveAnswer() {  
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
     let threadId = this.threadList[n].channel.idDB;
-
-    // if (this.editA) {
-    //   this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadAnswer;
-    //   this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadAnswer);
-    // }
-    // else {
     let answ = this.makeAnswer();
-    this.threadList[n].communikation[i].threads[j].answer.push(answ);
-
-    // }
+    this.threadList[n].communikation[i].threads[j].answer.push(answ);  
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
     this.textThreadAnswer = "";
     this.editA = false;

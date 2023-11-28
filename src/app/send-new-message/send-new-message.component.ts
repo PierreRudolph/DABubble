@@ -139,25 +139,5 @@ export class SendNewMessageComponent {
       closeUpload(){
         this.dataUpload.link="";
         this.dataUpload.title="";
-      }
-
-
-  /**
-   * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
-   */
-  // saveMessage() {
-  //   let mes = this.createMessageFromText(this.text);
-  //   console.log(mes)
-  //   if (!this.exist) {
-  //     this.startTalk(mes);
-  //     this.exist = true;
-  //   }
-  //   else {
-  //     this.saveMessageExist(mes);
-  //   }
-  //   setTimeout(() => {
-  //     this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
-  //   }, 750);
-  //   this.text = "";
-  // }
+      } 
 }

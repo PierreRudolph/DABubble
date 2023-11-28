@@ -61,8 +61,7 @@ export class PrivateMessageComponent {
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
-  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
-    console.log("call construktor private message");
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {  
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload =(document.getElementById("imgPrivate") as HTMLInputElement | null); 
@@ -207,12 +206,6 @@ export class PrivateMessageComponent {
     this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
   }
 
-
-  showData() {
-    console.log("current talk", this.currentTalkData);
-    console.log("current talk Id", this.currentTalkId);
-  }
-
   /** Called when a new private talk is started.
    * 
    * @param talk JSON of information of the new message
@@ -292,7 +285,6 @@ export class PrivateMessageComponent {
   setOtherUser(user: User) {
     this.currentTalkId = "";
     this.otherChatUser = user;
-    console.log("Other user is",this.otherChatUser);
     this.openTalk();
     //  setTimeout(()=>{ this.mA.scrollTop = this.mA.scrollHeight;},1500);
     setTimeout(() => {

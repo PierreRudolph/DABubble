@@ -74,11 +74,7 @@ export class MainPageComponent {
     setTimeout(() => {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
-    }, 1500);
-
-    setTimeout(() => {
-   console.log("userList",this.userList);
-    }, 4000);
+    }, 1500);  
     this.getScreenWidth();
   }
 
@@ -265,8 +261,7 @@ export class MainPageComponent {
    */
   setOtherUser(user: User) {
     this.talkOpen = true;
-    this.channelOpen = false;
-    console.log("get Channel Open", this.channelOpen);
+    this.channelOpen = false;    
     this.privateOpen = true;
     this.openChat = false;
 
@@ -324,12 +319,10 @@ export class MainPageComponent {
    * c is given to SideMenuThreadComponent, that needs the informations.
    */
   setThreadC(c: ThreadConnector) {
-    console.log("set threadC");
     this.threadC = c;
     this.openChat = true;
     this.started = true;
-    this.privateOpen = false;
-    console.log("blend in private messages", this.privateOpen);
+    this.privateOpen = false;  
     this.hideMainContentDivOn1400();
     setTimeout(() => {
       this.hideMainContentDivOn830();   

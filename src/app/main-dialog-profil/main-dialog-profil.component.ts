@@ -87,15 +87,4 @@ export class MainDialogProfilComponent {
   mobileScreenWidth() {
     return this.screenWidth < 830;
   }
-
-  // async addUser(item: {}) {
-  //   await addDoc(this.userRef(), item).catch(
-  //     (err) => { console.error(err) }).then(
-  //       (docRef) => {
-  //         if (docRef) {
-  //           this.idDoc = docRef.id;
-  //           this.updateGame(this.idDoc);
-  //         }
-  //       });
-  // }
 }
