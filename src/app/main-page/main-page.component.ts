@@ -67,7 +67,7 @@ export class MainPageComponent {
 
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden      
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : ""; // "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden      
       this.unsub = this.subUserInfo();
     }, 1000);
 
@@ -193,10 +193,11 @@ export class MainPageComponent {
   * @param u  User with which you want to chat with.
   */
   openMessage(u: User) {
-    console.log("call opene messge");
+    console.log("open Message")
     this.sideMenu.openTalk(u);
     this.sideMenu.newMessage = false;
-    this.sideMenu.setDrawerValues();//experimentell
+    this.sideMenu.setDrawerValues();
+
   }
 
   setdataUploadChannel(dataUpload: any) {
@@ -205,7 +206,6 @@ export class MainPageComponent {
 
   setdataUploadPrivate(dataUpload: any) {
     setTimeout(() => {
-      console.log("child", this.child);
       this.child.dataUpload = dataUpload;
     }, 500);
   }
@@ -265,19 +265,14 @@ export class MainPageComponent {
    * @param user Ohter chat user
    */
   setOtherUser(user: User) {
-    console.log("call setOtherUser()");
-    console.log("call showPrivateMessage1()", this.showPrivateMessage());
     window.innerWidth = 1000;
     this.talkOpen = true;
     this.channelOpen = false;
     this.privateOpen = true;
     this.openChat = false;
 
-    console.log("call showPrivateMessage2()", this.showPrivateMessage());
     setTimeout(() => {
-      console.log('setMobileView =', this.setMobileView())
       this.otherChatUser = user;
-      console.log(this.child);
       this.child.setOtherUser(user);
 
     }, 500);
