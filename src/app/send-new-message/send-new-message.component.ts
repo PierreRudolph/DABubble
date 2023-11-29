@@ -93,8 +93,7 @@ export class SendNewMessageComponent {
    
   }
 
-  callOpenT(u: User) {
-    console.log("callopentalk",u);
+  callOpenT(u: User) {   
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);

@@ -192,8 +192,7 @@ export class MainPageComponent {
   *    
   * @param u  User with which you want to chat with.
   */
-  openMessage(u: User) {
-    console.log("call opene messge");
+  openMessage(u: User) {  
     this.sideMenu.newMessageMobile = true;
     this.sideMenu.openTalk(u);
     this.sideMenu.newMessage = false;

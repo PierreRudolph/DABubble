@@ -77,8 +77,7 @@ export class SideMenuComponent {
   }
 
 
-  addNewItem(user: User) {
-    console.log("all add new item");
+  addNewItem(user: User) {   
     this.newItemEventUser.emit(user);
     this.newItemEvent.emit(false);
   }
@@ -88,8 +87,7 @@ export class SideMenuComponent {
     this.isOpen.emit(this.newMessage);
   }
 
-  openTalk(u: User) {
-    console.log("sidemenü open talk");
+  openTalk(u: User) {  
     this.newMessage = false;
     this.isOpen.emit(false);
     this.addNewItem(u);

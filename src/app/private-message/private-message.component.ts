@@ -62,7 +62,7 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {  
-    console.log("constructor call private Message");
+  
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload =(document.getElementById("imgPrivate") as HTMLInputElement | null); 
