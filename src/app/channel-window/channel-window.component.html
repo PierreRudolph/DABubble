@@ -34,55 +34,60 @@
         </div>
         <div class="messageDataPart">
             <!-- [class.rowReverse]="fromLoggedInUser(thread)" -->
-            <div class="message-inner-div" 
+            <div class="message-inner-div"
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
 
-               <div class="innerContainer" [class.flippInnerContainer]="getFlip(thread)" >
-                <div class="popUpMessageContainer posAbs" [class.popUpFlipContainer]="getFlip(thread)">
-                    <div class="popUpMessage flexMiddleX">
-                        <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
-                            (click)="saveEmojiCom(i,j,haken.innerText)">
-                        <div style="display:none" #haken>✅</div>
-                        <img class="addReaction" (click)="toggleEmojisThread(i,j)" src="assets/icons/add-reaction.svg">
-                        <span class="popUpIcons pad0" (click)="saveEmojiCom(i,j,raisedHands.innerText)"
-                            #raisedHands>🙌</span>
-                        <img class="answerIcon" (click)="openThisThread(number,i,j)" src="assets/img/answer-icon.svg">
-                        <img class="popUpIcons" [class.dNone]="!getFlip(thread)" (click)="openEditPopUp()"
-                            src="assets/img/more_vert.svg">
-                    </div>
-                    <div class="editMessage posPop " [class.show]="openEditDialog" >
-                        <div class="editMessageT" (click)="openEditWindow(thread)">Nachricht bearbeiten</div>
-                        <div class="editMessageT"  (click)="deleteMessage(number,i,j)">Nachricht löschen</div>
-                    </div>
-                </div>
-                <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}">
-                <div class="messageContent">
-                    <div class="mes-name-clock" [class.messageRight]="getFlip(thread)">
-                        <span class="mes-name fs18 wei700">{{thread.name}}</span>
-                        <span>{{thread.time}} Uhr</span>
-                    </div>
-                    <div style="width:100%" [class.messageRight]="getFlip(thread)">
-                        <div class="message fs18" [class.messageRightStyle]="getFlip(thread)" [class.dNone]="thread.edit">
-                            <div *ngIf="showLink(thread.url.link)">
-                                <a class="upload" href="{{thread.url.link}}" target="_blank">
-                                  <img class="linkImg" [src]="thread.url.link ||'http://placehold.it/180'" alt="your image" />
-                                  <img class="deleteUpload" src="assets/img/close.svg" (click)="deleteUp($event,i,j)" *ngIf="getFlip(thread)">
-                                </a>
-                                 <div>{{thread.url.title}}</div>
-                               
-                                </div>
-                            <!-- {{thread.message}} -->
-                            <span *ngFor="let mes of thread.messageSplits" style="width:100%">
-                                <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
-                                    class="linkedUserName"
-                                    [class.linkedUserNameRight]="getFlip(thread)">{{mes.text}}</span>
-                                <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
-                            </span>
+                <div class="innerContainer" [class.flippInnerContainer]="getFlip(thread)">
+                    <div class="popUpMessageContainer posAbs" [class.popUpFlipContainer]="getFlip(thread)">
+                        <div class="popUpMessage flexMiddleX">
+                            <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
+                                (click)="saveEmojiCom(i,j,haken.innerText)">
+                            <div style="display:none" #haken>✅</div>
+                            <img class="addReaction" (click)="toggleEmojisThread(i,j)"
+                                src="assets/icons/add-reaction.svg">
+                            <span class="popUpIcons pad0" (click)="saveEmojiCom(i,j,raisedHands.innerText)"
+                                #raisedHands>🙌</span>
+                            <img class="answerIcon" (click)="openThisThread(number,i,j)"
+                                src="assets/img/answer-icon.svg">
+                            <img class="popUpIcons" [class.dNone]="!getFlip(thread)" (click)="openEditPopUp()"
+                                src="assets/img/more_vert.svg">
+                        </div>
+                        <div class="editMessage posPop " [class.show]="openEditDialog">
+                            <div class="editMessageT" (click)="openEditWindow(thread)">Nachricht bearbeiten</div>
+                            <div class="editMessageT" (click)="deleteMessage(number,i,j)">Nachricht löschen</div>
                         </div>
                     </div>
+                    <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}">
+                    <div class="messageContent">
+                        <div class="mes-name-clock" [class.messageRight]="getFlip(thread)">
+                            <span class="mes-name fs18 wei700">{{thread.name}}</span>
+                            <span>{{thread.time}} Uhr</span>
+                        </div>
+                        <div style="width:100%" [class.messageRight]="getFlip(thread)">
+                            <div class="message fs18" [class.messageRightStyle]="getFlip(thread)"
+                                [class.dNone]="thread.edit">
+                                <div *ngIf="showLink(thread.url.link)">
+                                    <a class="upload" href="{{thread.url.link}}" target="_blank">
+                                        <img class="linkImg" [src]="thread.url.link ||'http://placehold.it/180'"
+                                            alt="your image" />
+                                        <img class="deleteUpload" src="assets/img/close.svg"
+                                            (click)="deleteUp($event,i,j)" *ngIf="getFlip(thread)">
+                                    </a>
+                                    <div>{{thread.url.title}}</div>
+
+                                </div>
+                                <!-- {{thread.message}} -->
+                                <span *ngFor="let mes of thread.messageSplits" style="width:100%">
+                                    <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
+                                        class="linkedUserName"
+                                        [class.linkedUserNameRight]="getFlip(thread)">{{mes.text}}</span>
+                                    <span *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
+                                </span>
+                            </div>
+                        </div>
 
 
-<!-- 
+                        <!-- 
                     <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
                         [class.messageRight]="getFlip(thread)">
                         <div style="position:relative">
@@ -104,67 +109,69 @@
 
 
 
-                    <diV class="reactions flexMiddleX" [class.dNone]="thread.edit"
-                        [class.messageRight]="getFlip(thread)">
-                        <div class="reactIconsDiv flexMiddleX">
-                            <div *ngFor="let t of thread.smile; index as sIndex"
-                                [class.lila]="smileHelper.isUserInSmile(t.users,user)"
-                                (click)="removeSmileComment(i,j,sIndex)" class="reactIcons"
-                                (mouseover)="showPopUpCommentUsers(i,j,sIndex)">
-                                <div>
-                                    {{t.icon}}
-                                    {{t.users.length}}
+                        <diV class="reactions flexMiddleX" [class.dNone]="thread.edit"
+                            [class.messageRight]="getFlip(thread)">
+                            <div class="reactIconsDiv flexMiddleX">
+                                <div *ngFor="let t of thread.smile; index as sIndex"
+                                    [class.lila]="smileHelper.isUserInSmile(t.users,user)"
+                                    (click)="removeSmileComment(i,j,sIndex)" class="reactIcons"
+                                    (mouseover)="showPopUpCommentUsers(i,j,sIndex)">
+                                    <div>
+                                        {{t.icon}}
+                                        {{t.users.length}}
+                                    </div>
+                                    <div class="popUpComment posAbsChan nunitio"
+                                        [class.posAbsChanFlip]="getFlip(thread)">
+                                        <div style="scale: 1.5;margin-bottom: 10px;">{{t.icon}}</div>
+                                        <div *ngIf="showBlendin('du')" class="wei700">{{popUpText.du}}</div>
+                                        <div *ngIf="showBlendin('first')" class="wei700">{{popUpText.first}}</div>
+                                        <div *ngIf="showBlendin('other')" class="wei700">{{popUpText.other}}</div>
+                                        <div>{{popUpText.verb}} reagiert</div>
+                                    </div>
                                 </div>
-                                <div class="popUpComment posAbsChan nunitio"  [class.posAbsChanFlip]="getFlip(thread)">
-                                    <div style="scale: 1.5;margin-bottom: 10px;">{{t.icon}}</div>
-                                    <div *ngIf="showBlendin('du')" class="wei700">{{popUpText.du}}</div>
-                                    <div *ngIf="showBlendin('first')" class="wei700">{{popUpText.first}}</div>
-                                    <div *ngIf="showBlendin('other')" class="wei700">{{popUpText.other}}</div>
-                                    <div>{{popUpText.verb}} reagiert</div>
-                                </div>
+
+                            </div>
+                            <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
+                                src="assets/icons/add-reaction.svg">
+                            <emoji-mart class="emojiDiv posAbs" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
+                                (emojiClick)="saveEmojiComment($event)"></emoji-mart>
+                        </diV>
+
+                        <div class="answers-info" *ngIf="thread.answer.length>0"
+                            [class.answerInfoFlip]="getFlip(thread)">
+                            <div class="answers-counter fs18" (click)="openThisThread(number,i,j)">
+                                <span> {{thread.answer.length}}</span>
+                                <span>Antworten</span>
+                            </div>
+
+                            <div class="last-answer">
+                                <span>Letzte Antwort</span>
+                                <span>{{getTimeLastAnswer(thread)}}</span>
                             </div>
 
                         </div>
-                        <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
-                            src="assets/icons/add-reaction.svg">
-                        <emoji-mart class="emojiDiv posAbs" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
-                            (emojiClick)="saveEmojiComment($event)"></emoji-mart>
-                    </diV>
-
-                    <div class="answers-info" *ngIf="thread.answer.length>0"  [class.answerInfoFlip]="getFlip(thread)" >
-                        <div class="answers-counter fs18" (click)="openThisThread(number,i,j)">
-                            <span> {{thread.answer.length}}</span>
-                            <span>Antworten</span>
-                        </div>
-
-                        <div class="last-answer">
-                            <span>Letzte Antwort</span>
-                            <span>{{getTimeLastAnswer(thread)}}</span>
-                        </div>
-
                     </div>
                 </div>
-               </div>
 
                 <!-- edit channel message -->
                 <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
-                [class.messageRight]="getFlip(thread)">
-                <div style="position:relative">
-                    <div style="position:relative">                              
-                        <textarea class="textAreaDirekt fs18 nunito wei400"
-                            [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                        <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit posAbs"
-                            src="assets/img/smiley-icon.svg">
+                    [class.messageRight]="getFlip(thread)">
+                    <div style="position:relative">
+                        <div style="position:relative">
+                            <textarea class="textAreaDirekt fs18 nunito wei400"
+                                [(ngModel)]="textEdit">{{thread.message}}  </textarea>
+                            <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit posAbs"
+                                src="assets/img/smiley-icon.svg">
+                        </div>
+                        <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
+                            (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
                     </div>
-                    <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
-                        (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
-                </div>
 
-                <div class="editButtonContainer">
-                    <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
-                    <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
+                    <div class="editButtonContainer">
+                        <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
+                        <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
+                    </div>
                 </div>
-            </div>
 
             </div>
         </div>
@@ -176,13 +183,13 @@
 </div>
 
 <div class="textareaDirektMessage">
-      <!-- upload *ngIf="showBlendIn()" -->
-      <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()" >
+    <!-- upload *ngIf="showBlendIn()" -->
+    <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
         <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
         {{dataUpload.title}}
-        <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
-      </div>
-    <textarea class="textAreaDirekt nunitoBlack" [(ngModel)]="textThread"
+        <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
+    </div>
+    <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="textThread"
         placeholder="Nachricht an #{{this.threadList[number].channel.name}}"
         (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow posAbs" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">

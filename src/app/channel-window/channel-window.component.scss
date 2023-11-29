@@ -52,6 +52,11 @@
     }
 }
 
+// .emojiDiv{
+//     bottom: 26px;
+//   left: 1019px;
+// }
+
 .emojiDiv {
     bottom: -415px;
     left: 92px;
@@ -215,6 +220,7 @@
     height: calc(100% - 315px);
     margin-top: 115px;
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .positionStartChannel {
@@ -328,7 +334,6 @@
     align-items: flex-start;
     display: flex;
     flex-direction: column;
-    gap: 30px;
     width: 100%;
     box-sizing: border-box;
     padding: 20px 40px;
