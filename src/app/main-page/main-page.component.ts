@@ -193,11 +193,10 @@ export class MainPageComponent {
   * @param u  User with which you want to chat with.
   */
   openMessage(u: User) {
-    console.log("open Message")
+    console.log("call opene messge");
+    this.sideMenu.newMessageMobile = true;
     this.sideMenu.openTalk(u);
     this.sideMenu.newMessage = false;
-    this.sideMenu.setDrawerValues();
-
   }
 
   setdataUploadChannel(dataUpload: any) {
