@@ -36,7 +36,7 @@ export class SideMenuComponent {
   public talkMessages: any[] = [];
   public userInfos: any[] = [];
   public text = "";
-
+  public newMessageMobile: boolean = false;
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
 
@@ -92,8 +92,12 @@ export class SideMenuComponent {
     console.log("sidemenü open talk");
     this.newMessage = false;
     this.isOpen.emit(false);
-    this.setDrawerValues();
     this.addNewItem(u);
+
+    if (!this.newMessageMobile) {
+      this.setDrawerValues();
+    }
+    this.newMessageMobile = false;
   }
 
   getdate(info: any) {
@@ -165,7 +169,7 @@ export class SideMenuComponent {
       } else if (this.sideMenuHidden) {
         this.toggleDrawerBol();
         this.drawer.toggle();
-      } else { }
+      } else { console.log('setDrawerValues aufgerufen else') }
   }
 
   searchKey(text: string) {
