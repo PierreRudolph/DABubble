@@ -15,14 +15,14 @@ import { DatenschutzComponent } from './datenschutz/datenschutz.component';
 
 const routes: Routes = [
   // 
-  { path: 'main', component: MainPageComponent },
-  // {path: 'main', component: MainPageComponent,canActivate: [AuthGuardService]},
-  // {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
+  // { path: 'main', component: MainPageComponent },
+  {path: 'main', component: MainPageComponent,canActivate: [AuthGuardService]},
+  {path: '', component: MainPageComponent,canActivate: [AuthGuardService]},
   { path: 'login', component: LoginScreenComponent },
   { path: 'data', component: DatenschutzComponent },
   { path: 'forget', component: ForgotPasswordComponent },
   { path: 'reset', component: ResetComponent },
-  { path: '', component: MainPageComponent },
+  // { path: '', component: MainPageComponent },
   { path: 'probe', component: MainDialogProfilComponent },
   { path: 'signup', component: CreateAccountMainComponent },// canActivate: [AuthGuardService] canaktivate hier nur zu Testzwecke
   { path: 'imprint', component: ImpressumComponent },
