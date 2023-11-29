@@ -621,7 +621,14 @@
 
 @media (max-width:400px) {
 
+    .channel-header-left {
+        gap: 5px;
+        padding: 6px 0px;
 
+        span {
+            max-width: 190px;
+        }
+    }
 
     .innerContainer {
         padding: 5px;
@@ -648,6 +655,6 @@
         left: 110px !important;
         bottom: 70px !important;
     }
-  
+
 
 }

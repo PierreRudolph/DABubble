@@ -227,7 +227,14 @@
     .edit-channel-dialog {
         width: 100vw;
         height: 100vh;
+        height: 100dvh;
         padding: 16px;
         padding-top: 40px;
+    }
+}
+
+@media (max-width:400px) {
+    .edit-channel-dialog {
+        padding-top: 20px;
     }
 }
