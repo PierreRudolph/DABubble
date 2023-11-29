@@ -91,7 +91,9 @@
 
 }
 
-
+.editMessage {
+    left: 133px;
+}
 
 .time {
     color: var(--Text-gray, #686868);
@@ -127,10 +129,10 @@
 }
 
 .messageArea {
-    overflow-y: auto;
     width: 100%;
     height: 100%;
-
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 
@@ -388,28 +390,29 @@
     border-radius: 100%;
 }
 
-.posEditWind{
-            padding: 20px 45px 10px 45px;
+.posEditWind {
+    padding: 20px 45px 10px 45px;
 }
 
-.deleteUpload{
-   display: none;
-   position: absolute;
-   right:-30px
+.deleteUpload {
+    display: none;
+    position: absolute;
+    right: -30px
 }
 
-.upload{
+.upload {
     position: relative;
-   &:hover{
-    .deleteUpload{
-        display: unset!important;
-        cursor: pointer;
-        width:30px;
-        height: 30px;
-        z-index: 3;
 
-     }
-   }
+    &:hover {
+        .deleteUpload {
+            display: unset !important;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+
+        }
+    }
 }
 
 .posUpload {
@@ -458,31 +461,29 @@
 
     @media (max-width:400px) {
 
-   
-        .editButtonContainer{
-            gap:0;
+
+        .editButtonContainer {
+            gap: 0;
         }
 
         .emoji-div-Edit {
             position: absolute;
             bottom: 50px;
             left: -25px;
-            z-index: 3;        
+            z-index: 3;
         }
 
-        .posEditWind{
+        .posEditWind {}
 
-        }
-
-        .emojiDivComment{
-            left:5px;
-            z-index:3;
-            top:60px;
+        .emojiDivComment {
+            left: 5px;
+            z-index: 3;
+            top: 60px;
         }
 
         .emoji-div {
-           left:-25px;
-        
+            left: -25px;
+
         }
 
         .posUpload {

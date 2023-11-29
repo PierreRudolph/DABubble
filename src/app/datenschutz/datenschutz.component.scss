@@ -1,12 +1,25 @@
-// .dataContainer {
-//     padding: 20px;
-//     width: 95vw;
-//     box-sizing: border-box;
-// }
+.logoContainerStatic {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 25px;
+    left: 50px;
+    width: 224px;
+    justify-content: flex-start;
+    z-index: 1;
+    gap: 16px;
+
+    div {
+        display: flex;
+        align-items: center;
+        z-index: 1;
+        padding: 20px;
+    }
+}
 
 .DataPolicyDiv {
     width: calc(100vw - 80px);
-    height: calc(100vh - 80px);
+    height: calc(100vh - 165px);
     background-color: white;
     border-radius: 30px;
     display: flex;
@@ -15,6 +28,7 @@
     gap: 30px;
     box-sizing: border-box;
     margin: 40px;
+    margin-top: 120px;
     overflow-y: auto;
 
     h1 {
@@ -25,5 +39,45 @@
 
     span {
         font-size: 20px;
+    }
+}
+
+@media (max-width:830px) {
+    .logoContainerStatic {
+        left: calc(50% - 111px);
+        gap: 10px;
+
+        img:nth-of-type(1) {
+            width: 55px;
+        }
+    }
+}
+
+@media (max-width:670px) {
+    .DataPolicyDiv {
+        padding: 30px;
+
+        h1 {
+            font-size: 32px;
+        }
+    }
+}
+
+@media (max-width:460px) {
+    .logoContainerStatic {
+        display: none;
+    }
+
+    .DataPolicyDiv {
+        width: 100vw;
+        height: 100vh;
+        margin: 0px;
+        border-radius: 0px;
+        padding: 22px;
+        gap: 0px;
+
+        h1 {
+            font-size: 24px;
+        }
     }
 }
