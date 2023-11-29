@@ -169,10 +169,10 @@
     font-size: 20px;
     font-style: normal;
     font-weight: 500;
-    line-height: normal;   
+    line-height: normal;
     top: 65px;
-    left:50px;
-    width: 250px;   
+    left: 50px;
+    width: 250px;
     cursor: pointer;
     z-index: 2;
 
@@ -450,6 +450,7 @@
 .emojiDivTA {
     position: absolute;
     bottom: 60px;
+    z-index: 3;
 }
 
 .reactIconInTooltipDiv {
@@ -475,25 +476,26 @@
     left: 15px;
 }
 
-.deleteUpload{
+.deleteUpload {
     display: none;
     position: absolute;
-    right:-30px
- }
- 
- .upload{
-     position: relative;
-    &:hover{
-     .deleteUpload{
-         display: unset!important;
-         cursor: pointer;
-         width:30px;
-         height: 30px;
-         z-index: 3;
- 
-      }
+    right: -30px
+}
+
+.upload {
+    position: relative;
+
+    &:hover {
+        .deleteUpload {
+            display: unset !important;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            z-index: 3;
+
+        }
     }
- }
+}
 
 @media (max-width:1400px) {
     .threadOuterDiv {
@@ -575,12 +577,16 @@
     .reactIconsDiv {
         max-width: 200px;
     }
+
+    .emojiDivTA {
+        bottom: 154px;
+    }
 }
 
 @media (max-width:400px) {
 
     .editMessageThread {
-        left:-20px;
+        left: -20px;
     }
 
     .charImg {

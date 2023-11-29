@@ -42,9 +42,8 @@
     justify-content: flex-end;
 }
 
-.disab{
-    &:disabled
-    {
+.disab {
+    &:disabled {
         background-color: #686868;
     }
 }
@@ -221,7 +220,7 @@
     .logoContainer {
         position: absolute;
         width: 200px;
-        left: calc(50% - 100px);
+        left: calc(50% - 110px);
         top: 70px;
         align-items: center;
 

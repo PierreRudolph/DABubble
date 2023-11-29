@@ -66,6 +66,7 @@
 .emoji-div {
     left: 170px;
     bottom: 0;
+    z-index: 3;
 }
 
 .deleteUpload {
@@ -615,12 +616,12 @@
     }
 
     .emojiDiv {
-        left: -90px;
+        left: calc(50% - 199px);
     }
 
     .emoji-div {
         left: 20px;
-        bottom: 70px;
+        bottom: 152px;
     }
 }
 
