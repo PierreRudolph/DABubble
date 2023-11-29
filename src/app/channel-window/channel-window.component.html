@@ -115,6 +115,33 @@
                                 <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
                             </div>
                         </div>
+                       
+                        <div class="reactions flexMiddleX" [class.dNone]="thread.edit"
+                        [class.messageRight]="getFlip(thread)">
+                        <div class="reactIconsDiv flexMiddleX">
+                            <div *ngFor="let t of thread.smile; index as sIndex"
+                                [class.lila]="smileHelper.isUserInSmile(t.users,user)"
+                                (click)="removeSmileComment(i,j,sIndex)" class="reactIcons"
+                                (mouseover)="showPopUpCommentUsers(i,j,sIndex)">
+                                <div>
+                                    {{t.icon}}
+                                    {{t.users.length}}
+                                </div>
+                                <div class="popUpComment posAbs nunitio">
+                                    <div style="scale: 1.5;margin-bottom: 10px;">{{t.icon}}</div>
+                                    <div *ngIf="showBlendin('du')" class="wei700">{{popUpText.du}}</div>
+                                    <div *ngIf="showBlendin('first')" class="wei700">{{popUpText.first}}</div>
+                                    <div *ngIf="showBlendin('other')" class="wei700">{{popUpText.other}}</div>
+                                    <div>{{popUpText.verb}} reagiert</div>
+                                </div>
+                            </div>
+​
+                        </div>
+                        <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
+                            src="assets/icons/add-reaction.svg">
+                        <emoji-mart class="emojiDiv posAbs" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
+                            (emojiClick)="saveEmojiComment($event)"></emoji-mart>
+                    </div>
                     </div>
                 </div>
             </div>
