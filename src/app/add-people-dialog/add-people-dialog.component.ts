@@ -25,6 +25,7 @@ export class AddPeopleDialogComponent {
   private chathelper: ChatHepler = new ChatHepler();
   public channel: any = this.chathelper.createEmptyThread();
   public mobileFromBottom: boolean | false;
+  public userInList = false;
 
   constructor(public addPeopleDialog: MatDialog) {
   }
@@ -42,6 +43,10 @@ export class AddPeopleDialogComponent {
 
     if (!inList) {
       this.currentlyAddedUser.push(u);
+    } else {
+      this.userInList = true;
+      setTimeout(() => { this.userInList = false; }, 2000)
+
     }
   }
 
