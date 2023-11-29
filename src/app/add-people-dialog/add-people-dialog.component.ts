@@ -27,7 +27,7 @@ export class AddPeopleDialogComponent {
   public mobileFromBottom: boolean | false;
 
   constructor(public addPeopleDialog: MatDialog) {
-    }
+  }
 
   /**
    * Adds the given User do the currentlyAddedUser
@@ -35,14 +35,14 @@ export class AddPeopleDialogComponent {
    */
   addMember(u: User) {
     let inList = false;  // "strict": false, in compileoptions    
-    this.currentlyAddedUser.forEach(ul => {   
+    this.currentlyAddedUser.forEach(ul => {
       if (ul.idDB == u.idDB) { inList = true };
     });
     if (this.isAlreadyMember(u)) { inList = true; }
 
     if (!inList) {
       this.currentlyAddedUser.push(u);
-       }   
+    }
   }
 
   isAlreadyMember(user: User) {
@@ -74,7 +74,7 @@ export class AddPeopleDialogComponent {
   /**
    * Only shows the list of member
    */
-  filterMember() {  
+  filterMember() {
     this.filteredMembers = [];
     this.userList.forEach((u) => {
       this.setMemberToList(u);
@@ -89,7 +89,7 @@ export class AddPeopleDialogComponent {
   setMemberToList(u: User) {
     let filterValue = this.searchText.toLowerCase();
     if ((filterValue != "")) {
-      let n = u.name;     
+      let n = u.name;
       if (n.toLowerCase().includes(filterValue)) {
         this.filteredMembers.push(u);
       }
