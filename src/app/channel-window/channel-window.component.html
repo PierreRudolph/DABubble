@@ -79,6 +79,23 @@
                                 </span>
                             </div>
                         </div>
+
+                        <div class="answers-info" *ngIf="thread.answer.length>0">
+                      
+                            <div class="answers-counter fs18" (click)="openThisThread(number,i,j)">
+                                <span> {{thread.answer.length}}</span>
+                                <span>Antworten</span>
+                            </div>
+    ​
+                            <div class="last-answer">
+                                <span>Letzte Antwort</span>
+                                <span>{{getTimeLastAnswer(thread)}}</span>
+                            </div>
+    ​
+                        </div>
+
+
+
                         <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
                             [class.messageRight]="getFlip(thread)">
                             <div style="position:relative">
@@ -91,6 +108,7 @@
                                 <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
                                     (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
                             </div>
+                         
 
                             <div class="editButtonContainer">
                                 <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
@@ -103,6 +121,8 @@
         </div>
     </div>
 </div>
+
+
 <div *ngIf="showBegin(threadList[this.number].communikation[0])" style="padding: 10px 40px 10px 40px;">
     <span class="nunitoBlack fs20"> #{{threadList[this.number].channel.name}}</span><br>
     Das ist der Anfang des Channels.
