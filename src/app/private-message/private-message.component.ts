@@ -57,11 +57,11 @@ export class PrivateMessageComponent {
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
   @Output() newItemEventTalkList = new EventEmitter<any>();
   @Output() sendCurrentTalkId = new EventEmitter<string>();
+  @Output() callOpenUser = new EventEmitter<User>();
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
-  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
-    console.log("call construktor private message");
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {  
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload =(document.getElementById("imgPrivate") as HTMLInputElement | null); 
@@ -204,12 +204,6 @@ export class PrivateMessageComponent {
     this.sendCurrentTalkId.emit(this.currentTalkId);
     this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
     this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
-  }
-
-
-  showData() {
-    console.log("current talk", this.currentTalkData);
-    console.log("current talk Id", this.currentTalkId);
   }
 
   /** Called when a new private talk is started.
@@ -447,7 +441,10 @@ export class PrivateMessageComponent {
     dialogRef.componentInstance.user = new User(user.toJSON());
     dialogRef.componentInstance.ref = dialogRef;
     dialogRef.afterClosed().subscribe(result => {
-
+      if (user) {
+        this.callOpenUser.emit(user);
+      
+      }
     });
   }
 
@@ -495,6 +492,8 @@ export class PrivateMessageComponent {
 
     this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
   }
+
+  
 
  
 

@@ -42,6 +42,15 @@
     justify-content: flex-end;
 }
 
+.disab{
+    &:disabled
+    {
+        background-color: #686868;
+    }
+}
+
+
+
 .input {
     position: relative;
     width: 500px;

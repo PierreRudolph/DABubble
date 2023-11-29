@@ -44,9 +44,7 @@
     justify-content: space-between;
 }
 
-.greenDot {
-    background-color: #92C83E;
-}
+
 
 .stateDot {
     width: 10px;
@@ -57,6 +55,10 @@
     right: 20px;
     bottom: 7px;
     border: 2px white solid;
+}
+
+.greenDot {
+    background-color: #92C83E;
 }
 
 .textAreaDirekt {

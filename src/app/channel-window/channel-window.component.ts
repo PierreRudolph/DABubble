@@ -1,4 +1,4 @@
-import { Component, TemplateRef, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter,Pipe, PipeTransform  } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -10,6 +10,7 @@ import { ChannelMembersComponent } from '../channel-members/channel-members.comp
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ChannelHelper } from 'src/moduls/channelHelper.class';
 
+// @Pipe({name: 'replaceLineBreaks'})
 @Component({
   selector: 'app-channel-window',
   templateUrl: './channel-window.component.html',
@@ -28,6 +29,7 @@ export class ChannelWindowComponent {
   public channelMembersOpen: boolean | false;
   public openEditDialog: boolean = false;
   public smileEdit = false;
+ 
   @Input() number: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
@@ -47,27 +49,28 @@ export class ChannelWindowComponent {
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
   private cA: any;
   public dataUpload = { "link": "", "title": "" };
-  private upload:any;
+  private upload: any;
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
-
+ 
   constructor(public dialog: MatDialog) {
-    setTimeout(() => {
-      console.log("callsonst cannel wind");
+    setTimeout(() => {     
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
-      this.upload =(document.getElementById("img") as HTMLInputElement | null);
+      this.upload = (document.getElementById("img") as HTMLInputElement | null);
       // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 500);
   }
 
+/**
+ * Scrolls to the end of the channel window
+ */
   scrollDown() {
-    setTimeout(() => {
-      console.log("ca",this.cA);
-     if(this.cA){
-      this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
-     }
-    }, 1000);
+    setTimeout(() => {   
+      if (this.cA) {
+        this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
+      }
+    }, 750);
   }
 
   /**
@@ -142,7 +145,7 @@ export class ChannelWindowComponent {
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
     let threadId = this.threadList[this.number].channel.idDB;
     this.commIndex = cIndex;
-    let userSmiles = this.getTreadData(tIndex, 'smile');   
+    let userSmiles = this.getTreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
     userSmiles[sIndex].users = newUserList;
     if (userSmiles[sIndex].users.length == 0) {
@@ -200,8 +203,7 @@ export class ChannelWindowComponent {
    * @param i Communication-Index
    * @param j Message-Index
    */
-  openThisThread(n: number, i: number, j: number) {
-    console.log("call open");
+  openThisThread(n: number, i: number, j: number) {   
     this.threadC.setValue(n, i, j);
     this.newItemEventChannel.emit(this.threadC);
   }
@@ -238,6 +240,7 @@ export class ChannelWindowComponent {
    * @param indexCannel index it the channel in that the question shell be released.
    */
   sendQuestion(indexCannel: number) {
+    
     let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
@@ -392,6 +395,7 @@ export class ChannelWindowComponent {
       input.preventDefault();
       this.sendQuestion(this.number);
     }
+    
   }
 
   /**    
@@ -434,8 +438,7 @@ export class ChannelWindowComponent {
    * Gives the needet variables to the Dialog
    * @param dialogRef MatDialogRef of ChannelMembersComponent
    */
-  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-    console.log("members");
+  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {   
     this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.threadList, this.number, this.userList);
   }
 
@@ -475,10 +478,10 @@ export class ChannelWindowComponent {
     this.textThread += '@' + u.name;
     this.addresses = !this.addresses;
   }
-/**
- * Opens the dialog of the given User
- * @param user 
- */
+  /**
+   * Opens the dialog of the given
+   * @param user 
+   */
   openDialog(user: User): void {
     const dialogRef = this.dialog.open(UserProfileComponent);
     dialogRef.componentInstance.user = new User(user.toJSON());
@@ -529,7 +532,7 @@ export class ChannelWindowComponent {
  */
   async onSelect(event: any) {
     await this.chathelper.onSelect(event, this.dataUpload);
-    this.upload.value="";
+    this.upload.value = "";
   }
 
   showLink(link: string) {
@@ -552,7 +555,7 @@ export class ChannelWindowComponent {
    * @param i  communication index
    * @param j   thread index
    */
-  deleteUp(e:any,i:number,j:number){
+  deleteUp(e: any, i: number, j: number) {
     e.preventDefault();
     this.channelHelper.deleteUp(this.number, i, j, this.chathelper, this.threadList);
   }

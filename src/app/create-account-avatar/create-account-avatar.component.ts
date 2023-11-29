@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 import { Firestore } from '@angular/fire/firestore';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
+import { timeout } from 'rxjs';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class CreateAccountAvatarComponent {
 
   public padding: boolean = true;
   public hide: boolean = true;
+  public correct :boolean=true;
   public move: boolean = false;
   public wait: boolean = false;
   public portraitPath = "assets/img/person.svg";
@@ -45,7 +47,11 @@ export class CreateAccountAvatarComponent {
       this.navigatePage();
     })
       .catch((error) => {
-        this.wait = false;       
+        this.wait = false; 
+        console.log("error",error) ;
+        this.correct=false;
+        this.move = true;
+        this.navigatePage();
       })
   }
 
@@ -57,6 +63,7 @@ export class CreateAccountAvatarComponent {
       this.hide = true;
       this.move = false;
       this.wait = false;
+      this.correct=true;
       this.router.navigateByUrl('/login');
     }, 2500);
   }

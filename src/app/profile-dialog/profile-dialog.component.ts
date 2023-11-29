@@ -45,7 +45,6 @@ export class ProfileDialogComponent {
     if (e !== "" && validMail) {
       this.user.email = e;
     }
-    console.log("user", this.user);
     this.newItemEventUser.emit(this.user);
     this.closeDialog();
   }

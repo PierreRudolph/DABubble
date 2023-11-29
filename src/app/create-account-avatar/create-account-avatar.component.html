@@ -32,6 +32,7 @@
         <button (click)="register()" [disabled]="wait" class="btn weiter">Weiter</button>
     </div>
     <div [class.dNone]="hide" [class.moveUp]="move" class="popUp3">Konto erfolgreich erstellt!</div>
+    <div [class.dNone]="correct" [class.moveUp]="move" class="popUp3">E-mail existiert bereits</div>
 </div>
 <div class="impData">
     <div>

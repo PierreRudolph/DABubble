@@ -163,6 +163,8 @@
         padding: 20px;
     }
 
+  
+
     .logoContainerStatic {
         top: 60px;
 
@@ -197,6 +199,19 @@
         width: 358px;
         height: 50px;
         padding: 13px 32px 13px 30px;
+
+    }
+
+    .logoContainer {
+        align-items: center;
+        img {
+            height: 55px;
+        }
+
+        .nameLogo {
+            height: 24px;
+        }
+
 
     }
 }

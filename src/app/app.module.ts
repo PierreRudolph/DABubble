@@ -39,6 +39,7 @@ import { SendNewMessageComponent } from './send-new-message/send-new-message.com
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import { DatenschutzComponent } from './datenschutz/datenschutz.component';
+import { TransformPipePipe } from './transform-pipe.pipe';
 
 
 @NgModule({
@@ -66,6 +67,7 @@ import { DatenschutzComponent } from './datenschutz/datenschutz.component';
     SendNewMessageComponent,
     UserProfileComponent,
     DatenschutzComponent,
+    TransformPipePipe,
    
   ],
   imports: [

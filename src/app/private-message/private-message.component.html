@@ -2,7 +2,7 @@
   <div class="direktMesHeader">
     <div style="position: relative;width:70px;" *ngIf="talkOpen">
       <img class="charImgHeader" src="{{otherChatUser.iconPath}}">
-      <div [class.greenDot]="otherChatUser.getAktive()" class="stateDot"></div>
+      <div  class="stateDot" [class.greenDot]="otherChatUser.getAktive()"></div>
     </div>
     <div class="nunitoBlack">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
   </div>
@@ -38,7 +38,7 @@
                   <span *ngFor="let mes of m.messageSplits" style="width:100%">
                     <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)" class="linkedUserName"
                       [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
-                    <span *ngIf="!chatHelper.isLink(mes)">{{mes.text}}</span>
+                    <span [innerHTML]="mes.text | transformPipe"  *ngIf="!chatHelper.isLink(mes)"></span>
                   </span>
                 </div>
               </div>

@@ -15,7 +15,7 @@ export class SideMenuComponent {
   public chPanelOpen: boolean | undefined;
   public mesPanelOpen: boolean | undefined;
   public firestore: Firestore = inject(Firestore);
-  public loaded: boolean = false;
+  public loaded: boolean = true;
   public channelActive: number;
   private madeChannel: any;
   public chathelper: ChatHepler = new ChatHepler();
@@ -40,10 +40,7 @@ export class SideMenuComponent {
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
 
-  constructor(public dialog: MatDialog) {
-    setTimeout(() => {
-      this.loaded = true; //wegen ladeproblemen
-    }, 3000);
+  constructor(public dialog: MatDialog) {   
   }
 
   getName(num: number) {
@@ -61,8 +58,7 @@ export class SideMenuComponent {
     let ch = this.chathelper.createEmptyThread();
     ch.channel = this.madeChannel;
     let channelId = "";
-    ch.communikation[0].threads = [];
-    console.log("new thread ", ch);
+    ch.communikation[0].threads = [];    
     await addDoc(this.threadRef(), ch).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
@@ -74,9 +70,7 @@ export class SideMenuComponent {
               "idDB": channelId,
               "description": this.madeChannel.description,
               "members": this.madeChannel.members,
-            }
-
-            console.log("show c", c);
+            }          
             this.chathelper.updateDB(channelId, 'thread', { "channel": c });
           }
         });
@@ -89,9 +83,7 @@ export class SideMenuComponent {
   }
 
   setNewMessage() {
-    this.newMessage = true;
-    //this.newMessage = !this.newMessage;
-    console.log("value", this.newMessage);
+    this.newMessage = true; 
     this.isOpen.emit(this.newMessage);
   }
 
@@ -111,19 +103,15 @@ export class SideMenuComponent {
   }
 
 
-  openCreateChannelDialog() {
-    // this.dialog.open(CreateChannelDialogComponent);
-    // this.dialog.componentInstance();
+  openCreateChannelDialog() {  
     this.setCreateChannelDialogMobileStyle();
     let dialogRef = this.dialog.open(CreateChannelDialogComponent, { panelClass: this.dialogClasses });
     dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
     dialogRef.componentInstance.dialogReference = dialogRef;
     dialogRef.componentInstance.screenWidth = this.screenWidth;
-    dialogRef.afterClosed().subscribe(result => {
-      console.log("close channelcreator");
-      this.madeChannel = result;
-      console.log("result", result);
+    dialogRef.afterClosed().subscribe(result => {     
+      this.madeChannel = result;    
       if (result && result != "") { this.addChannel(); }
 
     });
