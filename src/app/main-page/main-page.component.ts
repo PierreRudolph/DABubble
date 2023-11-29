@@ -196,6 +196,7 @@ export class MainPageComponent {
     console.log("call opene messge");
     this.sideMenu.openTalk(u);
     this.sideMenu.newMessage = false;
+    this.sideMenu.setDrawerValues();//experimentell
   }
 
   setdataUploadChannel(dataUpload: any) {
@@ -263,7 +264,7 @@ export class MainPageComponent {
    * Setz the other chatUser to u and start the private talk.
    * @param user Ohter chat user
    */
-  setOtherUser(user: User) {   
+  setOtherUser(user: User) {
     console.log("call setOtherUser()");
     console.log("call showPrivateMessage1()", this.showPrivateMessage());
     window.innerWidth = 1000;
@@ -274,10 +275,11 @@ export class MainPageComponent {
 
     console.log("call showPrivateMessage2()", this.showPrivateMessage());
     setTimeout(() => {
+      console.log('setMobileView =', this.setMobileView())
       this.otherChatUser = user;
       console.log(this.child);
       this.child.setOtherUser(user);
-     
+
     }, 500);
 
   }

@@ -35,12 +35,12 @@ export class SideMenuComponent {
   public threadMessages: any[] = [];
   public talkMessages: any[] = [];
   public userInfos: any[] = [];
-  public text = "";  
+  public text = "";
 
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
 
-  constructor(public dialog: MatDialog) {   
+  constructor(public dialog: MatDialog) {
   }
 
   getName(num: number) {
@@ -58,7 +58,7 @@ export class SideMenuComponent {
     let ch = this.chathelper.createEmptyThread();
     ch.channel = this.madeChannel;
     let channelId = "";
-    ch.communikation[0].threads = [];    
+    ch.communikation[0].threads = [];
     await addDoc(this.threadRef(), ch).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
@@ -70,7 +70,7 @@ export class SideMenuComponent {
               "idDB": channelId,
               "description": this.madeChannel.description,
               "members": this.madeChannel.members,
-            }          
+            }
             this.chathelper.updateDB(channelId, 'thread', { "channel": c });
           }
         });
@@ -84,7 +84,7 @@ export class SideMenuComponent {
   }
 
   setNewMessage() {
-    this.newMessage = true; 
+    this.newMessage = true;
     this.isOpen.emit(this.newMessage);
   }
 
@@ -92,7 +92,7 @@ export class SideMenuComponent {
     console.log("sidemenü open talk");
     this.newMessage = false;
     this.isOpen.emit(false);
-    this.setDrawerValues();   
+    this.setDrawerValues();
     this.addNewItem(u);
   }
 
@@ -105,15 +105,15 @@ export class SideMenuComponent {
   }
 
 
-  openCreateChannelDialog() {  
+  openCreateChannelDialog() {
     this.setCreateChannelDialogMobileStyle();
     let dialogRef = this.dialog.open(CreateChannelDialogComponent, { panelClass: this.dialogClasses });
     dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
     dialogRef.componentInstance.userList = this.userList;//Kopie
     dialogRef.componentInstance.dialogReference = dialogRef;
     dialogRef.componentInstance.screenWidth = this.screenWidth;
-    dialogRef.afterClosed().subscribe(result => {     
-      this.madeChannel = result;    
+    dialogRef.afterClosed().subscribe(result => {
+      this.madeChannel = result;
       if (result && result != "") { this.addChannel(); }
 
     });
