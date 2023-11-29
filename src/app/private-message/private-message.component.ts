@@ -2,7 +2,7 @@ import { Component, inject, Input, Output, EventEmitter, ViewChild } from '@angu
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
-import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { Firestore, addDoc, collection, doc, getDoc } from '@angular/fire/firestore';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
@@ -62,6 +62,7 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {  
+    console.log("constructor call private Message");
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload =(document.getElementById("imgPrivate") as HTMLInputElement | null); 

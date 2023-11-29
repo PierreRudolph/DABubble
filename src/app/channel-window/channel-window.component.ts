@@ -55,6 +55,7 @@ export class ChannelWindowComponent {
 
  
   constructor(public dialog: MatDialog) {
+    console.log("constructor call Channel");
     setTimeout(() => {     
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
