@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
@@ -62,7 +62,7 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
-  constructor(public authService: AuthService, public router: Router) {
+  constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef) {
     this.currentTalkData.communikation = [];
 
     setTimeout(() => {
@@ -74,7 +74,7 @@ export class MainPageComponent {
     setTimeout(() => {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
-    }, 1500);  
+    }, 1500);
     this.getScreenWidth();
   }
 
@@ -193,6 +193,7 @@ export class MainPageComponent {
   * @param u  User with which you want to chat with.
   */
   openMessage(u: User) {
+    console.log("call opene messge");
     this.sideMenu.openTalk(u);
     this.sideMenu.newMessage = false;
   }
@@ -202,7 +203,10 @@ export class MainPageComponent {
   }
 
   setdataUploadPrivate(dataUpload: any) {
-    setTimeout(() => { this.child.dataUpload = dataUpload; }, 500);
+    setTimeout(() => {
+      console.log("child", this.child);
+      this.child.dataUpload = dataUpload;
+    }, 500);
   }
 
   /**   
@@ -259,17 +263,22 @@ export class MainPageComponent {
    * Setz the other chatUser to u and start the private talk.
    * @param user Ohter chat user
    */
-  setOtherUser(user: User) {
+  setOtherUser(user: User) {   
+    console.log("call setOtherUser()");
+    console.log("call showPrivateMessage1()", this.showPrivateMessage());
+    window.innerWidth = 1000;
     this.talkOpen = true;
-    this.channelOpen = false;    
+    this.channelOpen = false;
     this.privateOpen = true;
     this.openChat = false;
 
+    console.log("call showPrivateMessage2()", this.showPrivateMessage());
     setTimeout(() => {
       this.otherChatUser = user;
+      console.log(this.child);
       this.child.setOtherUser(user);
-
-    }, 750);
+     
+    }, 500);
 
   }
 
@@ -322,12 +331,12 @@ export class MainPageComponent {
     this.threadC = c;
     this.openChat = true;
     this.started = true;
-    this.privateOpen = false;  
+    this.privateOpen = false;
     this.hideMainContentDivOn1400();
     setTimeout(() => {
-      this.hideMainContentDivOn830();   
+      this.hideMainContentDivOn830();
     }, 250);
-    setTimeout(() => {     
+    setTimeout(() => {
       this.childSideThread.openSideMenuThread();
     }, 350);
   }
@@ -358,7 +367,7 @@ export class MainPageComponent {
     if (this.screenWidth <= 1400 && this.screenWidth > 830) {
       if (!this.privateOpen) {
         this.channelOpen = true//experimentell
-      }     
+      }
       this.mainContentDiv.nativeElement.classList.remove('dNone');
     }
   }
@@ -383,7 +392,7 @@ export class MainPageComponent {
     return this.privateOpen && !this.newMessOpen;
   }
 
-  showChannel() { 
+  showChannel() {
     return this.channelOpen && !this.newMessOpen;
   }
 

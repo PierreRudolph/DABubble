@@ -61,18 +61,13 @@ export class SendNewMessageComponent {
     let st = searchT.toLowerCase();
     this.searchText = st;
     let first = st[0];
-    st = st.substring(1)
-    console.log("first elem", first);
+    st = st.substring(1) 
     this.searchResultUser = [];
-    this.searchResulChannel = [],
-      console.log("searchtext", st);
+    this.searchResulChannel = [],    
     this.searchNameOrmail(st, first);
-
-    console.log(this.searchResultUser);
     let num = -1;
     this.threadList.forEach((t) => {
-      num++;
-      console.log("name ", t.channel.name.toLowerCase().includes(st) + " " + t.channel.name.toLowerCase())
+      num++;     
       if ((t.channel.name.toLowerCase().includes(st)) && (first == '#')) {
         let info = { "name": t.channel.name, "num": num }
         this.searchResulChannel.push(info);
@@ -86,12 +81,6 @@ export class SendNewMessageComponent {
     },2000);
   }
 
-  openMailAddresses(){
-    this.chathelper.getLinkedUsers(this.user, this.userList, "Der Name ist @Maria Müller. Und was noch @Perry Rhodan. @Julia Wessolleck");
-    // this.chathelper.isPartOf("Maria Müller","Der Name ist @Maria Müller. Und was noch @Perry Rhodan");
-    // this.chathelper.splitAtName(this.user, this.userList,"Der Name ist @Maria Müller. Und was noch @Perry Rhodan")
-    this.addresses =!this.addresses;
-  }
 
   callOpenChan(n: number) {
     this.callOpenChannel.emit(n);
@@ -105,6 +94,7 @@ export class SendNewMessageComponent {
   }
 
   callOpenT(u: User) {
+    console.log("callopentalk",u);
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
