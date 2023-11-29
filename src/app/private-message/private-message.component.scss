@@ -135,8 +135,6 @@
     overflow-x: hidden;
 }
 
-
-
 .chatIconButtom {
     display: flex;
     gap: 15px;
@@ -390,9 +388,9 @@
     border-radius: 100%;
 }
 
-.posEditWind {
-    padding: 20px 45px 10px 45px;
-}
+// .posEditWind {
+//     padding: 20px 45px 10px 45px;
+// }
 
 .deleteUpload {
     display: none;
@@ -457,6 +455,12 @@
 
     .chatIconButtom {
         padding: 0px 16px;
+    }
+
+    @media (max-width:500px) {
+        .editMessage {
+            left: 0px;
+        }
     }
 
     @media (max-width:400px) {

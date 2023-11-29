@@ -85,8 +85,8 @@
                                 </span>
                             </div>
                         </div>
-                        <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}">
-                        <div class="messageContent">
+                        <!-- <img class="charImg" src="{{getIconPathQuestionUser(thread.iD)}}"> -->
+                        <!-- <div class="messageContent">
                             <div class="mes-name-clock" [class.messageRight]="getFlip(thread)">
                                 <span class="mes-name fs18 wei700">{{thread.name}}</span>
                                 <span>{{thread.time}} Uhr</span>
@@ -104,7 +104,7 @@
                                         <div>{{thread.url.title}}</div>
 
                                     </div>
-                                    <!-- {{thread.message}} -->
+                                  
                                     <span *ngFor="let mes of thread.messageSplits" style="width:100%">
                                         <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                             class="linkedUserName"
@@ -114,7 +114,7 @@
                                 </div>
                             </div>
 
-                            <diV class="reactions flexMiddleX" [class.dNone]="thread.edit"
+                            <div class="reactions flexMiddleX" [class.dNone]="thread.edit"
                                 [class.messageRight]="getFlip(thread)">
                                 <div class="reactIconsDiv flexMiddleX">
                                     <div *ngFor="let t of thread.smile; index as sIndex"
@@ -139,7 +139,7 @@
                                         src="assets/icons/add-reaction.svg">
                                     <emoji-mart class="emojiDiv posAbs" *ngIf="isThreadEmojiShown(i,j)"
                                         title="Pick your emoji…" (emojiClick)="saveEmojiComment($event)"></emoji-mart>
-                                </diV>
+                                </div>
 
                                 <div class="answers-info" *ngIf="thread.answer.length>0"
                                     [class.answerInfoFlip]="getFlip(thread)">
@@ -155,7 +155,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
                         <!-- edit channel message -->
                         <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
@@ -180,39 +180,44 @@
                     </div>
                 </div>
             </div>
-            <div *ngIf="showBegin(threadList[this.number].communikation[0])" style="padding: 10px 40px 10px 40px;">
-                <span class="nunitoBlack fs20"> #{{threadList[this.number].channel.name}}</span><br>
-                Das ist der Anfang des Channels.
-            </div>
         </div>
+    </div>
 
-        <div class="textareaDirektMessage">
-            <!-- upload *ngIf="showBlendIn()" -->
-            <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
-                <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
-                {{dataUpload.title}}
-                <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
-            </div>
-            <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="textThread"
-                placeholder="Nachricht an #{{this.threadList[number].channel.name}}"
-                (keydown)="keyDownFunction($event)"></textarea>
-            <img class="sendArrow posAbs" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
-            <div class="iconContainerTextArea">
-                <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
-                <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
-                <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
-                <div style="width:2px;background-color: #ADB0D9 ;"></div>
-                <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
-                <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
-                <!-- (emojiSelect)="addEmoji($event)" -->
-            </div>
-            <emoji-mart class="emoji-div posAbs" *ngIf="showEmojis" title="Pick your emoji…"
-                (emojiClick)="saveEmoji($event)"></emoji-mart>
-            <div class="addressBox" *ngIf="addresses">
-                <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}
-                </div>
-                <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
-                    <img src="{{usL.iconPath}}"> {{usL.name}}
-                </div>
-            </div>
+</div>
+
+<div *ngIf="showBegin(threadList[this.number].communikation[0])" style="padding: 10px 40px 10px 40px;">
+    <span class="nunitoBlack fs20"> #{{threadList[this.number].channel.name}}</span><br>
+    Das ist der Anfang des Channels.
+</div>
+
+
+<div class="textareaDirektMessage">
+    <!-- upload *ngIf="showBlendIn()" -->
+    <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
+        <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
+        {{dataUpload.title}}
+        <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
+    </div>
+    <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="textThread"
+        placeholder="Nachricht an #{{this.threadList[number].channel.name}}"
+        (keydown)="keyDownFunction($event)"></textarea>
+    <img class="sendArrow posAbs" (click)="sendQuestion(number)" src="assets/img/sendArrow.svg">
+    <div class="iconContainerTextArea">
+        <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
+        <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
+        <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
+        <div style="width:2px;background-color: #ADB0D9 ;"></div>
+        <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
+        <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
+        <!-- (emojiSelect)="addEmoji($event)" -->
+    </div>
+    <emoji-mart class="emoji-div posAbs" *ngIf="showEmojis" title="Pick your emoji…"
+        (emojiClick)="saveEmoji($event)"></emoji-mart>
+    <div class="addressBox" *ngIf="addresses">
+        <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}
         </div>
+        <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
+            <img src="{{usL.iconPath}}"> {{usL.name}}
+        </div>
+    </div>
+</div>
