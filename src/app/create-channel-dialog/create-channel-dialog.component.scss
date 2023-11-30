@@ -254,6 +254,13 @@
     }
 }
 
+.dis{
+    &:disabled{
+        background-color: gray;
+        cursor:not-allowed;
+    }
+}
+
 @media (max-width:830px) {
     .dialog-div {
         width: 100%;
