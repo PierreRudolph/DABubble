@@ -62,23 +62,11 @@
 
                 <div class="editButtonContainer">
                   <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
-                  <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
+                  <button class="btn butttonBlue" (click)="saveEdit(m,i,mIndex)">Speichern</button>
                 </div>
               </div>
 
-              <!-- <div [class.dNone]="!m.edit"  class="posEditWind">
-                <div style="position:relative">
-                  <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
-                  <img (click)="toggleEmojisDialogEdit()" class="smileEdit" src="assets/img/smile.svg">
-                  <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit"
-                    (emojiClick)="saveEmoji($event)"></emoji-mart>
-                </div>
-
-                <div class="editButtonContainer">
-                  <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
-                  <button class="btn butttonBlue" (click)="saveEdit(m)">Speichern</button>
-                </div>
-              </div> -->
+           
             </div>
             <div class="popUpMessageContainer" [class.popUpMessageContainerFlip]="getFlip(m)">
               <div class="popUpMessage" [class.flipCorner]="getFlip(m)">

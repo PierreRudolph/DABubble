@@ -97,10 +97,14 @@ export class PrivateMessageComponent {
    * 
    * @param m Contains all the data of the current message.
    */
-  saveEdit(m: any) {
+  saveEdit(m: any,i:number,mIndex) {   
     m.edit = false;
+    if( this.textEdit=="" && m.url.link==""){
+      this.deleteMessage(i, mIndex);
+      return;
+    }
     m.message = this.textEdit;
-    m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.textEdit);
+    m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.textEdit); 
     this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
@@ -163,6 +167,7 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   saveMessage() {
+    if(this.text=="" && this.dataUpload.link==""){return;}
     let mes = this.createMessageFromText(this.text);
     if (!this.exist) {
       this.startTalk(mes);
