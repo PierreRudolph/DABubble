@@ -124,7 +124,7 @@
     cursor: pointer;
 
     &:hover {
-        content: url('/assets/img/arrow-back-hover.svg');
+        content: url('/angular-projects/dabubble/angular-projects/dabubble/assets/img/arrow-back-hover.svg');
     }
 }
 
@@ -170,15 +170,11 @@
     border-width: 2px;
     border-color: #797EF3;
     padding-bottom: 3px;
-    margin-bottom:20px;
+    margin-bottom: 20px;
     padding-left: 3px;
     box-sizing: content-box;
     margin-right: 10px;
     color: white;
-
-    &:hover {
-        //background-color: #ECEEFE;
-    }
 }
 
 .red {

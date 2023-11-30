@@ -281,8 +281,6 @@
 .popUpFlipContainer {
     display: flex;
     justify-content: flex-end;
-    // right: unset;
-    // left: 40px;
 }
 
 .editButtonContainer {
@@ -388,10 +386,6 @@
     border-radius: 100%;
 }
 
-// .posEditWind {
-//     padding: 20px 45px 10px 45px;
-// }
-
 .deleteUpload {
     display: none;
     position: absolute;
@@ -476,8 +470,6 @@
             left: -25px;
             z-index: 3;
         }
-
-        .posEditWind {}
 
         .emojiDivComment {
             left: 5px;

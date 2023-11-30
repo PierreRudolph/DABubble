@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: 'Nunito';
-    src: url('assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+    src: url('/angular-projects/dabubble/assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Figtree';
-    src: url('assets/fonts/Figtree-VariableFont_wght.ttf') format('truetype');
+    src: url('/angular-projects/dabubble/assets/fonts/Figtree-VariableFont_wght.ttf') format('truetype');
 }
 
 body {
@@ -22,8 +22,6 @@ body {
 
 html,
 body {
-    //height: 100%;
-
     background-color: rgb(236, 238, 254);
 }
 
@@ -146,7 +144,7 @@ body {
     cursor: pointer;
 
     &:hover {
-        content: url('/assets/img/arrow-back-hover.svg');
+        content: url('/angular-projects/dabubble/assets/img/arrow-back-hover.svg');
     }
 }
 
@@ -337,7 +335,7 @@ mat-drawer-container {
     cursor: pointer;
 
     &:hover {
-        content: url('/assets/img/plus-icon-hover.svg');
+        content: url('/angular-projects/dabubble/assets/img/plus-icon-hover.svg');
     }
 }
 
@@ -345,7 +343,7 @@ mat-drawer-container {
     cursor: pointer;
 
     &:hover {
-        content: url('/assets/img/smiley-icon-hover.svg');
+        content: url('/angular-projects/dabubble/assets/img/smiley-icon-hover.svg');
     }
 }
 
@@ -353,7 +351,7 @@ mat-drawer-container {
     cursor: pointer;
 
     &:hover {
-        content: url('/assets/img/email-icon-hover.svg');
+        content: url('/angular-projects/dabubble/assets/img/email-icon-hover.svg');
     }
 }
 
@@ -364,11 +362,6 @@ mat-drawer-container {
 .transition225 {
     transition: all 225ms ease-in-out;
 }
-
-// .addPeopleDialogMobileStyle {
-//     width: 100%;
-//     height: 360px;
-// }
 
 .redC {
     color: red;
@@ -468,20 +461,6 @@ mat-drawer-container {
         height: auto;
     }
 }
-
-// Warum geändert?
-// .linkedUserName {
-//     cursor: pointer;
-//     background-color: #1c1f5f;
-//     color: white;
-//     padding: 2px 8px;
-
-//     &:hover {
-//         background-color: rgba(68, 77, 242, 0.14);
-//         border-radius: 20px;
-//         padding: 2px 8px;
-//     }
-// }
 
 .linkedUserName {
     cursor: pointer;

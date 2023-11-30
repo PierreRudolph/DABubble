@@ -65,11 +65,11 @@
         }
 
         .open-sidenav {
-            content: url("/assets/icons/open-sidenav-hover.svg");
+            content: url("/angular-projects/dabubble/assets/icons/open-sidenav-hover.svg");
         }
 
         .close-sidenav {
-            content: url("/assets/icons/close-sidenav-hover.svg");
+            content: url("/angular-projects/dabubble/assets/icons/close-sidenav-hover.svg");
         }
     }
 }
@@ -103,11 +103,11 @@
     cursor: pointer;
 
     &:hover {
-        content: url('/assets/icons/edit-pencil-square-hover.svg');
+        content: url('/angular-projects/dabubble/assets/icons/edit-pencil-square-hover.svg');
     }
 
     &:active {
-        content: url('/assets/icons/edit-pencil-square-click.svg');
+        content: url('/angular-projects/dabubble/assets/icons/edit-pencil-square-click.svg');
     }
 }
 
@@ -147,7 +147,7 @@
 
     &:hover {
         .arrow-drop-down {
-            content: url('/assets/icons/arrow-drop-down-hover.svg');
+            content: url('/angular-projects/dabubble/assets/icons/arrow-drop-down-hover.svg');
         }
 
         .panel-headline {
@@ -156,11 +156,11 @@
         }
 
         .workspaces-icon {
-            content: url('/assets/icons/workspaces-hover.svg');
+            content: url('/angular-projects/dabubble/assets/icons/workspaces-hover.svg');
         }
 
         .account-icon {
-            content: url('/assets/icons/account-circle-hover.svg');
+            content: url('/angular-projects/dabubble/assets/icons/account-circle-hover.svg');
         }
     }
 }
@@ -196,11 +196,11 @@
     z-index: 1;
 
     &:hover {
-        content: url('/assets/icons/add-hover.svg');
+        content: url('/angular-projects/dabubble/assets/icons/add-hover.svg');
     }
 
     &:active {
-        content: url('/assets/icons/add.svg');
+        content: url('/angular-projects/dabubble/assets/icons/add.svg');
     }
 }
 
@@ -229,7 +229,7 @@
         background-color: #eceefe;
 
         img {
-            content: url('/assets/icons/tag-hover.svg');
+            content: url('/angular-projects/dabubble/assets/icons/tag-hover.svg');
         }
 
     }
@@ -242,7 +242,7 @@
         }
 
         img {
-            content: url('/assets/icons/tag-click.svg');
+            content: url('/angular-projects/dabubble/assets/icons/tag-click.svg');
         }
     }
 }
@@ -253,7 +253,7 @@
     font-weight: 500;
 
     img {
-        content: url('/assets/icons/tag-hover.svg');
+        content: url('/angular-projects/dabubble/assets/icons/tag-hover.svg');
     }
 }
 
@@ -272,7 +272,7 @@
 
     &:hover {
         img {
-            content: url('/assets/icons/add-circle-hover.svg');
+            content: url('/angular-projects/dabubble/assets/icons/add-circle-hover.svg');
         }
 
         span {
@@ -282,7 +282,7 @@
 
     &:active {
         img {
-            content: url('/assets/icons/add-circle-click.svg');
+            content: url('/angular-projects/dabubble/assets/icons/add-circle-click.svg');
         }
 
         span {
@@ -458,10 +458,10 @@
 
     .add-icon {
         top: 10px;
-        content: url('/assets/icons/add-mobile.svg');
+        content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
 
         &:hover {
-            content: url('/assets/icons/add-mobile.svg');
+            content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
         }
     }
 
@@ -478,10 +478,6 @@
         display: none;
     }
 
-    //     .scrollableContactDiv {
-    //         //max-height: calc(100vh - 367px);
-    //         height: 100%;
-    //     }
 }
 
 @media (max-width:400px) {

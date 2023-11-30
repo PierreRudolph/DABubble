@@ -124,24 +124,6 @@
     }
 }
 
-// .logoContainerStatic {
-//     position: absolute;
-//     display: flex;
-//     align-items: center;
-//     left: calc(50% - 112px);
-//     top: 92px;
-//     width: 224px;
-//     justify-content: flex-start;
-//     z-index: 1;
-
-//     div {
-//         display: flex;
-//         align-items: center;
-//         z-index: 1;
-//         padding: 20px;
-//     }
-// }
-
 .logoContainer {
     position: absolute;
     display: flex;
@@ -163,7 +145,7 @@
         padding: 20px;
     }
 
-  
+
 
     .logoContainerStatic {
         top: 60px;
@@ -204,6 +186,7 @@
 
     .logoContainer {
         align-items: center;
+
         img {
             height: 55px;
         }

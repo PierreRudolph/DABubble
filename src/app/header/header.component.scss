@@ -59,7 +59,7 @@
 
     &:hover {
         .open-sidenav {
-            content: url("/assets/icons/close-sidenav-hover.svg");
+            content: url("/angular-projects/dabubble/assets/icons/close-sidenav-hover.svg");
         }
     }
 }
@@ -94,7 +94,7 @@
 
     &:focus-within {
         img {
-            content: url('/assets/icons/search-focus.svg');
+            content: url('/angular-projects/dabubble/assets/icons/search-focus.svg');
         }
     }
 }
