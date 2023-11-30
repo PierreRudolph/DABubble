@@ -38,13 +38,10 @@
                         <span>{{talkMess.time}} Uhr am {{getdateTalk(talkMess)}}</span>
                     </div>
                 </div>
-
             </div>
-
             <div class="accordion-outer-div">
                 <img (click)="openCreateChannelDialog()" class="add-icon" src="assets/icons/add.svg">
                 <mat-accordion multi>
-
                     <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding pointer-ev"
                         (opened)="chPanelOpen=true" (closed)="chPanelOpen=false" hideToggle multi>
 
@@ -61,19 +58,11 @@
                             </div>
                         </mat-expansion-panel-header>
                         <div *ngFor="let ch of threadList, index as c">
-                            <!--Hier werden erstellte Channel reingerendert.-->
                             <div class="created-channel" [class.channelActive]="channelActive==c"
                                 (click)="openChannel(c)">
                                 <img src="assets/icons/tag.svg">
-                                <!-- <span>Entwicklerteam </span> -->                              
                                 <span *ngIf="loaded">{{getName(c)}} </span>
                             </div>
-
-                            <!-- <div class="created-channel" (click)="openChannel(1)">
-                            <img src="assets/icons/tag.svg">
-                            <span>Entwicklerteam</span>
-                            <span *ngIf="loaded" >{{getName(1)}} </span>
-                        </div> -->
                         </div>
                         <div class="add-ch-div" (click)="openCreateChannelDialog()">
                             <img class="add-circle" src="assets/icons/add-circle.svg">
@@ -113,15 +102,6 @@
                                 </div>
                                 <span (click)="openTalk(u)">{{u.name}}</span>
                             </div>
-
-                            <!-- <div *ngFor="let u of userList" class="contact-div">
-                                <div (click)="openTalk(u)">
-                                    <img src="{{u.iconPath}}">
-                                    <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
-                                </div>
-                                <span (click)="openTalk(u)">{{u.name}}</span>
-                            </div> -->
-
                         </div>
                     </mat-expansion-panel>
                 </mat-accordion>
@@ -130,10 +110,11 @@
     </mat-drawer-container>
 </div>
 <div class="example-sidenav-content sidenav-content">
-    <img class="open-sidenav" *ngIf="sideMenuHidden" src="assets/icons/open-sidenav.svg">
-    <img class="close-sidenav" *ngIf="!sideMenuHidden" src="assets/icons/close-sidenav.svg">
-    <span *ngIf="!sideMenuHidden">Workspace-Menü schließen</span>
-    <span *ngIf="sideMenuHidden">Workspace-Menü öffnen</span>
+
     <button type="button" mat-button (click)="openCloseSideMenu()">
+        <img class="open-sidenav" *ngIf="sideMenuHidden" src="assets/icons/open-sidenav.svg">
+        <img class="close-sidenav" *ngIf="!sideMenuHidden" src="assets/icons/close-sidenav.svg">
+        <span *ngIf="!sideMenuHidden">Workspace-Menü schließen</span>
+        <span *ngIf="sideMenuHidden">Workspace-Menü öffnen</span>
     </button>
 </div>
