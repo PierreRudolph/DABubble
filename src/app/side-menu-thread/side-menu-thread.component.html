@@ -1,5 +1,5 @@
 <div #sideMenuThreadDiv class="threadOuterDiv mobileDNone">
-    <mat-drawer-container class="example-container mat-drawer-div" [class.margin-left]="this.drawer.opened==true">
+    <mat-drawer-container class="example-container mat-drawer-div" [class.margin-left]="this.drawer.opened==true" (click)="noEmoji()">
         <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end">
             <div class="sidenav-header">
                 <div>
@@ -46,7 +46,7 @@
                     <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
                         <div class="add-reaction flexMiddleX posAbs"
                             [class.add-reaction-right]="fromLoggedInUser(answ)">
-                            <img (click)="toggleEmojisUpperDialog(aIndex)" class="changeFace"
+                            <img (click)="toggleEmojisUpperDialog($event,aIndex)" class="changeFace"
                                 src="assets/icons/add-reaction.svg">
                             <emoji-mart class="emojiDivUpper" [class.emojiDivUpperRight]="fromLoggedInUser(answ)"
                                 *ngIf="showEmojiUpper(aIndex)" title="Pick your emoji…"
@@ -91,7 +91,7 @@
                                 <div style="position:relative">
                                     <div style="position:relative"> <textarea class="textAreaDirekt"
                                             [(ngModel)]="textThreadEdit">{{answ.message}}  </textarea>
-                                        <img (click)="toggleEmojisDialogEdit(aIndex)" class="smileEdit"
+                                        <img (click)="toggleEmojisDialogEdit($event,aIndex)" class="smileEdit"
                                             src="assets/img/smiley-icon.svg">
                                     </div>
                                     <emoji-mart class="emoji-div-Edit" *ngIf="showSmile(aIndex)"
@@ -107,41 +107,7 @@
 
 
                             <diV class="reactions">
-                                <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
-
-                                    <!-- <div class="reactions-tooltip">
-                                        <div class="reactIconInTooltipDiv">
-                                            <div *ngFor="let s of getAnswerData(aIndex, 'smile'); index as sIndex"
-                                                class="reactIconInTooltip">
-                                                {{s.icon}}
-                                                {{s.users.name}}
-                                            </div>
-
-                                        </div>                                     
-
-                                        <div class="reactions-username">
-                                         
-                                            <span>{{getAnswerData(aIndex,'name')}}</span>
-                                            <span
-                                                *ngIf="checkIfActualUserAddSmiley(aIndex)&&getSmileyCountOfAnswer(aIndex)==0">und
-                                            </span>
-                                            <span *ngIf="checkIfActualUserAddSmiley(aIndex)">Du</span>
-                                            <span
-                                                *ngIf="checkIfActualUserAddSmiley(aIndex)&&getSmileyCountOfAnswer(aIndex)>0 ">
-                                                und
-                                            </span>
-                                            <span
-                                                *ngIf="getSmileyCountOfAnswer(aIndex)>0&&checkIfActualUserAddSmiley(aIndex)">{{getSmileyCountOfAnswer(aIndex)}}
-                                                weitere</span>
-                                        </div>
-                                        <span
-                                            *ngIf="getSmileyCountOfAnswer(aIndex)>0||checkIfActualUserAddSmiley(aIndex)">haben
-                                            reagiert</span>
-                                        <span
-                                            *ngIf="getSmileyCountOfAnswer(aIndex)==0 &&!checkIfActualUserAddSmiley(aIndex)">hat
-                                            reagiert</span>
-                                    
-                                    </div> -->
+                                <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">                                   
 
                                     <div class="reactIconsDiv">
 
@@ -168,7 +134,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <img (click)="toggleEmojisLowerDialog(aIndex)" class="add-reaction-icon"
+                                <img (click)="toggleEmojisLowerDialog($event,aIndex)" class="add-reaction-icon"
                                     src="assets/icons/add-reaction.svg">
                                 <emoji-mart class="emojiDivUpper emojiDivLower" *ngIf="showEmojiLower(aIndex)"
                                     title="Pick your emoji…" (emojiClick)="saveEmoji($event)"></emoji-mart>                        
@@ -193,7 +159,7 @@
                         <input type="file" id="imgthread" style="display:none;" (change)="onSelection($event)">
                         <label for="imgthread"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
                         <div style="width:2px;background-color: #ADB0D9 ;"></div>
-                        <img class="textAreaIconSmiley" (click)="toggleEmojisDialogTA()"
+                        <img class="textAreaIconSmiley" (click)="toggleEmojisDialogTA($event)"
                             src="assets/img/smiley-icon.svg">
                         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
                     </div>

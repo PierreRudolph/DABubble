@@ -19,7 +19,7 @@
     </div>
 </div>
 <div class="channel-body" id="channelBody"
-    [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])">
+    [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])"  (click)="noEmoji()">
     <div class="message-div" *ngFor="let com of this.threadList[number].communikation, index as i ">
         <div class="dateIcon" *ngIf="!showBegin(com)">
             <div class="sendDate posAbs flexMiddleX fs18 nunito wei400">
@@ -38,7 +38,7 @@
                             <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
                                 (click)="saveEmojiCom(i,j,haken.innerText)">
                             <div style="display:none" #haken>✅</div>
-                            <img class="addReaction" (click)="toggleEmojisThread(i,j)"
+                            <img class="addReaction" (click)="toggleEmojisThread($event,i,j)"
                                 src="assets/icons/add-reaction.svg">
                             <span class="popUpIcons pad0" (click)="saveEmojiCom(i,j,raisedHands.innerText)"
                                 #raisedHands>🙌</span>
@@ -102,7 +102,7 @@
                                 <div style="position:relative">
                                     <textarea class="textAreaDirekt fs18 nunito wei400"
                                         [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                                    <img (click)="toggleEmojisDialogEdit(i,j)" class="smileEdit posAbs"
+                                    <img (click)="toggleEmojisDialogEdit($event,i,j)" class="smileEdit posAbs"
                                         src="assets/img/smiley-icon.svg">
                                 </div>
                                 <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
@@ -137,7 +137,7 @@
                             </div>
 ​
                         </div>
-                        <img class="add-reaction-icon" (click)="toggleEmojisThread(i,j)"
+                        <img class="add-reaction-icon" (click)="toggleEmojisThread($event,i,j)"
                             src="assets/icons/add-reaction.svg">
                         <emoji-mart class="emojiDiv posAbs" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
                             (emojiClick)="saveEmojiComment($event)"></emoji-mart>
@@ -168,7 +168,7 @@
         <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
         <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
-        <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
+        <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
     </div>
     <emoji-mart class="emoji-div posAbs" *ngIf="showEmojis" title="Pick your emoji…"

@@ -50,7 +50,7 @@ export class PrivateMessageComponent {
   public messageInformation: any[] = [];
   public addresses = false;
   private mA;
-  private upload:any;
+  private upload: any;
 
 
   // @Output() newItemEventUserList = new EventEmitter<any>();
@@ -61,11 +61,11 @@ export class PrivateMessageComponent {
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
-  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {  
-  
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
+
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
-      this.upload =(document.getElementById("imgPrivate") as HTMLInputElement | null); 
+      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
       // this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
     }, 1500);
   }
@@ -97,14 +97,14 @@ export class PrivateMessageComponent {
    * 
    * @param m Contains all the data of the current message.
    */
-  saveEdit(m: any,i:number,mIndex) {   
+  saveEdit(m: any, i: number, mIndex) {
     m.edit = false;
-    if( this.textEdit=="" && m.url.link==""){
+    if (this.textEdit == "" && m.url.link == "") {
       this.deleteMessage(i, mIndex);
       return;
     }
     m.message = this.textEdit;
-    m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.textEdit); 
+    m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.textEdit);
     this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
@@ -167,7 +167,7 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   saveMessage() {
-    if(this.text=="" && this.dataUpload.link==""){return;}
+    if (this.text == "" && this.dataUpload.link == "") { return; }
     let mes = this.createMessageFromText(this.text);
     if (!this.exist) {
       this.startTalk(mes);
@@ -345,11 +345,11 @@ export class PrivateMessageComponent {
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     if (this.showEmojis) {
       this.text += emoji;
-      this.toggleEmojisDialog();
+      this.showEmojis = !this.showEmojis;
     }
     if (this.showEmojisEdit) {
       this.textEdit += emoji;
-      this.toggleEmojisDialogEdit()
+      this.showEmojisEdit = !this.showEmojisEdit;
     }
   }
 
@@ -407,15 +407,18 @@ export class PrivateMessageComponent {
     return this.showEmojisComment && (index == this.emojiMessageIndex) && (i == this.communikationIndex);
   }
 
-  toggleEmojisDialog() {
+  toggleEmojisDialog(event: any) {
+    event.stopPropagation();
     this.showEmojis = !this.showEmojis;
   }
 
-  toggleEmojisDialogEdit() {
+  toggleEmojisDialogEdit(event: any) {
+    event.stopPropagation();
     this.showEmojisEdit = !this.showEmojisEdit;
   }
 
-  toggleEmojisDialogComment(i: number, mIndex: number) {
+  toggleEmojisDialogComment(event: any, i: number, mIndex: number) {
+    event.stopPropagation();
     this.showEmojisComment = !this.showEmojisComment;
     this.communikationIndex = i;
     this.emojiMessageIndex = mIndex;
@@ -449,7 +452,7 @@ export class PrivateMessageComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (user) {
         this.callOpenUser.emit(user);
-      
+
       }
     });
   }
@@ -458,9 +461,9 @@ export class PrivateMessageComponent {
  * Saves the uploaded portrait.
  * @param event Uploaded file
  */
-  async onSelect(event: any) {           
+  async onSelect(event: any) {
     await this.chatHelper.onSelect(event, this.dataUpload);
-    this.upload.value="";
+    this.upload.value = "";
   }
 
   showBlendin() {
@@ -488,20 +491,27 @@ export class PrivateMessageComponent {
     this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
   }
 
-  deleteUp(e:any,i:number,mIndex:number){
+  deleteUp(e: any, i: number, mIndex: number) {
     e.preventDefault();
-    if (this.currentTalkData.communikation[i].messages[mIndex].message!="") {
-      this.currentTalkData.communikation[i].messages[mIndex].url={"link":"","title":""};
-    }else{
-      this. deleteMessage(i,mIndex);
+    if (this.currentTalkData.communikation[i].messages[mIndex].message != "") {
+      this.currentTalkData.communikation[i].messages[mIndex].url = { "link": "", "title": "" };
+    } else {
+      this.deleteMessage(i, mIndex);
     }
 
     this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
   }
 
-  
+  noEmoji() {
+    if (this.showEmojis)
+      this.showEmojis = false;
+    if (this.showEmojisComment)
+      this.showEmojisComment = false;
+    if (this.showEmojisEdit)
+      this.showEmojisEdit = false;
+  }
 
- 
+
 
 }
 

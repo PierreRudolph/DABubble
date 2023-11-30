@@ -183,7 +183,8 @@ export class ChannelWindowComponent {
     this.saveEmojiCommentHelper(e);
   }
 
-  toggleEmojisDialog() {
+  toggleEmojisDialog(event: any) {
+    event.stopPropagation();
     this.showEmojis = !this.showEmojis;
   }
 
@@ -276,13 +277,24 @@ export class ChannelWindowComponent {
    * @param cIndex Communication-Index
    * @param tIndex ThreadIndex
    */
-  toggleEmojisThread(cIndex: number, tIndex: number) {
+  toggleEmojisThread(event: any, cIndex: number, tIndex: number) {
+    event.stopPropagation();
     this.showEmojisTread = !this.showEmojisTread;
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
   }
   isThreadEmojiShown(cIndex: number, tIndex: number) {
     return ((this.showEmojisTread) && (this.threadIndex == tIndex) && (this.commIndex == cIndex));
+  }
+
+  noEmoji() {
+    console.log("this.showEmojisTread");
+    if (this.showEmojisTread)
+      this.showEmojisTread = false;
+    if (this.showEmojis)
+      this.showEmojis = false;
+    if (this.smileEdit)
+      this.smileEdit = false;
   }
 
   /**
@@ -378,7 +390,8 @@ export class ChannelWindowComponent {
    * @param cIndex  Communication-Index
    * @param tIndex  ThreadIndex 
    */
-  toggleEmojisDialogEdit(cIndex: number, tIndex: number) {
+  toggleEmojisDialogEdit(event: any, cIndex: number, tIndex: number) {
+    event.stopPropagation();
     this.threadIndex = tIndex;
     this.commIndex = cIndex;
     this.smileEdit = !this.smileEdit;
@@ -391,7 +404,7 @@ export class ChannelWindowComponent {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     this.textThread += emoji;
-    this.toggleEmojisDialog();
+    this.showEmojis = !this.showEmojis;
   }
 
   /** * 

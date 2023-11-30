@@ -51,17 +51,17 @@ export class SideMenuThreadComponent {
   @ViewChild('drawer')
   drawer!: MatDrawer;
   private upload: any;
-  private tA:any;
+  private tA: any;
   // openEditDialog: boolean;
   // textEdit: any;
 
-  constructor(public dialog: MatDialog) {   
-  
-    setTimeout(() => {  
-      this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);  
+  constructor(public dialog: MatDialog) {
+
+    setTimeout(() => {
+      this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);
       this.tA = (document.getElementById("threadWindow") as HTMLInputElement | null);
       if (this.tA) { this.tA.scrollTo({ top: this.tA.scrollHeight, behavior: 'smooth' }); }
-    },1000);
+    }, 1000);
   }
 
   closeThread() {
@@ -177,20 +177,21 @@ export class SideMenuThreadComponent {
   /**
    * Saves the answer
    */
-  saveAnswer() {  
-    if (this.textThreadAnswer== "" && this.dataUploadThread.link == "") { console.log("return"); return; }
+  saveAnswer() {
+    if (this.textThreadAnswer == "" && this.dataUploadThread.link == "") { console.log("return"); return; }
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
     let threadId = this.threadList[n].channel.idDB;
     let answ = this.makeAnswer();
-    this.threadList[n].communikation[i].threads[j].answer.push(answ);  
+    this.threadList[n].communikation[i].threads[j].answer.push(answ);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
     this.textThreadAnswer = "";
     this.editA = false;
   }
 
-  toggleEmojisDialogEdit(aIndex: number) {
+  toggleEmojisDialogEdit(event:any,aIndex: number) {
+    event.stopPropagation();
     this.editAIndex = aIndex;
     this.smileEdit = !this.smileEdit;
   }
@@ -222,7 +223,7 @@ export class SideMenuThreadComponent {
     if (this.textThreadEdit == "" && this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].url.link == "") {
       this.deleteMessage(this.editAIndex);
     } else {
-      this.chathelper.updateDB( this.threadList[n].channel.idDB, 'thread', { "communikation": this.threadList[n].communikation });
+      this.chathelper.updateDB(this.threadList[n].channel.idDB, 'thread', { "communikation": this.threadList[n].communikation });
     }
   }
 
@@ -293,23 +294,20 @@ export class SideMenuThreadComponent {
     }
     this.setAnswerData(this.answerIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
-    // if (this.showEmojisUpper) {
-    //   this.toggleEmojisUpperDialog(this.answerIndex);
-    // } else if (this.showEmojisLower) {
-    //   this.toggleEmojisLowerDialog
-    // } else { }
     this.showEmojisUpper = false;
     this.showEmojisLower = false;
 
 
   }
 
-  toggleEmojisUpperDialog(aIndex: number) {
+  toggleEmojisUpperDialog(event: any, aIndex: number) {
+    event.stopPropagation();
     this.showEmojisUpper = !this.showEmojisUpper;
     this.answerIndex = aIndex;
   }
 
-  toggleEmojisLowerDialog(aIndex: number) {
+  toggleEmojisLowerDialog(event: any, aIndex: number) {
+    event.stopPropagation();
     this.showEmojisLower = !this.showEmojisLower;
     this.answerIndex = aIndex;
   }
@@ -317,8 +315,8 @@ export class SideMenuThreadComponent {
   /**
    * blends in or out the emoji popup vor the textarea.
    */
-  toggleEmojisDialogTA() {
-
+  toggleEmojisDialogTA(event: any) {
+    event.stopPropagation();
     this.showEmojisTA = !this.showEmojisTA;
   }
 
@@ -497,6 +495,17 @@ export class SideMenuThreadComponent {
       this.deleteMessage(aIndex);
     }
     this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
+  }
+
+  noEmoji() {
+    if (this.showEmojisLower)
+      this.showEmojisLower = false;
+    if (this.showEmojisUpper)
+      this.showEmojisUpper = false;
+    if (this.showEmojisTA)
+      this.showEmojisTA = false;
+    if(this.smileEdit)
+    this.smileEdit=false;
   }
 
 }
