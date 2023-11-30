@@ -502,7 +502,7 @@
     }
 }
 
-@media (max-height:930px) {
+@media (max-height:930px) and (max-width:830px) {
     .logo-outer-div {
         animation-name: super-mobile-fade-position;
     }
@@ -514,5 +514,12 @@
     .loginHeaderbottom {
         bottom: 15px;
         gap: 10px;
+    }
+}
+
+@media (max-height:930px) and (min-width:831px) {
+    .impData {
+        width: 940px;
+        left: calc(50% - 457px);
     }
 }
