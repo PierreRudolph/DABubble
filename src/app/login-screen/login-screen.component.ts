@@ -45,7 +45,7 @@ export class LoginScreenComponent {
           let id = user._delegate.uid;
           localStorage.setItem('uid', id);
           localStorage.removeItem('google');
-          this.route.navigateByUrl("/main");
+          this.route.navigateByUrl("/");
         }
       }, 500);
     }).catch((error) => {
@@ -69,7 +69,7 @@ export class LoginScreenComponent {
         let user = this.authService.getAuthServiceUser();
         let id = user._delegate.uid;
         localStorage.setItem('uid', id);
-        this.route.navigateByUrl("/main");
+        this.route.navigateByUrl("/");
       }, 500)
     })
       .catch((error) => {
@@ -87,7 +87,7 @@ export class LoginScreenComponent {
           let userName = user._delegate.displayName;
           localStorage.setItem('google', userName);
           // this.route.navigateByUrl("/login");
-          this.route.navigateByUrl("/main");
+          this.route.navigateByUrl("/");
         }, 500);
       }).
       catch((err) => {
