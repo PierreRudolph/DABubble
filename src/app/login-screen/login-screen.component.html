@@ -22,14 +22,15 @@
 
    <div class="inputWind">
       <img src="assets/img/mail.svg">
-      <input formControlName="email" placeholder="beispielname@email.com" title="email">
+      <input formControlName="email" placeholder="beispielname@email.com" title="email" id="mail">
       <span *ngIf="registerForm.controls['email'].errors?.['pattern']">*Diese E-Mail-Adresse ist leider ungültig.</span>
    </div>
    <div class="inputWind">
       <img src="assets/img/lock.svg">
-      <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password" title="password">
+      <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password" title="password" id="pw">
       <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Das Passwort muss min. 6 Zeichen lang
          sein.</span>
+         <span style="color:red" *ngIf="errorMes" > Die Logindate sind nicht korrekt!</span>
    </div>
    <a routerLink="/forget" class="pwForget">Passwort vergessen?</a>
 
