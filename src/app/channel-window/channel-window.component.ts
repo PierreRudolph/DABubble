@@ -247,6 +247,7 @@ export class ChannelWindowComponent {
     let today = this.chathelper.parseDate(new Date(Date.now()));
     let threadId = this.threadList[indexCannel].channel.idDB;
     let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList, this.dataUpload)
+    if(question.message=="" && question.url.link==""){console.log("return");return;}
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
       let th = this.threadList[indexCannel].communikation;
@@ -365,6 +366,10 @@ export class ChannelWindowComponent {
     this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
     this.threadList[this.number].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
     let threadIndex = this.threadList[this.number].channel.idDB;
+    if(this.textEdit=="" &&  this.threadList[this.number].communikation[cIndex].threads[tIndex].url.link=="")
+    {
+      this.channelHelper.deleteMessage(this.number,cIndex,tIndex,this.chathelper,this.threadList);
+    }
     this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
   }
 
