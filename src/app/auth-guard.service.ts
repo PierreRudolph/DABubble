@@ -11,13 +11,14 @@ export class AuthGuardService {
   }
 
   canActivate(): boolean {
-    let user = this.authService.getAuthServiceUser();
-    let userid = user ? user._delegate.uid : 'no';
+    // let user = this.authService.getAuthServiceUser();
+    // let userid = user ? user._delegate.uid : 'no';
     let id = localStorage.getItem("uid");
-    let google = localStorage.getItem("google"); 
-    let allow = (id != null && id == userid) || (google != null);   
+    let google = localStorage.getItem("google");   
+    let allow = (id != null) || (google != null);    
     
     if (!allow) {
+      console.log("not allowed");
       if (google != null) localStorage.removeItem('google');
       this.router.navigateByUrl("/login");
     }
