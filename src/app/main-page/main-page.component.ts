@@ -54,6 +54,7 @@ export class MainPageComponent {
   private userUid: string = ""; //uid od the user
   public started = false;
   public screenWidth: any;
+  amountOfCall = 0;
 
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -67,7 +68,7 @@ export class MainPageComponent {
 
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : ""; // "UnGujcG76FeUAhCZHIuQL3RhhZF3"; // muss wieder zu "" geändert werden      
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');     
       this.unsub = this.subUserInfo();
     }, 1000);
 
@@ -192,7 +193,7 @@ export class MainPageComponent {
   *    
   * @param u  User with which you want to chat with.
   */
-  openMessage(u: User) {  
+  openMessage(u: User) {
     this.sideMenu.newMessageMobile = true;
     this.sideMenu.openTalk(u);
     this.sideMenu.newMessage = false;
