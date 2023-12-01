@@ -1,7 +1,7 @@
 <div class="privateMesOuterDiv" (click)="noEmoji()">
   <div class="direktMesHeader">
     <div style="position: relative;width:70px;" *ngIf="talkOpen">
-      <img class="charImgHeader" src="{{otherChatUser.iconPath}}">
+      <img class="charImgHeader" src="{{otherChatUser.iconPath}}" (click)="openDialog(otherChatUser)">
       <div  class="stateDot" [class.greenDot]="otherChatUser.getAktive()"></div>
     </div>
     <div class="nunitoBlack">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
@@ -102,7 +102,7 @@
   <div *ngIf="!exist && talkOpen && !isItMe() " class="nunitoBlack fs20 wei400 info">
     Diese
     Unterhaltung findet nur
-    zwischen <span style="color:#535AF1;">@{{otherChatUser.name}}</span> und dir statt.
+    zwischen  <span style="color:#535AF1;" (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
   </div>
   <div *ngIf="!exist && talkOpen && isItMe() " class="nunitoBlack fs20 wei400 info">
     Diese
