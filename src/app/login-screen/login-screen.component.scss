@@ -159,17 +159,6 @@
     animation: fade-out 300ms ease-out 1900ms forwards;
 }
 
-.loginHeaderbottom {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    bottom: 50px;
-    width: 200px;
-    align-items: center;
-    left: calc(50% - 100px);
-}
-
 @keyframes fade-out {
     from {
         opacity: 1;
@@ -181,6 +170,17 @@
     }
 }
 
+.loginHeaderbottom {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    bottom: 50px;
+    width: 200px;
+    align-items: center;
+    left: calc(50% - 100px);
+}
+
 .logo-outer-div {
     position: absolute;
     left: calc(50% - 345px);
@@ -188,7 +188,7 @@
     display: flex;
     justify-content: center;
     width: 700px;
-    animation: fade-position 1s cubic-bezier(0, 0, 0.565, 1.000)1s both;
+    animation: fade-position 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
 }
 
 @keyframes fade-position {
@@ -220,6 +220,20 @@
     }
 }
 
+@keyframes logo-animation {
+    0% {
+        width: 224px;
+    }
+
+    49% {
+        width: 690px;
+    }
+
+    100% {
+        width: 690px;
+    }
+}
+
 .logoContainerStatic {
     position: absolute;
     display: flex;
@@ -239,23 +253,9 @@
     }
 }
 
-@keyframes logo-animation {
-    0% {
-        width: 224px;
-    }
-
-    49% {
-        width: 690px;
-    }
-
-    100% {
-        width: 690px;
-    }
-}
-
 .shrink-logo {
     height: 184px;
-    animation: shrink-logo-animation 1s cubic-bezier(0, 0, 0.565, 1.000)1s both;
+    animation: shrink-logo-animation 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
 }
 
 @keyframes shrink-logo-animation {
@@ -303,64 +303,6 @@
         left: 105px;
         font-size: 34px;
         width: 165px;
-    }
-}
-
-@keyframes mobile-logo-animation {
-    0% {
-        width: 70px;
-    }
-
-    49% {
-        width: 224px;
-    }
-
-    100% {
-        width: 224px;
-    }
-}
-
-@keyframes mobile-fade-position {
-    50% {
-        left: calc(50% - 150px);
-        top: calc(50% - 45px);
-    }
-
-    100% {
-        left: calc(50% - 150px);
-        top: 100px;
-    }
-}
-
-@keyframes super-mobile-fade-position {
-    50% {
-        left: calc(50% - 150px);
-        top: calc(50% - 45px);
-    }
-
-    100% {
-        left: calc(50% - 150px);
-        top: 15px;
-    }
-}
-
-@keyframes mobile-logo-name-animation {
-    0% {
-        width: 0px;
-    }
-
-    49% {
-        width: 180px;
-    }
-
-    55% {
-        font-size: 35px;
-        width: 180px;
-    }
-
-    100% {
-        font-size: 35px;
-        width: 168px;
     }
 }
 
@@ -414,21 +356,50 @@
     }
 
     .logo-outer-div {
-        left: calc(50% - 150px);
+        //left: calc(50% - 150px);
+        left: calc(50% - 111px);
         top: calc(50% - 45px);
-        width: 300px;
-        animation-name: mobile-fade-position;
+        width: 150px;
+        //animation-name: mobile-fade-position;
+        animation: mobile-fade-position 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
+    }
+
+    @keyframes mobile-fade-position {
+        50% {
+            //left: calc(50% - 111px);
+            top: calc(50% - 45px);
+        }
+
+        100% {
+            //left: calc(50% - 111px);
+            top: 100px;
+        }
     }
 
     .logoContainer {
-        animation-name: mobile-logo-animation;
-        width: 55px;
+        //animation-name: mobile-logo-animation;
+        animation: mobile-logo-animation 600ms ease-out 500ms forwards;
+        width: 70px;
 
         div {
             padding: 0px;
         }
     }
 
+    @keyframes mobile-logo-animation {
+        0% {
+            width: 70px;
+            //width: 55px;
+        }
+
+        49% {
+            width: 224px;
+        }
+
+        100% {
+            width: 224px;
+        }
+    }
 
     .logoContainerStatic {
         gap: 10px;
@@ -448,13 +419,47 @@
         font-size: 35px;
         width: 0px;
         height: 33px;
-        animation-name: mobile-logo-name-animation;
+        //animation-name: mobile-logo-name-animation;
+        animation: mobile-logo-name-animation 1200ms ease-out 800ms forwards;
+    }
+
+    @keyframes mobile-logo-name-animation {
+        0% {
+            width: 0px;
+        }
+
+        49% {
+            width: 180px;
+        }
+
+        55% {
+            font-size: 35px;
+            width: 180px;
+        }
+
+        100% {
+            font-size: 35px;
+            width: 168px;
+        }
     }
 }
 
 @media screen and (max-width:430px) {
     .logo-outer-div {
-        animation-name: super-mobile-fade-position;
+        //animation-name: super-mobile-fade-position;
+        animation: super-mobile-fade-position 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
+    }
+
+    @keyframes super-mobile-fade-position {
+        50% {
+            //left: calc(50% - 150px);
+            top: calc(50% - 45px);
+        }
+
+        100% {
+            //left: calc(50% - 150px);
+            top: 15px;
+        }
     }
 
     .logInDialog {
@@ -505,7 +510,20 @@
 
 @media (max-height:930px) and (max-width:830px) {
     .logo-outer-div {
-        animation-name: super-mobile-fade-position;
+        //animation-name: super-mobile-fade-position;
+        animation: super-mobile-fade-position 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
+    }
+
+    @keyframes super-mobile-fade-position {
+        50% {
+            //left: calc(50% - 150px);
+            top: calc(50% - 45px);
+        }
+
+        100% {
+            //left: calc(50% - 150px);
+            top: 15px;
+        }
     }
 
     .logoContainerStatic {
