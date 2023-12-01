@@ -193,7 +193,9 @@
     cursor: pointer;
     position: absolute;
     right: 0px;
+    top: 5px;
     z-index: 1;
+    transition: all 225ms ease-in-out;
 
     &:hover {
         content: url('/angular-projects/dabubble/assets/icons/add-hover.svg');
@@ -202,6 +204,10 @@
     &:active {
         content: url('/angular-projects/dabubble/assets/icons/add.svg');
     }
+}
+
+.add-icon-panel-open {
+    top: 12px;
 }
 
 .created-channel {

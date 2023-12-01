@@ -40,7 +40,8 @@
                 </div>
             </div>
             <div class="accordion-outer-div">
-                <img (click)="openCreateChannelDialog()" class="add-icon" src="assets/icons/add.svg">
+                <img (click)="openCreateChannelDialog()" class="add-icon" [class.add-icon-panel-open]="chPanelOpen"
+                    src="assets/icons/add.svg">
                 <mat-accordion multi>
                     <mat-expansion-panel class="mat-elevation-z0 remove-mat-expansion-panel-padding pointer-ev"
                         (opened)="chPanelOpen=true" (closed)="chPanelOpen=false" hideToggle multi>
@@ -54,6 +55,8 @@
                                         <img class="workspaces-icon" src="assets/icons/workspaces.svg">
                                         <span class="panel-headline">Channels</span>
                                     </div>
+                                    <!-- <img (click)="openCreateChannelDialog()" class="add-icon"
+                                        src="assets/icons/add.svg"> -->
                                 </div>
                             </div>
                         </mat-expansion-panel-header>
