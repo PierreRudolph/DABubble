@@ -102,7 +102,7 @@
   <div *ngIf="!exist && talkOpen && !isItMe() " class="nunitoBlack fs20 wei400 info">
     Diese
     Unterhaltung findet nur
-    zwischen  <span style="color:#535AF1;" (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
+    zwischen  <span style="color:#535AF1;cursor: pointer;" (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
   </div>
   <div *ngIf="!exist && talkOpen && isItMe() " class="nunitoBlack fs20 wei400 info">
     Diese
