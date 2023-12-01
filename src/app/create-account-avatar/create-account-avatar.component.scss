@@ -260,3 +260,10 @@ h1 {
         gap: 10px;
     }
 }
+
+@media (max-height:930px) and (min-width:831px) {
+    .impData {
+        width: 940px;
+        left: calc(50% - 457px);
+    }
+}

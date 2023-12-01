@@ -8,7 +8,7 @@ import { User } from 'src/moduls/user.class';
 })
 export class CreateAccountMainComponent {
 
-  public fristpage = true ;
+  public fristpage = true;
   public user: User = new User();
 
   construkter() {
@@ -23,4 +23,7 @@ export class CreateAccountMainComponent {
     this.fristpage = false;
   }
 
+  goBack(goBackBol: boolean) {
+    this.fristpage = goBackBol;
+  }
 }

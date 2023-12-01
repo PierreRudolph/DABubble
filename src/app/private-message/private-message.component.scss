@@ -270,9 +270,6 @@
     padding: 0;
 }
 
-
-
-
 .popUpFlip {
     border-radius: 25px;
     border-bottom-right-radius: 0;
@@ -375,6 +372,7 @@
 }
 
 .info {
+    height: 50px;
     padding-left: 45px;
     color: #686868;
     margin-bottom: 30px;
@@ -419,7 +417,7 @@
     }
 
     .mainFieldDirektMessage {
-        height: calc(100% - 460px);
+        height: calc(100% - 480px);
     }
 
     .mainFieldWithoutInfo {
