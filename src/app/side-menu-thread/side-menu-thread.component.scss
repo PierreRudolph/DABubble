@@ -585,6 +585,16 @@
 
 @media (max-width:400px) {
 
+    .sidenav-header {
+        padding: 6px 10px;
+        padding-right: 0px;
+
+    }
+
+    .sidenav-headline {
+        font-size: 18px;
+    }
+
     .editMessageThread {
         left: -20px;
     }

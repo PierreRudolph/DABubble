@@ -549,10 +549,10 @@
         font-size: 20px;
         padding: 6px 10px;
         gap: 10px;
+    }
 
-        img {
-            width: 30px;
-        }
+    .tag-icon {
+        width: 30px;
     }
 
     .added-members {
@@ -614,19 +614,39 @@
 }
 
 @media (max-width:400px) {
+    .channel-header {
+        height: unset;
+        padding: 10px;
+    }
 
     .channel-header-left {
         gap: 5px;
-        padding: 6px 0px;
+        padding: 0px;
 
         span {
             max-width: 190px;
+            font-size: 18px;
         }
+    }
+
+    .tag-icon {
+        width: 22px;
+    }
+
+    .add-people {
+        width: 27px;
     }
 
     .innerContainer {
         padding: 5px;
     }
+
+    .dateIcon {
+        width: calc(100% - 20px);
+        margin-left: 10px;
+    }
+
+
 
     .posPop {
         right: unset;

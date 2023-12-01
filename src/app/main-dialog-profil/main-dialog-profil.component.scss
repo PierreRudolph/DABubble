@@ -234,3 +234,22 @@
         gap: 0px;
     }
 }
+
+@media (max-width:400px) {
+    .profile {
+        top: 7px;
+        right: 7px
+    }
+
+    .avatarImg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .stateDot {
+        width: 9px;
+        height: 9px;
+        right: -1px;
+        bottom: 7px;
+    }
+}

@@ -1,15 +1,16 @@
 <div #sideMenuThreadDiv class="threadOuterDiv mobileDNone">
-    <mat-drawer-container class="example-container mat-drawer-div" [class.margin-left]="this.drawer.opened==true" (click)="noEmoji()">
+    <mat-drawer-container class="example-container mat-drawer-div" [class.margin-left]="this.drawer.opened==true"
+        (click)="noEmoji()">
         <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end">
             <div class="sidenav-header">
-                <div>
+                <div class="flexMiddleX">
                     <span class="sidenav-headline">Thread</span>
                     <img class="tag-icon" src="assets/icons/tag-hover.svg">
                     <span class="thread-name">{{threadList[threadC.chNum].channel.name}}</span>
                 </div>
                 <img (click)="closeThread()" class="close-icon" src="assets/img/close.svg">
             </div>
-            <div class="sidenav-body"  id="threadWindow">
+            <div class="sidenav-body" id="threadWindow">
                 <div class="thread-starter">
                     <div class="message-div">
                         <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;"
@@ -22,18 +23,24 @@
                                     Uhr</span>
                             </div>
                             <diV class="message">
-                                <div *ngIf="showLink(threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link)">
-                                    <a href="{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link}}" target="_blank">
-                                      <img class="linkImg" [src]="threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link ||'http://placehold.it/180'" alt="your image" />
+                                <div
+                                    *ngIf="showLink(threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link)">
+                                    <a href="{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link}}"
+                                        target="_blank">
+                                        <img class="linkImg"
+                                            [src]="threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link ||'http://placehold.it/180'"
+                                            alt="your image" />
                                     </a>
-                                     <div>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.title}}</div>
+                                    <div>
+                                        {{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.title}}
                                     </div>
+                                </div>
                                 <span
                                     *ngFor="let mes of threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].messageSplits"
                                     style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
-                                        class="linkedUserName" >{{mes.text}}</span>
-                                    <span [innerHTML]="mes.text | transformPipe"  *ngIf="!chathelper.isLink(mes)"></span>
+                                        class="linkedUserName">{{mes.text}}</span>
+                                    <span [innerHTML]="mes.text | transformPipe" *ngIf="!chathelper.isLink(mes)"></span>
                                 </span>
                             </diV>
                         </div>
@@ -51,13 +58,14 @@
                             <emoji-mart class="emojiDivUpper" [class.emojiDivUpperRight]="fromLoggedInUser(answ)"
                                 *ngIf="showEmojiUpper(aIndex)" title="Pick your emoji…"
                                 (emojiClick)="saveEmoji($event)"></emoji-mart>
-                               
+
                             <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg"
-                              (click)="openEditPopUp()" >
-                            <div class="editMessageThread" *ngIf="openEditDialog"  >
-                                    <div class="editMessageT"  (click)="openAnswerEditMode(answ,aIndex)">Nachricht bearbeiten</div>
-                                    <div class="editMessageT"  (click)="deleteMessage(aIndex)">Nachricht löschen</div>
-                                </div> 
+                                (click)="openEditPopUp()">
+                            <div class="editMessageThread" *ngIf="openEditDialog">
+                                <div class="editMessageT" (click)="openAnswerEditMode(answ,aIndex)">Nachricht bearbeiten
+                                </div>
+                                <div class="editMessageT" (click)="deleteMessage(aIndex)">Nachricht löschen</div>
+                            </div>
                         </div>
                         <img class="charImg" src="{{getImagePortrait(aIndex)}}">
                         <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
@@ -70,16 +78,19 @@
                                 <!-- messages/links -->
                                 <div *ngIf="showLink(answ.url.link)">
                                     <a class="upload" href="{{answ.url.link}}" target="_blank">
-                                      <img class="linkImg" [src]="answ.url.link ||'http://placehold.it/180'" alt="your image" />
-                                      <img class="deleteUpload" src="assets/img/close.svg" (click)="deleteUp($event,aIndex)" *ngIf="fromLoggedInUser(answ)">
+                                        <img class="linkImg" [src]="answ.url.link ||'http://placehold.it/180'"
+                                            alt="your image" />
+                                        <img class="deleteUpload" src="assets/img/close.svg"
+                                            (click)="deleteUp($event,aIndex)" *ngIf="fromLoggedInUser(answ)">
                                     </a>
-                                     <div>{{answ.url.title}}</div>
-                                    </div>
+                                    <div>{{answ.url.title}}</div>
+                                </div>
                                 <span *ngFor="let mes of answ.messageSplits" style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                         class="linkedUserName"
                                         [class.linkedUserNameRight]="fromLoggedInUser(answ)">{{mes.text}}</span>
-                                    <span  [innerHTML]="mes.text | transformPipe" *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
+                                    <span [innerHTML]="mes.text | transformPipe"
+                                        *ngIf="!chathelper.isLink(mes)">{{mes.text}}</span>
                                 </span>
                             </diV>
 
@@ -107,7 +118,7 @@
 
 
                             <diV class="reactions">
-                                <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">                                   
+                                <div class="reaction-emoji-counter" *ngIf="showSmilie(aIndex)">
 
                                     <div class="reactIconsDiv">
 
@@ -137,7 +148,7 @@
                                 <img (click)="toggleEmojisLowerDialog($event,aIndex)" class="add-reaction-icon"
                                     src="assets/icons/add-reaction.svg">
                                 <emoji-mart class="emojiDivUpper emojiDivLower" *ngIf="showEmojiLower(aIndex)"
-                                    title="Pick your emoji…" (emojiClick)="saveEmoji($event)"></emoji-mart>                        
+                                    title="Pick your emoji…" (emojiClick)="saveEmoji($event)"></emoji-mart>
                             </diV>
                         </div>
                     </div>
@@ -148,7 +159,7 @@
                 <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
                     <img [src]="dataUploadThread.link ||'http://placehold.it/180'" alt="your image" />
                     {{dataUploadThread.title}}
-                    <img src="assets/img/close.svg" class="cross" (click)="closeUpload()" >
+                    <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
                 </div>
                 <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"
                     placeholder="Antworten..." (keydown)="keyDownFunction($event)"></textarea>
@@ -164,8 +175,7 @@
                         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
                     </div>
                     <div class="addressBox posAddr" *ngIf="addresses">
-                        <div class="addressElements" (click)="chooseUser(user)"><img
-                                src="{{user.iconPath}}">
+                        <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}">
                             {{user.name}}</div>
                         <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
                             <img src="{{usL.iconPath}}"> {{usL.name}}

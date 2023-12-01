@@ -97,3 +97,33 @@
         padding: 20px 16px;
     }
 }
+
+@media (max-width:400px) {
+
+    .dialogHeader {
+        margin-bottom: 10px;
+    }
+
+    .addMembers {
+        width: 100%;
+        padding: 9px 0px;
+        gap: 10px;
+    }
+
+    .contactDiv {
+        margin: 8px 0px;
+
+        img {
+            margin-left: 0px;
+            width: 40px;
+            height: 40px;
+        }
+    }
+
+    .stateDot {
+        width: 7px;
+        height: 7px;
+        right: 9px;
+        bottom: 5px;
+    }
+}

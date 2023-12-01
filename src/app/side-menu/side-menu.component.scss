@@ -487,8 +487,33 @@
 }
 
 @media (max-width:400px) {
-    .accordion-outer-div {
-        margin: 25px 0px;
+    .sidenav {
+        padding: 10px;
     }
 
+    .accordion-outer-div {
+        max-height: calc(100vh - 130px);
+        margin: 10px 0px;
+    }
+
+    .created-channel {
+        padding: 5px 0px;
+    }
+
+    .contact-div {
+        padding: 2px 5px;
+    }
+
+    .inputMobile {
+        input {
+            height: 40px;
+            padding: 6px 18px;
+        }
+
+        img {
+            right: 18px;
+            top: 6px;
+            width: 28px;
+        }
+    }
 }

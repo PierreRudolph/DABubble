@@ -204,3 +204,46 @@
 
     }
 }
+
+@media (max-width:400px) {
+    .headerContainer {
+        padding: 10px;
+
+    }
+
+    .headerContainerMobilePadding {
+        padding-left: 3px;
+    }
+
+    .logoContainer {
+        height: unset;
+        gap: 8px;
+
+        img:nth-child(1) {
+            height: 33px;
+        }
+
+        img:nth-child(2) {
+            height: 16px;
+        }
+    }
+
+    .mobileHeader {
+        height: unset;
+        gap: 0px;
+
+        img:nth-child(1) {
+            width: 34px;
+        }
+
+        img:nth-child(2) {
+            width: 36px;
+            height: 36px;
+            margin-right: 9px;
+        }
+
+        span {
+            font-size: 18px;
+        }
+    }
+}
