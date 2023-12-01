@@ -22,6 +22,7 @@ export class CreateAccountAvatarComponent {
   public correct :boolean=true;
   public move: boolean = false;
   public wait: boolean = false;
+  public choosen=false;
   public portraitPath = "assets/img/person.svg";
   public firestore: Firestore = inject(Firestore);
   public idDoc = "";
@@ -35,6 +36,9 @@ export class CreateAccountAvatarComponent {
    * Sign up a new user and saves the authentication uid in the userinformations
    */
   register() {
+    if(!this.choosen){
+      this.user.iconPath="assets/img/personStandard.png";
+    }
     this.wait = true;
     this.authService.signUp(this.user.email, this.user.password).then((res) => {
       this.hide = false;
@@ -73,6 +77,7 @@ export class CreateAccountAvatarComponent {
  * @param Path  Iconpath for the user
  */
   setPortraitPath(path: string) {
+    this.choosen= true;
     this.user.iconPath = path;
     this.portraitPath = path;
     this.padding = false;
