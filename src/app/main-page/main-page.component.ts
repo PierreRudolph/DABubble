@@ -98,8 +98,7 @@ export class MainPageComponent {
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
-          google = false;
-          console.log("run", this.amountOfCall);
+          google = false;       
           this.amountOfCall++;         
            if (!this.idSet) {
             this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());

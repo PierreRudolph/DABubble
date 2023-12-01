@@ -197,7 +197,7 @@ export class PrivateMessageComponent {
    * Initializes a new private talk. Sets the needed information to both users, that take part on the conversation.
    */
   startTalkInitialize() {
-    console.log("initialize talk");
+   
     let talkUser = { //the id of the talk is saved in a List of the user
       "talkID": this.currentTalkId,
       "oUDbID": this.otherChatUser.idDB
@@ -208,9 +208,8 @@ export class PrivateMessageComponent {
     }// other user database id 
     this.user.talkID.push(talkUser);  //user talkliste         
     this.otherChatUser.talkID.push(talkOther);  //other talklist       
-    this.sendCurrentTalkId.emit(this.currentTalkId);
-    console.log("update talkUser" , talkUser);
-    console.log("update talkOther" , talkOther);     
+    this.sendCurrentTalkId.emit(this.currentTalkId);   
+        
     this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
     this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
   }
