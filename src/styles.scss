@@ -283,6 +283,13 @@ mat-drawer-container {
     flex: 1 1 auto;
 }
 
+
+@media (max-width:1400px) {
+    mat-drawer-content {
+        margin-right: auto !important;
+    }
+}
+
 //Angular Material overwriting
 
 //overwrite emoji-mart dark-mode

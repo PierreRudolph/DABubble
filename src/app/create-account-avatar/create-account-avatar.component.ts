@@ -55,7 +55,6 @@ export class CreateAccountAvatarComponent {
         console.log("error", error);
         this.correct = false;
         this.move = true;
-        //this.navigatePage();
         this.emitGoBack()
       })
   }

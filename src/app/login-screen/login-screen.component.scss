@@ -106,8 +106,6 @@
 .or {
     background-color: white;
     position: absolute;
-    // width: 50px;
-    // height: 36px;
     top: calc(50% - 25px);
     left: calc(50% - 50px);
     font-family: Nunito;
@@ -243,7 +241,6 @@
     align-items: center;
     left: calc(50% - 112px);
     top: 70px;
-    //width: 224px;
     justify-content: flex-start;
     z-index: 1;
     gap: 16px;
@@ -341,7 +338,6 @@
     .inputWind {
         width: 358px;
         height: 50px;
-        //padding: 13px 32px 13px 30px;
 
         input {
             width: 100%;
@@ -359,28 +355,23 @@
     }
 
     .logo-outer-div {
-        //left: calc(50% - 150px);
         left: calc(50% - 111px);
         top: calc(50% - 45px);
         width: 150px;
-        //animation-name: mobile-fade-position;
         animation: mobile-fade-position 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
     }
 
     @keyframes mobile-fade-position {
         50% {
-            //left: calc(50% - 111px);
             top: calc(50% - 45px);
         }
 
         100% {
-            //left: calc(50% - 111px);
             top: 100px;
         }
     }
 
     .logoContainer {
-        //animation-name: mobile-logo-animation;
         animation: mobile-logo-animation 600ms ease-out 500ms forwards;
         width: 70px;
 
@@ -392,7 +383,6 @@
     @keyframes mobile-logo-animation {
         0% {
             width: 70px;
-            //width: 55px;
         }
 
         49% {
@@ -422,7 +412,6 @@
         font-size: 35px;
         width: 0px;
         height: 33px;
-        //animation-name: mobile-logo-name-animation;
         animation: mobile-logo-name-animation 1200ms ease-out 800ms forwards;
     }
 
@@ -449,18 +438,15 @@
 
 @media screen and (max-width:430px) {
     .logo-outer-div {
-        //animation-name: super-mobile-fade-position;
         animation: super-mobile-fade-position 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
     }
 
     @keyframes super-mobile-fade-position {
         50% {
-            //left: calc(50% - 150px);
             top: calc(50% - 45px);
         }
 
         100% {
-            //left: calc(50% - 150px);
             top: 15px;
         }
     }
@@ -513,18 +499,15 @@
 
 @media (max-height:930px) and (max-width:830px) {
     .logo-outer-div {
-        //animation-name: super-mobile-fade-position;
         animation: super-mobile-fade-position 1s cubic-bezier(0, 0, 0.565, 1.000) 1s forwards;
     }
 
     @keyframes super-mobile-fade-position {
         50% {
-            //left: calc(50% - 150px);
             top: calc(50% - 45px);
         }
 
         100% {
-            //left: calc(50% - 150px);
             top: 15px;
         }
     }

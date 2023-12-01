@@ -77,7 +77,7 @@ export class SideMenuComponent {
   }
 
 
-  addNewItem(user: User) {   
+  addNewItem(user: User) {
     this.newItemEventUser.emit(user);
     this.newItemEvent.emit(false);
   }
@@ -87,7 +87,7 @@ export class SideMenuComponent {
     this.isOpen.emit(this.newMessage);
   }
 
-  openTalk(u: User) {  
+  openTalk(u: User) {
     this.newMessage = false;
     this.isOpen.emit(false);
     this.addNewItem(u);
@@ -149,7 +149,6 @@ export class SideMenuComponent {
 
   openCloseSideMenu() {
     this.drawer.toggle();
-    //this.setDrawerValues();
     this.toggleDrawerBol()
     this.sideMenuDiv.nativeElement.classList.remove('dNone');
   }

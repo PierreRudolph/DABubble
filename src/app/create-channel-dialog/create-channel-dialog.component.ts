@@ -15,25 +15,19 @@ export class CreateChannelDialogComponent {
   channelName: string = "";
   channelDescription: string = "";
   channelMembers: any = [];
-  // @Input() user: User = new User();
   public user: User = new User();
   public userList = [this.user];
   public dialogReference: MatDialogRef<CreateChannelDialogComponent>;
   public fristPage = true;
   public screenWidth: number;
   isChecked: boolean | undefined;
-  //membersList: any = ['Elias', 'Brigitte', 'Thorben'];
   searchedMembers: Array<string> = [];
-
-  // @Input() channel: Channel = new Channel();
   searchText: any;
 
   public filteredMembers: User[] = [];
   public currentlyAddedUser: User[] = [];
 
-  constructor(public addPeopleDialog: MatDialog) {
-
-  }
+  constructor(public addPeopleDialog: MatDialog) { }
 
   /**
    * Puts the given user in the currentlyAddedUser list
