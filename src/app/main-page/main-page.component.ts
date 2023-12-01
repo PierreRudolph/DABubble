@@ -68,7 +68,7 @@ export class MainPageComponent {
 
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');     
+      this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
       this.unsub = this.subUserInfo();
     }, 1000);
 
@@ -94,12 +94,18 @@ export class MainPageComponent {
       list.forEach(elem => {
         let u = new User(elem.data())
         if (u.uid == this.userUid) {
+          console.log("userTalk Ids", this.user.talkID);
+          console.log("userUid", this.userUid);
+          console.log("uUid", u.uid);
+          console.log("elem data", elem.data());
           this.user = u;
           this.user.status = "aktiv";
-          google = false;         
-          this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON())
+          google = false;
+          setTimeout(()=>{this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());},500);
+          // this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
         }
         else { this.userList.push(u); }
+
       });
       if (google) {
         this.createGoogleUser(this.userUid);
