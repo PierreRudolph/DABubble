@@ -210,7 +210,7 @@ export class PrivateMessageComponent {
     this.otherChatUser.talkID.push(talkOther);  //other talklist       
     this.sendCurrentTalkId.emit(this.currentTalkId);
     console.log("update talkUser" , talkUser);
-    console.log("update talkOther" , talkOther);
+    console.log("update talkOther" , talkOther);     
     this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
     this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
   }
