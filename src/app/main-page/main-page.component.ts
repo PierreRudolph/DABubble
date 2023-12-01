@@ -96,7 +96,7 @@ export class MainPageComponent {
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
-          google = false;
+          google = false;         
           this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON())
         }
         else { this.userList.push(u); }
