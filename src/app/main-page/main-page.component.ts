@@ -55,6 +55,8 @@ export class MainPageComponent {
   public started = false;
   public screenWidth: any;
   amountOfCall = 0;
+  idSet = false;
+
 
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -94,14 +96,16 @@ export class MainPageComponent {
       list.forEach(elem => {
         let u = new User(elem.data())
         if (u.uid == this.userUid) {
-          console.log("userTalk Ids", this.user.talkID);
-          console.log("userUid", this.userUid);
-          console.log("uUid", u.uid);
-          console.log("elem data", elem.data());
           this.user = u;
           this.user.status = "aktiv";
           google = false;
-          setTimeout(() => { this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON()); }, 500);
+          console.log("run", this.amountOfCall);
+          this.amountOfCall++;
+          if (!this.idSet) {
+            this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
+            this.idSet = true;
+          }
+          // setTimeout(()=>{this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());},1000);
           // this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
         }
         else { this.userList.push(u); }
