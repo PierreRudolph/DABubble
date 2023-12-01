@@ -98,12 +98,12 @@ export class MainPageComponent {
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
-          google = false;       
-          this.amountOfCall++;         
+          google = false;      
+          
            if (!this.idSet) {
             this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
             this.idSet = true;
-           }
+          }
           // setTimeout(()=>{this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());},1000);
           // this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
         }
@@ -363,7 +363,7 @@ export class MainPageComponent {
 
   hideMainContentDivOn1400() {
     if (this.screenWidth <= 1400 && this.screenWidth > 830) {
-      this.channelOpen = false;//experimentell
+      this.channelOpen = false;
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
@@ -371,7 +371,7 @@ export class MainPageComponent {
   showMainContentDivOn1400() {
     if (this.screenWidth <= 1400 && this.screenWidth > 830) {
       if (!this.privateOpen) {
-        this.channelOpen = true//experimentell
+        this.channelOpen = true;
       }
       this.mainContentDiv.nativeElement.classList.remove('dNone');
     }
@@ -379,7 +379,7 @@ export class MainPageComponent {
 
   hideMainContentDivOn830() {
     if (this.screenWidth < 830) {
-      this.channelOpen = false;//experimentell
+      this.channelOpen = false;
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
@@ -393,7 +393,6 @@ export class MainPageComponent {
   }
 
   showPrivateMessage() {
-    // return !this.channelOpen && !this.newMessOpen;
     return this.privateOpen && !this.newMessOpen;
   }
 
@@ -417,7 +416,7 @@ export class MainPageComponent {
     this.unsubChannel();
   }
 
-  setMobileThreadView() {//experimentell
+  setMobileThreadView() {
 
     if (this.screenWidth > 1400) {
 

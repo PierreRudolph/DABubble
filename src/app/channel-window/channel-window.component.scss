@@ -52,11 +52,6 @@
     }
 }
 
-// .emojiDiv{
-//     bottom: 26px;
-//   left: 1019px;
-// }
-
 .emojiDiv {
     bottom: -415px;
     left: 92px;
@@ -92,7 +87,6 @@
 
 .posAbsChan {
     position: absolute;
-    // left:0px;
 }
 
 .posAbsChanFlip {
@@ -218,7 +212,7 @@
 }
 
 .channel-body {
-    height: calc(100% - 315px);
+    height: calc(100% - 301px);
     margin-top: 115px;
     overflow-y: auto;
     overflow-x: hidden;
@@ -228,7 +222,7 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    height: calc(100% - 375px);
+    height: calc(100% - 364px);
 }
 
 
@@ -365,9 +359,6 @@
     }
 }
 
-
-
-
 .messageContent {
     display: flex;
     flex-direction: column;
@@ -476,7 +467,6 @@
     span:nth-of-type(1) {
         padding-right: 5px;
     }
-
 }
 
 .textAreaDirekt {
@@ -531,16 +521,9 @@
     }
 }
 
-
-
-
-
-
 @media (max-width:900px) {
     .emojiDiv {
         bottom: -425px;
-        // left:-90px;      
-
     }
 
     .added-members {
@@ -585,7 +568,7 @@
         margin-top: 50px;
     }
 
-    .positionStartChannel{
+    .positionStartChannel {
         height: calc(100% - 285px);
     }
 
@@ -660,12 +643,9 @@
     }
 }
 
-
 @media (max-width: 1000px) and (min-width: 825px) {
     .emoji-div {
         left: 110px !important;
         bottom: 70px !important;
     }
-
-
 }
