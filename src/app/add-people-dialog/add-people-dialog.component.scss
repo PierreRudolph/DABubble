@@ -146,7 +146,21 @@
 
 @media (max-width:830px) {
     .dialog-div {
-        width: 92vw;
-        padding: 30px 16px;
+        width: 60vw;
+        padding: 20px 15px;
+    }
+
+    .dialog-header {
+        img {
+            width: 34px;
+        }
+    }
+
+    .addBtnDiv {
+        margin-top: 15px;
+    }
+
+    .btn {
+        padding: 10px 15px;
     }
 }
