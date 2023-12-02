@@ -202,10 +202,16 @@
         width: unset;
         right: 20px;
         left: 20px;
-        top: calc(100vh - 680px);
+        top: calc(100vh - 630px);
+        .imgProfile{
+            width:150;
+            height:auto;
+        }
     }
 
     .mobileEdit {
-        top: calc(100vh - 735px);
+        top: calc(100vh - 650px);
+        gap:20px;
+        padding:20px 40px 20px 40px;
     }
 }
