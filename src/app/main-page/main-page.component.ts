@@ -138,6 +138,7 @@ export class MainPageComponent {
     return onSnapshot(ref, (list) => {
       list.forEach(elem => {
         if (elem.id == this.currentTalkId) {
+          console.log("current tlak id",this.currentTalkId);
           this.currentTalkData = elem.data();
         }
         //Only talks of the current user are saved

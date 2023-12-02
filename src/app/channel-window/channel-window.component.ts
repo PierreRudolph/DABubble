@@ -303,10 +303,7 @@ export class ChannelWindowComponent {
   openAddPeopleDialog() {
     this.toggleAddPplChanBol();
     this.setPositionOfDialogs();
-    let dialogRef = this.dialog.open(AddPeopleDialogComponent);
-    // dialogRef.componentInstance.channel = this.threadList[this.number];
-    // dialogRef.componentInstance.userList = this.userList;
-    // dialogRef.componentInstance.user = this.user;
+    let dialogRef = this.dialog.open(AddPeopleDialogComponent);    
     this.setAddPplDialogPos(dialogRef);
     this.setAddPplDialogValues(dialogRef);
     this.subscribeAddPplDialog(dialogRef);

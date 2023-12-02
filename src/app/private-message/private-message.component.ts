@@ -276,9 +276,11 @@ export class PrivateMessageComponent {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
     } else {
-      this.currentTalkData = this.chatHepler.createEmptyTalk()
+      this.currentTalkId="";
+      this.sendCurrentTalkId.emit("");
+      this.currentTalkData = this.chatHepler.createEmptyTalk();
       this.currentTalkData.communikation = [];//---------------------------
-
+      console.log("current talk data", this.currentTalkData);
     }
   }
 

@@ -15,6 +15,7 @@ export class UserProfileComponent {
   }
 
   openTalk() {
+    console.log("open talk width",this.user);
     this.ref.close(this.user);
   }
 }
