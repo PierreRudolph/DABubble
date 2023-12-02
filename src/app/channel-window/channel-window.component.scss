@@ -611,6 +611,10 @@
         left: 20px;
         bottom: 152px;
     }
+
+    .positionStartChannel {       
+        height: calc(100% - 275px)!important;
+    }
 }
 
 @media (max-width:400px) {
