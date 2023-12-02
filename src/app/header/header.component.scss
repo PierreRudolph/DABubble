@@ -14,16 +14,29 @@
     padding-right: 25px;
 }
 
+.field {
+    display: flex;
+    flex-direction:
+        column;
+    align-items:
+        flex-start;
+    padding: 20px;
+    cursor: pointer;
+    border-radius: 30px;
+
+    &:hover {
+        background-color: #ECEEFE; //#cbcdec;
+    }
+}
+
 .searchResults {
     position: absolute;
     width: fit-content;
-    min-width: 100px;
+    min-width: 200px;
     height: 500px;
     overflow-y: scroll;
-    left: 200px;
+    left: 350px;
     top: 120px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
     margin-left: 100px;
     background-color: white;
     border-radius: 30px;
@@ -202,6 +215,10 @@
     .logoContainer {
         position: absolute;
 
+    }
+
+    .searchResults {
+        display: none;
     }
 }
 

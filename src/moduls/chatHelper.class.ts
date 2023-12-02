@@ -377,7 +377,7 @@ export class ChatHepler {
     threadList.forEach((ch) => {
       num++;
       ch.communikation.forEach((com) => {
-        cIndex++;
+        cIndex++;        
         com.threads.forEach((th) => {
           tIndex++;
           if (th.message.toLowerCase().includes(searchText)) {
