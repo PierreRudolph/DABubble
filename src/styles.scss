@@ -584,14 +584,43 @@ app-create-account-avatar {
 }
 
 @media (max-width:400px) {
+
+    .mat-body,
+    .mat-body-2,
+    .mat-typography .mat-body,
+    .mat-typography .mat-body-2,
+    .mat-typography {
+        font-size: 10px;
+    }
+
+    .fs32 {
+        font-size: 24px;
+    }
+
+    .fs24 {
+        font-size: 18px;
+    }
+
+    .fs18 {
+        font-size: 15px;
+    }
+
     .remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body {
         padding: 5px 0px;
     }
 
     .sendDate {
-        width: 146px;
-        height: 30px;
-        top: calc(50% - 15px);
-        left: calc(50% - 73px);
+        width: 124px;
+        height: 26px;
+        top: calc(50% - 13px);
+        left: calc(50% - 62px);
+    }
+
+    .reactIcons {
+        padding: 0px 5px;
+
+        div:nth-of-type(1) {
+            min-width: 25px;
+        }
     }
 }

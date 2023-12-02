@@ -637,16 +637,57 @@
         width: 27px;
     }
 
+    .channel-body {
+        height: calc(100% - 191px);
+    }
+
+    .message-div {
+        margin-top: 0px;
+        padding-bottom: 10px;
+    }
+
+    .messageDataPart {
+        padding-top: 15px;
+    }
+
+    .message-inner-div {
+        padding: 0px 10px;
+    }
+
     .innerContainer {
+        gap: 10px;
         padding: 5px;
+    }
+
+    .mes-name-clock {
+        margin-bottom: 5px;
+
+        span:nth-of-type(1) {
+            font-size: 15px;
+        }
+    }
+
+    .message {
+        padding: 10px;
+    }
+
+    .answers-info {
+        margin-top: 5px;
+    }
+
+    .answers-counter {
+        margin-right: 10px;
     }
 
     .dateIcon {
         width: calc(100% - 20px);
+        margin: 15px 0px;
         margin-left: 10px;
     }
 
-
+    .arrow-down {
+        width: 24px;
+    }
 
     .posPop {
         right: unset;
@@ -658,10 +699,66 @@
         height: 30px;
     }
 
+    .reactions {
+        margin-top: 5px;
+    }
+
     .reactIconsDiv {
         max-width: 180px;
     }
+
+    .add-reaction-icon {
+        margin-left: 0px;
+    }
+
+    .popUpMessage {
+        padding: 0px 10px;
+
+
+        img:nth-of-type(1) {
+            width: unset;
+        }
+
+        img {
+            width: 34px;
+        }
+    }
+
+    .textareaDirektMessage {
+        padding: 0px 10px;
+
+    }
+
+    .textAreaDirekt {
+        padding: 15px;
+        height: 130px;
+    }
+
+    .sendArrow {
+        width: 34px;
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .iconContainerTextArea {
+        gap: 0px;
+        left: 15px;
+
+        div {
+            margin: 0px 5px
+        }
+
+        img {
+            width: 34px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+        }
+    }
 }
+
 
 @media (max-width: 1000px) and (min-width: 825px) {
     .emoji-div {
