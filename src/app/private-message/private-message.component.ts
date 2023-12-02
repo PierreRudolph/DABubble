@@ -280,7 +280,7 @@ export class PrivateMessageComponent {
       this.sendCurrentTalkId.emit("");
       this.currentTalkData = this.chatHepler.createEmptyTalk();
       this.currentTalkData.communikation = [];//---------------------------
-      console.log("current talk data", this.currentTalkData);
+     
     }
   }
 
