@@ -20,6 +20,8 @@
 
 .members {
     gap: 13px;
+    overflow-y: scroll;
+    max-height:400px ;
 }
 
 .addMembers {
