@@ -56,7 +56,6 @@
 
 .explanation {
     margin: 20px 0px;
-    font-size: 18px;
     font-family: 'Nunito';
     line-height: 25px;
 }
@@ -254,10 +253,10 @@
     }
 }
 
-.dis{
-    &:disabled{
+.dis {
+    &:disabled {
         background-color: gray;
-        cursor:not-allowed;
+        cursor: not-allowed;
     }
 }
 
@@ -291,4 +290,28 @@
         height: unset;
         gap: 15px;
     }
+}
+
+@media (max-width:400px) {
+    .dialog-div {
+        padding: 15px 10px;
+    }
+
+    .dialog-header {
+        img {
+            width: 34px;
+
+        }
+    }
+
+    .explanation {
+        margin: 10px 0px;
+        font-size: 12px;
+    }
+
+    .input-field {
+        padding: 10px 15px;
+    }
+
+
 }

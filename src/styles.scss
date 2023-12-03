@@ -39,23 +39,23 @@ body {
 }
 
 .fs24 {
-    font-size: 24px;
+    font-size: 24px !important;
 }
 
 .fs32 {
-    font-size: 32px;
+    font-size: 32px !important;
 }
 
 .fs20 {
-    font-size: 20px;
+    font-size: 20px !important;
 }
 
 .fs18 {
-    font-size: 18px;
+    font-size: 18px !important;
 }
 
 .fs14 {
-    font-size: 14px;
+    font-size: 14px !important;
 }
 
 .figtree {
@@ -472,21 +472,29 @@ mat-drawer-container {
 .linkedUserName {
     cursor: pointer;
     color: #444df2;
-    padding: 2px 8px;
+    padding: 2px 5px;
 
     &:hover {
         background-color: rgba(68, 77, 242, 0.14);
         border-radius: 20px;
-        padding: 2px 8px;
+        //padding: 2px 8px;
     }
 }
 
+// .linkedUserNameRight {
+//     color: white;
+
+//     &:hover {
+//         background-color: white;
+//         color: #444df2;
+//     }
+// }
+
 .linkedUserNameRight {
-    color: white;
+    background-color: #eceefe;
 
     &:hover {
         background-color: white;
-        color: #444df2;
     }
 }
 
@@ -523,6 +531,7 @@ mat-drawer-container {
     cursor: pointer;
     display: flex;
     gap: 3px;
+    background-color: white;
 
     div:nth-of-type(1) {
         display: flex;
@@ -594,15 +603,15 @@ app-create-account-avatar {
     }
 
     .fs32 {
-        font-size: 24px;
+        font-size: 24px !important;
     }
 
     .fs24 {
-        font-size: 18px;
+        font-size: 18px !important;
     }
 
     .fs18 {
-        font-size: 15px;
+        font-size: 15px !important;
     }
 
     .remove-mat-expansion-panel-padding .mat-expansion-panel-content .mat-expansion-panel-body {
@@ -622,5 +631,9 @@ app-create-account-avatar {
         div:nth-of-type(1) {
             min-width: 25px;
         }
+    }
+
+    .btn {
+        padding: 5px 10px;
     }
 }

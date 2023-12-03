@@ -13,16 +13,15 @@
             <div class="sidenav-body" id="threadWindow">
                 <div class="thread-starter">
                     <div class="message-div">
-                        <img style="width:70px; height:70px;border-radius: 100%;margin-right:15px;"
-                            src="{{  getIconPathQuestionUser()}}">
+                        <img class="charImg" src="{{  getIconPathQuestionUser()}}">
                         <div class="message-inner-div">
                             <div class="mes-name-clock">
                                 <span
-                                    class="mes-name">{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
+                                    class="mes-name fs18 wei700">{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
                                 <span>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].time}}
                                     Uhr</span>
                             </div>
-                            <diV class="message">
+                            <diV class="message fs18">
                                 <div
                                     *ngIf="showLink(threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link)">
                                     <a href="{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link}}"
@@ -46,7 +45,7 @@
                         </div>
                     </div>
                     <div class="answer-counter-div">
-                        <span class="answer-counter"> {{getAnswerLength()}} Antworten</span>
+                        <span class="answer-counter fs18"> {{getAnswerLength()}} Antworten</span>
                     </div>
                 </div>
                 <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
@@ -70,11 +69,11 @@
                         <img class="charImg" src="{{getImagePortrait(aIndex)}}">
                         <div class="message-inner-div" [class.message-inner-div-right]="fromLoggedInUser(answ)">
                             <div class="mes-name-clock" [class.mes-name-clock-right]="fromLoggedInUser(answ)">
-                                <span class="mes-name"
-                                    [class.mes-name-right]="fromLoggedInUser(answ)">{{getAnswerData(aIndex,'name')}}</span>
+                                <span class="mes-name fs18 wei700" [class.mes-name-right]="
+                                    fromLoggedInUser(answ)">{{getAnswerData(aIndex,'name')}}</span>
                                 <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
                             </div>
-                            <diV class="message" [class.message-right]="fromLoggedInUser(answ)">
+                            <diV class="message fs18" [class.message-right]="fromLoggedInUser(answ)">
                                 <!-- messages/links -->
                                 <div *ngIf="showLink(answ.url.link)">
                                     <a class="upload" href="{{answ.url.link}}" target="_blank">
@@ -100,7 +99,7 @@
                                 style="width:100%; display: flex;flex-direction: column;"
                                 [class.popUpFlipContainer]="getFlip(answ)">
                                 <div style="position:relative">
-                                    <div style="position:relative"> <textarea class="textAreaDirekt"
+                                    <div style="position:relative"> <textarea class="textAreaDirekt fs18"
                                             [(ngModel)]="textThreadEdit">{{answ.message}}  </textarea>
                                         <img (click)="toggleEmojisDialogEdit($event,aIndex)" class="smileEdit"
                                             src="assets/img/smiley-icon.svg">
