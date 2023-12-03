@@ -25,6 +25,9 @@ export class EditChannelComponent {
 
   editChannelName() {
     this.toggleChanNameOnEdit();
+    setTimeout(()=>{     
+      (document.getElementById("nameChannel") as HTMLInputElement | null).value =this.channel.name;
+    },125);
   }
 
   leaveChannel() {
@@ -58,6 +61,9 @@ export class EditChannelComponent {
 
   editChannelDesc() {
     this.toggleChanDescOnEdit();
+    setTimeout(()=>{     
+      (document.getElementById("description") as HTMLInputElement | null).value =this.channel.description;
+    },125);
   }
   /**
    * Saves the changed description

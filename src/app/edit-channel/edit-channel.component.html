@@ -37,7 +37,7 @@
             <span class="fs18 wei600" (click)="saveNewChannelDesc()">Speichern</span>
         </div>
         <input id="description" class="new-chan-desc-input" *ngIf="chanDescOnEdit"
-            placeholder=" {{channel.description}}">
+            placeholder=" {{channel.description}}" >
         <div class="border-div border-div-editing" *ngIf="chanDescOnEdit"></div>
         <span class="fs18 wei700" *ngIf="chanDescOnEdit">Erstellt von</span>
         <span class="channel-creater-name" *ngIf="chanDescOnEdit">{{channel.creator}}</span>

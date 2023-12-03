@@ -108,7 +108,7 @@ export class ChatHepler {
               "time": "",
               "url": { "link": "", "title": "" },
               "message": "",
-              "messageSplits": [{ "type": "", "text":""}],
+              "messageSplits": [{ "type": "", "text": "" }],
               "answer": [
                 {
                   "name": "",
@@ -143,12 +143,17 @@ export class ChatHepler {
     return hour + ":" + min;
   }
 
+  getMonth(month: number): string {
+    switch (month) { case 1: return "Januar";case 2 : return "Februar"; case 3: return "März"; case 4: return "April";case 5: return  "Mai";
+    case 6: return  "Juni"; case 7: return "Juli"; case 8 : return "August"; case 9 : return  "September"; case 10: return "Oktober"; case 11: return  "November" ; default: return "Dezember"}
+  }
+
   parseDate(dt: Date) {
     let day = dt.getDate();
-    let month = dt.getMonth() + 1;
+    let month = this. getMonth( dt.getMonth() + 1);
     let year = dt.getFullYear();
 
-    return day + "." + month + "." + year;
+    return day + "." + month + " " + year;
   }
 
   /**
@@ -244,7 +249,7 @@ export class ChatHepler {
     }
     return messageInformation;
   }
- 
+
   /** gibes back wheather element is type link(contains @ name) */
   isLink(type: any) {
     return type.type == 'l';
@@ -377,7 +382,7 @@ export class ChatHepler {
     threadList.forEach((ch) => {
       num++;
       ch.communikation.forEach((com) => {
-        cIndex++;        
+        cIndex++;
         com.threads.forEach((th) => {
           tIndex++;
           if (th.message.toLowerCase().includes(searchText)) {

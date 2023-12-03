@@ -22,6 +22,10 @@ export class ProfileDialogComponent {
 
   editData() {
     this.edit = !this.edit;
+    setTimeout(()=>{
+      (document.getElementById("nameEdit") as HTMLInputElement | null).value =this.user.name;
+      (document.getElementById("emailEdit") as HTMLInputElement | null).value =this.user.email;
+    },125);
   }
 
   addNewItem(open: boolean) {
