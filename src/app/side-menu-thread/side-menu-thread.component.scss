@@ -193,8 +193,6 @@
 
 .mes-name {
     padding-right: 10px;
-    font-size: 18px;
-    font-weight: 700;
 }
 
 .mes-name-right {
@@ -205,10 +203,9 @@
 .message {
     background-color: #eceefe;
     padding: 13px;
-    font-size: 18px;
     border-radius: 20px;
     border-top-left-radius: 0px;
-    line-height: 26px;
+    //line-height: 26px;
     word-wrap: anywhere;
 }
 
@@ -233,7 +230,6 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: white;
     min-width: 45px;
     transition: all 100ms ease-out;
 
@@ -345,7 +341,6 @@
     min-width: 107px;
     background-color: white;
     color: #b7bade;
-    font-size: 18px;
     padding-left: 20px;
 }
 
@@ -400,7 +395,6 @@
     height: 150px;
     box-sizing: border-box;
     font-family: Nunito;
-    font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
@@ -584,15 +578,48 @@
 }
 
 @media (max-width:400px) {
+    .sidenav {
+        padding: 0px;
+    }
 
     .sidenav-header {
         padding: 6px 10px;
-        padding-right: 0px;
-
+        padding-right: 3px;
     }
 
     .sidenav-headline {
         font-size: 18px;
+    }
+
+    .close-icon {
+        width: 34px;
+    }
+
+    .sidenav-body {
+        height: calc(100% - 194px);
+        margin-top: 52px;
+    }
+
+    .answer-counter-div {
+        margin-right: 31px;
+
+    }
+
+    .answer-counter {
+        bottom: -8px;
+        padding-right: 0px;
+        min-width: 95px;
+        padding-left: 12px;
+    }
+
+    .message-div {
+        padding: 5px 10px;
+        gap: 10px;
+    }
+
+    .changeFace {
+        width: 34px;
+        padding: 0px;
     }
 
     .editMessageThread {
@@ -607,10 +634,47 @@
     .emojiDivUpperRight {
         right: unset;
         left: -20px;
-
     }
 
     .reactIconsDiv {
         max-width: 180px;
+    }
+
+    .textareaDirektMessage {
+        padding: 0px 10px;
+    }
+
+    .textAreaDirekt {
+        padding: 15px;
+        height: 130px;
+    }
+
+    .iconContainerTextArea {
+        gap: 0px;
+        left: 15px;
+
+        div {
+            margin: 0px 5px
+        }
+
+        img {
+            width: 34px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    .menu {
+        width: 34px !important;
+        height: 35px !important;
+    }
+
+    .sendArrow {
+        width: 34px;
+        right: 20px;
+        bottom: 20px;
     }
 }

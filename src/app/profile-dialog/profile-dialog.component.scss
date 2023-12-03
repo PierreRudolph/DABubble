@@ -202,16 +202,34 @@
         width: unset;
         right: 20px;
         left: 20px;
-        top: calc(100vh - 630px);
-        .imgProfile{
-            width:150;
-            height:auto;
+        top: calc(50% - 201px);
+        padding: 25px 20px;
+        gap: 15px;
+
+        .imgProfile {
+            width: 150px;
+            height: auto;
         }
     }
 
     .mobileEdit {
         top: calc(100vh - 650px);
-        gap:20px;
-        padding:20px 40px 20px 40px;
+        gap: 20px;
+        padding: 20px 40px 20px 40px;
+    }
+
+    .state {
+        font-size: 15px;
+    }
+
+    .styleMail {
+        div {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    .userMail {
+        margin-top: 5px;
     }
 }

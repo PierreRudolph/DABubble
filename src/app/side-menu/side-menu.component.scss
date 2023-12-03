@@ -502,6 +502,19 @@
 
     .contact-div {
         padding: 2px 5px;
+        margin: 8px 0px;
+
+        div {
+            img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+
+    .stateDot {
+        right: 14px;
+        bottom: -16px;
     }
 
     .inputMobile {
