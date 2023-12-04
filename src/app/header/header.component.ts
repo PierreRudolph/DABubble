@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
@@ -14,7 +14,7 @@ export class HeaderComponent {
   public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() talkList: any = [this.chathelper.createEmptyTalk()]
-  private screenWidth: number;
+  public screenWidth: any;
   @Input() sideMenuHidden: boolean;
   private searchText: string = "";
   public threadTitleDec: any[] = [];
@@ -31,16 +31,22 @@ export class HeaderComponent {
 
 
   constructor(public router: Router) {
-    this.resizeWindow();
-    window.addEventListener("resize", this.resizeWindow);
+    //window.addEventListener("resize", this.resizeWindow);
+    this.getScreenWidth();
   }
 
+
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screenWidth = window.innerWidth;
+  }
 
   showPop() {
     return this.text != "";
   }
 
-  resizeWindow() {
+  getScreenWidth() {
     this.screenWidth = window.innerWidth;
   }
 
@@ -101,6 +107,7 @@ export class HeaderComponent {
   }
 
   showMobileHeader() {
+    console.log(this.screenWidth)
     return this.screenWidth < 830 && this.sideMenuHidden;
   }
 }

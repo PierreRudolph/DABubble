@@ -1,10 +1,10 @@
 <div class="privateMesOuterDiv" (click)="noEmoji()">
   <div class="direktMesHeader">
-    <div style="position: relative;width:70px;" *ngIf="talkOpen">
+    <div class="charImgDiv flexMiddleX" *ngIf="talkOpen">
       <img class="charImgHeader" src="{{otherChatUser.iconPath}}" (click)="openDialog(otherChatUser)">
-      <div  class="stateDot" [class.greenDot]="otherChatUser.getAktive()"></div>
+      <div class="stateDot" [class.greenDot]="otherChatUser.getAktive()"></div>
     </div>
-    <div class="nunitoBlack">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
+    <div class="nunitoBlack fs24">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
   </div>
 
   <div class="mainFieldDirektMessage" [class.mainFieldWithoutInfo]="exist">
@@ -38,7 +38,7 @@
                   <span *ngFor="let mes of m.messageSplits" style="width:100%">
                     <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)" class="linkedUserName"
                       [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
-                    <span [innerHTML]="mes.text | transformPipe"  *ngIf="!chatHelper.isLink(mes)"></span>
+                    <span [innerHTML]="mes.text | transformPipe" *ngIf="!chatHelper.isLink(mes)"></span>
                   </span>
                 </div>
               </div>
@@ -66,7 +66,7 @@
                 </div>
               </div>
 
-           
+
             </div>
             <div class="popUpMessageContainer" [class.popUpMessageContainerFlip]="getFlip(m)">
               <div class="popUpMessage" [class.flipCorner]="getFlip(m)">
@@ -102,7 +102,8 @@
   <div *ngIf="!exist && talkOpen && !isItMe() " class="nunitoBlack fs20 wei400 info">
     Diese
     Unterhaltung findet nur
-    zwischen  <span style="color:#535AF1;cursor: pointer;" (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
+    zwischen <span style="color:#535AF1;cursor: pointer;"
+      (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
   </div>
   <div *ngIf="!exist && talkOpen && isItMe() " class="nunitoBlack fs20 wei400 info">
     Diese

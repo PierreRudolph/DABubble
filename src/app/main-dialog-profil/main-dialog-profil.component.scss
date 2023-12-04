@@ -55,6 +55,10 @@
     }
 }
 
+.charImgDiv {
+    position: relative;
+    justify-content: center;
+}
 
 .avatarImg {
     border-radius: 50%;
@@ -110,8 +114,8 @@
     border-radius: 100%;
     position: absolute;
     background-color: #ADB0D9;
-    right: 2px;
-    bottom: 15px;
+    right: 0px;
+    bottom: 0px;
     border: 2px white solid;
 }
 

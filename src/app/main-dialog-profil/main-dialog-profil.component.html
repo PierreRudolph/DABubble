@@ -2,7 +2,7 @@
     <div class="profile" (click)="openChoie()" style="cursor: pointer;">
 
         <span class="userName">{{user.name}}</span>
-        <div style="position: relative;">
+        <div class="charImgDiv flexMiddleX">
             <img class="avatarImg" src="{{user.iconPath}}">
             <div [class.greenDot]="user.getAktive()" class="stateDot">
             </div>

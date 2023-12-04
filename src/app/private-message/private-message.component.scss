@@ -25,6 +25,12 @@
     box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.08);
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
+    gap: 15px;
+}
+
+.charImgDiv {
+    position: relative;
+    justify-content: center;
 }
 
 .smileEdit {
@@ -52,8 +58,8 @@
     border-radius: 100%;
     position: absolute;
     background-color: #ADB0D9;
-    right: 20px;
-    bottom: 7px;
+    right: 0px;
+    bottom: 0px;
     border: 2px white solid;
 }
 
@@ -457,7 +463,21 @@
     }
 
     @media (max-width:400px) {
+        .direktMesHeader {
+            height: unset;
+            padding: 10px;
+            gap: 10px;
+        }
 
+        .charImgHeader {
+            width: 30px;
+            height: 30px;
+        }
+
+        .stateDot {
+            width: 6px;
+            height: 6px;
+        }
 
         .editButtonContainer {
             gap: 0;
@@ -480,11 +500,6 @@
             left: -25px;
 
         }
-
-        // .posUpload {
-        //     bottom: 165px;
-        // }
-
 
         .posPop {
             right: unset;
