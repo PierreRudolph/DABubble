@@ -4,14 +4,13 @@
     flex-direction: column;
     align-items: center;
     height: fit-content;
+    top: calc(50% - 312px);
     left: calc(50% - 250px);
-    bottom: calc(50% - 312px);
     display: flex;
     position: absolute;
     padding: 45px 40px 45px 40px;
     box-sizing: border-box;
     border-radius: 30px;
-    border-top-right-radius: 0;
     background-color: white;
     gap: 38px;
 }
@@ -169,13 +168,27 @@
 @media (max-width:535px) {
     .profileDialog {
         width: 400px;
+        top: calc(50% - 224px);
         left: calc(50% - 200px);
+        gap: 20px;
+        padding: 25px 20px;
+    }
+
+    .imgProfile {
+        width: 100px;
+        height: 100px;
+    }
+
+    .writeMessage {
+        height: 40px;
     }
 }
 
 @media (max-width:435px) {
     .profileDialog {
         width: 300px;
+        top: calc(50% - 172px);
         left: calc(50% - 150px);
+        gap: 10px;
     }
 }

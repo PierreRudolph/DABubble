@@ -14,7 +14,7 @@ export class HeaderComponent {
   public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() talkList: any = [this.chathelper.createEmptyTalk()]
-  @Input() screenWidth: any;
+  private screenWidth: number;
   @Input() sideMenuHidden: boolean;
   private searchText: string = "";
   public threadTitleDec: any[] = [];
@@ -31,6 +31,7 @@ export class HeaderComponent {
 
 
   constructor(public router: Router) {
+    this.resizeWindow();
     window.addEventListener("resize", this.resizeWindow);
   }
 
@@ -64,7 +65,7 @@ export class HeaderComponent {
   }
 
 
-  callOpenChan(n: number) {    
+  callOpenChan(n: number) {
     this.callOpenChannel.emit(n);
     this.isOpen.emit(false);
   }
