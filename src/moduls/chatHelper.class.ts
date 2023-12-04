@@ -149,11 +149,13 @@ export class ChatHepler {
   }
 
   parseDate(dt: Date) {
-    let day = dt.getDate();
+    let day = dt.getDay();
+    let dayDate = dt.getDate();
     let month = this. getMonth( dt.getMonth() + 1);
     let year = dt.getFullYear();
+    let wochentag = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag' ];
 
-    return day + "." + month + " " + year;
+    return wochentag[day] + ", "+ dayDate + " " + month + " " + year;
   }
 
   /**

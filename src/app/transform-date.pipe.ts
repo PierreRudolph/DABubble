@@ -13,6 +13,7 @@ export class TransformDatePipe implements PipeTransform {
     if(date == value)    
     return "Heute";
     else return value;
+    return value;
   }
 
 }
