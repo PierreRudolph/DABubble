@@ -443,16 +443,13 @@ export class MainPageComponent {
   }
 
   setMobileThreadView() {
-
     if (this.screenWidth > 1400) {
-
       return true
     } if (this.screenWidth <= 1400 && this.channelOpen) {
       return false
     } else {
       return true;
     }
-
   }
 
 }

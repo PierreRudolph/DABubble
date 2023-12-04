@@ -7,7 +7,8 @@
     <div class="nunitoBlack fs24">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
   </div>
 
-  <div class="mainFieldDirektMessage" [class.mainFieldWithoutInfo]="exist">
+  <div class="mainFieldDirektMessage" [class.mainFieldWithoutInfo]="exist"
+    [class.mainFieldisItMeInfo]="isItMe()&&!exist">
     <div class="messageArea" id="messageArea" *ngIf="talkOpen">
       <div style="margin:30px 0px" *ngFor="let c of this.currentTalkData.communikation,index as i">
 
@@ -88,7 +89,6 @@
 
 
           </div>
-          <!-- edit message part, then -->
 
         </div>
       </div>
@@ -106,7 +106,7 @@
     zwischen <span style="color:#535AF1;cursor: pointer;"
       (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
   </div>
-  <div *ngIf="!exist && talkOpen && isItMe() " class="nunitoBlack fs20 wei400 info">
+  <div *ngIf="!exist && talkOpen && isItMe()" class="nunitoBlack fs20 wei400 info isItMeInfo">
     Diese
     <span style="font-weight: 700">Dieser Raum ist nur für dich da</span>. Mache dir Notizen, liste deine To-dos auf
     oder

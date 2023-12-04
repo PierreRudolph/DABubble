@@ -2,15 +2,15 @@
     height: 100%;
 }
 
-.main-page {
-    display: flex;
-    width: calc(100vw - 40px);
-    height: calc(100vh - 140px);
-    margin-top: 115px;
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 25px;
-}
+// .main-page {
+//     display: flex;
+//     width: calc(100vw - 40px);
+//     height: calc(100vh - 140px);
+//     margin-top: 115px;
+//     margin-left: 20px;
+//     margin-right: 20px;
+//     margin-bottom: 25px;
+// }
 
 
 .direktMesHeader {
@@ -41,14 +41,14 @@
 }
 
 
-.main-content-div {
-    width: 100%;
-    background-color: white;
-    border-radius: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+// .main-content-div {
+//     width: 100%;
+//     background-color: white;
+//     border-radius: 30px;
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: space-between;
+// }
 
 
 
@@ -120,11 +120,15 @@
     display: flex;
     gap: 25px;
     align-items: flex-end;
-    height: calc(100% - 480px);
+    height: calc(100% - 460px);
 }
 
 .mainFieldWithoutInfo {
-    height: calc(100% - 303px);
+    height: calc(100% - 290px);
+}
+
+.mainFieldisItMeInfo {
+    height: calc(100% - 480px);
 }
 
 .sendArrow {
@@ -379,9 +383,12 @@
 
 .info {
     height: 50px;
-    padding-left: 45px;
+    padding: 0px 45px;
     color: #686868;
-    margin-bottom: 30px;
+}
+
+.isItMeInfo {
+    height: 70px;
 }
 
 .charImgInfo {
@@ -416,6 +423,35 @@
     bottom: 165px;
 }
 
+@media (max-width:1330px) {
+    .mainFieldisItMeInfo {
+        height: calc(100% - 510px);
+    }
+
+    .isItMeInfo {
+        height: 100px;
+    }
+}
+
+@media (max-width:1060px) {
+    .mainFieldisItMeInfo {
+        height: calc(100% - 530px);
+    }
+
+    .isItMeInfo {
+        height: 120px;
+    }
+}
+
+@media (max-width:930px) {
+    .mainFieldisItMeInfo {
+        height: calc(100% - 550px);
+    }
+
+    .isItMeInfo {
+        height: 140px;
+    }
+}
 
 @media (max-width:830px) {
     .privateMesOuterDiv {
@@ -423,7 +459,7 @@
     }
 
     .mainFieldDirektMessage {
-        height: calc(100% - 460px);
+        height: calc(100% - 420px);
     }
 
     .mainFieldWithoutInfo {
@@ -444,6 +480,10 @@
         padding: 0px 16px;
     }
 
+    .isItMeInfo {
+        height: 90px;
+    }
+
     .iconContainerTextArea {
         left: 40px;
     }
@@ -455,55 +495,130 @@
     .chatIconButtom {
         padding: 0px 16px;
     }
+}
 
-    @media (max-width:500px) {
-        .editMessage {
-            left: 0px;
+@media (max-width:580px) {
+    .mainFieldisItMeInfo {
+        height: calc(100% - 480px);
+    }
+
+    .isItMeInfo {
+        height: 110px;
+    }
+}
+
+@media (max-width:500px) {
+    .editMessage {
+        left: 0px;
+    }
+}
+
+@media (max-width:440px) {
+    .mainFieldisItMeInfo {
+        height: calc(100% - 490px);
+    }
+
+    .isItMeInfo {
+        height: 120px;
+    }
+}
+
+@media (max-width:400px) {
+    .direktMesHeader {
+        height: unset;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .charImgHeader {
+        width: 30px;
+        height: 30px;
+    }
+
+    .stateDot {
+        width: 6px;
+        height: 6px;
+    }
+
+    .mainFieldDirektMessage {
+        height: calc(100% - 365px);
+    }
+
+    .mainFieldWithoutInfo {
+        height: calc(100% - 190px);
+    }
+
+    .mainFieldisItMeInfo {
+        height: calc(100% - 431px);
+    }
+
+    .textareaDirektMessage {
+        padding: 0px 10px;
+    }
+
+    .textAreaDirekt {
+        padding: 15px;
+        height: 130px;
+    }
+
+    .iconContainerTextArea {
+        gap: 0px;
+        left: 15px;
+
+        div {
+            margin: 0px 5px
+        }
+
+        img {
+            width: 34px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
         }
     }
 
-    @media (max-width:400px) {
-        .direktMesHeader {
-            height: unset;
-            padding: 10px;
-            gap: 10px;
-        }
+    .sendArrow {
+        width: 34px;
+        right: 20px;
+        bottom: 20px;
+    }
 
-        .charImgHeader {
-            width: 30px;
-            height: 30px;
-        }
+    .editButtonContainer {
+        gap: 0;
+    }
 
-        .stateDot {
-            width: 6px;
-            height: 6px;
-        }
+    .emoji-div-Edit {
+        position: absolute;
+        bottom: 50px;
+        left: -25px;
+        z-index: 3;
+    }
 
-        .editButtonContainer {
-            gap: 0;
-        }
+    .emojiDivComment {
+        left: 5px;
+        z-index: 3;
+        top: 60px;
+    }
 
-        .emoji-div-Edit {
-            position: absolute;
-            bottom: 50px;
-            left: -25px;
-            z-index: 3;
-        }
+    .emoji-div {
+        left: -25px;
 
-        .emojiDivComment {
-            left: 5px;
-            z-index: 3;
-            top: 60px;
-        }
+    }
 
-        .emoji-div {
-            left: -25px;
+    .posPop {
+        right: unset;
+        left: -20px;
+    }
+}
 
-        }
+@media (max-width:370px) {
+    .mainFieldisItMeInfo {
+        height: calc(100% - 451px);
+    }
 
-        .posPop {
-            right: unset;
-            left: -20px;
-        }
+    .isItMeInfo {
+        height: 140px;
     }
 }
