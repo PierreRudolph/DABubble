@@ -58,6 +58,7 @@ export class MainPageComponent {
   idSet = false;
 
 
+
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
@@ -67,6 +68,16 @@ export class MainPageComponent {
 
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef) {
     this.currentTalkData.communikation = [];
+
+    const bP830 = window.matchMedia('(max-width: 830px)');
+    bP830.addEventListener('change', (e) => this.layoutChangedCallback(e, 830));
+    const bPMin830 = window.matchMedia('(max-width: 840px)');
+    bPMin830.addEventListener('change', (e) => this.layoutChangedCallback(e, 840));
+    const bP600 = window.matchMedia('(max-width: 600px)');
+    bP600.addEventListener('change', (e) => this.layoutChangedCallback(e, 750));
+    // const bP1400 = window.matchMedia('(min-width: 1400px)');
+    // bP1400.addEventListener('change', (e) => this.layoutChangedCallback(e,1400));
+
 
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
@@ -80,6 +91,12 @@ export class MainPageComponent {
     }, 1500);
     this.getScreenWidth();
   }
+
+  layoutChangedCallback(matches: any, num: number) {
+    console.log("matchs", matches);
+    if (this.showPrivateMessage())
+      this.screenWidth = num - 1;
+  };
 
 
 
@@ -98,9 +115,9 @@ export class MainPageComponent {
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
-          google = false;      
-          
-           if (!this.idSet) {
+          google = false;
+
+          if (!this.idSet) {
             this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
             this.idSet = true;
           }
@@ -137,7 +154,7 @@ export class MainPageComponent {
     this.talkList = [];
     return onSnapshot(ref, (list) => {
       list.forEach(elem => {
-        if (elem.id == this.currentTalkId) {   
+        if (elem.id == this.currentTalkId) {
           this.currentTalkData = elem.data();
         }
         //Only talks of the current user are saved
@@ -354,10 +371,13 @@ export class MainPageComponent {
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
-    this.screenWidth = window.innerWidth;
+   if(!this.showPrivateMessage())  this.screenWidth = window.innerWidth;
   }
 
+
+
   setMobileView() {
+    console.log("screenwidth", this.screenWidth + " " + !(this.screenWidth < 830 && !this.sideMenuHidden));
     return !(this.screenWidth < 830 && !this.sideMenuHidden);
   }
 
