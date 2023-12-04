@@ -22,8 +22,7 @@
     [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])" (click)="noEmoji()">
     <div class="message-div" *ngFor="let com of this.threadList[number].communikation, index as i ">
         <div class="dateIcon" *ngIf="!showBegin(com)">
-            <div class="sendDate posAbs flexMiddleX fs18 nunito wei400">
-                {{this.threadList[number].communikation[i].date}}</div>
+            <div class="sendDate posAbs flexMiddleX fs18 nunito wei400" [innerHTML]="this.threadList[number].communikation[i].date| transformDate"></div>
             <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
         </div>
         <div class="add-reaction posAbs flexMiddleX">
