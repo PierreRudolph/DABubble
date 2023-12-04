@@ -7,7 +7,7 @@ import { SmileHelper } from "./smileHelper.class";
 
 export class ChannelHelper {
 
-  public dialogPosTop: string = '215px';
+  public dialogPosTop: string = '195px';
   public editChanPosLeft: string = '445px';
   public membersDialogPosRight: string = '110px';
   public addMembersDialogPosRight: string = '60px';
@@ -133,18 +133,18 @@ export class ChannelHelper {
    * @param threadList 
    */
   deleteMessage(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]) {
-    console.log("id ist",threadList[number].channel.idDB);
+    console.log("id ist", threadList[number].channel.idDB);
     if (threadList[number].communikation[i].threads.length > 1) {
-        threadList[number].communikation[i].threads.splice(j,1);
+      threadList[number].communikation[i].threads.splice(j, 1);
     }
     else {
       if (threadList[number].communikation.length > 1) {
-        threadList[number].communikation.splice(i,1);
+        threadList[number].communikation.splice(i, 1);
       }
-      else { threadList[number].communikation = [{"date":"","treads":[]}]; }
+      else { threadList[number].communikation = [{ "date": "", "treads": [] }]; }
     }
-    console.log("id ist",threadList[number].channel.idDB);
-    chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation});
+    console.log("id ist", threadList[number].channel.idDB);
+    chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
   }
 
   /**
@@ -155,14 +155,14 @@ export class ChannelHelper {
    * @param chatHelper   
    * @param threadList 
    */
-  deleteUp(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]){
-   
-    if (threadList[number].communikation[i].threads[j].message!="") {
-      threadList[number].communikation[i].threads[j].url={"link":"","title":""};
-    }else{
-      this.deleteMessage(number, i, j, chatHelper,threadList);
+  deleteUp(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]) {
+
+    if (threadList[number].communikation[i].threads[j].message != "") {
+      threadList[number].communikation[i].threads[j].url = { "link": "", "title": "" };
+    } else {
+      this.deleteMessage(number, i, j, chatHelper, threadList);
     }
-     chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation});
+    chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
   }
 
 
