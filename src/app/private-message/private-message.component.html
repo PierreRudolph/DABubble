@@ -13,7 +13,8 @@
       <div style="margin:30px 0px" *ngFor="let c of this.currentTalkData.communikation,index as i">
 
         <div class="dateIcon" *ngIf="c.date!=''">
-          <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs">{{c.date}}</div>
+          <!-- <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs">{{c.date}}</div> -->
+          <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs" [innerHTML]="c.date| transformDate" ></div>
           <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
         </div>
 

@@ -107,7 +107,7 @@ export class HeaderComponent {
   }
 
   showMobileHeader() {
-    console.log(window.innerWidth)
+    // console.log(this.screenWidth)
     return this.screenWidth < 830 && this.sideMenuHidden;
   }
 }

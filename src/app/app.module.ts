@@ -40,6 +40,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import {AngularFireStorageModule} from '@angular/fire/compat/storage';
 import { DatenschutzComponent } from './datenschutz/datenschutz.component';
 import { TransformPipePipe } from './transform-pipe.pipe';
+import { TransformDatePipe } from './transform-date.pipe';
 
 
 @NgModule({
@@ -68,6 +69,7 @@ import { TransformPipePipe } from './transform-pipe.pipe';
     UserProfileComponent,
     DatenschutzComponent,
     TransformPipePipe,
+    TransformDatePipe,
    
   ],
   imports: [

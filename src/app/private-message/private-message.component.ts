@@ -67,6 +67,9 @@ export class PrivateMessageComponent {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
       // this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
+      let date = new Date(Date.now());
+      let day = date.getDay();
+      console.log("day",day);
     }, 1500);
   }
 
