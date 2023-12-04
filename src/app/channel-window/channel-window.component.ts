@@ -43,7 +43,8 @@ export class ChannelWindowComponent {
   public smileHelper: SmileHelper = new SmileHelper();
   public channelHelper: ChannelHelper = new ChannelHelper()
 
-  private dialogClasses: Array<string> = ['dialogBorToLeNone'];
+  private dialogEditChanClasses: Array<string> =
+    ['dialogBorToLeNone', 'maxWidth100', 'dialogBorRadNone', 'dialogMarginMiddle', 'dialogMarginNone'];
   public addresses = false;
   private text: string = "";
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
@@ -79,11 +80,9 @@ export class ChannelWindowComponent {
    */
   openEditChannelDialog() {
     this.channelHelper.setEditChanPos(this.sideMenuHidden);
-    this.setEditDialogMobileStyle();
-
     this.toggleEditChanBol();
     let dialogRef = this.dialog.open(EditChannelComponent,
-      { panelClass: this.dialogClasses, position: { left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop } });
+      { panelClass: this.dialogEditChanClasses, position: { left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop } });
     dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.number, this.userList, this.user, this.screenWidth);
     dialogRef.afterClosed().subscribe(() => {
       this.toggleEditChanBol();
@@ -92,14 +91,6 @@ export class ChannelWindowComponent {
 
   showBegin(com: any) {
     return com.date == "";
-  }
-
-  setEditDialogMobileStyle() {
-    if (this.mobileScreenWidth()) {
-      this.channelHelper.editChanPosLeft = '0px';
-      this.channelHelper.dialogPosTop = '0px';
-      this.dialogClasses = ['maxWidth100', 'dialogBorRadNone'];
-    }
   }
 
   /**
@@ -303,7 +294,7 @@ export class ChannelWindowComponent {
   openAddPeopleDialog() {
     this.toggleAddPplChanBol();
     this.setPositionOfDialogs();
-    let dialogRef = this.dialog.open(AddPeopleDialogComponent);    
+    let dialogRef = this.dialog.open(AddPeopleDialogComponent);
     this.setAddPplDialogPos(dialogRef);
     this.setAddPplDialogValues(dialogRef);
     this.subscribeAddPplDialog(dialogRef);

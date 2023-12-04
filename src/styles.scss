@@ -263,16 +263,8 @@ body {
     overflow-y: unset !important;
 }
 
-.dialogBorToLeNone .mat-mdc-dialog-surface {
-    border-top-left-radius: 0px !important;
-}
-
 .dialogBorToReNone .mat-mdc-dialog-surface {
     border-top-right-radius: 0px !important;
-}
-
-.dialogBorRadNone .mat-mdc-dialog-surface {
-    border-radius: 0px !important;
 }
 
 app-sidenav {
@@ -283,10 +275,34 @@ mat-drawer-container {
     flex: 1 1 auto;
 }
 
+@media (min-width:1401px) {
+    .dialogBorToLeNone .mat-mdc-dialog-surface {
+        border-top-left-radius: 0px !important;
+    }
+}
 
 @media (max-width:1400px) {
     mat-drawer-content {
         margin-right: auto !important;
+    }
+
+    .dialogMarginMiddle {
+        margin-right: auto;
+        margin-left: auto !important;
+    }
+
+    .maxWidth100 {
+        max-width: 100% !important;
+    }
+}
+
+@media (max-width:829px) {
+    .dialogBorRadNone .mat-mdc-dialog-surface {
+        border-radius: 0px !important;
+    }
+
+    .dialogMarginNone {
+        margin: 0px !important;
     }
 }
 
@@ -360,10 +376,6 @@ mat-drawer-container {
     &:hover {
         content: url('/angular-projects/dabubble/assets/img/email-icon-hover.svg');
     }
-}
-
-.maxWidth100 {
-    max-width: 100% !important;
 }
 
 .transition225 {
