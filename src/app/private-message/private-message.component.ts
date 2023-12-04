@@ -49,7 +49,7 @@ export class PrivateMessageComponent {
   chatHelper: ChatHepler = new ChatHepler();
   public messageInformation: any[] = [];
   public addresses = false;
-  private mA;
+  private mA: HTMLInputElement;
   private upload: any;
 
 
@@ -62,7 +62,7 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
-
+    console.log(window.innerWidth)
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
@@ -514,9 +514,6 @@ export class PrivateMessageComponent {
     if (this.showEmojisEdit)
       this.showEmojisEdit = false;
   }
-
-
-
 }
 
 

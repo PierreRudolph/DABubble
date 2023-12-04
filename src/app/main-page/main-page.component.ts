@@ -98,9 +98,9 @@ export class MainPageComponent {
         if (u.uid == this.userUid) {
           this.user = u;
           this.user.status = "aktiv";
-          google = false;      
-          
-           if (!this.idSet) {
+          google = false;
+
+          if (!this.idSet) {
             this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
             this.idSet = true;
           }
@@ -137,7 +137,7 @@ export class MainPageComponent {
     this.talkList = [];
     return onSnapshot(ref, (list) => {
       list.forEach(elem => {
-        if (elem.id == this.currentTalkId) {   
+        if (elem.id == this.currentTalkId) {
           this.currentTalkData = elem.data();
         }
         //Only talks of the current user are saved
@@ -354,6 +354,7 @@ export class MainPageComponent {
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
+    console.log(window.innerWidth)
     this.screenWidth = window.innerWidth;
   }
 
@@ -417,16 +418,13 @@ export class MainPageComponent {
   }
 
   setMobileThreadView() {
-
     if (this.screenWidth > 1400) {
-
       return true
     } if (this.screenWidth <= 1400 && this.channelOpen) {
       return false
     } else {
       return true;
     }
-
   }
 
 }
