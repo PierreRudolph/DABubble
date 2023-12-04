@@ -69,7 +69,7 @@ export class PrivateMessageComponent {
       // this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
       let date = new Date(Date.now());
       let day = date.getDay();
-      console.log("day",day);
+      console.log("day", day);
     }, 1500);
   }
 
