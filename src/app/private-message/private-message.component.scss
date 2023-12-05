@@ -519,11 +519,13 @@
 
 @media (max-width:440px) {
     .mainFieldisItMeInfo {
-        height: calc(100% - 490px);
+        height: calc(100% - 480px);
     }
 
     .isItMeInfo {
         height: 120px;
+        margin-bottom: 50px;
+        
     }
 }
 
