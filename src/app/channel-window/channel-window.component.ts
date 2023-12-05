@@ -54,8 +54,7 @@ export class ChannelWindowComponent {
   @Output() areaTextPrivate = new EventEmitter<string>();
 
 
-  constructor(public dialog: MatDialog, public screen: ScreenService) {
-    console.log("constructor call Channel");
+  constructor(public dialog: MatDialog, public screen: ScreenService) {  
     setTimeout(() => {
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
@@ -237,7 +236,7 @@ export class ChannelWindowComponent {
     let today = this.chathelper.parseDate(new Date(Date.now()));
     let threadId = this.threadList[indexCannel].channel.idDB;
     let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList, this.dataUpload)
-    if (question.message == "" && question.url.link == "") { console.log("return"); return; }
+    if (question.message == "" && question.url.link == "") {  return; }
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
       let th = this.threadList[indexCannel].communikation;
@@ -276,8 +275,7 @@ export class ChannelWindowComponent {
     return ((this.showEmojisTread) && (this.threadIndex == tIndex) && (this.commIndex == cIndex));
   }
 
-  noEmoji() {
-    console.log("this.showEmojisTread");
+  noEmoji() {   
     if (this.showEmojisTread)
       this.showEmojisTread = false;
     if (this.showEmojis)
