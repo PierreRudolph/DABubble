@@ -16,7 +16,7 @@
       [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"
       (callOpenTalk)="openMessage($event)"></app-channel-window>
 
-    <app-private-message class="privateMessage" *ngIf="showPrivateMessage() " [user]="user"
+    <app-private-message class="privateMessage" *ngIf="showPrivateMessage()" [user]="user"
       (newItemEventLoggedUser)="setLoggedInUser($event)" (callOpenUser)="openMessage($event)" [talkList]="talkList"
       (sendCurrentTalkId)="setCurrentTalkId($event)" [userList]="userList"
       [currentTalkData]="currentTalkData"></app-private-message>
