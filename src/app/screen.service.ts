@@ -6,11 +6,6 @@ import { Injectable } from '@angular/core';
 export class ScreenService {
   screenWidth;
 
-  constructor() { }
-  handleScreenResize() {
-
-  }
-
   mobileScreenWidth() {
     return this.screenWidth < 830;
   }
