@@ -64,7 +64,7 @@ export class ChannelHelper {
  * @returns Creates a new Question as JSON
  */
   getQuestion(user: User, chathelper: ChatHepler, textThread: string, userList: User[], dataUpload: any) {
-    console.log("dataUpload", dataUpload);
+    
     let question = {
       "name": user.name,
       "iD": user.idDB, //of person that writes the message
@@ -93,8 +93,7 @@ export class ChannelHelper {
   setValuesToEditDialog(dialogRef: MatDialogRef<EditChannelComponent, any>, threadList: any[], number: number, userList: User[], user: User) {
     dialogRef.componentInstance.channel = threadList[number].channel;//Kopie
     dialogRef.componentInstance.userList = userList;//Kopie
-    dialogRef.componentInstance.user = user;//Kopie
-    console.log("dialogRef", dialogRef);
+    dialogRef.componentInstance.user = user;//Kopie    
     return dialogRef;
   }
 
@@ -131,7 +130,7 @@ export class ChannelHelper {
    * @param threadList 
    */
   deleteMessage(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]) {
-    console.log("id ist", threadList[number].channel.idDB);
+    
     if (threadList[number].communikation[i].threads.length > 1) {
       threadList[number].communikation[i].threads.splice(j, 1);
     }
@@ -141,7 +140,7 @@ export class ChannelHelper {
       }
       else { threadList[number].communikation = [{ "date": "", "treads": [] }]; }
     }
-    console.log("id ist", threadList[number].channel.idDB);
+   
     chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
   }
 

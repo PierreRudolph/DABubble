@@ -481,9 +481,7 @@ export class ChatHepler {
       const path = `yt/${file.name}`;
       const upoadTask = await this.fireStorage.upload(path, file);
       dataUpload.link = await upoadTask.ref.getDownloadURL();
-      dataUpload.title = file.name;
-      console.log("link", dataUpload.link);
-      console.log("title", dataUpload.title);
+      dataUpload.title = file.name;     
     };
     event = null;
   }
