@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Channel } from 'src/moduls/channel.class';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
 
@@ -12,14 +11,10 @@ import { User } from 'src/moduls/user.class';
 export class ChannelMembersComponent {
   public user: User = new User();
   public userList: User[] = [];
-  // public allUsers: User[] = []
-  // public channel: Channel;
   private chathelper: ChatHepler = new ChatHepler();
   public channel: any = this.chathelper.createEmptyThread().channel;
   public dialogRef: MatDialogRef<ChannelMembersComponent>;
   private addMembers: boolean | false;
-
-  constructor() { }
 
   /**
    * 

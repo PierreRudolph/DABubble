@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { User } from 'src/moduls/user.class';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 
@@ -22,8 +21,8 @@ export class SendNewMessageComponent {
   searchResulChannel: any[] = [];
   public error = false;
   public addresses = false;
-  public dataUpload={"link":"","title":""};
- 
+  public dataUpload = { "link": "", "title": "" };
+
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -61,13 +60,13 @@ export class SendNewMessageComponent {
     let st = searchT.toLowerCase();
     this.searchText = st;
     let first = st[0];
-    st = st.substring(1) 
+    st = st.substring(1)
     this.searchResultUser = [];
-    this.searchResulChannel = [],    
-    this.searchNameOrmail(st, first);
+    this.searchResulChannel = [],
+      this.searchNameOrmail(st, first);
     let num = -1;
     this.threadList.forEach((t) => {
-      num++;     
+      num++;
       if ((t.channel.name.toLowerCase().includes(st)) && (first == '#')) {
         let info = { "name": t.channel.name, "num": num }
         this.searchResulChannel.push(info);
@@ -78,7 +77,7 @@ export class SendNewMessageComponent {
     this.error = true;
     setTimeout(() => {
       this.error = false;
-    },2000);
+    }, 2000);
   }
 
 
@@ -86,47 +85,47 @@ export class SendNewMessageComponent {
     this.callOpenChannel.emit(n);
     this.isOpen.emit(false);
     this.areaText.emit(this.text);
-    let dat = {"link":this.dataUpload.link,"title":this.dataUpload.title};
+    let dat = { "link": this.dataUpload.link, "title": this.dataUpload.title };
     this.dataUploadChannel.emit(dat);
-    this.dataUpload.link="";
-    this.dataUpload.title="";
-   
+    this.dataUpload.link = "";
+    this.dataUpload.title = "";
+
   }
 
-  callOpenT(u: User) {   
+  callOpenT(u: User) {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
-    let dat = {"link":this.dataUpload.link,"title":this.dataUpload.title};
+    let dat = { "link": this.dataUpload.link, "title": this.dataUpload.title };
     this.dataUploadPrivate.emit(dat);
-    this.dataUpload.link="";
-    this.dataUpload.title="";
+    this.dataUpload.link = "";
+    this.dataUpload.title = "";
 
-   
+
   }
 
-  chooseUser(u:User){
-    this.text+= '@'+u.name;
-    this.addresses =!this.addresses;   
+  chooseUser(u: User) {
+    this.text += '@' + u.name;
+    this.addresses = !this.addresses;
   }
 
-    /**
- * Saves the uploaded portrait.
- * @param event Uploaded file
- */
-    async onSelect(event: any) {
-      this.chathelper.onSelect(event,this.dataUpload);   
-      }
-  
-      showBlendIn(){
-        return this.dataUpload.link!="";
-      }
-      showLink(link:string){
-        return link!="";
-      }
+  /**
+* Saves the uploaded portrait.
+* @param event Uploaded file
+*/
+  async onSelect(event: any) {
+    this.chathelper.onSelect(event, this.dataUpload);
+  }
 
-      closeUpload(){
-        this.dataUpload.link="";
-        this.dataUpload.title="";
-      } 
+  showBlendIn() {
+    return this.dataUpload.link != "";
+  }
+  showLink(link: string) {
+    return link != "";
+  }
+
+  closeUpload() {
+    this.dataUpload.link = "";
+    this.dataUpload.title = "";
+  }
 }

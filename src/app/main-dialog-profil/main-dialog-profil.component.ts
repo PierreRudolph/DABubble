@@ -1,9 +1,8 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Firestore, addDoc, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
-import { MatDialog, MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import { Firestore, collection, doc, updateDoc } from '@angular/fire/firestore';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
-import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 import { Router } from '@angular/router';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ScreenService } from '../screen.service';
@@ -15,21 +14,16 @@ import { ScreenService } from '../screen.service';
 })
 export class MainDialogProfilComponent {
   public idDoc = "";
-  // private userAuth: any; //authenticated user
-  // public user: User = new User();//authenticated user
   @Input() user: User = new User();
   public firestore: Firestore = inject(Firestore);
   public userList: any;
-  // private userUid: string = ""; //uid od the user
   private unsub: any;
   public choiceDialog: boolean = false;
   public profileOpen = false;
   private chatHepler: ChatHepler = new ChatHepler();
   @Output() unsubscribe = new EventEmitter<boolean>();
 
-  constructor(public authService: AuthService, public dialog: MatDialog, public router: Router, public screen: ScreenService) {
-
-  }
+  constructor(public authService: AuthService, public dialog: MatDialog, public router: Router, public screen: ScreenService) { }
 
   setUser(user: User) {
     this.user = user;
@@ -45,7 +39,6 @@ export class MainDialogProfilComponent {
   }
 
   openProfile() {
-    //this.choiceDialog = !this.choiceDialog;
     this.profileOpen = true;
   }
 
@@ -55,7 +48,6 @@ export class MainDialogProfilComponent {
 
   async logOut() {
     this.user.status = "Inaktiv";
-    // await this.updateUser(this.user.idDB);    
     let user = this.authService.getAuthServiceUser();
     if (user) {
       this.authService.logout().then((dat) => {

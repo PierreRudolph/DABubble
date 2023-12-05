@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 import { Firestore } from '@angular/fire/firestore';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
-import { timeout } from 'rxjs';
-
 
 @Component({
   selector: 'app-create-account-avatar',
@@ -29,7 +27,7 @@ export class CreateAccountAvatarComponent {
   public chathelper: ChatHepler = new ChatHepler();
 
   constructor(public authService: AuthService, private router: Router) {
-    let u = authService.getAuthServiceUser();
+    //let u = authService.getAuthServiceUser(); VS-Code sagt wird nicht verwendet, kann man das löschen? *Pierre
   }
 
   /**

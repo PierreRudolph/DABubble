@@ -1,7 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { AuthService } from '../auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 
 @Component({
@@ -19,7 +17,6 @@ export class CreateAccountComponent {
   public registerForm: FormGroup = new FormGroup({
     data: new FormControl('', Validators.requiredTrue),
     name: new FormControl('', [Validators.required, Validators.pattern('([a-zA-ZäöüÄÖÜß]+\\s+){1,10}([a-zA-ZäöüÄÖÜß]+)')]),
-    // email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.minLength(6), Validators.required])
   })

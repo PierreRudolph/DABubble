@@ -2,13 +2,12 @@ import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
-import { Firestore, addDoc, collection, doc, getDoc, onSnapshot, updateDoc } from '@angular/fire/firestore';
+import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.component';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
-import { retry } from 'rxjs';
 import { ChannelWindowComponent } from '../channel-window/channel-window.component';
 import { ScreenService } from '../screen.service';
 
@@ -18,8 +17,6 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-
-
   public user: User = new User();//authenticated user
   public gastID = "aFPvtx4nkhhF3IIAbvMP"
   public firestore: Firestore = inject(Firestore);
@@ -42,7 +39,6 @@ export class MainPageComponent {
   public load = false;
   public privateOpen = false;
   public sideMenuHidden: boolean;
-  //-----------------
   public number: number = 0;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   unsubChannel: any
@@ -54,27 +50,17 @@ export class MainPageComponent {
   private userAuth: any; //authenticated user
   private userUid: string = ""; //uid od the user
   public started = false;
-
   amountOfCall = 0;
   idSet = false;
-
-  //Hiermit könnte man die Variable screenWidth, an this.screen.screenWidth binden,
-  //ohne alle Vorkommen von screenWidth im Code ändern zu müsssen.
-  // public get screenWidth(){
-  //   return this.screen.screenWidth;
-  // }
 
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
   @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
   @ViewChild(SideMenuComponent) sideMenu: SideMenuComponent;
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
-  // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
     this.currentTalkData.communikation = []; 
-
-
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
@@ -85,7 +71,6 @@ export class MainPageComponent {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
-    //this.getscreen.ScreenWidth();
   }
 
   /**
@@ -109,8 +94,7 @@ export class MainPageComponent {
             this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
             this.idSet = true;
           }
-          // setTimeout(()=>{this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());},1000);
-          // this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
+
         }
         else { this.userList.push(u); }
 
@@ -279,6 +263,7 @@ export class MainPageComponent {
    */
   setOtherUser(user: User) {
  
+    //window.innerWidth = 1000; unser kleiner Fluch mit großen auswirkungen :)
     this.talkOpen = true;
     this.channelOpen = false;
     this.privateOpen = true;

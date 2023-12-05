@@ -22,8 +22,6 @@ export class LoginScreenComponent {
   }
 
   async login() {
-    // return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
-    // try {
 
     this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
       // Login successful       
@@ -75,7 +73,6 @@ export class LoginScreenComponent {
           let user = this.authService.getAuthServiceUser();
           let userName = user._delegate.displayName;
           localStorage.setItem('google', userName);
-          // this.route.navigateByUrl("/login");
           this.route.navigateByUrl("/");
         }, 500);
       }).
