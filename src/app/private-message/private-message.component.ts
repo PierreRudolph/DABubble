@@ -62,14 +62,10 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
-    console.log(window.innerWidth)
+    
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
-      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
-      // this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' });
-      let date = new Date(Date.now());
-      let day = date.getDay();
-      console.log("day",day);
+      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);   
     }, 1500);
   }
 
@@ -299,7 +295,7 @@ export class PrivateMessageComponent {
     this.currentTalkId = "";
     this.otherChatUser = user;
     this.openTalk();
-    //  setTimeout(()=>{ this.mA.scrollTop = this.mA.scrollHeight;},1500);
+  
     setTimeout(() => {
       if (this.mA) { this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' }); }
 

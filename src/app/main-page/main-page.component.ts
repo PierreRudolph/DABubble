@@ -375,7 +375,7 @@ export class MainPageComponent {
   // }
 
   @HostListener('window:resize', ['$event'])
-  onWindowResize() {
+  onWindowResize() {     
     this.screenWidth = window.innerWidth;
   }
 
@@ -383,7 +383,7 @@ export class MainPageComponent {
 
 
   setMobileView() {
-    console.log("screenwidth", this.screenWidth + " " + !(this.screenWidth < 830 && !this.sideMenuHidden));
+    // console.log("screenwidth", this.screenWidth + " " + !(this.screenWidth < 830 && !this.sideMenuHidden));
     return !(this.screenWidth < 830 && !this.sideMenuHidden);
   }
 

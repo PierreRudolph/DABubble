@@ -12,8 +12,7 @@ export class TransformDatePipe implements PipeTransform {
     let date= this.chatHelper.parseDate(new Date(Date.now()));
     if(date == value)    
     return "Heute";
-    else return value;
-    return value;
+    else return value;   
   }
 
 }
