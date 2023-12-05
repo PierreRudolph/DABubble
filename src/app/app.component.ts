@@ -10,12 +10,12 @@ export class AppComponent {
   title = 'DABubble';
 
   constructor(private screen: ScreenService) {
-    this.screen.screenWidth = window.innerWidth;   
+    this.screen.screenWidth = window.innerWidth;
   }
 
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
-    this.screen.screenWidth = window.innerWidth;  
+    this.screen.screenWidth = window.innerWidth;
   }
 
 }

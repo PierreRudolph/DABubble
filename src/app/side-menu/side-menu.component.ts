@@ -165,7 +165,7 @@ export class SideMenuComponent {
       } else if (this.sideMenuHidden) {
         this.toggleDrawerBol();
         this.drawer.toggle();
-      } else {  }
+      } else { }
   }
 
   searchKey(text: string) {
