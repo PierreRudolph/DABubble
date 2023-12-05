@@ -47,6 +47,7 @@ export class MainPageComponent {
   loaded = false;
   public currentTalkData: any = this.chathelper.createEmptyTalk();
   private currentTalkId: string = "";
+  public oldTalkId: string = "";
   private userAuth: any; //authenticated user
   private userUid: string = ""; //uid od the user
   public started = false;
@@ -60,7 +61,7 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
-    this.currentTalkData.communikation = []; 
+    this.currentTalkData.communikation = [];
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
@@ -233,7 +234,8 @@ export class MainPageComponent {
     if (!this.openChat && this.sideMenuHidden) {
       this.setMobileSideMenuValues();
     }
-  }
+  } 
+
   /**
    * Sets the id of the current channel. Sets the required variables for visibility.
    * @param number index of the Channel set should be openend
@@ -262,7 +264,7 @@ export class MainPageComponent {
    * @param user Ohter chat user
    */
   setOtherUser(user: User) {
- 
+
     //window.innerWidth = 1000; unser kleiner Fluch mit großen auswirkungen :)
     this.talkOpen = true;
     this.channelOpen = false;
@@ -279,6 +281,7 @@ export class MainPageComponent {
 
   setCurrentTalkId(id: string) {
     this.currentTalkId = id;
+    if (id != "") { this.oldTalkId = id; }
     this.currentTalkData.iD = id;
   }
 

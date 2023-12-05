@@ -7,6 +7,7 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
+import { SaveLastUserService } from '../save-last-user.service';
 
 @Component({
   selector: 'app-private-message',
@@ -25,6 +26,7 @@ export class PrivateMessageComponent {
   @Input() otherChatUser: User = new User();
   @Input() _setUser: boolean = false;
   public currentTalkId: string = "";
+  @Input() oldTalkId = "";
   @Input() talkList: any = [this.chatHepler.createEmptyTalk()];
   @Input() currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
@@ -44,21 +46,30 @@ export class PrivateMessageComponent {
   public addresses = false;
   private mA: HTMLInputElement;
   private upload: any;
+  @Input() indexLastUser = -2;
 
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
   @Output() newItemEventTalkList = new EventEmitter<any>();
   @Output() sendCurrentTalkId = new EventEmitter<string>();
   @Output() callOpenUser = new EventEmitter<User>();
+  @Output() lastUserIndex = new EventEmitter<number>();
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
-  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
-    
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog, public lastUserService: SaveLastUserService) {
+
     setTimeout(() => {
-      this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);     
-      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null); 
-          
+      this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
+      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
     }, 1500);
+    setTimeout(() => {    
+      if (this.oldTalkId != "" && this.currentTalkId == "") {
+        this.currentTalkId = this.oldTalkId;       
+        this.otherChatUser = lastUserService.lastUser;
+        this.openTalk();
+        this.talkOpen = true;
+      }
+    }, 125);
   }
 
   /**
@@ -231,7 +242,6 @@ export class PrivateMessageComponent {
     }
   }
 
-
   /**
    * Determines the talk-id with otherChatUser and opens it.
    */
@@ -263,7 +273,7 @@ export class PrivateMessageComponent {
    * @param talkId Id of the talk, that should be opend
    */
   openeningTalk(talkId: string) {
-    if (this.exist) {
+    if (this.exist) {    
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
     } else {
@@ -287,7 +297,7 @@ export class PrivateMessageComponent {
     this.currentTalkId = "";
     this.otherChatUser = user;
     this.openTalk();
-  
+
     setTimeout(() => {
       if (this.mA) { this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' }); }
 

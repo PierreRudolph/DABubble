@@ -5,6 +5,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { ScreenService } from '../screen.service';
+import { SaveLastUserService } from '../save-last-user.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -40,7 +41,7 @@ export class SideMenuComponent {
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
 
-  constructor(public dialog: MatDialog, public screen: ScreenService) {
+  constructor(public dialog: MatDialog, public screen: ScreenService,public lastUserService: SaveLastUserService) {
   }
 
   getName(num: number) {
@@ -86,11 +87,13 @@ export class SideMenuComponent {
     this.newMessage = true;
     this.isOpen.emit(this.newMessage);
   }
+ 
 
   openTalk(u: User) {
     this.newMessage = false;
     this.isOpen.emit(false);
     this.addNewItem(u);
+    this.lastUserService.lastUser = u;
 
     if (!this.newMessageMobile) {
       this.setDrawerValues();
