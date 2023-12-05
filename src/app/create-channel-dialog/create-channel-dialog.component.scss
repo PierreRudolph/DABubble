@@ -185,6 +185,8 @@
     border-top-left-radius: 0;
     padding: 30px;
     background-color: white;
+    max-height: 250px;
+    overflow-y: scroll;
 }
 
 .input-field {
@@ -269,6 +271,7 @@
         border-radius: 0px !important;
     }
 
+
     .dialog-div-add {
         position: absolute;
         bottom: -345px;
@@ -290,9 +293,16 @@
         height: unset;
         gap: 15px;
     }
+
+    .popUp {
+        bottom: 215px;
+    }
 }
 
 @media (max-width:400px) {
+
+   
+
     .dialog-div {
         padding: 15px 10px;
     }
