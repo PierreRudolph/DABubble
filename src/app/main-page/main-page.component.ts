@@ -69,16 +69,6 @@ export class MainPageComponent {
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef) {
     this.currentTalkData.communikation = [];
 
-    // const bP830 = window.matchMedia('(max-width: 830px)');
-    // bP830.addEventListener('change', (e) => this.layoutChangedCallback(e, 830));
-    // const bPMin830 = window.matchMedia('(max-width: 840px)');
-    // bPMin830.addEventListener('change', (e) => this.layoutChangedCallback(e, 840));
-    // const bP600 = window.matchMedia('(max-width: 600px)');
-    // bP600.addEventListener('change', (e) => this.layoutChangedCallback(e, 750));
-    // const bP500 = window.matchMedia('(max-width: 500px)');
-    // bP500.addEventListener('change', (e) => this.layoutChangedCallback(e, 500));
-
-
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');

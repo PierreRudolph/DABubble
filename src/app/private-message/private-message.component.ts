@@ -16,16 +16,12 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   styleUrls: ['./private-message.component.scss']
 })
 export class PrivateMessageComponent {
-  // private userAuth: any; //authenticated user
+ 
   @Input() user: User = new User();//authenticated user
-  public firestore: Firestore = inject(Firestore);
-  // public fireStorage:AngularFireStorage = inject(AngularFireStorage);
+  public firestore: Firestore = inject(Firestore); 
   private chatHepler: ChatHepler = new ChatHepler();
   @Input() userList: any;
-  public dataUpload = { "link": "", "title": "" };
-  // private userUid: string = ""; //uid od the user
-  // private unsub: any;
-  // private unsubtalk: any;
+  public dataUpload = { "link": "", "title": "" }; 
   public choiceDialog: boolean = false;
   public profileOpen = false;
   public openChat = false;
@@ -65,10 +61,8 @@ export class PrivateMessageComponent {
     
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);     
-      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);    
-      let date = new Date(Date.now());
-      let day = date.getDay();
-     
+      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null); 
+          
     }, 1500);
   }
 
