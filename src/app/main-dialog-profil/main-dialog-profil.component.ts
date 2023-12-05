@@ -6,6 +6,7 @@ import { User } from 'src/moduls/user.class';
 import { ProfileDialogComponent } from '../profile-dialog/profile-dialog.component';
 import { Router } from '@angular/router';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
+import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-main-dialog-profil',
@@ -17,7 +18,6 @@ export class MainDialogProfilComponent {
   // private userAuth: any; //authenticated user
   // public user: User = new User();//authenticated user
   @Input() user: User = new User();
-  @Input() screenWidth: number;
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   // private userUid: string = ""; //uid od the user
@@ -27,7 +27,7 @@ export class MainDialogProfilComponent {
   private chatHepler: ChatHepler = new ChatHepler();
   @Output() unsubscribe = new EventEmitter<boolean>();
 
-  constructor(public authService: AuthService, public dialog: MatDialog, public router: Router) {
+  constructor(public authService: AuthService, public dialog: MatDialog, public router: Router, public screen: ScreenService) {
 
   }
 
@@ -82,9 +82,5 @@ export class MainDialogProfilComponent {
     await updateDoc(docRef, this.user.toJSON()).then((data) => {
     }).catch(
       (err) => { console.log(err); });
-  }
-
-  mobileScreenWidth() {
-    return this.screenWidth < 830;
   }
 }

@@ -1,4 +1,5 @@
-import { Component,inject } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
+import { ScreenService } from './screen.service';
 
 
 @Component({
@@ -9,8 +10,15 @@ import { Component,inject } from '@angular/core';
 export class AppComponent {
   title = 'DABubble';
 
-  constructor(){
-  
+  constructor(private screen: ScreenService) {
+    this.screen.screenWidth = window.innerWidth;
   }
- 
+
+  @HostListener('window:resize', ['$event'])
+  onWindowResize() {
+    this.screen.handleScreenResize();
+    this.screen.screenWidth = window.innerWidth;
+    console.log(this.screen.screenWidth)
+  }
+
 }

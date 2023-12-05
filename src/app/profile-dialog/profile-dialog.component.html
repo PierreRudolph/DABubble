@@ -9,8 +9,9 @@
         </div>
         <div class="firstLine">
             <div class="nunitoBlack fs32">{{user.name}}</div>
-            <a *ngIf="!mobileScreenWidth()" class="edit" (click)="editData()">Bearbeiten</a>
-            <img *ngIf="mobileScreenWidth()" class="editPencil" (click)="editData()" src="assets/icons/edit-pencil.svg">
+            <a *ngIf="!screen.mobileScreenWidth()" class="edit" (click)="editData()">Bearbeiten</a>
+            <img *ngIf="screen.mobileScreenWidth()" class="editPencil" (click)="editData()"
+                src="assets/icons/edit-pencil.svg">
         </div>
         <div class="styleState">
             <div class="dot"></div>
@@ -20,7 +21,7 @@
             <img src="assets/img/mail.svg">
             <div>
                 <div class="nunitoBlack fs20">E-Mail-Adresse</div>
-                <a  class="userMail" href="mailto:{{user.email}}">{{user.email}}</a>
+                <a class="userMail" href="mailto:{{user.email}}">{{user.email}}</a>
             </div>
         </div>
     </div>
@@ -38,13 +39,15 @@
                 <img src="assets/img/accountNameIcon.svg">
                 <div class="nunitoBlack fs20">Vollständiger Name</div>
             </div>
-            <div class="editInput"><input id="nameEdit" formControlName="name" class="editInputField" placeholder="{{user.name}}">
+            <div class="editInput"><input id="nameEdit" formControlName="name" class="editInputField"
+                    placeholder="{{user.name}}">
             </div>
             <div class="editLabel">
                 <img src="assets/img/mail.svg">
                 <div class="nunitoBlack fs20">E-Mail-Adresse</div>
             </div>
-            <div class="editInput"><input id="emailEdit" formControlName="email" class="editInputField" placeholder="{{user.email}}">
+            <div class="editInput"><input id="emailEdit" formControlName="email" class="editInputField"
+                    placeholder="{{user.email}}">
             </div>
         </div>
         <div class="buttonContainer">

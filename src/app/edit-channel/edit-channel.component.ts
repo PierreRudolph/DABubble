@@ -4,6 +4,7 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
 import { ChannelMembersComponent } from '../channel-members/channel-members.component';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
+import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-edit-channel',
@@ -17,17 +18,16 @@ export class EditChannelComponent {
   public channel: any = this.chathelper.createEmptyThread().channel;
   public user: User = new User();
   public userList = [this.user];
-  public screenWidth: number;
   threadList: any;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public screen: ScreenService) {
   }
 
   editChannelName() {
     this.toggleChanNameOnEdit();
-    setTimeout(()=>{     
-      (document.getElementById("nameChannel") as HTMLInputElement | null).value =this.channel.name;
-    },125);
+    setTimeout(() => {
+      (document.getElementById("nameChannel") as HTMLInputElement | null).value = this.channel.name;
+    }, 125);
   }
 
   leaveChannel() {
@@ -38,7 +38,7 @@ export class EditChannelComponent {
         list.push(m);
       }
     });
-    this.channel.members=list;
+    this.channel.members = list;
     this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
   }
 
@@ -61,9 +61,9 @@ export class EditChannelComponent {
 
   editChannelDesc() {
     this.toggleChanDescOnEdit();
-    setTimeout(()=>{     
-      (document.getElementById("description") as HTMLInputElement | null).value =this.channel.description;
-    },125);
+    setTimeout(() => {
+      (document.getElementById("description") as HTMLInputElement | null).value = this.channel.description;
+    }, 125);
   }
   /**
    * Saves the changed description
@@ -135,9 +135,5 @@ export class EditChannelComponent {
       dialogRef.addPanelClass('transition225');
       dialogRef.updatePosition({ bottom: '-20px' });
     }, 225)
-  }
-
-  mobileScreenWidth() {
-    return this.screenWidth < 830;
   }
 }

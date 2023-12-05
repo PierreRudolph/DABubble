@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Channel } from 'src/moduls/channel.class';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
+import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-add-people-dialog',
@@ -21,13 +22,12 @@ export class AddPeopleDialogComponent {
   public currentlyAddedUser: User[] = [];
   public fristPage = true;
   public dialogReference: MatDialogRef<AddPeopleDialogComponent>;
-  public screenWidth: number;
   private chathelper: ChatHepler = new ChatHepler();
   public channel: any = this.chathelper.createEmptyThread();
   public mobileFromBottom: boolean | false;
   public userInList = false;
 
-  constructor(public addPeopleDialog: MatDialog) {
+  constructor(public addPeopleDialog: MatDialog, public screen: ScreenService) {
   }
 
   /**
@@ -128,9 +128,5 @@ export class AddPeopleDialogComponent {
 
   closeDialog() {
     this.dialogReference.close(this.channelJSON);
-  }
-
-  mobileScreenWidth() {
-    return this.screenWidth < 830;
   }
 }

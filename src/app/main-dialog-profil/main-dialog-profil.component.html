@@ -11,7 +11,7 @@
         <img class="arrowImg" src="assets/img/arrowDown.svg">
     </div>
     <div *ngIf="choiceDialog" class="choiceDialog">
-        <div class="smallThickBorder" *ngIf="mobileScreenWidth()"></div>
+        <div class="smallThickBorder" *ngIf="screen.mobileScreenWidth()"></div>
         <div class="textImgDiv" [class.textImgDivHoverStyle]="profileOpen" (click)="openProfile()"><img
                 class="accountIcon" [class.accountIconHoverStyle]="profileOpen"
                 src="assets/icons/account-circle.svg">Profile</div>
@@ -21,5 +21,5 @@
     <div *ngIf="choiceDialog" class="dialogGrey" (click)="openChoie()"></div>
 
     <app-profile-dialog [user]="user" (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)"
-        *ngIf="profileOpen" [screenWidth]="screenWidth"></app-profile-dialog>
+        *ngIf="profileOpen"></app-profile-dialog>
 </div>

@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/moduls/user.class';
+import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-profile-dialog',
@@ -8,7 +9,6 @@ import { User } from 'src/moduls/user.class';
   styleUrls: ['./profile-dialog.component.scss']
 })
 export class ProfileDialogComponent {
-  @Input() screenWidth: number;
   @Input() user: User = new User();
   @Output() newItemEvent = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
@@ -18,14 +18,14 @@ export class ProfileDialogComponent {
     email: new FormControl('', [Validators.required, Validators.email]),
     name: new FormControl('')
   })
-  constructor() { }
+  constructor(public screen: ScreenService) { }
 
   editData() {
     this.edit = !this.edit;
-    setTimeout(()=>{
-      (document.getElementById("nameEdit") as HTMLInputElement | null).value =this.user.name;
-      (document.getElementById("emailEdit") as HTMLInputElement | null).value =this.user.email;
-    },125);
+    setTimeout(() => {
+      (document.getElementById("nameEdit") as HTMLInputElement | null).value = this.user.name;
+      (document.getElementById("emailEdit") as HTMLInputElement | null).value = this.user.email;
+    }, 125);
   }
 
   addNewItem(open: boolean) {
@@ -51,9 +51,5 @@ export class ProfileDialogComponent {
     }
     this.newItemEventUser.emit(this.user);
     this.closeDialog();
-  }
-
-  mobileScreenWidth() {
-    return this.screenWidth < 830;
   }
 }

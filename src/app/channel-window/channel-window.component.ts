@@ -9,6 +9,7 @@ import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog
 import { ChannelMembersComponent } from '../channel-members/channel-members.component';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ChannelHelper } from 'src/moduls/channelHelper.class';
+import { ScreenService } from '../screen.service';
 
 // @Pipe({name: 'replaceLineBreaks'})
 @Component({
@@ -36,7 +37,6 @@ export class ChannelWindowComponent {
   @Input() userList: User[];
   @Input() sideMenuHidden: boolean;
   @Input() openChat: boolean;
-  @Input() screenWidth: number;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -55,7 +55,7 @@ export class ChannelWindowComponent {
   @Output() areaTextPrivate = new EventEmitter<string>();
 
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public screen: ScreenService) {
     console.log("constructor call Channel");
     setTimeout(() => {
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
@@ -83,7 +83,7 @@ export class ChannelWindowComponent {
     this.toggleEditChanBol();
     let dialogRef = this.dialog.open(EditChannelComponent,
       { panelClass: this.dialogEditChanClasses, position: { left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop } });
-    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.number, this.userList, this.user, this.screenWidth);
+    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.number, this.userList, this.user);
     dialogRef.afterClosed().subscribe(() => {
       this.toggleEditChanBol();
     });
@@ -98,7 +98,7 @@ export class ChannelWindowComponent {
    * depending on whether side-menu-thread(==openChat), is open or closed.
    */
   setPositionOfDialogs() {
-    this.channelHelper.setPositionOfDialogs(this.openChat, this.mobileScreenWidth());
+    this.channelHelper.setPositionOfDialogs(this.openChat, this.screen.mobileScreenWidth());
 
   }
 
@@ -298,7 +298,6 @@ export class ChannelWindowComponent {
     this.setAddPplDialogPos(dialogRef);
     this.setAddPplDialogValues(dialogRef);
     this.subscribeAddPplDialog(dialogRef);
-
   }
 
   /**
@@ -309,7 +308,7 @@ export class ChannelWindowComponent {
    */
   setAddPplDialogPos(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    if (this.mobileScreenWidth()) {
+    if (this.screen.mobileScreenWidth()) {
       dialogRef.addPanelClass('maxWidth100');
       return;
     }
@@ -322,7 +321,6 @@ export class ChannelWindowComponent {
     instance.user = new User(this.user.toJSON());
     instance.channel = this.threadList[this.number].channel;
     instance.userList = this.userList;
-    instance.screenWidth = this.screenWidth;
   }
 
   /**
@@ -450,7 +448,7 @@ export class ChannelWindowComponent {
    */
   setChannelMembersDialogPos(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     dialogRef.addPanelClass('dialogBorToReNone');
-    if (this.mobileScreenWidth())
+    if (this.screen.mobileScreenWidth())
       return;
     dialogRef.updatePosition({ right: this.channelHelper.membersDialogPosRight, top: this.channelHelper.dialogPosTop });
   }
@@ -517,10 +515,6 @@ export class ChannelWindowComponent {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
-  }
-
-  mobileScreenWidth() {
-    return this.screenWidth < 830;
   }
 
   /**
