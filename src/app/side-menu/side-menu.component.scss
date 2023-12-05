@@ -459,6 +459,11 @@
 
     .add-icon {
         content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
+
+        &:hover {
+            content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
+
+        }
     }
 
     .newMesMobile {
