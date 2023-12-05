@@ -169,7 +169,7 @@ export class SideMenuThreadComponent {
    * Saves the answer
    */
   saveAnswer() {
-    if (this.textThreadAnswer == "" && this.dataUploadThread.link == "") { console.log("return"); return; }
+    if (this.textThreadAnswer == "" && this.dataUploadThread.link == "") { return; }
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
