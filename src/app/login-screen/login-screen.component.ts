@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-login-screen',
@@ -10,28 +11,15 @@ import { Router } from '@angular/router';
 })
 export class LoginScreenComponent {
   hide: boolean = true;
-  public screenWidth = 0;
-  private emailPattern = "(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\\u0022(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\\u0022)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
   public errorMes = false;
   public registerForm: FormGroup = new FormGroup({
-    // email: new FormControl('', [Validators.required, Validators.pattern(this.emailPattern)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
   public loading: boolean = false;
 
-  constructor(public authService: AuthService, public route: Router) {
-    window.addEventListener("resize", this.resizeWindow);
+  constructor(public authService: AuthService, public route: Router, public screen: ScreenService) {
   }
-
-  resizeWindow() {
-    this.screenWidth = window.innerWidth;
-  }
-
-  blendOutHeader() {
-    return window.innerWidth < 835;
-  }
-
 
   async login() {
     // return this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
@@ -51,11 +39,12 @@ export class LoginScreenComponent {
     }).catch((error) => {
       console.log("fail", error);
       this.errorMes = true;
-      (document.getElementById("mail") as HTMLInputElement | null).value="";
-      (document.getElementById("pw") as HTMLInputElement | null).value="";
-    
-      setTimeout(() => { 
-        this.errorMes = false }, 1500);
+      (document.getElementById("mail") as HTMLInputElement | null).value = "";
+      (document.getElementById("pw") as HTMLInputElement | null).value = "";
+
+      setTimeout(() => {
+        this.errorMes = false
+      }, 1500);
     });
 
   }

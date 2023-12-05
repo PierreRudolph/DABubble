@@ -1,8 +1,9 @@
-import { Component, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
 import { SideMenuComponent } from '../side-menu/side-menu.component';
+import { ScreenService } from '../screen.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,8 +14,7 @@ export class HeaderComponent {
   @Input() userList: any;
   public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
-  @Input() talkList: any = [this.chathelper.createEmptyTalk()]
-  public screenWidth: any;
+  @Input() talkList: any = [this.chathelper.createEmptyTalk()];
   @Input() sideMenuHidden: boolean;
   private searchText: string = "";
   public threadTitleDec: any[] = [];
@@ -30,24 +30,11 @@ export class HeaderComponent {
 
 
 
-  constructor(public router: Router) {
-    //window.addEventListener("resize", this.resizeWindow);
-    this.getScreenWidth();
-  }
+  constructor(public router: Router, public screen: ScreenService) { }
 
-
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
-    this.screenWidth = window.innerWidth;
-  }
 
   showPop() {
     return this.text != "";
-  }
-
-  getScreenWidth() {
-    this.screenWidth = window.innerWidth;
   }
 
   searchKey(text: string) {
@@ -103,11 +90,10 @@ export class HeaderComponent {
   }
 
   showNormalHeader() {
-    return (this.screenWidth < 830 && !this.sideMenuHidden) || this.screenWidth > 830
+    return ((this.screen.mobileScreenWidth()) && !this.sideMenuHidden) || this.screen.screenWidth > 830
   }
 
   showMobileHeader() {
-    console.log('header sagt screenWidth=', this.screenWidth)
-    return this.screenWidth < 830 && this.sideMenuHidden;
+    return (this.screen.mobileScreenWidth()) && this.sideMenuHidden;
   }
 }

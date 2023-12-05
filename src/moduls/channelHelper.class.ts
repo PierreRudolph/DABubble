@@ -87,15 +87,13 @@ export class ChannelHelper {
    * @param threadList  Lists of all Channelkmunikations
    * @param number  Number of thhe channel
    * @param userList 
-   * @param user 
-   * @param screenWidth 
+   * @param user  
    * @returns 
    */
-  setValuesToEditDialog(dialogRef: MatDialogRef<EditChannelComponent, any>, threadList: any[], number: number, userList: User[], user: User, screenWidth: number) {
+  setValuesToEditDialog(dialogRef: MatDialogRef<EditChannelComponent, any>, threadList: any[], number: number, userList: User[], user: User) {
     dialogRef.componentInstance.channel = threadList[number].channel;//Kopie
     dialogRef.componentInstance.userList = userList;//Kopie
     dialogRef.componentInstance.user = user;//Kopie
-    dialogRef.componentInstance.screenWidth = screenWidth;
     console.log("dialogRef", dialogRef);
     return dialogRef;
   }

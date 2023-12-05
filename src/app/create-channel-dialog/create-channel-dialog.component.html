@@ -1,17 +1,18 @@
 <div class="dialog-div ">
-    <div class="blendOutDiv" *ngIf="!fristPage&&mobileScreenWidth()"></div>
-    <div class="dialog-header" *ngIf="fristPage||mobileScreenWidth()">
+    <div class="blendOutDiv" *ngIf="!fristPage&&screen.mobileScreenWidth()"></div>
+    <div class="dialog-header" *ngIf="fristPage||screen.mobileScreenWidth()">
         <span class="nunito fs24 wei700">Channel erstellen</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
-    <div *ngIf="fristPage||mobileScreenWidth()" class="explanation fs18">Channels dienen deinem Team zur Kommunikation.
+    <div *ngIf="fristPage||screen.mobileScreenWidth()" class="explanation fs18">Channels dienen deinem Team zur
+        Kommunikation.
         Am
         besten sollten sie
         themenbezigen sein
         #marketing zum Beispiel.
     </div>
 
-    <form *ngIf="fristPage||mobileScreenWidth()" (ngSubmit)="onSubmit()" #channelForm="ngForm">
+    <form *ngIf="fristPage||screen.mobileScreenWidth()" (ngSubmit)="onSubmit()" #channelForm="ngForm">
         <div>
             <h2 class="fs18 wei700">Channel-Name</h2>
             <input name="channelName" class="input-field" [(ngModel)]="channelName"
@@ -34,7 +35,7 @@
 
     <div class="dialog-div-add" *ngIf="!fristPage">
 
-        <div class="smallThickBorder" *ngIf="mobileScreenWidth()"></div>
+        <div class="smallThickBorder" *ngIf="screen.mobileScreenWidth()"></div>
 
         <div class="dialog-header-add">
             <span class="nunito fs24 wei700">Leute hinzufügen</span>

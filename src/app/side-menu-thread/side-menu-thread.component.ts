@@ -19,7 +19,6 @@ export class SideMenuThreadComponent {
   public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
-  @Input() screenWidth: number;
   @Output() newSetOpen = new EventEmitter<boolean>();
   @Output() newItemEventOpenChat = new EventEmitter<boolean>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -190,7 +189,7 @@ export class SideMenuThreadComponent {
     this.editA = false;
   }
 
-  toggleEmojisDialogEdit(event:any,aIndex: number) {
+  toggleEmojisDialogEdit(event: any, aIndex: number) {
     event.stopPropagation();
     this.editAIndex = aIndex;
     this.smileEdit = !this.smileEdit;
@@ -335,7 +334,6 @@ export class SideMenuThreadComponent {
      * @returns 
      */
   showEmojiUpper(aIndex: number) {
-
     return (this.answerIndex === aIndex) && this.showEmojisUpper;
   }
 
@@ -431,7 +429,6 @@ export class SideMenuThreadComponent {
   }
 
   showPopUpCommentUsers(aIndex: number, sIndex: number) {
-
     let smile = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[aIndex].smile[sIndex];
     let smileUsers = [];
     smile.users.forEach((s) => {
@@ -504,8 +501,8 @@ export class SideMenuThreadComponent {
       this.showEmojisUpper = false;
     if (this.showEmojisTA)
       this.showEmojisTA = false;
-    if(this.smileEdit)
-    this.smileEdit=false;
+    if (this.smileEdit)
+      this.smileEdit = false;
   }
 
 }

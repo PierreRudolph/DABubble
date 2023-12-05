@@ -12,9 +12,9 @@
                 src="{{getIconPathQuestionUser(m.memberID)}}">
             <span class="fs20 wei600">{{this.threadList[number].channel.members.length}}</span>
         </div>
-        <img *ngIf="!mobileScreenWidth()" class="add-people" (click)="openAddPeopleDialog()"
+        <img *ngIf="!screen.mobileScreenWidth()" class="add-people" (click)="openAddPeopleDialog()"
             [class.hoverStyleAddPeople]="addPeopleOpen" src="assets/icons/add-people.svg" mat-button>
-        <img *ngIf="mobileScreenWidth()" class="add-people" (click)="openChannelMembersDialog()"
+        <img *ngIf="screen.mobileScreenWidth()" class="add-people" (click)="openChannelMembersDialog()"
             src="assets/icons/add-people.svg" mat-button>
     </div>
 </div>
@@ -22,7 +22,8 @@
     [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])" (click)="noEmoji()">
     <div class="message-div" *ngFor="let com of this.threadList[number].communikation, index as i ">
         <div class="dateIcon" *ngIf="!showBegin(com)">
-            <div class="sendDate posAbs flexMiddleX fs18 nunito wei400" [innerHTML]="this.threadList[number].communikation[i].date| transformDate"></div>
+            <div class="sendDate posAbs flexMiddleX fs18 nunito wei400"
+                [innerHTML]="this.threadList[number].communikation[i].date| transformDate"></div>
             <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
         </div>
         <div class="add-reaction posAbs flexMiddleX">

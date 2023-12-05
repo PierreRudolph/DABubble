@@ -1,4 +1,4 @@
-<app-header *ngIf="!blendOutHeader()"></app-header>
+<app-header *ngIf="!screen.mobileScreenWidth()"></app-header>
 
 <div class="intro">
    <div class="logo-outer-div">
@@ -10,7 +10,7 @@
       </div>
    </div>
 </div>
-<div class="logoContainerStatic" *ngIf="blendOutHeader()">
+<div class="logoContainerStatic" *ngIf="screen.mobileScreenWidth()">
    <img src="assets/img/logo.svg">
    <img src="assets/img/LogoName.svg">
 </div>
@@ -38,11 +38,11 @@
    <div style="position: relative;">
       <div class="or">ODER</div>
       <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none"
-         *ngIf="!blendOutHeader()">
+         *ngIf="!screen.mobileScreenWidth()">
          <path d="M500 1H0" stroke="#ADB0D9" />
       </svg>
       <svg xmlns="http://www.w3.org/2000/svg" width="165" height="2" viewBox="0 0 500 2" fill="none"
-         *ngIf="blendOutHeader()">
+         *ngIf="screen.mobileScreenWidth()">
          <path d="M500 1H0" stroke="#ADB0D9" />
       </svg>
    </div>
@@ -57,7 +57,7 @@
    </div>
 </div>
 
-<div class="impData" *ngIf="!blendOutHeader()">
+<div class="impData" *ngIf="!screen.mobileScreenWidth()">
    <div>
       <a routerLink="/imprint" target="_blank">Impressum</a>
    </div>
@@ -66,7 +66,7 @@
    </div>
 </div>
 
-<div [class.dNone]="route.url !='/login'" class="loginHeaderbottom" *ngIf="blendOutHeader()">
+<div [class.dNone]="route.url !='/login'" class="loginHeaderbottom" *ngIf="screen.mobileScreenWidth()">
    <div class="nunitoBlack fs18">Neu bei DABubble?</div>
    <a routerLink="/signup" class="makeAccount">Konto erstellen</a>
 </div>

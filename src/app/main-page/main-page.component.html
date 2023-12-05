@@ -7,13 +7,13 @@
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (isOpen)="setNewMessage($event)" (newItemEventChanel)="setChannelNumber($event)"
     (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList" [threadList]="threadList"
-    class="side-menu" [screenWidth]="this.screenWidth" [talkList]="talkList"></app-side-menu>
+    class="side-menu" [talkList]="talkList"></app-side-menu>
 
   <div class="main-content-div" *ngIf="setMobileView()" #mainContentDiv>
 
     <app-channel-window class="channel-window" *ngIf="showChannel()" [threadList]="this.threadList"
       [number]="this.number" [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
-      [sideMenuHidden]="this.sideMenuHidden" [screenWidth]="this.screenWidth" [openChat]="this.openChat"
+      [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"
       (callOpenTalk)="openMessage($event)"></app-channel-window>
 
     <app-private-message class="privateMessage" *ngIf="showPrivateMessage() " [user]="user"
@@ -29,11 +29,9 @@
 
   </div>
 
-  <app-side-menu-thread *ngIf="openChat&&setMobileThreadView()" class="sideMenuThread" [screenWidth]="screenWidth"
-    [threadList]="threadList" [user]="user" [threadC]="threadC" [userList]="userList"
-    (newSetOpen)="setOpenValue($event)" (newItemEventOpenChat)="setOpenValue($event)"
-    (callOpenTalk)="openMessage($event)"></app-side-menu-thread>
-  <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe($event)"
-    [screenWidth]="screenWidth"></app-main-dialog-profil>
+  <app-side-menu-thread *ngIf="openChat&&setMobileThreadView()" class="sideMenuThread" [threadList]="threadList"
+    [user]="user" [threadC]="threadC" [userList]="userList" (newSetOpen)="setOpenValue($event)"
+    (newItemEventOpenChat)="setOpenValue($event)" (callOpenTalk)="openMessage($event)"></app-side-menu-thread>
+  <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe($event)"></app-main-dialog-profil>
 
 </div>

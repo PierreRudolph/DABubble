@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, HostListener, inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
@@ -10,6 +10,7 @@ import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.co
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { retry } from 'rxjs';
 import { ChannelWindowComponent } from '../channel-window/channel-window.component';
+import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-main-page',
@@ -53,11 +54,15 @@ export class MainPageComponent {
   private userAuth: any; //authenticated user
   private userUid: string = ""; //uid od the user
   public started = false;
-  public screenWidth: any;
+
   amountOfCall = 0;
   idSet = false;
 
-
+  //Hiermit könnte man die Variable screenWidth, an this.screen.screenWidth binden,
+  //ohne alle Vorkommen von screenWidth im Code ändern zu müsssen.
+  // public get screenWidth(){
+  //   return this.screen.screenWidth;
+  // }
 
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -66,17 +71,17 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
-  constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef) {
+  constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
     this.currentTalkData.communikation = [];
 
-    const bP830 = window.matchMedia('(max-width: 830px)');
-    bP830.addEventListener('change', (e) => this.layoutChangedCallback(e, 830));
-    const bPMin830 = window.matchMedia('(max-width: 840px)');
-    bPMin830.addEventListener('change', (e) => this.layoutChangedCallback(e, 840));
-    const bP600 = window.matchMedia('(max-width: 600px)');
-    bP600.addEventListener('change', (e) => this.layoutChangedCallback(e, 750));
-    // const bP1400 = window.matchMedia('(min-width: 1400px)');
-    // bP1400.addEventListener('change', (e) => this.layoutChangedCallback(e,1400));
+    // const bP830 = window.matchMedia('(max-width: 830px)');
+    // bP830.addEventListener('change', (e) => this.layoutChangedCallback(e, 830));
+    // const bPMin830 = window.matchMedia('(max-width: 840px)');
+    // bPMin830.addEventListener('change', (e) => this.layoutChangedCallback(e, 840));
+    // const bP600 = window.matchMedia('(max-width: 600px)');
+    // bP600.addEventListener('change', (e) => this.layoutChangedCallback(e, 750));
+    // // const bP1400 = window.matchMedia('(min-width: 1400px)');
+    // // bP1400.addEventListener('change', (e) => this.layoutChangedCallback(e,1400));
 
 
     setTimeout(() => {
@@ -89,14 +94,14 @@ export class MainPageComponent {
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
-    this.getScreenWidth();
+    //this.getscreen.ScreenWidth();
   }
 
-  layoutChangedCallback(matches: any, num: number) {
-    console.log("matchs", matches);
-    if (this.showPrivateMessage())
-      this.screenWidth = num - 1;
-  };
+  // layoutChangedCallback(matches: any, num: number) {
+  //   console.log("matchs", matches);
+  //   if (this.showPrivateMessage())
+  //     this.screen.screenWidth = num - 1;
+  // };
 
 
 
@@ -363,34 +368,21 @@ export class MainPageComponent {
     }, 350);
   }
 
-
-  getScreenWidth() {
-    this.screenWidth = window.innerWidth;
-  }
-
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
-    this.screenWidth = window.innerWidth;
-  }
-
-
-
   setMobileView() {
     console.log('Main-page Komponente sagt window.innerWidth=', window.innerWidth);
-    console.log('Main-page Komponente sagt screenWidth=', this.screenWidth);
-    return !(this.screenWidth < 830 && !this.sideMenuHidden);
+    console.log('Main-page Komponente sagt screen.screenWidth=', this.screen.screenWidth);
+    return !(this.screen.screenWidth < 830 && !this.sideMenuHidden);
   }
 
   hideMainContentDivOn1400() {
-    if (this.screenWidth <= 1400 && this.screenWidth > 830) {
+    if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
       this.channelOpen = false;
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
 
   showMainContentDivOn1400() {
-    if (this.screenWidth <= 1400 && this.screenWidth > 830) {
+    if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
       if (!this.privateOpen) {
         this.channelOpen = true;
       }
@@ -399,7 +391,7 @@ export class MainPageComponent {
   }
 
   hideMainContentDivOn830() {
-    if (this.screenWidth < 830) {
+    if (this.screen.screenWidth < 830) {
       this.channelOpen = false;
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
@@ -438,9 +430,9 @@ export class MainPageComponent {
   }
 
   setMobileThreadView() {
-    if (this.screenWidth > 1400) {
+    if (this.screen.screenWidth > 1400) {
       return true
-    } if (this.screenWidth <= 1400 && this.channelOpen) {
+    } if (this.screen.screenWidth <= 1400 && this.channelOpen) {
       return false
     } else {
       return true;

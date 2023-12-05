@@ -3,6 +3,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 import { Channel } from 'src/moduls/channel.class';
 import { User } from 'src/moduls/user.class';
+import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-create-channel-dialog',
@@ -19,7 +20,6 @@ export class CreateChannelDialogComponent {
   public userList = [this.user];
   public dialogReference: MatDialogRef<CreateChannelDialogComponent>;
   public fristPage = true;
-  public screenWidth: number;
   isChecked: boolean | undefined;
   searchedMembers: Array<string> = [];
   searchText: any;
@@ -27,7 +27,7 @@ export class CreateChannelDialogComponent {
   public filteredMembers: User[] = [];
   public currentlyAddedUser: User[] = [];
 
-  constructor(public addPeopleDialog: MatDialog) { }
+  constructor(public addPeopleDialog: MatDialog, public screen: ScreenService) { }
 
   /**
    * Puts the given user in the currentlyAddedUser list
@@ -148,8 +148,5 @@ export class CreateChannelDialogComponent {
     this.searchText = data;
     this.filterMember();
 
-  }
-  mobileScreenWidth() {
-    return this.screenWidth < 830;
   }
 }
