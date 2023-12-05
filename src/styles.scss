@@ -504,10 +504,10 @@ mat-drawer-container {
 .sendDate {
     background-color: white;
     border-radius: 18px;
-    width: 200px;
+    width: 250px;
     height: 36px;
     top: calc(50% - 20px);
-    left: calc(50% - 100px);
+    left: calc(50% - 125px);
     border: solid 1px #ADB0D9;
     color: #000;
     justify-content: center;
@@ -626,10 +626,10 @@ app-create-account-avatar {
     }
 
     .sendDate {
-        width: 124px;
+        width: 200px;
         height: 26px;
         top: calc(50% - 13px);
-        left: calc(50% - 62px);        
+        left: calc(50% - 100px);
     }
 
     .reactIcons {

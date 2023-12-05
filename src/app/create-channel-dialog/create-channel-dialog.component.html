@@ -61,7 +61,7 @@
         <div style="position: relative;">
             <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
                 *ngIf="isChecked" class="inputText" type="text" placeholder="Name eingeben">
-            <div style="display: flex; gap:10px">
+            <div style="display: flex; gap:10px; overflow-x: auto;">
                 <div class="addedMember" *ngFor="let cu of currentlyAddedUser">
                     <img style="width:20px;height:20px" src="{{cu.iconPath}}">
                     <div class="nunitoBlack fs14 wei400">{{cu.name}}</div>
