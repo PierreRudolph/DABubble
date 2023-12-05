@@ -64,8 +64,11 @@ export class PrivateMessageComponent {
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
     
     setTimeout(() => {
-      this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
-      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);   
+      this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);     
+      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);    
+      let date = new Date(Date.now());
+      let day = date.getDay();
+     
     }, 1500);
   }
 

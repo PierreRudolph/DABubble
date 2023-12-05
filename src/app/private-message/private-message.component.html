@@ -1,144 +1,151 @@
 <div class="privateMesOuterDiv" (click)="noEmoji()">
-  <div class="direktMesHeader">
-    <div class="charImgDiv flexMiddleX" *ngIf="talkOpen">
-      <img class="charImgHeader" src="{{otherChatUser.iconPath}}" (click)="openDialog(otherChatUser)">
-      <div class="stateDot" [class.greenDot]="otherChatUser.getAktive()"></div>
+    <div class="direktMesHeader">
+        <div class="charImgDiv flexMiddleX" *ngIf="talkOpen">
+            <img class="charImgHeader" src="{{otherChatUser.iconPath}}" (click)="openDialog(otherChatUser)">
+            <div class="stateDot" [class.greenDot]="otherChatUser.getAktive()"></div>
+        </div>
+        <div class="nunitoBlack fs24">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
     </div>
-    <div class="nunitoBlack fs24">{{otherChatUser.name}}<span *ngIf="isItMe()"> (DU)</span></div>
-  </div>
 
-  <div class="mainFieldDirektMessage" [class.mainFieldWithoutInfo]="exist"
-    [class.mainFieldisItMeInfo]="isItMe()&&!exist">
-    <div class="messageArea" id="messageArea" *ngIf="talkOpen">
-      <div style="margin:30px 0px" *ngFor="let c of this.currentTalkData.communikation,index as i">
+    <div class="mainFieldDirektMessage" [class.mainFieldWithoutInfo]="exist"
+        [class.mainFieldisItMeInfo]="isItMe()&&!exist">
+        <div class="messageArea" id="messageArea" *ngIf="talkOpen">
+            <div style="margin:30px 0px" *ngFor="let c of this.currentTalkData.communikation,index as i">
 
-        <div class="dateIcon" *ngIf="c.date!=''">
-          <!-- <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs">{{c.date}}</div> -->
-          <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs" [innerHTML]="c.date| transformDate" ></div>
-          <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
+                <div class="dateIcon" *ngIf="c.date!=''">
+                    <!-- <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs">{{c.date}}</div> -->
+                    <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs" [innerHTML]="c.date| transformDate">
+                    </div>
+                    <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
+                </div>
+
+                <div style="margin:35px 0px"
+                    *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
+                    <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
+                        <img class="charImg" src="{{getIconFromName(m.iD)}}">
+                        <div class="message-inner-div">
+                            <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(m)">
+                                <span class="nunitoBlack">{{m.name}}</span>
+                                <span style="color:#b7bade">{{m.time}} Uhr</span>
+                            </div>
+                            <div [class.popUpFlipContainer]="getFlip(m)">
+                                <div class="message" [class.dNone]="m.edit">
+                                    <div *ngIf="showLink(m.url.link)">
+                                        <a class="upload" href="{{m.url.link}}" target="_blank">
+                                            <img class="linkImg" [src]="m.url.link ||'http://placehold.it/180'"
+                                                alt="your image" />
+                                            <img class="deleteUpload" src="assets/img/close.svg"
+                                                (click)="deleteUp($event,i,mIndex)" *ngIf="getFlip(m)">
+                                        </a>
+                                        <div>{{m.url.title}}</div>
+                                    </div>
+                                    <!-- {{m.message}}  -->
+                                    <span *ngFor="let mes of m.messageSplits" style="width:100%">
+                                        <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)"
+                                            class="linkedUserName"
+                                            [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
+                                        <span [innerHTML]="mes.text | transformPipe"
+                                            *ngIf="!chatHelper.isLink(mes)"></span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div [class.popUpFlipContainer]="getFlip(m)">
+                                <div style="display:flex;gap:5px; margin-top:10px">
+                                    <div class="reactIcons" [class.lila]="smileHelper.isUserInSmile(sFace.users,user)"
+                                        *ngFor="let sFace of m.smile, index as sIndex"
+                                        (click)="removeSmile(mIndex,sIndex)">
+                                        {{sFace.icon}}
+                                        {{sFace.users.length}}
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- edit message part, now -->
+                            <div [class.dNone]="!m.edit" class="posEditWind">
+                                <div style="position:relative">
+                                    <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
+                                    <img (click)="toggleEmojisDialogEdit($event)" class="smileEdit"
+                                        src="assets/img/smile.svg">
+                                    <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit"
+                                        (emojiClick)="saveEmoji($event)"></emoji-mart>
+                                </div>
+
+                                <div class="editButtonContainer">
+                                    <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
+                                    <button class="btn butttonBlue" (click)="saveEdit(m,i,mIndex)">Speichern</button>
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="popUpMessageContainer" [class.popUpMessageContainerFlip]="getFlip(m)">
+                            <div class="popUpMessage" [class.flipCorner]="getFlip(m)">
+
+                                <img class="popUpIcons pad0" (click)="toggleEmojisDialogComment($event,i,mIndex)"
+                                    src="assets/icons/add-reaction.svg">
+
+                                <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
+                                    src="assets/img/more_vert.svg">
+                            </div>
+                            <div class="editMessage posPop" [class.show]="openEditDialog">
+                                <div class="editMessageT" (click)="openEditWindow(m)">Nachricht bearbeiten</div>
+                                <div class="editMessageT" (click)="deleteMessage(i,mIndex)">Nachricht löschen</div>
+                            </div>
+                        </div>
+                        <emoji-mart class="emojiDivComment" *ngIf="isEmojisCommentShown(i,mIndex)"
+                            title="Pick your emoji…" (emojiClick)="saveEmojiComment($event)"></emoji-mart>
+
+
+                    </div>
+
+                </div>
+            </div>
         </div>
 
-        <div style="margin:35px 0px" *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
-          <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
-            <img class="charImg" src="{{getIconFromName(m.iD)}}">
-            <div class="message-inner-div">
-              <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(m)">
-                <span class="nunitoBlack">{{m.name}}</span>
-                <span style="color:#b7bade">{{m.time}} Uhr</span>
-              </div>
-              <div [class.popUpFlipContainer]="getFlip(m)">
-                <div class="message" [class.dNone]="m.edit">
-                  <div *ngIf="showLink(m.url.link)">
-                    <a class="upload" href="{{m.url.link}}" target="_blank">
-                      <img class="linkImg" [src]="m.url.link ||'http://placehold.it/180'" alt="your image" />
-                      <img class="deleteUpload" src="assets/img/close.svg" (click)="deleteUp($event,i,mIndex)"
-                        *ngIf="getFlip(m)">
-                    </a>
-                    <div>{{m.url.title}}</div>
-                  </div>
-                  <!-- {{m.message}}  -->
-                  <span *ngFor="let mes of m.messageSplits" style="width:100%">
-                    <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)" class="linkedUserName"
-                      [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
-                    <span [innerHTML]="mes.text | transformPipe" *ngIf="!chatHelper.isLink(mes)"></span>
-                  </span>
-                </div>
-              </div>
-              <div [class.popUpFlipContainer]="getFlip(m)">
-                <div style="display:flex;gap:5px; margin-top:10px">
-                  <div class="reactIcons" [class.lila]="smileHelper.isUserInSmile(sFace.users,user)"
-                    *ngFor="let sFace of m.smile, index as sIndex" (click)="removeSmile(mIndex,sIndex)">
-                    {{sFace.icon}}
-                    {{sFace.users.length}}
-                  </div>
-                </div>
-              </div>
-              <!-- edit message part, now -->
-              <div [class.dNone]="!m.edit" class="posEditWind">
-                <div style="position:relative">
-                  <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
-                  <img (click)="toggleEmojisDialogEdit($event)" class="smileEdit" src="assets/img/smile.svg">
-                  <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit"
-                    (emojiClick)="saveEmoji($event)"></emoji-mart>
-                </div>
+    </div>
 
-                <div class="editButtonContainer">
-                  <button class="btn buttonLight" (click)="closeEdit(m)">Abbrechen</button>
-                  <button class="btn butttonBlue" (click)="saveEdit(m,i,mIndex)">Speichern</button>
-                </div>
-              </div>
+    <div *ngIf="!exist" class="chatIconButtom">
+        <img class="charImgInfo" src="{{otherChatUser.iconPath}}">
+        <div class="nunitoBlack">{{otherChatUser.name}} <span *ngIf="isItMe()"> (DU)</span></div>
+    </div>
+    <div *ngIf="!exist && talkOpen && !isItMe() " class="nunitoBlack fs20 wei400 info">
+        Diese
+        Unterhaltung findet nur
+        zwischen <span style="color:#535AF1;cursor: pointer;"
+            (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
+    </div>
+    <div *ngIf="!exist && talkOpen && isItMe()" class="nunitoBlack fs20 wei400 info isItMeInfo">
+        Diese
+        <span style="font-weight: 700">Dieser Raum ist nur für dich da</span>. Mache dir Notizen, liste deine To-dos auf
+        oder
+        bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst besprechen.
+    </div>
 
+    <div *ngIf="talkOpen" class="textareaDirektMessage">
+        <div class="dataUpload nunitoBlack fs18 posUpload" *ngIf="showBlendin()">
+            <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
+            {{dataUpload.title}}
+            <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
+        </div>
+        <textarea #textArea class="textAreaDirekt" [(ngModel)]="text" placeholder="Nachricht an {{otherChatUser.name}}"
+            (keydown)="keyDownFunction($event)"></textarea>
+        <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
+        <div class="iconContainerTextArea">
+            <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">  -->
 
-            </div>
-            <div class="popUpMessageContainer" [class.popUpMessageContainerFlip]="getFlip(m)">
-              <div class="popUpMessage" [class.flipCorner]="getFlip(m)">
-
-                <img class="popUpIcons pad0" (click)="toggleEmojisDialogComment($event,i,mIndex)"
-                  src="assets/icons/add-reaction.svg">
-
-                <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
-                  src="assets/img/more_vert.svg">
-              </div>
-              <div class="editMessage posPop" [class.show]="openEditDialog">
-                <div class="editMessageT" (click)="openEditWindow(m)">Nachricht bearbeiten</div>
-                <div class="editMessageT" (click)="deleteMessage(i,mIndex)">Nachricht löschen</div>
-              </div>
-            </div>
-            <emoji-mart class="emojiDivComment" *ngIf="isEmojisCommentShown(i,mIndex)" title="Pick your emoji…"
-              (emojiClick)="saveEmojiComment($event)"></emoji-mart>
-
-
-          </div>
+            <input type="file" id="imgPrivate" style="display:none;" (change)="onSelect($event)">
+            <label for="imgPrivate"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
+            <div style="width:2px;background-color: #ADB0D9 ;"></div>
+            <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
+            <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
+            <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
+                (emojiClick)="saveEmoji($event)"></emoji-mart>
 
         </div>
-      </div>
+        <div class="addressBox" *ngIf="addresses">
+            <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
+            <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
+                <img src="{{usL.iconPath}}"> {{usL.name}}
+            </div>
+        </div>
     </div>
-
-  </div>
-
-  <div *ngIf="!exist" class="chatIconButtom">
-    <img class="charImgInfo" src="{{otherChatUser.iconPath}}">
-    <div class="nunitoBlack">{{otherChatUser.name}} <span *ngIf="isItMe()"> (DU)</span></div>
-  </div>
-  <div *ngIf="!exist && talkOpen && !isItMe() " class="nunitoBlack fs20 wei400 info">
-    Diese
-    Unterhaltung findet nur
-    zwischen <span style="color:#535AF1;cursor: pointer;"
-      (click)="openDialog(otherChatUser)">@{{otherChatUser.name}}</span> und dir statt.
-  </div>
-  <div *ngIf="!exist && talkOpen && isItMe()" class="nunitoBlack fs20 wei400 info isItMeInfo">
-    Diese
-    <span style="font-weight: 700">Dieser Raum ist nur für dich da</span>. Mache dir Notizen, liste deine To-dos auf
-    oder
-    bewahre Links und Dateien griffbereit auf. Du kannst hier auch gerne Dinge mit dir selbst besprechen.
-  </div>
-
-  <div *ngIf="talkOpen" class="textareaDirektMessage">
-    <div class="dataUpload nunitoBlack fs18 posUpload" *ngIf="showBlendin()">
-      <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
-      {{dataUpload.title}}
-      <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
-    </div>
-    <textarea #textArea class="textAreaDirekt" [(ngModel)]="text" placeholder="Nachricht an {{otherChatUser.name}}"
-      (keydown)="keyDownFunction($event)"></textarea>
-    <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
-    <div class="iconContainerTextArea">
-      <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">  -->
-
-      <input type="file" id="imgPrivate" style="display:none;" (change)="onSelect($event)">
-      <label for="imgPrivate"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
-      <div style="width:2px;background-color: #ADB0D9 ;"></div>
-      <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
-      <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
-      <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
-        (emojiClick)="saveEmoji($event)"></emoji-mart>
-
-    </div>
-    <div class="addressBox" *ngIf="addresses">
-      <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
-      <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
-        <img src="{{usL.iconPath}}"> {{usL.name}}
-      </div>
-    </div>
-  </div>
 </div>
