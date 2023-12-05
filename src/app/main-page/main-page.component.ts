@@ -369,9 +369,7 @@ export class MainPageComponent {
   }
 
   setMobileView() {
-    console.log('Main-page Komponente sagt window.innerWidth=', window.innerWidth);
-    console.log('Main-page Komponente sagt screen.screenWidth=', this.screen.screenWidth);
-    return !(this.screen.screenWidth < 830 && !this.sideMenuHidden);
+    return !(this.screen.mobileScreenWidth() && !this.sideMenuHidden);
   }
 
   hideMainContentDivOn1400() {
