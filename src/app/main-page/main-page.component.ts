@@ -72,16 +72,7 @@ export class MainPageComponent {
   // @ViewChild(SideMenuThreadComponent) threadWindow: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
-    this.currentTalkData.communikation = [];
-
-    const bP830 = window.matchMedia('(max-width: 830px)');
-    bP830.addEventListener('change', (e) => this.layoutChangedCallback(e, 830));
-    const bPMin830 = window.matchMedia('(max-width: 840px)');
-    bPMin830.addEventListener('change', (e) => this.layoutChangedCallback(e, 840));
-    const bP600 = window.matchMedia('(max-width: 600px)');
-    bP600.addEventListener('change', (e) => this.layoutChangedCallback(e, 750));
-    // const bP1400 = window.matchMedia('(min-width: 1400px)');
-    // bP1400.addEventListener('change', (e) => this.layoutChangedCallback(e,1400));
+    this.currentTalkData.communikation = []; 
 
 
     setTimeout(() => {
@@ -96,14 +87,6 @@ export class MainPageComponent {
     }, 1500);
     //this.getscreen.ScreenWidth();
   }
-
-  // layoutChangedCallback(matches: any, num: number) {
-  //   console.log("matchs", matches);
-  //   if (this.showPrivateMessage())
-  //     this.screen.screenWidth = num - 1;
-  // };
-
-
 
   /**
    * Observes the database about changes on  all Users.
@@ -295,7 +278,7 @@ export class MainPageComponent {
    * @param user Ohter chat user
    */
   setOtherUser(user: User) {
-    window.innerWidth = 1000;
+ 
     this.talkOpen = true;
     this.channelOpen = false;
     this.privateOpen = true;
@@ -367,18 +350,6 @@ export class MainPageComponent {
       this.childSideThread.openSideMenuThread();
     }, 350);
   }
-
-
-  getScreenWidth() {
-    this.screenWidth = window.innerWidth;
-  }
-
-
-  @HostListener('window:resize', ['$event'])
-  onWindowResize() {
-    this.screenWidth = window.innerWidth;
-  }
-
 
 
   setMobileView() {
