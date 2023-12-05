@@ -11,7 +11,7 @@ export class AuthService {
   public sub: any;
   constructor(private afAuth: AngularFireAuth) {
     this.sub = afAuth.authState.subscribe(user => {
-      this.user = user;    
+      this.user = user;
     });
   }
 
@@ -29,23 +29,10 @@ export class AuthService {
   }
 
   async logIn(email: string, password: string) {
-    let ret = this.afAuth.signInWithEmailAndPassword(email, password); 
+    let ret = this.afAuth.signInWithEmailAndPassword(email, password);
 
     return ret;
   }
-
-  // async logIn(email: string, password: string) {
-  //   try {
-  //     await this.afAuth.signInWithEmailAndPassword(
-  //       email: "barry.allen@example.com",
-  //       password: "SuperSecretPassword!",
-  //     );
-  //   } on AngularFireAuthException catch  (e) {
-  //     print('Failed with error code: ${e.code}');
-  //     print(e.message);
-  //   }
-
-
 
   logout() {
     return this.afAuth.signOut();

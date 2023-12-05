@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, Pipe, PipeTransform } from '@angular/core';
+import { Component, Input, Output, EventEmitter, } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -11,7 +11,6 @@ import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { ChannelHelper } from 'src/moduls/channelHelper.class';
 import { ScreenService } from '../screen.service';
 
-// @Pipe({name: 'replaceLineBreaks'})
 @Component({
   selector: 'app-channel-window',
   templateUrl: './channel-window.component.html',
@@ -60,7 +59,6 @@ export class ChannelWindowComponent {
     setTimeout(() => {
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
-      // this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
     }, 500);
   }
 

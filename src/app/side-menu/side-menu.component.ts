@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild, inject } from '@angular/core';
 import { User } from 'src/moduls/user.class';
 import { CreateChannelDialogComponent } from '../create-channel-dialog/create-channel-dialog.component';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { ScreenService } from '../screen.service';

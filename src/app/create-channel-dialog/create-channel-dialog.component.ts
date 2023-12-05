@@ -1,6 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 import { Channel } from 'src/moduls/channel.class';
 import { User } from 'src/moduls/user.class';
 import { ScreenService } from '../screen.service';

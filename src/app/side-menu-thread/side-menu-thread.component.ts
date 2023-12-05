@@ -67,15 +67,7 @@ export class SideMenuThreadComponent {
     this.drawer.close();
     this.openChat = false;
     this.newItemEventOpenChat.emit(this.openChat);
-    setTimeout(() => {
-      //  this.newSetOpen.emit(false);
-      //  this.drawer.open() 
-    }, 300);
   }
-
-  // closeThreadMobile() {
-  //   this.drawer.close();
-  // }
 
   /**
    * 

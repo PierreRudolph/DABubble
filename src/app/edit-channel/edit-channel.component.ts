@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
-import { ChannelMembersComponent } from '../channel-members/channel-members.component';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 import { ScreenService } from '../screen.service';
 
@@ -109,10 +108,11 @@ export class EditChannelComponent {
     return icon;
   }
 
-  addMembersAction() {
-    //this.addMembers = true;
-    //this.dialogRef.close(this.addMembers);
-  }
+  // Kann man die Funktion löschen? Das innere war bereits auskommentiert. *Pierre
+  // addMembersAction() {
+  //   //this.addMembers = true;
+  //   //this.dialogRef.close(this.addMembers);
+  // }
 
   openAddPeopleDialog() {
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);

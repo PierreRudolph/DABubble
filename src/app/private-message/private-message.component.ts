@@ -4,11 +4,9 @@ import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 import { Firestore, addDoc, collection, doc, getDoc } from '@angular/fire/firestore';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
-import { Emoji, EmojiComponent } from '@ctrl/ngx-emoji-mart/ngx-emoji';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { AngularFireStorage } from '@angular/fire/compat/storage';
 
 @Component({
   selector: 'app-private-message',
@@ -16,16 +14,11 @@ import { AngularFireStorage } from '@angular/fire/compat/storage';
   styleUrls: ['./private-message.component.scss']
 })
 export class PrivateMessageComponent {
-  // private userAuth: any; //authenticated user
   @Input() user: User = new User();//authenticated user
   public firestore: Firestore = inject(Firestore);
-  // public fireStorage:AngularFireStorage = inject(AngularFireStorage);
   private chatHepler: ChatHepler = new ChatHepler();
   @Input() userList: any;
   public dataUpload = { "link": "", "title": "" };
-  // private userUid: string = ""; //uid od the user
-  // private unsub: any;
-  // private unsubtalk: any;
   public choiceDialog: boolean = false;
   public profileOpen = false;
   public openChat = false;
@@ -52,8 +45,6 @@ export class PrivateMessageComponent {
   private mA: HTMLInputElement;
   private upload: any;
 
-
-  // @Output() newItemEventUserList = new EventEmitter<any>();
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
   @Output() newItemEventTalkList = new EventEmitter<any>();
   @Output() sendCurrentTalkId = new EventEmitter<string>();

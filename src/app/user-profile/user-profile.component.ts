@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { User } from 'src/moduls/user.class';
 
 @Component({
@@ -14,7 +14,7 @@ export class UserProfileComponent {
     this.ref.close();
   }
 
-  openTalk() {    
+  openTalk() {
     this.ref.close(this.user);
   }
 }

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { Channel } from 'src/moduls/channel.class';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
 import { ScreenService } from '../screen.service';
@@ -16,7 +15,6 @@ export class AddPeopleDialogComponent {
   public user: User = new User();
   public userList = [this.user];
   public searchText: any;
-  // public channel: Channel;
   public channelJSON = {};
   public filteredMembers: User[] = [];
   public currentlyAddedUser: User[] = [];
@@ -27,8 +25,7 @@ export class AddPeopleDialogComponent {
   public mobileFromBottom: boolean | false;
   public userInList = false;
 
-  constructor(public addPeopleDialog: MatDialog, public screen: ScreenService) {
-  }
+  constructor(public addPeopleDialog: MatDialog, public screen: ScreenService) { }
 
   /**
    * Adds the given User do the currentlyAddedUser

@@ -1,8 +1,7 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
-import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { ScreenService } from '../screen.service';
 @Component({
   selector: 'app-header',
@@ -16,7 +15,6 @@ export class HeaderComponent {
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() talkList: any = [this.chathelper.createEmptyTalk()];
   @Input() sideMenuHidden: boolean;
-  private searchText: string = "";
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
   public talkMessages: any[] = [];
@@ -28,10 +26,7 @@ export class HeaderComponent {
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() isOpen = new EventEmitter<boolean>();
 
-
-
   constructor(public router: Router, public screen: ScreenService) { }
-
 
   showPop() {
     return this.text != "";
