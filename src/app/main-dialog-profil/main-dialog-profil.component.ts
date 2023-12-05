@@ -47,15 +47,16 @@ export class MainDialogProfilComponent {
   }
 
   async logOut() {
+   
     this.user.status = "Inaktiv";
-    let user = this.authService.getAuthServiceUser();
+    let user = this.authService.getAuthServiceUser();   
     if (user) {
       this.authService.logout().then((dat) => {
         this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
-        this.router.navigateByUrl("login");
         this.unsubscribe.emit(true);
         localStorage.removeItem("uid");
         localStorage.removeItem("google");
+        this.router.navigateByUrl("login");
 
       })
         .catch((error) => {
