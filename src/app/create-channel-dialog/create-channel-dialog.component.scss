@@ -251,7 +251,7 @@
     }
 
     to {
-        bottom: 0px;
+        bottom: -20px;
     }
 }
 
@@ -296,12 +296,14 @@
 
     .popUp {
         bottom: 215px;
+        border-radius: 30px;
+        border-bottom-left-radius: 0px;
     }
 }
 
 @media (max-width:400px) {
 
-   
+
 
     .dialog-div {
         padding: 15px 10px;

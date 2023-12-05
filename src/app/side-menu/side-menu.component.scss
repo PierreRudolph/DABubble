@@ -184,11 +184,6 @@
     font-size: 20px;
 }
 
-// .scrollableContactDiv {
-//     overflow: auto;
-//     max-height: calc(100vh - 455px);
-// }
-
 .add-icon {
     cursor: pointer;
     position: absolute;
@@ -463,12 +458,7 @@
     }
 
     .add-icon {
-        top: 10px;
         content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
-
-        &:hover {
-            content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
-        }
     }
 
     .newMesMobile {
