@@ -263,7 +263,7 @@ export class PrivateMessageComponent {
         this.sendCurrentTalkId.emit(talkId);
       }
     });
-
+   
     this.openeningTalk(talkId);
   }
 
@@ -274,10 +274,12 @@ export class PrivateMessageComponent {
    * @param talkId Id of the talk, that should be opend
    */
   openeningTalk(talkId: string) {
+   
     if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
     } else {
+    
       this.currentTalkId = "";
       this.sendCurrentTalkId.emit("");
       this.currentTalkData = this.chatHepler.createEmptyTalk();
@@ -296,7 +298,7 @@ export class PrivateMessageComponent {
 
   setOtherUser(user: User) {
     this.currentTalkId = "";
-    this.otherChatUser = user;
+    this.otherChatUser = user;    
     this.openTalk();
 
     setTimeout(() => {

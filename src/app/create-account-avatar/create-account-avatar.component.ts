@@ -98,6 +98,7 @@ export class CreateAccountAvatarComponent {
       reader.onload = (event: any) => {
         this.portraitPath = event.target.result;
         this.user.iconPath = this.portraitPath;
+        this.choosen = true;
       };
     }
   }
