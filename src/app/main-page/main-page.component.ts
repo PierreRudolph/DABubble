@@ -405,12 +405,17 @@ export class MainPageComponent {
 
   setMobileThreadView() {
     if (this.screen.screenWidth > 1400) {
-      return true
-    } if (this.screen.screenWidth <= 1400 && this.channelOpen) {
+      return true;
+    } if (this.screen.screenWidth <= 1400 && this.channelOpen && !this.sideMenuHidden) {
       setTimeout(() => {
-        this.openChat = false
+        this.openChat = false;
       }, 200);
-      return false
+      return false;
+    } else if (this.screen.screenWidth <= 1220 && this.channelOpen && this.sideMenuHidden) {
+      setTimeout(() => {
+        this.openChat = false;
+      }, 200);
+      return false;
     } else {
       return true;
     }

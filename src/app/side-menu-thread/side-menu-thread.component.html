@@ -1,6 +1,6 @@
 <div #sideMenuThreadDiv class="threadOuterDiv mobileDNone">
     <mat-drawer-container class="example-container mat-drawer-div" [class.margin-left]="this.drawer.opened==true"
-        (click)="noEmoji()">
+        [class.margin-mobile-left]="channelOpen&&drawer.opened==true" (click)="noEmoji()">
         <mat-drawer #drawer class="example-sidenav sidenav" mode="side" position="end">
             <div class="sidenav-header">
                 <div class="flexMiddleX">
