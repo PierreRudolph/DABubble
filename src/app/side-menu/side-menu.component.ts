@@ -41,7 +41,7 @@ export class SideMenuComponent {
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
 
-  constructor(public dialog: MatDialog, public screen: ScreenService,public lastUserService: SaveLastUserService) {
+  constructor(public dialog: MatDialog, public screen: ScreenService, public lastUserService: SaveLastUserService) {
   }
 
   getName(num: number) {
@@ -87,7 +87,7 @@ export class SideMenuComponent {
     this.newMessage = true;
     this.isOpen.emit(this.newMessage);
   }
- 
+
 
   openTalk(u: User) {
     this.newMessage = false;

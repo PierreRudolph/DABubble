@@ -7,6 +7,6 @@ export class ScreenService {
   screenWidth;
 
   mobileScreenWidth() {
-    return this.screenWidth < 830;
+    return this.screenWidth <= 830;
   }
 }

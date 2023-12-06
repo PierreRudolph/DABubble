@@ -18,7 +18,7 @@
 
     <app-private-message class="privateMessage" *ngIf="showPrivateMessage()" [user]="user"
       (newItemEventLoggedUser)="setLoggedInUser($event)" (callOpenUser)="openMessage($event)" [talkList]="talkList"
-      (sendCurrentTalkId)="setCurrentTalkId($event)" [userList]="userList" [oldTalkId]="oldTalkId" 
+      (sendCurrentTalkId)="setCurrentTalkId($event)" [userList]="userList" [oldTalkId]="oldTalkId"
       [currentTalkData]="currentTalkData"></app-private-message>
 
     <app-send-new-message style="height:100%" [threadList]="this.threadList" [talkList]="talkList" [user]="user"

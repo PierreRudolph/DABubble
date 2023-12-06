@@ -169,19 +169,20 @@
 
     img:nth-of-type(2) {
         z-index: 2;
-        left: 55px;
+        left: 35px;
         position: absolute;
 
     }
 
     img:nth-of-type(3) {
         z-index: 1;
-        left: 22px;
+        left: 0px;
         position: absolute;
     }
 
     span {
-        padding-left: 10px;
+        width: 30px;
+        margin-left: 10px;
     }
 
     &:hover {
@@ -521,19 +522,31 @@
     }
 }
 
-@media (max-width:900px) {
+@media (max-width:960px) {
     .emojiDiv {
         bottom: -425px;
     }
 
-    .added-members {
-        padding: 3px 5px;
+    .channel-header {
+        padding: 37px 10px;
+    }
+
+    .add-people {
         padding-left: 0px;
     }
+
+    // .added-members {
+    //     padding: 3px 5px;
+    //     padding-left: 0px;
+    // }
 
     .channel-header-left {
         padding: 6px 5px;
         gap: 0px;
+
+        span {
+            max-width: 100px;
+        }
     }
 }
 

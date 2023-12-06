@@ -16,7 +16,7 @@ export class CreateAccountComponent {
 
   public registerForm: FormGroup = new FormGroup({
     data: new FormControl('', Validators.requiredTrue),
-    name: new FormControl('', [Validators.required, Validators.pattern('([a-zA-ZäöüÄÖÜß]+\\s+){1,10}([a-zA-ZäöüÄÖÜß]+)')]),
+    name: new FormControl('', [Validators.required, Validators.pattern('([a-zA-ZäöüÄÖÜß]+\\s+){1,10}([a-zA-ZäöüÄÖÜß]+\\s*)')]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.minLength(6), Validators.required])
   })

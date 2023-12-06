@@ -169,16 +169,20 @@
 @media(max-width:1110px) {
     .searchInput {
         min-width: 425px;
+
+        img {
+            right: 25px;
+        }
     }
 }
 
 @media (max-width:900px) {
     .openCloseSidenav {
-        margin-left: 10px;
+        margin-left: 5px;
     }
 
     .searchInput {
-        margin-left: 10px;
+        margin-left: 5px;
     }
 
     .searchInput {

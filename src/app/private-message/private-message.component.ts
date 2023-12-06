@@ -62,9 +62,9 @@ export class PrivateMessageComponent {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
     }, 1500);
-    setTimeout(() => {    
+    setTimeout(() => {
       if (this.oldTalkId != "" && this.currentTalkId == "") {
-        this.currentTalkId = this.oldTalkId;       
+        this.currentTalkId = this.oldTalkId;
         this.otherChatUser = lastUserService.lastUser;
         this.openTalk();
         this.talkOpen = true;
@@ -148,6 +148,7 @@ export class PrivateMessageComponent {
    * @param mes JSON that represents the message.
    */
   saveMessageExist(mes: {}) {
+    debugger;
     setTimeout(() => {
       let len = this.currentTalkData.communikation.length;
       let date = this.currentTalkData.communikation[len - 1].date;
@@ -273,7 +274,7 @@ export class PrivateMessageComponent {
    * @param talkId Id of the talk, that should be opend
    */
   openeningTalk(talkId: string) {
-    if (this.exist) {    
+    if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
     } else {

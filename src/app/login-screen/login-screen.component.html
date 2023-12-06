@@ -15,14 +15,15 @@
    <img src="assets/img/LogoName.svg">
 </div>
 
-<div class="logInDialog" [formGroup]="registerForm">
+<form class="logInDialog" [formGroup]="registerForm">
    <h1 class="nunito headline">Anmeldung</h1>
    <p class="nunito loginDis">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
 
    <div class="inputWind">
       <img src="assets/img/mail.svg">
       <input formControlName="email" placeholder="beispielname@email.com" title="email" id="mail">
-      <span *ngIf="registerForm.controls['email'].errors?.['pattern']">*Diese E-Mail-Adresse ist leider ungültig.</span>
+      <span *ngIf="registerForm.controls['email'].errors?.['pattern']">*Diese E-Mail-Adresse ist leider
+         ungültig.</span>
       <span style="color:red" *ngIf="errorMes">Passwort oder Email sind falsch!</span>
    </div>
    <div class="inputWind">
@@ -33,6 +34,7 @@
          sein.</span>
       <span style="color:red" *ngIf="errorMes">Passwort oder Email sind falsch!</span>
    </div>
+
    <a routerLink="/forget" class="pwForget">Passwort vergessen?</a>
 
    <div style="position: relative;">
@@ -55,7 +57,7 @@
       <button class="btn buttonLight" [disabled]="registerForm.invalid" (click)=" login()">Anmelden</button>
       <button class="btn buttonBlue" (click)="loginAsGuest()">Gäste-Login</button>
    </div>
-</div>
+</form>
 
 <div class="impData" *ngIf="!screen.mobileScreenWidth()">
    <div>
