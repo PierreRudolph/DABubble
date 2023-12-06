@@ -63,12 +63,12 @@ export class PrivateMessageComponent {
       this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
     }, 1500);
     setTimeout(() => {
-      if (this.oldTalkId != "" && this.currentTalkId == "") {
+      // if (this.oldTalkId != "" && this.currentTalkId == "") {
         this.currentTalkId = this.oldTalkId;
         this.otherChatUser = lastUserService.lastUser;
         this.openTalk();
         this.talkOpen = true;
-      }
+      // }
     }, 125);
   }
 
