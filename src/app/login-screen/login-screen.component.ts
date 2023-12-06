@@ -48,7 +48,7 @@ export class LoginScreenComponent {
   }
 
   async loginAsGuest() {
-    return this.authService.logIn("gast@mail.com", "gggggg").then((res) => {
+    return this.authService.logIn("gast@mail.com", "111111").then((res) => {
       // Login successful   
       localStorage.removeItem('google');
 
