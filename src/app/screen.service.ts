@@ -9,4 +9,8 @@ export class ScreenService {
   mobileScreenWidth() {
     return this.screenWidth <= 830;
   }
+
+  callResize() {
+    return this.screenWidth;
+  }
 }

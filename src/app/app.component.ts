@@ -16,6 +16,7 @@ export class AppComponent {
   @HostListener('window:resize', ['$event'])
   onWindowResize() {
     this.screen.screenWidth = window.innerWidth;
+    this.screen.callResize();
   }
 
 }

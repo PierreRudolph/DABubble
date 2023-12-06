@@ -31,6 +31,9 @@ export class SideMenuComponent {
   @Output() newItemEventUser = new EventEmitter<User>();
   @Output() newItemEventChanel = new EventEmitter<any>();
   @Output() newItemEvent = new EventEmitter<boolean>();
+
+  @Output() channelOpen = new EventEmitter<boolean>();
+
   private dialogClasses: Array<string> = [];
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
@@ -137,6 +140,8 @@ export class SideMenuComponent {
     this.newItemEvent.emit(false);
     this.newItemEventChanel.emit(n);
     this.isOpen.emit(false);
+
+    this.channelOpen.emit(true)
   }
 
 

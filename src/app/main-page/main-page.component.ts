@@ -234,7 +234,7 @@ export class MainPageComponent {
     if (!this.openChat && this.sideMenuHidden) {
       this.setMobileSideMenuValues();
     }
-  } 
+  }
 
   /**
    * Sets the id of the current channel. Sets the required variables for visibility.
@@ -352,12 +352,16 @@ export class MainPageComponent {
   }
 
   showMainContentDivOn1400() {
-    if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
-      if (!this.privateOpen) {
-        this.channelOpen = true;
-      }
-      this.mainContentDiv.nativeElement.classList.remove('dNone');
+    if (!this.privateOpen) {
+      this.channelOpen = true;
     }
+    this.mainContentDiv.nativeElement.classList.remove('dNone');
+    // if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
+    //   if (!this.privateOpen) {
+    //     this.channelOpen = true;
+    //   }
+    //   this.mainContentDiv.nativeElement.classList.remove('dNone');
+    // }
   }
 
   hideMainContentDivOn830() {
@@ -409,5 +413,9 @@ export class MainPageComponent {
     }
   }
 
+  setChannelBoolean(boolean) {
+    console.log('main-page sagt channelOpen=', this.channelOpen)
+    this.channelOpen = boolean;
+  }
 }
 

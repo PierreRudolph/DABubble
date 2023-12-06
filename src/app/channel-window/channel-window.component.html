@@ -1,6 +1,6 @@
-<div class="channel-header flexMiddleX posAbs">
-    <div class="channel-header-left flexMiddleX" [class.hoverStyleHeaderLeft]="editChannelOpen" mat-button
-        (click)="openEditChannelDialog()">
+<div class="channel-header flexMiddleX posAbs" [class.channel-header-sideMenuShownMobile]="!sideMenuHidden">
+    <div class="channel-header-left flexMiddleX" [class.channel-header-left-sideMenuShownMobile]="!sideMenuHidden"
+        [class.hoverStyleHeaderLeft]="editChannelOpen" mat-button (click)="openEditChannelDialog()">
         <img class="tag-icon" src="assets/icons/tag.svg">
         <span class="fs24 wei700">{{this.threadList[number].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
@@ -30,9 +30,10 @@
             <img src="assets/icons/add-reaction.svg">
         </div>
         <div class="messageDataPart">
-            <div class="message-inner-div"
+            <div class="message-inner-div" [class.message-inner-div-sideMenuShownMobile]="!sideMenuHidden"
                 *ngFor="let thread of this.threadList[number].communikation[i].threads; index as j">
-                <div class="innerContainer" [class.flippInnerContainer]="getFlip(thread)">
+                <div class="innerContainer" [class.innerContainer-sideMenuShownMobile]="!sideMenuHidden"
+                    [class.flippInnerContainer]="getFlip(thread)">
                     <div class="popUpMessageContainer posAbs" [class.popUpFlipContainer]="getFlip(thread)">
                         <div class="popUpMessage flexMiddleX">
                             <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"

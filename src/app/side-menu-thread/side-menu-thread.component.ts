@@ -6,6 +6,7 @@ import { ThreadConnector } from 'src/moduls/threadConnecter.class';
 import { User } from 'src/moduls/user.class';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ScreenService } from '../screen.service';
 @Component({
   selector: 'app-side-menu-thread',
   templateUrl: './side-menu-thread.component.html',
@@ -19,6 +20,8 @@ export class SideMenuThreadComponent {
   public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
+  @Input() channelOpen: boolean;
+
   @Output() newSetOpen = new EventEmitter<boolean>();
   @Output() newItemEventOpenChat = new EventEmitter<boolean>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -32,7 +35,7 @@ export class SideMenuThreadComponent {
   public editAIndex = 0;
   private answerIndex = 0;
   public smileHelper: SmileHelper = new SmileHelper();
-  public openChat: boolean;
+  public openChat: boolean = true;
   public addresses = false;
   public dataUploadThread = { "link": "", "title": "" };
 
@@ -54,13 +57,25 @@ export class SideMenuThreadComponent {
   // openEditDialog: boolean;
   // textEdit: any;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, public screen: ScreenService) {
 
     setTimeout(() => {
       this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);
       this.tA = (document.getElementById("threadWindow") as HTMLInputElement | null);
       if (this.tA) { this.tA.scrollTo({ top: this.tA.scrollHeight, behavior: 'smooth' }); }
+      console.log(this.channelOpen)
+      this.handleMobileThreadView();
     }, 1000);
+  }
+
+
+  handleMobileThreadView() {
+    addEventListener("resize", (event) => {
+      if (this.screen.callResize() > 1400 && !this.channelOpen && this.openChat) {
+        this.closeThread();
+        console.log('close Thread')
+      }
+    });
   }
 
   closeThread() {

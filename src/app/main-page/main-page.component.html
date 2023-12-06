@@ -7,7 +7,8 @@
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
     (isOpen)="setNewMessage($event)" (newItemEventChanel)="setChannelNumber($event)"
     (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList" [threadList]="threadList"
-    class="side-menu" [talkList]="talkList"></app-side-menu>
+    class="side-menu" [class.width100Percent]="!sideMenuHidden&&screen.mobileScreenWidth()" [talkList]="talkList"
+    (channelOpen)="setChannelBoolean($event)"></app-side-menu>
 
   <div class="main-content-div" *ngIf="setMobileView()" #mainContentDiv>
 
@@ -31,7 +32,8 @@
 
   <app-side-menu-thread *ngIf="openChat&&setMobileThreadView()" class="sideMenuThread" [threadList]="threadList"
     [user]="user" [threadC]="threadC" [userList]="userList" (newSetOpen)="setOpenValue($event)"
-    (newItemEventOpenChat)="setOpenValue($event)" (callOpenTalk)="openMessage($event)"></app-side-menu-thread>
+    (newItemEventOpenChat)="setOpenValue($event)" (callOpenTalk)="openMessage($event)"
+    [channelOpen]="channelOpen"></app-side-menu-thread>
   <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe($event)"></app-main-dialog-profil>
 
 </div>

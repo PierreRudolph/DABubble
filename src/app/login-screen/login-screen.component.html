@@ -21,15 +21,15 @@
 
    <div class="inputWind">
       <img src="assets/img/mail.svg">
-      <input formControlName="email" placeholder="beispielname@email.com" title="email" id="mail">
+      <input formControlName="email" autocomplete="email" placeholder="beispielname@email.com" title="email" id="mail">
       <span *ngIf="registerForm.controls['email'].errors?.['pattern']">*Diese E-Mail-Adresse ist leider
          ungültig.</span>
       <span style="color:red" *ngIf="errorMes">Passwort oder Email sind falsch!</span>
    </div>
    <div class="inputWind">
       <img src="assets/img/lock.svg">
-      <input formControlName="password" [type]="hide ? 'password' :'text'" placeholder="Password" title="password"
-         id="pw">
+      <input formControlName="password" autocomplete="current-password" [type]="hide ? 'password' :'text'"
+         placeholder="Password" title="password" id="pw">
       <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Das Passwort muss min. 6 Zeichen lang
          sein.</span>
       <span style="color:red" *ngIf="errorMes">Passwort oder Email sind falsch!</span>

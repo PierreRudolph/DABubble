@@ -27,7 +27,7 @@
     transition: all 100ms ease-out;
 
     span {
-        max-width: 220px;
+        max-width: 250px;
         height: 22px;
         white-space: nowrap;
         overflow: hidden;
@@ -200,7 +200,6 @@
 .add-people {
     cursor: pointer;
     width: 40px;
-    padding-left: 10px;
     transition: all 100ms ease-out;
 
     &:hover {
@@ -213,8 +212,8 @@
 }
 
 .channel-body {
-    height: calc(100% - 301px);
-    margin-top: 115px;
+    height: calc(100% - 293px);
+    margin-top: 106px;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -318,7 +317,7 @@
     gap: 30px;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 40px 20px 0px;
+    padding: 20px 0px;
 }
 
 .flippInnerContainer {
@@ -522,32 +521,42 @@
     }
 }
 
+@media (max-width:1050px) {
+    .channel-header-left-sideMenuShownMobile {
+        padding: 6px 0px;
+        gap: 5px;
+
+        span {
+            max-width: 180px;
+        }
+    }
+
+    .innerContainer-sideMenuShownMobile {
+        gap: 10px;
+    }
+
+    .message-inner-div-sideMenuShownMobile {
+        padding: 20px 30px;
+    }
+}
+
 @media (max-width:960px) {
     .emojiDiv {
         bottom: -425px;
     }
 
-    .channel-header {
+    .channel-header-sideMenuShownMobile {
         padding: 37px 10px;
     }
 
-    .add-people {
-        padding-left: 0px;
-    }
-
-    // .added-members {
-    //     padding: 3px 5px;
-    //     padding-left: 0px;
-    // }
-
-    .channel-header-left {
-        padding: 6px 5px;
+    .channel-header-left-sideMenuShownMobile {
         gap: 0px;
 
         span {
             max-width: 100px;
         }
     }
+
 }
 
 @media (max-width:830px) {
