@@ -14,7 +14,7 @@
 
     <app-channel-window class="channel-window" *ngIf="showChannel()" [threadList]="this.threadList"
       [number]="this.number" [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
-      [sideMenuHidden]="this.sideMenuHidden" [openChat]="this.openChat"
+      [sideMenuHidden]="this.sideMenuHidden" [openChat]="openChat"
       (callOpenTalk)="openMessage($event)"></app-channel-window>
 
     <app-private-message class="privateMessage" *ngIf="showPrivateMessage()" [user]="user"

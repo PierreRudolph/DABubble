@@ -63,17 +63,15 @@ export class SideMenuThreadComponent {
       this.upload = (document.getElementById("imgthread") as HTMLInputElement | null);
       this.tA = (document.getElementById("threadWindow") as HTMLInputElement | null);
       if (this.tA) { this.tA.scrollTo({ top: this.tA.scrollHeight, behavior: 'smooth' }); }
-      console.log(this.channelOpen)
       this.handleMobileThreadView();
     }, 1000);
   }
 
 
   handleMobileThreadView() {
-    addEventListener("resize", (event) => {
+    addEventListener("resize", () => {
       if (this.screen.callResize() > 1400 && !this.channelOpen && this.openChat) {
         this.closeThread();
-        console.log('close Thread')
       }
     });
   }

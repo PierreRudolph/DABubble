@@ -407,6 +407,9 @@ export class MainPageComponent {
     if (this.screen.screenWidth > 1400) {
       return true
     } if (this.screen.screenWidth <= 1400 && this.channelOpen) {
+      setTimeout(() => {
+        this.openChat = false
+      }, 200);
       return false
     } else {
       return true;
