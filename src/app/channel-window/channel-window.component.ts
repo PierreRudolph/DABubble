@@ -54,8 +54,7 @@ export class ChannelWindowComponent {
   @Output() areaTextPrivate = new EventEmitter<string>();
 
 
-  constructor(public dialog: MatDialog, public screen: ScreenService) {  
-    console.log("call consturktor",this.number );
+  constructor(public dialog: MatDialog, public screen: ScreenService) {    
     setTimeout(() => {
       this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
