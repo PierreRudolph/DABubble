@@ -273,13 +273,11 @@ export class PrivateMessageComponent {
    * 
    * @param talkId Id of the talk, that should be opend
    */
-  openeningTalk(talkId: string) {
-   
+  openeningTalk(talkId: string) {  
     if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
-    } else {
-    
+    } else { 
       this.currentTalkId = "";
       this.sendCurrentTalkId.emit("");
       this.currentTalkData = this.chatHepler.createEmptyTalk();
