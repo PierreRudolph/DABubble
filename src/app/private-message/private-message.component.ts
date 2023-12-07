@@ -147,8 +147,7 @@ export class PrivateMessageComponent {
    * 
    * @param mes JSON that represents the message.
    */
-  saveMessageExist(mes: {}) {
-    debugger;
+  saveMessageExist(mes: {}) {    
     setTimeout(() => {
       let len = this.currentTalkData.communikation.length;
       let date = this.currentTalkData.communikation[len - 1].date;
