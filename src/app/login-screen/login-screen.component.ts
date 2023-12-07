@@ -50,13 +50,16 @@ export class LoginScreenComponent {
   async loginAsGuest() {
     return this.authService.logIn("gast@mail.com", "111111").then((res) => {
       // Login successful   
-      localStorage.removeItem('google');
+      // localStorage.removeItem('google');
 
       setTimeout(() => {
         let user = this.authService.getAuthServiceUser();
-        let id = user._delegate.uid;
-        localStorage.setItem('uid', id);
-        this.route.navigateByUrl("/");
+        if (user) {
+          let id = user._delegate.uid;
+          localStorage.setItem('uid', id);
+          localStorage.removeItem('google');
+          this.route.navigateByUrl("/");
+        }
       }, 500)
     })
       .catch((error) => {
