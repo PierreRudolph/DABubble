@@ -73,7 +73,7 @@ export class SideMenuThreadComponent {
       if (this.screen.callResize() > 1400 && !this.channelOpen && this.openChat) {
         this.closeThread();
       }
-      if (this.screen.callResize() <= 840 && this.openChat && !this.channelOpen && !this.sideMenuHidden) {
+      if (this.screen.callResize() <= 850 && this.openChat && !this.channelOpen && !this.sideMenuHidden) {
         this.closeThread();
       }
     });

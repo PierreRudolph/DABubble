@@ -337,9 +337,8 @@ export class MainPageComponent {
     // }, 250);
     console.log(this.setMobileThreadView());
     setTimeout(() => {
-
       this.childSideThread.openSideMenuThread();
-    }, 500);
+    }, 50);
   }
 
 
