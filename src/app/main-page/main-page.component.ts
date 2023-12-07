@@ -331,12 +331,15 @@ export class MainPageComponent {
     this.started = true;
     this.privateOpen = false;
     this.hideMainContentDivOn1400();
+    this.hideMainContentDivOn830();
+    // setTimeout(() => {
+    //   this.hideMainContentDivOn830();
+    // }, 250);
+    console.log(this.setMobileThreadView());
     setTimeout(() => {
-      this.hideMainContentDivOn830();
-    }, 250);
-    setTimeout(() => {
+
       this.childSideThread.openSideMenuThread();
-    }, 350);
+    }, 500);
   }
 
 
@@ -355,7 +358,10 @@ export class MainPageComponent {
     if (!this.privateOpen) {
       this.channelOpen = true;
     }
-    this.mainContentDiv.nativeElement.classList.remove('dNone');
+    if (this.mainContentDiv) {
+      this.mainContentDiv.nativeElement.classList.remove('dNone');
+    }
+
     // if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
     //   if (!this.privateOpen) {
     //     this.channelOpen = true;
@@ -365,6 +371,7 @@ export class MainPageComponent {
   }
 
   hideMainContentDivOn830() {
+
     if (this.screen.screenWidth < 830) {
       this.channelOpen = false;
       this.mainContentDiv.nativeElement.classList.add('dNone');
@@ -404,21 +411,28 @@ export class MainPageComponent {
   }
 
   setMobileThreadView() {
+
     if (this.screen.screenWidth > 1400) {
       return true;
-    } if (this.screen.screenWidth <= 1400 && this.channelOpen && !this.sideMenuHidden) {
-      setTimeout(() => {
-        this.openChat = false;
-      }, 200);
-      return false;
-    } else if (this.screen.screenWidth <= 1220 && this.channelOpen && this.sideMenuHidden) {
-      setTimeout(() => {
-        this.openChat = false;
-      }, 200);
-      return false;
-    } else {
-      return true;
     }
+
+    if (this.screen.screenWidth <= 1400 && this.channelOpen && !this.sideMenuHidden) {
+      setTimeout(() => {
+        this.openChat = false;
+      }, 200);
+      return false;
+    } else
+
+      if (this.screen.screenWidth <= 1220 && this.channelOpen && this.sideMenuHidden) {
+        setTimeout(() => {
+          this.openChat = false;
+        }, 200);
+        return false;
+      }
+
+      else {
+        return true;
+      }
   }
 
   setChannelBoolean(boolean) {

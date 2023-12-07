@@ -21,7 +21,7 @@ export class SideMenuThreadComponent {
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Input() channelOpen: boolean;
-
+  @Input() sideMenuHidden: boolean;
   @Output() newSetOpen = new EventEmitter<boolean>();
   @Output() newItemEventOpenChat = new EventEmitter<boolean>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -71,6 +71,9 @@ export class SideMenuThreadComponent {
   handleMobileThreadView() {
     addEventListener("resize", () => {
       if (this.screen.callResize() > 1400 && !this.channelOpen && this.openChat) {
+        this.closeThread();
+      }
+      if (this.screen.callResize() <= 840 && this.openChat && !this.channelOpen && !this.sideMenuHidden) {
         this.closeThread();
       }
     });
