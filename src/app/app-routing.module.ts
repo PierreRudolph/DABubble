@@ -27,7 +27,7 @@ const routes: Routes = [
   { path: 'signup', component: CreateAccountMainComponent },// canActivate: [AuthGuardService] canaktivate hier nur zu Testzwecke
   { path: 'imprint', component: ImpressumComponent },
 ];
-
+// { useHash: true }
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]

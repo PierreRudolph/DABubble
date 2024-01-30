@@ -144,18 +144,20 @@ export class ChatHepler {
   }
 
   getMonth(month: number): string {
-    switch (month) { case 1: return "Januar";case 2 : return "Februar"; case 3: return "März"; case 4: return "April";case 5: return  "Mai";
-    case 6: return  "Juni"; case 7: return "Juli"; case 8 : return "August"; case 9 : return  "September"; case 10: return "Oktober"; case 11: return  "November" ; default: return "Dezember"}
+    switch (month) {
+      case 1: return "Januar"; case 2: return "Februar"; case 3: return "März"; case 4: return "April"; case 5: return "Mai";
+      case 6: return "Juni"; case 7: return "Juli"; case 8: return "August"; case 9: return "September"; case 10: return "Oktober"; case 11: return "November"; default: return "Dezember"
+    }
   }
 
   parseDate(dt: Date) {
     let day = dt.getDay();
     let dayDate = dt.getDate();
-    let month = this. getMonth( dt.getMonth() + 1);
+    let month = this.getMonth(dt.getMonth() + 1);
     let year = dt.getFullYear();
-    let wochentag = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag' ];
+    let wochentag = ['Sonntag', 'Montag', 'Dienstag', 'Mittwoch', 'Donnerstag', 'Freitag', 'Samstag'];
 
-    return wochentag[day] + ", "+ dayDate + " " + month + " " + year;
+    return wochentag[day] + ", " + dayDate + " " + month + " " + year;
   }
 
   /**
@@ -481,7 +483,7 @@ export class ChatHepler {
       const path = `yt/${file.name}`;
       const upoadTask = await this.fireStorage.upload(path, file);
       dataUpload.link = await upoadTask.ref.getDownloadURL();
-      dataUpload.title = file.name;     
+      dataUpload.title = file.name;
     };
     event = null;
   }

@@ -1,14 +1,14 @@
 {
   "targets": {
-    "dabubble-19e72": {
+    "dabubble-858c5": {
       "hosting": {
         "DABubble": [
-          "dabubble-19e72"
+          "dabubble-858c5"
         ]
       }
     }
   },
   "projects": {
-    "default": "dabubble-19e72"
+    "default": "dabubble-858c5"
   }
 }

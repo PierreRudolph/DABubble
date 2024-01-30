@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: 'Nunito';
-    src: url('/angular-projects/dabubble/assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
+    src: url('/DABubble/assets/fonts/Nunito-VariableFont_wght.ttf') format('truetype');
 }
 
 @font-face {
     font-family: 'Figtree';
-    src: url('/angular-projects/dabubble/assets/fonts/Figtree-VariableFont_wght.ttf') format('truetype');
+    src: url('/DABubble/assets/fonts/Figtree-VariableFont_wght.ttf') format('truetype');
 }
 
 body {
@@ -144,7 +144,7 @@ body {
     cursor: pointer;
 
     &:hover {
-        content: url('/angular-projects/dabubble/assets/img/arrow-back-hover.svg');
+        content: url('/DABubble/assets/img/arrow-back-hover.svg');
     }
 }
 
@@ -358,7 +358,7 @@ mat-drawer-container {
     cursor: pointer;
 
     &:hover {
-        content: url('/angular-projects/dabubble/assets/img/plus-icon-hover.svg');
+        content: url('/DABubble/assets/img/plus-icon-hover.svg');
     }
 }
 
@@ -366,7 +366,7 @@ mat-drawer-container {
     cursor: pointer;
 
     &:hover {
-        content: url('/angular-projects/dabubble/assets/img/smiley-icon-hover.svg');
+        content: url('/DABubble/assets/img/smiley-icon-hover.svg');
     }
 }
 
@@ -374,7 +374,7 @@ mat-drawer-container {
     cursor: pointer;
 
     &:hover {
-        content: url('/angular-projects/dabubble/assets/img/email-icon-hover.svg');
+        content: url('/DABubble/assets/img/email-icon-hover.svg');
     }
 }
 

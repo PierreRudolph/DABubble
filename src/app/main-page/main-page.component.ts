@@ -27,7 +27,6 @@ export class MainPageComponent {
   public otherChatUser: User = new User();
   public exist = false;
   public talkOpen: boolean = false;
-  // public setUser: boolean = false;
   public currentThreadId: string = "";
   private chathelper: ChatHepler = new ChatHepler();
   public threadList: any = [this.chathelper.createEmptyThread()];
@@ -49,7 +48,7 @@ export class MainPageComponent {
   private currentTalkId: string = "";
   public oldTalkId: string = "";
   private userAuth: any; //authenticated user
-  private userUid: string = ""; //uid od the user
+  private userUid: string = ""; //uid of the user
   public started = false;
   amountOfCall = 0;
   idSet = false;
@@ -65,14 +64,22 @@ export class MainPageComponent {
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
-      this.unsub = this.subUserInfo();
+      //this.userUid = this.userAuth._delegate.uid
+
     }, 1000);
 
+    // this.userAuth = this.authService.getAuthServiceUser();
+    // this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
+    // this.unsub = this.subUserInfo();
+
     setTimeout(() => {
+      this.unsub = this.subUserInfo();
+
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
   }
+
 
   /**
    * Observes the database about changes on  all Users.
@@ -84,27 +91,31 @@ export class MainPageComponent {
     return onSnapshot(ref, (list) => {
       this.userList = [];
       let google = true;
+
       list.forEach(elem => {
         let u = new User(elem.data())
         if (u.uid == this.userUid) {
+
           this.user = u;
           this.user.status = "aktiv";
           google = false;
 
-          if (!this.idSet) {
-            this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
-            this.idSet = true;
-          }
+          // Firebase error wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen? /auskommentiert am:30.1.24
+          // if (!this.idSet) {
+          //   this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
+          //   this.idSet = true;
+          // }
 
         }
         else { this.userList.push(u); }
-
       });
+
       if (google) {
         this.createGoogleUser(this.userUid);
       }
     });
   }
+
 
   createGoogleUser(userUid: string) {
     this.user = new User();
@@ -116,6 +127,7 @@ export class MainPageComponent {
     this.chathelper.addUser(this.user.toJSON());
 
   }
+
 
   /**
   * Observes the database about changes on  all private talks of the current User.  
@@ -138,6 +150,7 @@ export class MainPageComponent {
     });
   }
 
+
   /**
    * Observes the database about changes of all channel entries and threads.
    * 
@@ -158,6 +171,7 @@ export class MainPageComponent {
 
   }
 
+
   isUserInMemberList(channel: any) {
     let b = false;
     let list: any[] = channel.channel.members;
@@ -169,9 +183,11 @@ export class MainPageComponent {
     return b;
   }
 
+
   setNewMessage(b: boolean) {
     this.newMessOpen = b;
   }
+
 
   /**
    * Is used by the Searchfunction. When clicked on the result the channel is opend, where the result can be found.
@@ -187,6 +203,7 @@ export class MainPageComponent {
 
   }
 
+
   /**
   * Is used by the Searchfunction. When clicked on the result the channel is opend, where the result can be found.
   *    
@@ -198,9 +215,11 @@ export class MainPageComponent {
     this.sideMenu.newMessage = false;
   }
 
+
   setdataUploadChannel(dataUpload: any) {
     setTimeout(() => { this.childChannel.dataUpload = dataUpload; }, 500);
   }
+
 
   setdataUploadPrivate(dataUpload: any) {
     setTimeout(() => {
@@ -208,12 +227,14 @@ export class MainPageComponent {
     }, 500);
   }
 
+
   /**   
    * @param h Sets wheather the sidemenu shoud be hidden or not
    */
   setSideMenuHidden(h: boolean) {
     this.sideMenuHidden = h;
   }
+
 
   /**
    * Sets the needed variables to find the current message.    
@@ -228,6 +249,7 @@ export class MainPageComponent {
     this.openChat = true;
   }
 
+
   setOpenValue(e: boolean) {
     this.showMainContentDivOn1400();
     this.openChat = e;
@@ -235,6 +257,7 @@ export class MainPageComponent {
       this.setMobileSideMenuValues();
     }
   }
+
 
   /**
    * Sets the id of the current channel. Sets the required variables for visibility.
@@ -252,12 +275,14 @@ export class MainPageComponent {
     setTimeout(() => { this.childChannel.scrollDown(); }, 500);
   }
 
+
   /**  
    * @returns Am i talking to myself?
    */
   isItMe() {
     return this.otherChatUser.idDB == this.user.idDB;
   }
+
 
   /**
    * Setz the other chatUser to u and start the private talk.
@@ -279,20 +304,24 @@ export class MainPageComponent {
 
   }
 
+
   setCurrentTalkId(id: string) {
     this.currentTalkId = id;
     if (id != "") { this.oldTalkId = id; }
     this.currentTalkData.iD = id;
   }
 
+
   setThreadList(list: any) {
     this.threadList = list;
 
   }
 
+
   setTalkList(tl: any) {
     this.talkList = tl;
   }
+
 
   setOpen(value: boolean) {
     this.openChat = value;
@@ -300,10 +329,12 @@ export class MainPageComponent {
     this.showMainContentDivOn1400();
   }
 
+
   setLoggedInUser(u: any) {
     this.user = u;
     this.started = true;
   }
+
 
   setAreaText(areaText: string) {
     this.areaText = areaText;
@@ -312,12 +343,14 @@ export class MainPageComponent {
     }, 1000);
   }
 
+
   setAreaTextPrivate(areaText: string) {
     this.areaText = areaText;
     setTimeout(() => {
       this.child.text = areaText;
     }, 1000);
   }
+
 
   /**
    * Opens the thread window for the given communication
@@ -332,10 +365,6 @@ export class MainPageComponent {
     this.privateOpen = false;
     this.hideMainContentDivOn1400();
     this.hideMainContentDivOn830();
-    // setTimeout(() => {
-    //   this.hideMainContentDivOn830();
-    // }, 250);
-    console.log(this.setMobileThreadView());
     setTimeout(() => {
       this.childSideThread.openSideMenuThread();
     }, 50);
@@ -346,12 +375,14 @@ export class MainPageComponent {
     return !(this.screen.mobileScreenWidth() && !this.sideMenuHidden);
   }
 
+
   hideMainContentDivOn1400() {
     if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
       this.channelOpen = false;
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
+
 
   showMainContentDivOn1400() {
     if (!this.privateOpen) {
@@ -360,14 +391,8 @@ export class MainPageComponent {
     if (this.mainContentDiv) {
       this.mainContentDiv.nativeElement.classList.remove('dNone');
     }
-
-    // if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
-    //   if (!this.privateOpen) {
-    //     this.channelOpen = true;
-    //   }
-    //   this.mainContentDiv.nativeElement.classList.remove('dNone');
-    // }
   }
+
 
   hideMainContentDivOn830() {
 
@@ -385,17 +410,21 @@ export class MainPageComponent {
     this.closeSideMenuThreadMobile();
   }
 
+
   showPrivateMessage() {
     return this.privateOpen && !this.newMessOpen;
   }
+
 
   showChannel() {
     return this.channelOpen && !this.newMessOpen;
   }
 
+
   setMobileSideMenuValues() {
     this.sideMenu.setDrawerValues();
   }
+
 
   closeSideMenuThreadMobile() {
     if (this.openChat) {
@@ -403,11 +432,13 @@ export class MainPageComponent {
     }
   }
 
+
   unsubscribe(u: boolean) {
     this.unsub();
     this.unsubtalk();
     this.unsubChannel();
   }
+
 
   setMobileThreadView() {
 
@@ -434,9 +465,7 @@ export class MainPageComponent {
       }
   }
 
-  setChannelBoolean(boolean) {
-    console.log('main-page sagt channelOpen=', this.channelOpen)
+  setChannelBoolean(boolean: boolean) {
     this.channelOpen = boolean;
   }
 }
-

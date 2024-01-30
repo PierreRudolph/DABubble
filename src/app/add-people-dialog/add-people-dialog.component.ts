@@ -27,6 +27,7 @@ export class AddPeopleDialogComponent {
 
   constructor(public addPeopleDialog: MatDialog, public screen: ScreenService) { }
 
+
   /**
    * Adds the given User do the currentlyAddedUser
    * @param u User that shell be added as a member
@@ -47,6 +48,7 @@ export class AddPeopleDialogComponent {
     }
   }
 
+
   isAlreadyMember(user: User) {
     let inList = false;
     this.channel.members.forEach(ul => {
@@ -54,6 +56,7 @@ export class AddPeopleDialogComponent {
     });
     return inList;
   }
+
 
   /**
    * 
@@ -69,9 +72,11 @@ export class AddPeopleDialogComponent {
     this.currentlyAddedUser = array;
   }
 
+
   isPopUpOpen() {
     return this.filteredMembers.length > 0;
   }
+
 
   /**
    * Only shows the list of member
@@ -83,6 +88,7 @@ export class AddPeopleDialogComponent {
     });
     this.setMemberToList(this.user);
   }
+
 
   /**  
    * Sets all User that are containing the searchText in the Name to the filteredMembers
@@ -98,9 +104,11 @@ export class AddPeopleDialogComponent {
     }
   }
 
+
   onSubmit() {
     this.fristPage = false;
   }
+
 
   /**
    * Make the memberlist for the current channel
@@ -113,6 +121,7 @@ export class AddPeopleDialogComponent {
     this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
   }
 
+
   /**
    * Searches in the Userlist for a specific keyworld
    * @param data 
@@ -122,6 +131,7 @@ export class AddPeopleDialogComponent {
     this.filterMember();
 
   }
+
 
   closeDialog() {
     this.dialogReference.close(this.channelJSON);

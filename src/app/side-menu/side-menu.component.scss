@@ -65,11 +65,11 @@
         }
 
         .open-sidenav {
-            content: url("/angular-projects/dabubble/assets/icons/open-sidenav-hover.svg");
+            content: url("/DABubble/assets/icons/open-sidenav-hover.svg");
         }
 
         .close-sidenav {
-            content: url("/angular-projects/dabubble/assets/icons/close-sidenav-hover.svg");
+            content: url("/DABubble/assets/icons/close-sidenav-hover.svg");
         }
     }
 }
@@ -103,11 +103,11 @@
     cursor: pointer;
 
     &:hover {
-        content: url('/angular-projects/dabubble/assets/icons/edit-pencil-square-hover.svg');
+        content: url('/DABubble/assets/icons/edit-pencil-square-hover.svg');
     }
 
     &:active {
-        content: url('/angular-projects/dabubble/assets/icons/edit-pencil-square-click.svg');
+        content: url('/DABubble/assets/icons/edit-pencil-square-click.svg');
     }
 }
 
@@ -147,7 +147,7 @@
 
     &:hover {
         .arrow-drop-down {
-            content: url('/angular-projects/dabubble/assets/icons/arrow-drop-down-hover.svg');
+            content: url('/DABubble/assets/icons/arrow-drop-down-hover.svg');
         }
 
         .panel-headline {
@@ -156,11 +156,11 @@
         }
 
         .workspaces-icon {
-            content: url('/angular-projects/dabubble/assets/icons/workspaces-hover.svg');
+            content: url('/DABubble/assets/icons/workspaces-hover.svg');
         }
 
         .account-icon {
-            content: url('/angular-projects/dabubble/assets/icons/account-circle-hover.svg');
+            content: url('/DABubble/assets/icons/account-circle-hover.svg');
         }
     }
 }
@@ -193,11 +193,11 @@
     transition: all 225ms ease-in-out;
 
     &:hover {
-        content: url('/angular-projects/dabubble/assets/icons/add-hover.svg');
+        content: url('/DABubble/assets/icons/add-hover.svg');
     }
 
     &:active {
-        content: url('/angular-projects/dabubble/assets/icons/add.svg');
+        content: url('/DABubble/assets/icons/add.svg');
     }
 }
 
@@ -230,7 +230,7 @@
         background-color: #eceefe;
 
         img {
-            content: url('/angular-projects/dabubble/assets/icons/tag-hover.svg');
+            content: url('/DABubble/assets/icons/tag-hover.svg');
         }
 
     }
@@ -243,7 +243,7 @@
         }
 
         img {
-            content: url('/angular-projects/dabubble/assets/icons/tag-click.svg');
+            content: url('/DABubble/assets/icons/tag-click.svg');
         }
     }
 }
@@ -254,7 +254,7 @@
     font-weight: 500;
 
     img {
-        content: url('/angular-projects/dabubble/assets/icons/tag-hover.svg');
+        content: url('/DABubble/assets/icons/tag-hover.svg');
     }
 }
 
@@ -273,7 +273,7 @@
 
     &:hover {
         img {
-            content: url('/angular-projects/dabubble/assets/icons/add-circle-hover.svg');
+            content: url('/DABubble/assets/icons/add-circle-hover.svg');
         }
 
         span {
@@ -283,7 +283,7 @@
 
     &:active {
         img {
-            content: url('/angular-projects/dabubble/assets/icons/add-circle-click.svg');
+            content: url('/DABubble/assets/icons/add-circle-click.svg');
         }
 
         span {
@@ -458,10 +458,10 @@
     }
 
     .add-icon {
-        content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
+        content: url('/DABubble/assets/icons/add-mobile.svg');
 
         &:hover {
-            content: url('/angular-projects/dabubble/assets/icons/add-mobile.svg');
+            content: url('/DABubble/assets/icons/add-mobile.svg');
 
         }
     }

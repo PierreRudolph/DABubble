@@ -13,7 +13,7 @@
         cursor: pointer;
 
         &:hover {
-            content: url('/angular-projects/dabubble/assets/img/close-hover.svg');
+            content: url('/DABubble/assets/img/close-hover.svg');
         }
     }
 }
@@ -21,7 +21,7 @@
 .members {
     gap: 13px;
     overflow-y: scroll;
-    max-height:400px ;
+    max-height: 400px;
 }
 
 .addMembers {
@@ -39,7 +39,7 @@
         color: #7e83f5;
 
         img {
-            content: url('/angular-projects/dabubble/assets/icons/add-people-hover.svg');
+            content: url('/DABubble/assets/icons/add-people-hover.svg');
         }
     }
 }
