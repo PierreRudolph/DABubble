@@ -30,8 +30,8 @@ export class LoginScreenComponent {
         if (user) {
           let id = user._delegate.uid;
           localStorage.setItem('uid', id);
-          localStorage.removeItem('google');
-          this.route.navigateByUrl("/");
+          this.deleteLocalStorageGoogleToken();
+          this.navigateToMainPage();
         }
       }, 500);
     }).catch((error) => {
@@ -48,26 +48,51 @@ export class LoginScreenComponent {
   }
 
   async loginAsGuest() {
-    return this.authService.logIn("gast@mail.com", "111111").then((res) => {
-      // Login successful   
-      // localStorage.removeItem('google');
+    let user;
+    //console.log((await this.authService.logIn("gast@mail.com", "111111")).user)
+    user = (await this.authService.logIn("gast@mail.com", "111111")).user
 
-      setTimeout(() => {
-        let user = this.authService.getAuthServiceUser();
-        if (user) {
-          let id = user._delegate.uid;
-          localStorage.setItem('uid', id);
-          localStorage.removeItem('google');
-          this.route.navigateByUrl("/");
-        }
-      }, 500)
-    })
-      .catch((error) => {
-        console.log("fail", error);
-        this.errorMes = true;
-        setTimeout(() => { this.errorMes = false }, 1500);
-      });
+    let id = user._delegate.uid;
+    localStorage.setItem('uid', id);
+    this.deleteLocalStorageGoogleToken();
+    this.navigateToMainPage();
+    // user = await this.authService.logIn("gast@mail.com", "111111").then((res) => {
+    //   // Login successful   
+    //   // localStorage.removeItem('google');
+
+    //   console.log(res.user)
+
+    //   //let user = this.authService.getAuthServiceUser();
+    //   console.log(user)
+
+    //   let id = user._delegate.uid;
+    //   localStorage.setItem('uid', id);
+    //   localStorage.removeItem('google');
+    //   this.route.navigateByUrl("/");
+
+
+    // }).catch((error) => {
+    //   console.log("fail", error);
+    //   this.errorMes = true;
+    //   setTimeout(() => { this.errorMes = false }, 1500);
+    // });
   }
+
+
+  /**
+   * this function navigate to url "/", wich is the main page
+   */
+  navigateToMainPage() {
+    this.route.navigateByUrl("/");
+  }
+
+  /**
+   * deletes google login token, because normal login will not overwrite google token, if one is there
+   */
+  deleteLocalStorageGoogleToken() {
+    localStorage.removeItem('google');
+  }
+
 
   async logInWithGoogle() {
     this.authService.logInWithGoogle().
@@ -76,7 +101,7 @@ export class LoginScreenComponent {
           let user = this.authService.getAuthServiceUser();
           let userName = user._delegate.displayName;
           localStorage.setItem('google', userName);
-          this.route.navigateByUrl("/");
+          this.navigateToMainPage();
         }, 500);
       }).
       catch((err) => {

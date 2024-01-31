@@ -55,8 +55,6 @@
                                         <img class="workspaces-icon" src="assets/icons/workspaces.svg">
                                         <span class="panel-headline">Channels</span>
                                     </div>
-                                    <!-- <img (click)="openCreateChannelDialog()" class="add-icon"
-                                        src="assets/icons/add.svg"> -->
                                 </div>
                             </div>
                         </mat-expansion-panel-header>
@@ -88,22 +86,21 @@
                             </div>
                         </mat-expansion-panel-header>
                         <div class="scrollableContactDiv">
-                            <!--Hier werden die Kontakte reingerendert.-->
                             <div class="contact-div" (click)="openTalk(user)">
                                 <div>
                                     <img src="{{user.iconPath}}">
-                                    <div [class.greenDot]="user.getAktive()"  class="stateDot">
+                                    <div [class.greenDot]="user.getAktive()" class="stateDot">
                                     </div>
                                 </div>
-                                <span >{{user.name}} (Du)</span>
+                                <span>{{user.name}} (Du)</span>
                             </div>
 
-                            <div *ngFor="let u of userList" class="contact-div"  (click)="openTalk(u)">
+                            <div *ngFor="let u of userList" class="contact-div" (click)="openTalk(u)">
                                 <div>
                                     <img src="{{u.iconPath}}">
                                     <div [class.greenDot]="u.getAktive()" class="stateDot"></div>
                                 </div>
-                                <span >{{u.name}}</span>
+                                <span>{{u.name}}</span>
                             </div>
                         </div>
                     </mat-expansion-panel>

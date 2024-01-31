@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
-import { Firestore, collection, onSnapshot } from '@angular/fire/firestore';
+import { DocumentData, Firestore, QuerySnapshot, collection, onSnapshot } from '@angular/fire/firestore';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -18,7 +18,7 @@ import { ScreenService } from '../screen.service';
 })
 export class MainPageComponent {
   public user: User = new User();//authenticated user
-  public gastID = "aFPvtx4nkhhF3IIAbvMP"
+  //public gastID = "aFPvtx4nkhhF3IIAbvMP"
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   public choiceDialog: boolean = false;
@@ -51,7 +51,9 @@ export class MainPageComponent {
   private userUid: string = ""; //uid of the user
   public started = false;
   amountOfCall = 0;
-  idSet = false;
+  //idSet = false;
+  private newGoogleUser = true;
+
 
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -60,21 +62,37 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
+    this.clearCommunikationOfCurrentTalkData();
+    this.prepareUserData();
+    this.assignAndActivateObservables();
+  }
+
+
+  /**
+   * Clears the communikation Array inside the emptyTalkJSON
+   */
+  clearCommunikationOfCurrentTalkData() {
     this.currentTalkData.communikation = [];
+  }
+
+
+  /**
+   * this function assigns data of the actual logged in user to the Variables userAuth and userUid
+   */
+  prepareUserData() {
     setTimeout(() => {
       this.userAuth = this.authService.getAuthServiceUser();
       this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
-      //this.userUid = this.userAuth._delegate.uid
-
     }, 1000);
+  }
 
-    // this.userAuth = this.authService.getAuthServiceUser();
-    // this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
-    // this.unsub = this.subUserInfo();
 
+  /**
+   * After given Time, this function Activate and Assign Observables, to variables, to make them unsubscribeable.
+   */
+  assignAndActivateObservables() {
     setTimeout(() => {
       this.unsub = this.subUserInfo();
-
       this.unsubtalk = this.subTalkInfo();
       this.unsubChannel = this.subChannelList();
     }, 1500);
@@ -90,42 +108,59 @@ export class MainPageComponent {
     let ref = collection(this.firestore, 'user');
     return onSnapshot(ref, (list) => {
       this.userList = [];
-      let google = true;
-
-      list.forEach(elem => {
-        let u = new User(elem.data())
-        if (u.uid == this.userUid) {
-
-          this.user = u;
-          this.user.status = "aktiv";
-          google = false;
-
-          // Firebase error wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen? /auskommentiert am:30.1.24
-          // if (!this.idSet) {
-          //   this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
-          //   this.idSet = true;
-          // }
-
-        }
-        else { this.userList.push(u); }
-      });
-
-      if (google) {
-        this.createGoogleUser(this.userUid);
-      }
+      this.findActualUserAndFillUserList(list)
+      this.ifNewGoogleUserTrueCreateOne(this.userUid);
     });
   }
 
 
-  createGoogleUser(userUid: string) {
-    this.user = new User();
-    this.user.uid = userUid;
-    this.user.name = this.userAuth._delegate.displayName;
-    this.user.email = this.userAuth._delegate.email;
-    this.user.iconPath = "assets/img/Google.svg";
-    this.user.status = "aktiv";
-    this.chathelper.addUser(this.user.toJSON());
+  /**
+   * iterates thru the snapshot of firebase document, to search for actual user, add all other users to local userList array
+   * if actual user found, give him status "active" and set Var googleUser to false, because if user was found it is no new google user
+   * @param {QuerySnapshot<DocumentData>} list 
+   */
+  findActualUserAndFillUserList(list: any[] | QuerySnapshot<DocumentData>) {
+    list.forEach(elem => {
+      let u = new User(elem.data())
+      if (u.uid == this.userUid) {
+        this.newGoogleUser = false;
+        this.user = u;
+        this.user.status = "aktiv";
 
+        // Firebase error wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen /auskommentiert am:30.1.24
+        // if (!this.idSet) {
+        //   this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
+        //   this.idSet = true;
+        // }
+
+      } else { this.addUserToUserList(u) }
+    });
+  }
+
+
+  /**
+   * add a User to the UserList Array
+   * @param {Class} user
+   */
+  addUserToUserList(user: User) {
+    this.userList.push(user);
+  }
+
+
+  /**
+   * when actual user was not found in userDB it is an new Google user, this function generates One
+   * @param userUid 
+   */
+  ifNewGoogleUserTrueCreateOne(userUid: string) {
+    if (this.newGoogleUser) {
+      this.user = new User();
+      this.user.uid = userUid;
+      this.user.name = this.userAuth._delegate.displayName;
+      this.user.email = this.userAuth._delegate.email;
+      this.user.iconPath = "assets/img/Google.svg";
+      this.user.status = "aktiv";
+      this.chathelper.addUser(this.user.toJSON());
+    }
   }
 
 
@@ -238,7 +273,7 @@ export class MainPageComponent {
 
   /**
    * Sets the needed variables to find the current message.    
-   * The structure of a channel entry can be found in ChatHepler(in moduleds) in the funtion createEmptyThread
+   * The structure of a channel entry can be found in ChatHepler(in modules) in the funtion createEmptyThread
    * 
    * @param n Index of the channel
    * @param i Index of the communication (every day where a smessage was written has an own communication)
