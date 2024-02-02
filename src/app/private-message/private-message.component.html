@@ -32,7 +32,7 @@
                                     <div *ngIf="showLink(m.url.link)">
                                         <a class="upload" href="{{m.url.link}}" target="_blank">
                                             <img class="linkImg" [src]="m.url.link ||'http://placehold.it/180'"
-                                                alt="your image" />
+                                                alt="your image(file probaly deleted)">
                                             <img class="deleteUpload" src="assets/img/close.svg"
                                                 (click)="deleteUp($event,i,mIndex)" *ngIf="getFlip(m)">
                                         </a>

@@ -78,7 +78,7 @@ export class CreateAccountAvatarComponent {
 
   /**
    * Sets the selected iconpath.
-   * @param Path  Iconpath for the user
+   * @param path  Iconpath for the user
    */
   setPortraitPath(path: string) {
     this.choosen = true;

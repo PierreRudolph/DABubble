@@ -6,7 +6,7 @@ import { AngularFireStorage } from "@angular/fire/compat/storage";
 export class ChatHepler {
   public firestore: Firestore = inject(Firestore);
   public fireStorage: AngularFireStorage = inject(AngularFireStorage);
-
+  public storageList: Array<string> = [];
   createEmptyTalk(): {} {
     let t = {
       "member1": "",
@@ -478,14 +478,55 @@ export class ChatHepler {
 */
   async onSelect(event: any, dataUpload: any) {
     const file = event.target.files[0];
+    let nameExist = false;
+    await this.subFirestoreStorage();
+    this.storageList.forEach((name) => {
+      if (file.name == name) {
+        console.log('name already there')
+        nameExist = true;
+        //file.name = file.name + "(1)";
+      }
 
+    })
+    let path: string;
+    let id: string = this.generateId();
     if (file) {
-      const path = `yt/${file.name}`;
+      path = `yt/${file.name}_${id}`;
       const upoadTask = await this.fireStorage.upload(path, file);
       dataUpload.link = await upoadTask.ref.getDownloadURL();
-      dataUpload.title = file.name;
+      dataUpload.title = file.name + '_' + id;
+      await this.subFirestoreStorage();
     };
     event = null;
   }
 
+  generateId() {
+    let id = this.getRandomInteger().toString();
+    for (let i = 0; i < 2; i++) {
+      id = id + this.getRandomInteger();
+    }
+    return `(id:${id})`;
+  }
+
+  getRandomInteger() {
+    return Math.floor(Math.random() * 9 + 1);
+  }
+
+  async deleteFileFromStorage(name: string) {
+    this.fireStorage.ref('yt/').child(name).delete().subscribe(() => {
+      this.subFirestoreStorage();
+    });
+  }
+
+
+  async subFirestoreStorage() {
+    return this.fireStorage.ref('yt/').listAll().subscribe((data) => {
+      this.storageList = [];
+      data.items.forEach(item => {
+        this.storageList.push(item.name);
+      });
+      console.log('subFirestoreStorage sagt', data.items, 'this.storageList =', this.storageList)
+    })
+
+  }
 }

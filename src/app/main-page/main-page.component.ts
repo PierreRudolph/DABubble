@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
-import { DocumentData, Firestore, QuerySnapshot, collection, onSnapshot } from '@angular/fire/firestore';
+import { DocumentData, Firestore, QueryDocumentSnapshot, QuerySnapshot, collection, onSnapshot } from '@angular/fire/firestore';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -54,6 +54,7 @@ export class MainPageComponent {
   //idSet = false;
   private newGoogleUser = true;
 
+  public storageList: Array<any> = [];
 
   @ViewChild('mainContentDiv') mainContentDiv: any;
   @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
@@ -101,12 +102,11 @@ export class MainPageComponent {
 
   /**
    * Observes the database about changes on  all Users.
-   * 
-   * @returns Snapshot of the userList and logeed in User.
+   * @returns Snapshot of the userList and logged in User.
    */
   subUserInfo() {
-    let ref = collection(this.firestore, 'user');
-    return onSnapshot(ref, (list) => {
+    let userRef = this.getCollectionRef('user');
+    return onSnapshot(userRef, (list) => {
       this.userList = [];
       this.findActualUserAndFillUserList(list)
       this.ifNewGoogleUserTrueCreateOne(this.userUid);
@@ -170,19 +170,29 @@ export class MainPageComponent {
   * @returns Snapshot of all private talks of the current User.
   */
   subTalkInfo() {
-    let ref = collection(this.firestore, 'talk');
+    let talkRef = this.getCollectionRef('talk');
     this.talkList = [];
-    return onSnapshot(ref, (list) => {
-      list.forEach(elem => {
-        if (elem.id == this.currentTalkId) {
-          this.currentTalkData = elem.data();
-        }
+    return onSnapshot(talkRef, (list) => {
+      list.forEach(talk => {
+        this.updateCurrentTalkData(talk);
         //Only talks of the current user are saved
-        if (elem.data()['member1DBid'] == this.user.idDB || elem.data()['member2DBid'] == this.user.idDB) {
-          this.talkList.push(elem.data());
+        if (talk.data()['member1DBid'] == this.user.idDB || talk.data()['member2DBid'] == this.user.idDB) {
+          this.talkList.push(talk.data());
         }
       });
     });
+  }
+
+
+
+  /**
+   * updates the currentTalkData if the id of the found Talk is similiar to the currentTalkId
+   * @param {QueryDocumentSnapshot<DocumentData>} talk 
+   */
+  updateCurrentTalkData(talk: QueryDocumentSnapshot<DocumentData>) {
+    if (talk.id == this.currentTalkId) {
+      this.currentTalkData = talk.data();
+    }
   }
 
 
@@ -192,8 +202,8 @@ export class MainPageComponent {
    * @returns Snapshot of all channels and their associated threads.
    */
   subChannelList() {
-    let ref = collection(this.firestore, 'thread');
-    return onSnapshot(ref, (list) => {
+    let threadRef = this.getCollectionRef('thread');
+    return onSnapshot(threadRef, (list) => {
       let cl: any = []
       list.forEach(elem => {
         if (this.isUserInMemberList(elem.data())) {
@@ -204,6 +214,18 @@ export class MainPageComponent {
 
     });
 
+  }
+
+
+
+
+
+  /**
+   * @param {string} refName 
+   * @returns reference of the found collection
+   */
+  getCollectionRef(refName: string) {
+    return collection(this.firestore, refName);
   }
 
 
@@ -352,10 +374,10 @@ export class MainPageComponent {
 
   }
 
-
-  setTalkList(tl: any) {
-    this.talkList = tl;
-  }
+  //wird nie verwendet
+  // setTalkList(tl: any) {
+  //   this.talkList = tl;
+  // }
 
 
   setOpen(value: boolean) {
@@ -468,11 +490,12 @@ export class MainPageComponent {
   }
 
 
-  unsubscribe(u: boolean) {
+  unsubscribe() {
     this.unsub();
     this.unsubtalk();
     this.unsubChannel();
   }
+
 
 
   setMobileThreadView() {

@@ -57,20 +57,20 @@ export class PrivateMessageComponent {
   @ViewChild('textArea') textArea: { nativeElement: any; }
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog, public lastUserService: SaveLastUserService) {
-
     setTimeout(() => {
       this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
       this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
     }, 1500);
     setTimeout(() => {
       // if (this.oldTalkId != "" && this.currentTalkId == "") {
-        this.currentTalkId = this.oldTalkId;
-        this.otherChatUser = lastUserService.lastUser;
-        this.openTalk();
-        this.talkOpen = true;
+      this.currentTalkId = this.oldTalkId;
+      this.otherChatUser = lastUserService.lastUser;
+      this.openTalk();
+      this.talkOpen = true;
       // }
     }, 125);
   }
+
 
   /**
    * Opens the edid Window
@@ -83,9 +83,11 @@ export class PrivateMessageComponent {
     this.textEdit = m.message;
   }
 
+
   closeEdit(m: any) {
     m.edit = false;
   }
+
 
   /**
    * Computed, when we klick on the vert icon, that appears when hover over the message.
@@ -93,6 +95,7 @@ export class PrivateMessageComponent {
   openEditPopUp() {
     this.openEditDialog = !this.openEditDialog;
   }
+
 
   /**
    * Saves the edited message
@@ -110,13 +113,16 @@ export class PrivateMessageComponent {
     this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
+
   talkRef() {
     return collection(this.firestore, 'talk');
   }
 
+
   setOpen(value: boolean) {
     this.openChat = value;
   }
+
 
   /**
    * Creates a JSON that repesents the message. It contains the given text and other needed Informations.
@@ -141,13 +147,14 @@ export class PrivateMessageComponent {
     return mes;
   }
 
+
   /**
    * Saves the given JSON in a appropriate way in currentTalkData.
    * It consoders wheater the messages was createt on anothr day than the last one.
    * 
    * @param mes JSON that represents the message.
    */
-  saveMessageExist(mes: {}) {    
+  saveMessageExist(mes: {}) {
     setTimeout(() => {
       let len = this.currentTalkData.communikation.length;
       let date = this.currentTalkData.communikation[len - 1].date;
@@ -164,6 +171,7 @@ export class PrivateMessageComponent {
       }
     }, 500);
   }
+
 
   /**
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
@@ -184,6 +192,8 @@ export class PrivateMessageComponent {
     }, 750);
     this.text = "";
   }
+
+
   /**
    * 
    * @param id id of the user
@@ -195,11 +205,11 @@ export class PrivateMessageComponent {
     } else return this.otherChatUser.iconPath;
   }
 
+
   /**
    * Initializes a new private talk. Sets the needed information to both users, that take part on the conversation.
    */
   startTalkInitialize() {
-
     let talkUser = { //the id of the talk is saved in a List of the user
       "talkID": this.currentTalkId,
       "oUDbID": this.otherChatUser.idDB
@@ -215,6 +225,7 @@ export class PrivateMessageComponent {
     this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
     this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
   }
+
 
   /** Called when a new private talk is started.
    * 
@@ -235,12 +246,14 @@ export class PrivateMessageComponent {
     return t;
   }
 
+
   keyDownFunction(input: any) {
     if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
       this.saveMessage();
     }
   }
+
 
   /**
    * Determines the talk-id with otherChatUser and opens it.
@@ -262,7 +275,7 @@ export class PrivateMessageComponent {
         this.sendCurrentTalkId.emit(talkId);
       }
     });
-   
+
     this.openeningTalk(talkId);
   }
 
@@ -272,11 +285,11 @@ export class PrivateMessageComponent {
    * 
    * @param talkId Id of the talk, that should be opend
    */
-  openeningTalk(talkId: string) {  
+  openeningTalk(talkId: string) {
     if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
-    } else { 
+    } else {
       this.currentTalkId = "";
       this.sendCurrentTalkId.emit("");
       this.currentTalkData = this.chatHepler.createEmptyTalk();
@@ -285,17 +298,20 @@ export class PrivateMessageComponent {
     }
   }
 
+
   openExistingTalk(talkId: string) {
     this.getTalkById(talkId);
   }
+
 
   isItMe() {
     return this.otherChatUser.idDB == this.user.idDB;
   }
 
+
   setOtherUser(user: User) {
     this.currentTalkId = "";
-    this.otherChatUser = user;    
+    this.otherChatUser = user;
     this.openTalk();
 
     setTimeout(() => {
@@ -304,13 +320,13 @@ export class PrivateMessageComponent {
     }, 1500);
   }
 
+
   /**
    * Stores a new talk in firebase.
    * 
    * @param item Data of the new talk that shell be stored in the firestore database
    */
   async addTalk(item: {}) {
-
     await addDoc(this.talkRef(), item).catch(
       (err) => { console.error(err) }).then(
         (docRef) => {
@@ -320,6 +336,7 @@ export class PrivateMessageComponent {
           }
         });
   }
+
 
   /**
    * Loads the data of the talkfrom firestore and stores them in currentTalkData
@@ -337,9 +354,11 @@ export class PrivateMessageComponent {
     }
   }
 
+
   getFlip(m: any) {
     return m.iD == this.user.idDB
   }
+
 
   /** Puts the given emoji in the textare or in the texteditarea
    * 
@@ -357,6 +376,7 @@ export class PrivateMessageComponent {
       this.showEmojisEdit = !this.showEmojisEdit;
     }
   }
+
 
   /** Saves the given emoji as a comment pinned under the message.
    * 
@@ -389,6 +409,7 @@ export class PrivateMessageComponent {
     this.showEmojisComment = false;
   }
 
+
   /**
    * Removed the smilie of the smiliebox with the given location data.
    * 
@@ -412,15 +433,18 @@ export class PrivateMessageComponent {
     return this.showEmojisComment && (index == this.emojiMessageIndex) && (i == this.communikationIndex);
   }
 
+
   toggleEmojisDialog(event: any) {
     event.stopPropagation();
     this.showEmojis = !this.showEmojis;
   }
 
+
   toggleEmojisDialogEdit(event: any) {
     event.stopPropagation();
     this.showEmojisEdit = !this.showEmojisEdit;
   }
+
 
   toggleEmojisDialogComment(event: any, i: number, mIndex: number) {
     event.stopPropagation();
@@ -429,9 +453,11 @@ export class PrivateMessageComponent {
     this.emojiMessageIndex = mIndex;
   }
 
+
   openMailAddresses() {
     this.addresses = !this.addresses;
   }
+
 
   openProfileOfUser(user: any) {
     let t = user.text.substring(1);
@@ -444,11 +470,13 @@ export class PrivateMessageComponent {
 
   }
 
+
   chooseUser(u: User) {
     this.text += '@' + u.name;
     this.addresses = !this.addresses;
 
   }
+
 
   openDialog(user: User): void {
     const dialogRef = this.dialog.open(UserProfileComponent);
@@ -462,6 +490,7 @@ export class PrivateMessageComponent {
     });
   }
 
+
   /**
  * Saves the uploaded portrait.
  * @param event Uploaded file
@@ -471,41 +500,76 @@ export class PrivateMessageComponent {
     this.upload.value = "";
   }
 
+
   showBlendin() {
     return this.dataUpload.link != "";
   }
+
   showLink(link: string) {
     return link != "";
   }
 
+
   closeUpload() {
+    this.deleteFileFromStorage(this.dataUpload.title);
     this.dataUpload.link = "";
     this.dataUpload.title = "";
   }
 
+
   deleteMessage(i: number, mIndex: number) {
     if (this.currentTalkData.communikation[i].messages.length > 1) {
+      this.deleteFileIfExist(i, mIndex);
       this.currentTalkData.communikation[i].messages.splice(mIndex, 1);
     }
     else {
       if (this.currentTalkData.communikation.length > 1) {
+        this.deleteFileIfExist(i, mIndex);
         this.currentTalkData.communikation.splice(i, 1);
       }
-      else { this.currentTalkData.communikation = [{ "date": "", "messages": [] }]; }
+      else {
+        this.deleteFileIfExist(i, mIndex);
+        this.currentTalkData.communikation = [{ "date": "", "messages": [] }];
+      }
     }
     this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
   }
 
+
+  //bildchen löschen(also uploads)
   deleteUp(e: any, i: number, mIndex: number) {
     e.preventDefault();
+    let fileTitle = this.getFileTitleIfExist(i, mIndex);
     if (this.currentTalkData.communikation[i].messages[mIndex].message != "") {
+      this.deleteFileFromStorage(fileTitle);
       this.currentTalkData.communikation[i].messages[mIndex].url = { "link": "", "title": "" };
     } else {
+      this.deleteFileFromStorage(fileTitle);
       this.deleteMessage(i, mIndex);
     }
-
     this.chatHelper.updateDB(this.currentTalkId, "talk", { "communikation": this.currentTalkData.communikation });
   }
+
+
+  deleteFileIfExist(i, mIndex) {
+    let fileTitle = this.getFileTitleIfExist(i, mIndex);
+    if (fileTitle) {
+      this.deleteFileFromStorage(fileTitle);
+    }
+  }
+
+
+  deleteFileFromStorage(fileTitle) {
+    this.chatHelper.deleteFileFromStorage(fileTitle);
+  }
+
+
+  getFileTitleIfExist(i, mIndex) {
+    if (this.currentTalkData.communikation[i].messages[mIndex].url.title) {
+      return this.currentTalkData.communikation[i].messages[mIndex].url.title
+    } else { return false }
+  }
+
 
   noEmoji() {
     if (this.showEmojis)

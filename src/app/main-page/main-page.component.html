@@ -33,6 +33,6 @@
     [user]="user" [threadC]="threadC" [userList]="userList" (newSetOpen)="setOpenValue($event)"
     (newItemEventOpenChat)="setOpenValue($event)" (callOpenTalk)="openMessage($event)" [channelOpen]="channelOpen"
     [sideMenuHidden]="sideMenuHidden"></app-side-menu-thread>
-  <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe($event)"></app-main-dialog-profil>
+  <app-main-dialog-profil [user]="user" (unsubscribe)="unsubscribe()"></app-main-dialog-profil>
 
 </div>

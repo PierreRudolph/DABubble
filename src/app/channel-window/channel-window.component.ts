@@ -287,7 +287,6 @@ export class ChannelWindowComponent {
    * Opends the dialog for adding peopple to the Channel.
    */
   openAddPeopleDialog() {
-    console.log('channel-window sagt openChat=', this.openChat);
     this.toggleAddPplChanBol();
     this.setPositionOfDialogs();
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);
