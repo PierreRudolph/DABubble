@@ -512,7 +512,7 @@ export class ChatHepler {
     return Math.floor(Math.random() * 9 + 1);
   }
 
-  async deleteFileFromStorage(name: string) {
+  deleteFileFromStorage(name: string) {
     this.fireStorage.ref('yt/').child(name).delete().subscribe(() => {
       this.subFirestoreStorage();
     });

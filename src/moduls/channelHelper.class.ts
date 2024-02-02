@@ -11,7 +11,7 @@ export class ChannelHelper {
   public editChanPosLeft: string = '445px';
   public membersDialogPosRight: string = '110px';
   public addMembersDialogPosRight: string = '60px';
-
+  public chatHelper: ChatHepler = new ChatHepler();
   setEditChanPos(sideMenuHidden: boolean) {
     if (sideMenuHidden) {
       this.editChanPosLeft = '60px';
@@ -64,7 +64,7 @@ export class ChannelHelper {
  * @returns Creates a new Question as JSON
  */
   getQuestion(user: User, chathelper: ChatHepler, textThread: string, userList: User[], dataUpload: any) {
-    
+
     let question = {
       "name": user.name,
       "iD": user.idDB, //of person that writes the message
@@ -129,19 +129,24 @@ export class ChannelHelper {
    * @param chatHelper   
    * @param threadList 
    */
-  deleteMessage(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]) {
-    
+  deleteMessage(number: number, i: number, j: number, threadList: any[]) {
+
     if (threadList[number].communikation[i].threads.length > 1) {
+      this.deleteFileIfExist(i, j, number, threadList);
       threadList[number].communikation[i].threads.splice(j, 1);
     }
     else {
       if (threadList[number].communikation.length > 1) {
+        this.deleteFileIfExist(i, j, number, threadList);
         threadList[number].communikation.splice(i, 1);
       }
-      else { threadList[number].communikation = [{ "date": "", "treads": [] }]; }
+      else {
+        this.deleteFileIfExist(i, j, number, threadList);
+        threadList[number].communikation = [{ "date": "", "treads": [] }];
+      }
     }
-   
-    chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
+
+    this.chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
   }
 
   /**
@@ -152,15 +157,32 @@ export class ChannelHelper {
    * @param chatHelper   
    * @param threadList 
    */
-  deleteUp(number: number, i: number, j: number, chatHelper: ChatHepler, threadList: any[]) {
-
+  deleteUp(number: number, i: number, j: number, threadList: any[]) {
+    let fileTitle = this.getFileTitleIfExist(i, j, number, threadList);
     if (threadList[number].communikation[i].threads[j].message != "") {
+      this.deleteFileFromStorage(fileTitle);
       threadList[number].communikation[i].threads[j].url = { "link": "", "title": "" };
     } else {
-      this.deleteMessage(number, i, j, chatHelper, threadList);
+      threadList[number].communikation[i].threads[j].url = { "link": "", "title": "" };
+
+      this.deleteFileFromStorage(fileTitle);
+      this.deleteMessage(number, i, j, threadList);
     }
-    chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
+    this.chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
   }
 
-
+  deleteFileIfExist(i, mIndex, number, threadList) {
+    let fileTitle = this.getFileTitleIfExist(i, mIndex, number, threadList);
+    if (fileTitle) {
+      this.deleteFileFromStorage(fileTitle);
+    }
+  }
+  deleteFileFromStorage(fileTitle) {
+    this.chatHelper.deleteFileFromStorage(fileTitle);
+  }
+  getFileTitleIfExist(i, mIndex, number, threadList) {
+    if (threadList[number].communikation[i].threads[mIndex].url.title) {
+      return threadList[number].communikation[i].threads[mIndex].url.title
+    } else { return false }
+  }
 }

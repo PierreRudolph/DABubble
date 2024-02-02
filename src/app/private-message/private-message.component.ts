@@ -544,6 +544,8 @@ export class PrivateMessageComponent {
       this.deleteFileFromStorage(fileTitle);
       this.currentTalkData.communikation[i].messages[mIndex].url = { "link": "", "title": "" };
     } else {
+      this.currentTalkData.communikation[i].messages[mIndex].url = { "link": "", "title": "" };
+
       this.deleteFileFromStorage(fileTitle);
       this.deleteMessage(i, mIndex);
     }

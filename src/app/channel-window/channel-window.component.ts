@@ -360,7 +360,7 @@ export class ChannelWindowComponent {
     this.threadList[this.number].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
     let threadIndex = this.threadList[this.number].channel.idDB;
     if (this.textEdit == "" && this.threadList[this.number].communikation[cIndex].threads[tIndex].url.link == "") {
-      this.channelHelper.deleteMessage(this.number, cIndex, tIndex, this.chathelper, this.threadList);
+      this.channelHelper.deleteMessage(this.number, cIndex, tIndex, this.threadList);
     } else {
       this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
     }
@@ -555,7 +555,7 @@ export class ChannelWindowComponent {
 
   deleteMessage(number: number, i: number, j: number) {
     this.openEditDialog = false;
-    this.channelHelper.deleteMessage(number, i, j, this.chathelper, this.threadList);
+    this.channelHelper.deleteMessage(number, i, j, this.threadList);
   }
 
   /**
@@ -566,7 +566,7 @@ export class ChannelWindowComponent {
    */
   deleteUp(e: any, i: number, j: number) {
     e.preventDefault();
-    this.channelHelper.deleteUp(this.number, i, j, this.chathelper, this.threadList);
+    this.channelHelper.deleteUp(this.number, i, j, this.threadList);
   }
 
 }
