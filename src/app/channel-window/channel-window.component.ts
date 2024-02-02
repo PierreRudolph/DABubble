@@ -549,6 +549,7 @@ export class ChannelWindowComponent {
   }
 
   closeUpload() {
+    this.chathelper.deleteFileFromStorage(this.dataUpload.title);
     this.dataUpload.link = "";
     this.dataUpload.title = "";
   }

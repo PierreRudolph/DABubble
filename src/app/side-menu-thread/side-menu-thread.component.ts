@@ -467,6 +467,7 @@ export class SideMenuThreadComponent {
   }
 
   closeUpload() {
+    this.deleteFileFromStorage(this.dataUploadThread.title);
     this.dataUploadThread.link = "";
     this.dataUploadThread.title = "";
   }
@@ -483,6 +484,7 @@ export class SideMenuThreadComponent {
     let number = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
+    this.deleteFileIfExist(number, i, j, aIndex)
     this.threadList[number].communikation[i].threads[j].answer.splice(aIndex, 1);
     this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
   }
@@ -492,14 +494,34 @@ export class SideMenuThreadComponent {
     let number = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
+    let fileTitle = this.getFileTitleIfExist(number, i, j, aIndex);
 
     if (this.threadList[number].communikation[i].threads[j].answer[aIndex].message != "") {
-
+      this.deleteFileFromStorage(fileTitle);
       this.threadList[number].communikation[i].threads[j].answer[aIndex].url = { "link": "", "title": "" };
     } else {
+      this.deleteFileFromStorage(fileTitle);
+      this.threadList[number].communikation[i].threads[j].answer[aIndex].url = { "link": "", "title": "" };
       this.deleteMessage(aIndex);
     }
     this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
+  }
+
+  deleteFileIfExist(number, i, j, aIndex) {
+    let fileTitle = this.getFileTitleIfExist(number, i, j, aIndex);
+    if (fileTitle) {
+      this.deleteFileFromStorage(fileTitle);
+    }
+  }
+
+  deleteFileFromStorage(fileTitle) {
+    this.chathelper.deleteFileFromStorage(fileTitle);
+  }
+
+  getFileTitleIfExist(number, i, j, aIndex) {
+    if (this.threadList[number].communikation[i].threads[j].answer[aIndex].url.title) {
+      return this.threadList[number].communikation[i].threads[j].answer[aIndex].url.title;
+    } else { return false };
   }
 
   noEmoji() {

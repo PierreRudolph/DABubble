@@ -142,7 +142,7 @@ export class ChannelHelper {
       }
       else {
         this.deleteFileIfExist(i, j, number, threadList);
-        threadList[number].communikation = [{ "date": "", "treads": [] }];
+        threadList[number].communikation = [{ "date": "", "threads": [] }];
       }
     }
 
