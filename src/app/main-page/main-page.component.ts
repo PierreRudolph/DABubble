@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
-import { DocumentData, Firestore, QueryDocumentSnapshot, QuerySnapshot, collection, onSnapshot } from '@angular/fire/firestore';
+import { DocumentData, Firestore, QueryDocumentSnapshot, QuerySnapshot, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -125,9 +125,9 @@ export class MainPageComponent {
       if (u.uid == this.userUid) {
         this.newGoogleUser = false;
         this.user = u;
-        this.user.status = "aktiv";
-
-        // Firebase error wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen /auskommentiert am:30.1.24
+        this.user.status = "Aktiv";
+        this.updateUser(this.user.idDB)
+        // gibt Firebase error aus wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen /auskommentiert am:30.1.24
         // if (!this.idSet) {
         //   this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
         //   this.idSet = true;
@@ -135,6 +135,17 @@ export class MainPageComponent {
 
       } else { this.addUserToUserList(u) }
     });
+  }
+
+
+  async updateUser(id: string) {
+    let docRef = this.getSingleUserRef(id)
+    await updateDoc(docRef, this.user.toJSON());
+  }
+
+
+  getSingleUserRef(docId: string) {
+    return doc(this.firestore, 'user', docId);
   }
 
 
