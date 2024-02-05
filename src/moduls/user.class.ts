@@ -36,6 +36,6 @@ export class User {
     }
 
     getAktive() {
-        return this.status == "aktiv";
+        return this.status == "Aktiv";
     }
 }

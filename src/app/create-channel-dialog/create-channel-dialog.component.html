@@ -73,7 +73,7 @@
                 <div class="row" (click)="addMember(e)" *ngFor="let e of filteredMembers">
                     <div class="portraitChannel">
                         <img src="{{e.iconPath}}">
-                        <div class="dot" [class.green]="e.status=='aktiv'"></div>
+                        <div class="dot" [class.green]="e.status=='Aktiv'"></div>
                     </div>
                     <div class="nunitoBlack fs18 wei400">{{e.name}}</div>
                 </div>

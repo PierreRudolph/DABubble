@@ -59,17 +59,24 @@
     width: 10px;
     height: 10px;
     border-radius: 100%;
+    background-color: #686868;
+}
+
+.online-state-dot {
     background-color: #92C83E;
 }
 
-
 .state {
-    color: var(--online-green, #92C83E);
+    color: #686868;
     font-family: Nunito;
     font-size: 20px;
     font-style: normal;
     font-weight: 400;
     line-height: normal
+}
+
+.online-state-text {
+    color: var(--online-green, #92C83E);
 }
 
 .styleState {

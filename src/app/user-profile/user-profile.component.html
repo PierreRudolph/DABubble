@@ -10,15 +10,15 @@
         <div class="nunitoBlack fs32">{{user.name}}</div>
     </div>
     <div class="styleState">
-        <div class="dot"></div>
-        <div class="state">{{user.status}}</div>
+        <div class="dot" [class.online-state-dot]="user.status=='Aktiv'"></div>
+        <div class="state" [class.online-state-text]="user.getAktive()">{{user.status}}</div>
     </div>
     <div class="styleMail">
         <img src="assets/img/mail.svg">
         <div>
             <div class="nunitoBlack fs20">E-Mail-Adresse</div>
             <!-- <div class="userMail">{{user.email}}</div> -->
-            <a style="text-decoration: none;" href= "mailto:{{user.email}}">{{user.email}}</a>
+            <a style="text-decoration: none;" href="mailto:{{user.email}}">{{user.email}}</a>
         </div>
     </div>
 

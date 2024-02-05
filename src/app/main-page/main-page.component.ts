@@ -169,7 +169,7 @@ export class MainPageComponent {
       this.user.name = this.userAuth._delegate.displayName;
       this.user.email = this.userAuth._delegate.email;
       this.user.iconPath = "assets/img/Google.svg";
-      this.user.status = "aktiv";
+      this.user.status = "Aktiv";
       this.chathelper.addUser(this.user.toJSON());
     }
   }
