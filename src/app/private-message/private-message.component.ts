@@ -73,7 +73,7 @@ export class PrivateMessageComponent {
 
 
   /**
-   * Opens the edid Window
+   * Opens the edit Window
    * 
    * @param m Contains all the data of the current message.
    */
@@ -265,12 +265,10 @@ export class PrivateMessageComponent {
     this.talkOpen = true;
     let dbIDOther = this.otherChatUser.idDB;
     let talks = this.user.talkID; // list of all the talks of the user       
-    talks.forEach(t => {
-      let a: any;
-      a = t;
-      if (a.oUDbID === dbIDOther) {
+    talks.forEach(talk => {
+      if (talk.oUDbID === dbIDOther) {
         this.exist = true;
-        talkId = a.talkID;
+        talkId = talk.talkID;
         this.currentTalkId = talkId;
         this.sendCurrentTalkId.emit(talkId);
       }
@@ -294,7 +292,6 @@ export class PrivateMessageComponent {
       this.sendCurrentTalkId.emit("");
       this.currentTalkData = this.chatHepler.createEmptyTalk();
       this.currentTalkData.communikation = [];//---------------------------
-
     }
   }
 

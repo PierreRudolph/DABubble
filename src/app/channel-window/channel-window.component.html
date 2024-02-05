@@ -160,7 +160,7 @@
 <div class="textareaDirektMessage">
     <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
         <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
-        {{dataUpload.title}}
+        <span>{{dataUpload.title}}</span>
         <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
     </div>
     <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="textThread"

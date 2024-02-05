@@ -6,7 +6,8 @@ export class User {
     status: string;
     uid: string;
     idDB: string;
-    talkID: {}[] = [];
+    talkID: [{ oUDbID: string, talkID: string }] = [{ oUDbID: '', talkID: '' }];
+    //talkID: {}[] = [];// changed 3.2.24
 
 
     constructor(obj?: any) {
@@ -17,7 +18,7 @@ export class User {
         this.status = obj ? obj.status : '';
         this.uid = obj ? obj.uid : '';
         this.idDB = obj ? obj.idDB : '';
-        this.talkID = obj ? obj.talkID : [];
+        this.talkID = obj ? obj.talkID : [{ oUDbID: '', talkID: '' }];
 
     }
 

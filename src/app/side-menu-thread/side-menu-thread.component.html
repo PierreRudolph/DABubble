@@ -157,7 +157,7 @@
                 <!-- upload *ngIf="showBlendIn()" -->
                 <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
                     <img [src]="dataUploadThread.link ||'http://placehold.it/180'" alt="your image" />
-                    {{dataUploadThread.title}}
+                    <span>{{dataUploadThread.title}}</span>
                     <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
                 </div>
                 <textarea [(ngModel)]="textThreadAnswer" class="textAreaDirekt nunitoBlack wei400 fs18"

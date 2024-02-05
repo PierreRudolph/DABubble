@@ -57,7 +57,7 @@ export class MainPageComponent {
   public storageList: Array<any> = [];
 
   @ViewChild('mainContentDiv') mainContentDiv: any;
-  @ViewChild(PrivateMessageComponent) child: PrivateMessageComponent;
+  @ViewChild(PrivateMessageComponent) childPrivateMes: PrivateMessageComponent;
   @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
   @ViewChild(SideMenuComponent) sideMenu: SideMenuComponent;
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
@@ -280,7 +280,7 @@ export class MainPageComponent {
 
   setdataUploadPrivate(dataUpload: any) {
     setTimeout(() => {
-      this.child.dataUpload = dataUpload;
+      this.childPrivateMes.dataUpload = dataUpload;
     }, 500);
   }
 
@@ -342,7 +342,7 @@ export class MainPageComponent {
 
 
   /**
-   * Setz the other chatUser to u and start the private talk.
+   * Set the other chatUser to u and start the private talk.
    * @param user Ohter chat user
    */
   setOtherUser(user: User) {
@@ -355,7 +355,7 @@ export class MainPageComponent {
 
     setTimeout(() => {
       this.otherChatUser = user;
-      this.child.setOtherUser(user);
+      this.childPrivateMes.setOtherUser(user);
 
     }, 500);
 
@@ -404,7 +404,7 @@ export class MainPageComponent {
   setAreaTextPrivate(areaText: string) {
     this.areaText = areaText;
     setTimeout(() => {
-      this.child.text = areaText;
+      this.childPrivateMes.text = areaText;
     }, 1000);
   }
 
