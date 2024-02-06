@@ -475,8 +475,14 @@ export class SideMenuThreadComponent {
   /**
 * Blend in the popUp containing "Nachricht bearbeiten"
 */
-  openEditPopUp() {
+  toggleEditPopUp() {
     this.openEditDialog = !this.openEditDialog;
+  }
+
+  closeEditPopUp() {
+    if (this.openEditDialog) {
+      this.openEditDialog = false;
+    }
   }
 
   deleteMessage(aIndex: number) {

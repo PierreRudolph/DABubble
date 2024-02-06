@@ -49,7 +49,8 @@
                     </div>
                 </div>
                 <div class="answers-div" *ngFor="let answ of getAnswerList(); index as aIndex">
-                    <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)">
+                    <div class="message-div" [class.message-div-right]="fromLoggedInUser(answ)"
+                        (mouseleave)="closeEditPopUp()">
                         <div class="add-reaction flexMiddleX posAbs"
                             [class.add-reaction-right]="fromLoggedInUser(answ)">
                             <img (click)="toggleEmojisUpperDialog($event,aIndex)" class="changeFace"
@@ -59,7 +60,7 @@
                                 (emojiClick)="saveEmoji($event)"></emoji-mart>
 
                             <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg"
-                                (click)="openEditPopUp()">
+                                (click)="toggleEditPopUp()">
                             <div class="editMessageThread" *ngIf="openEditDialog">
                                 <div class="editMessageT" (click)="openAnswerEditMode(answ,aIndex)">Nachricht bearbeiten
                                 </div>

@@ -20,7 +20,8 @@
 
                 <div style="margin:35px 0px"
                     *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
-                    <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit">
+                    <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit"
+                        (mouseleave)="closeEditPopUp()">
                         <img class="charImg" src="{{getIconFromName(m.iD)}}">
                         <div class="message-inner-div">
                             <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(m)">
@@ -82,7 +83,7 @@
                                 <img class="popUpIcons pad0" (click)="toggleEmojisDialogComment($event,i,mIndex)"
                                     src="assets/icons/add-reaction.svg">
 
-                                <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="openEditPopUp()"
+                                <img class="popUpIcons" [class.dNone]="!getFlip(m)" (click)="toggleEditPopUp()"
                                     src="assets/img/more_vert.svg">
                             </div>
                             <div class="editMessage posPop" [class.show]="openEditDialog">

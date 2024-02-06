@@ -92,10 +92,16 @@ export class PrivateMessageComponent {
   /**
    * Computed, when we klick on the vert icon, that appears when hover over the message.
    */
-  openEditPopUp() {
+  toggleEditPopUp() {
+    console.log('open edit popup called')
     this.openEditDialog = !this.openEditDialog;
   }
 
+  closeEditPopUp() {
+    if (this.openEditDialog) {
+      this.openEditDialog = false;
+    }
+  }
 
   /**
    * Saves the edited message
