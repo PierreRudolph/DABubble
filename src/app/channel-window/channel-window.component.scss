@@ -27,6 +27,7 @@
     transition: all 100ms ease-out;
 
     span {
+        //max-width: 250px;
         max-width: 250px;
         height: 22px;
         white-space: nowrap;
@@ -315,7 +316,7 @@
     gap: 30px;
     width: 100%;
     box-sizing: border-box;
-    padding: 20px 0px;
+    //padding: 20px 0px;
 }
 
 .flippInnerContainer {
@@ -486,6 +487,9 @@
         font-family: Nunito;
         font-size: 18px;
         font-weight: 400;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
     }
 }
 

@@ -18,7 +18,7 @@
                     <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
                 </div>
 
-                <div style="margin:35px 0px"
+                <div class="message-outer-div"
                     *ngFor="let m of this.currentTalkData.communikation[i].messages; index as mIndex">
                     <div class="message-div" [class.messageFlip]="getFlip(m)" [class.unHover]="m.edit"
                         (mouseleave)="closeEditPopUp()">

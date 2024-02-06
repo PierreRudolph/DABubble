@@ -53,6 +53,10 @@
 
 .thread-name {
     color: #7e83f5;
+    max-width: 250px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .close-icon {
@@ -581,6 +585,12 @@
     }
 }
 
+@media (max-width:430px) {
+    .thread-name {
+        max-width: 230px;
+    }
+}
+
 @media (max-width:400px) {
     .sidenav {
         padding: 0px;
@@ -680,5 +690,11 @@
         width: 34px;
         right: 20px;
         bottom: 20px;
+    }
+}
+
+@media (max-width:370px) {
+    .thread-name {
+        max-width: 140px;
     }
 }

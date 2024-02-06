@@ -482,9 +482,7 @@ export class ChatHepler {
     await this.subFirestoreStorage();
     this.storageList.forEach((name) => {
       if (file.name == name) {
-        console.log('name already there')
         nameExist = true;
-        //file.name = file.name + "(1)";
       }
 
     })
@@ -525,7 +523,6 @@ export class ChatHepler {
       data.items.forEach(item => {
         this.storageList.push(item.name);
       });
-      console.log('subFirestoreStorage sagt', data.items, 'this.storageList =', this.storageList)
     })
 
   }
