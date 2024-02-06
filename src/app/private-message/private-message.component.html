@@ -25,11 +25,11 @@
                         <img class="charImg" src="{{getIconFromName(m.iD)}}">
                         <div class="message-inner-div">
                             <div class="mes-name-clock" [class.popUpFlipContainer]="getFlip(m)">
-                                <span class="nunitoBlack">{{m.name}}</span>
+                                <span class="wei700 fs18">{{m.name}}</span>
                                 <span style="color:#b7bade">{{m.time}} Uhr</span>
                             </div>
                             <div [class.popUpFlipContainer]="getFlip(m)">
-                                <div class="message" [class.dNone]="m.edit">
+                                <div class="message fs18" [class.dNone]="m.edit">
                                     <div *ngIf="showLink(m.url.link)">
                                         <a class="upload" href="{{m.url.link}}" target="_blank">
                                             <img class="linkImg" [src]="m.url.link ||'http://placehold.it/180'"
