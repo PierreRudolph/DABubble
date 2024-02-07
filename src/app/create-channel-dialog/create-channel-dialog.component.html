@@ -45,14 +45,14 @@
         <div class="checkbox-div">
 
             <label class="container">
-                <input id="allMember" name="add-people" type="radio" (change)="setValue()" checked>
+                <input id="allMember" name="add-people" type="radio" (change)="setValue('allUser')" checked>
                 <span class="checkmark"></span>
                 <span class="fs18 nunito">Alle Mitglieder von <span style="color: #7e83f5;">Code learning</span>
                     hinzufügen</span>
             </label>
 
             <label class="container">
-                <input name="add-people" type="radio" (change)="setValue()">
+                <input name="add-people" type="radio" (change)="setValue('partOfUser')">
                 <span class="checkmark"></span>
                 <span class="fs18 nunito">Bestimmte Leute hinzfügen</span>
             </label>
@@ -60,7 +60,7 @@
         </div>
         <div style="position: relative;">
             <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
-                *ngIf="isChecked" class="inputText" type="text" placeholder="Name eingeben">
+                *ngIf="isChecked" class="inputText" type="text" placeholder="Name eingeben" id="partOfMember">
             <div style="display: flex; gap:10px; overflow-x: auto;">
                 <div class="addedMember" *ngFor="let cu of currentlyAddedUser">
                     <img style="width:20px;height:20px" src="{{cu.iconPath}}">

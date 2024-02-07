@@ -96,7 +96,7 @@ export class CreateChannelDialogComponent {
   }
 
   /**
-   * Mak the new channel
+   * Make the new channel
    */
   make() {
     this.addMember(this.user); // the person thhat creates the channel is automatikly the creator
@@ -136,8 +136,17 @@ export class CreateChannelDialogComponent {
     this.channel.members = this.channelMembers;
   }
 
-  setValue() {
+  setValue(allOrPartOfUsers: string) {
     this.isChecked = !this.isChecked;
+    if (allOrPartOfUsers == 'allUser') {
+      this.clearSearchedUser();
+    }
+  }
+
+  clearSearchedUser() {
+    this.searchText = '';
+    this.filteredMembers = [];
+    this.currentlyAddedUser = [];
   }
 
   /** Initiate the filtering of members by the given keyword 
