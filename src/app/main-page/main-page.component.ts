@@ -463,7 +463,6 @@ export class MainPageComponent {
 
 
   hideMainContentDivOn830() {
-
     if (this.screen.screenWidth < 830) {
       this.channelOpen = false;
       this.mainContentDiv.nativeElement.classList.add('dNone');
@@ -473,7 +472,6 @@ export class MainPageComponent {
 
   toggleSideMenu(h: boolean) {
     this.sideMenuHidden = h;
-
     this.setMobileSideMenuValues();
     this.closeSideMenuThreadMobile();
   }
@@ -491,6 +489,11 @@ export class MainPageComponent {
 
   setMobileSideMenuValues() {
     this.sideMenu.setDrawerValues();
+  }
+
+
+  openSideMenu() {
+    this.sideMenu.openCloseSideMenu();
   }
 
 

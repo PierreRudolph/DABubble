@@ -104,9 +104,11 @@ export class SideMenuComponent {
     this.newMessageMobile = false;
   }
 
+
   getdate(info: any) {
     return this.threadList[info.num].communikation[info.cIndex].date;
   }
+
 
   getdateTalk(info: any) {
     return this.talkList[info.num].communikation[info.cIndex].date;
@@ -125,6 +127,7 @@ export class SideMenuComponent {
 
     });
   }
+
 
   setCreateChannelDialogMobileStyle() {
     if (this.screen.mobileScreenWidth()) {
@@ -150,15 +153,18 @@ export class SideMenuComponent {
     this.emitSideMenuHidden();
   }
 
+
   emitSideMenuHidden() {
     this.newItemEventMenuHidden.emit(this.sideMenuHidden);
   }
+
 
   openCloseSideMenu() {
     this.drawer.toggle();
     this.toggleDrawerBol()
     this.sideMenuDiv.nativeElement.classList.remove('dNone');
   }
+
 
   setDrawerValues() {
     if (this.screen.mobileScreenWidth() && this.sideMenuHidden) {
@@ -170,11 +176,10 @@ export class SideMenuComponent {
         this.sideMenuDiv.nativeElement.classList.add('dNone');
         this.toggleDrawerBol();
         this.drawer.toggle();
-      } else if (this.sideMenuHidden) {
-        this.toggleDrawerBol();
-        this.drawer.toggle();
-      } else { }
+      } else {
+      }
   }
+
 
   searchKey(text: string) {
     this.text = text;
@@ -188,21 +193,26 @@ export class SideMenuComponent {
     this.threadTitleDec = this.chathelper.searchChannelNames(text, this.threadList);
   }
 
+
   searchPrivateMess(text: string) {
     this.talkMessages = this.chathelper.searchPrivateMess(text, this.talkList);
   }
+
 
   searchProfiles(text: string) {
     this.userInfos = this.chathelper.searchProfiles(text, this.userList, this.user);
   }
 
+
   searchChannelMessages(text: string) {
     this.threadMessages = this.chathelper.searchChannelMessages(text, this.threadList);
   }
 
+
   showPop() {
     return this.text != "";
   }
+
 
   getOtherUser(info: any) {
     return this.chathelper.getOtherUser(info, this.userList, this.user);

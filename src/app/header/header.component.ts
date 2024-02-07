@@ -21,6 +21,7 @@ export class HeaderComponent {
   public userInfos: any[] = [];
   public text = "";
 
+  @Output() openSideMenu = new EventEmitter<boolean>();
   @Output() toggleSideMenu = new EventEmitter<boolean>();
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
@@ -82,6 +83,11 @@ export class HeaderComponent {
   emitToggleSideMenu() {
     this.sideMenuHidden = !this.sideMenuHidden;
     this.toggleSideMenu.emit(this.sideMenuHidden);
+  }
+
+  emitOpenSideMenu() {
+    //this.sideMenuHidden = false;
+    this.openSideMenu.emit();
   }
 
   showNormalHeader() {

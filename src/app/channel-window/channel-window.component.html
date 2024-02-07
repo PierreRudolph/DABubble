@@ -1,4 +1,6 @@
 <div class="channel-header flexMiddleX posAbs" [class.channel-header-sideMenuShownMobile]="!sideMenuHidden">
+
+
     <div class="channel-header-left flexMiddleX" [class.channel-header-left-sideMenuShownMobile]="!sideMenuHidden"
         [class.channel-header-left-threeWindowShownMobile]="!sideMenuHidden&&openChat"
         [class.hoverStyleHeaderLeft]="editChannelOpen" mat-button (click)="openEditChannelDialog()">
@@ -6,6 +8,9 @@
         <span class="fs24 wei700">{{this.threadList[number].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
     </div>
+
+
+
     <div class="channel-header-right flexMiddleX">
         <div class="added-members flexMiddleX" (click)="openChannelMembersDialog()"
             [class.hoverStyleChannelMembers]="channelMembersOpen" mat-button>
@@ -18,6 +23,9 @@
         <img *ngIf="screen.mobileScreenWidth()" class="add-people" (click)="openChannelMembersDialog()"
             src="assets/icons/add-people.svg" mat-button>
     </div>
+
+
+
 </div>
 <div class="channel-body" id="channelBody"
     [class.positionStartChannel]="showBegin(threadList[this.number].communikation[0])" (click)="noEmoji()">

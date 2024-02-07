@@ -8,7 +8,7 @@
     </div>
 
     <div class="openCloseSidenav" *ngIf="router.url=='/' && showNormalHeader()">
-        <img class="open-sidenav" (click)="emitToggleSideMenu()" *ngIf="sideMenuHidden"
+        <img class="open-sidenav" (click)="emitOpenSideMenu()" *ngIf="sideMenuHidden"
             src="assets/icons/open-sidenav.svg">
     </div>
 
@@ -25,7 +25,8 @@
     </div>
     <div #searchResults class="searchResults" *ngIf="showPop()">
         <div *ngFor="let threadTitles of threadTitleDec" class="field" (click)="callOpenChan(threadTitles.index)">
-            <span class="nunitoBlack" style="display: flex;gap:10px;align-items: center;" ><img src="assets/icons/workspaces.svg"> {{threadTitles.name}}</span>
+            <span class="nunitoBlack" style="display: flex;gap:10px;align-items: center;"><img
+                    src="assets/icons/workspaces.svg"> {{threadTitles.name}}</span>
             <span class="nunitoBlack fs14">{{threadTitles.decription}}...</span>
         </div>
         <div *ngFor="let uInfo of userInfos" class="field" (click)="callOpenT(uInfo)">

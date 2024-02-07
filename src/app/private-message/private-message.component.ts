@@ -93,7 +93,6 @@ export class PrivateMessageComponent {
    * Computed, when we klick on the vert icon, that appears when hover over the message.
    */
   toggleEditPopUp() {
-    console.log('open edit popup called')
     this.openEditDialog = !this.openEditDialog;
   }
 
