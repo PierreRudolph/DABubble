@@ -8,6 +8,7 @@ import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
 import { SaveLastUserService } from '../save-last-user.service';
+import { timestamp } from 'rxjs';
 
 @Component({
   selector: 'app-private-message',
@@ -33,6 +34,7 @@ export class PrivateMessageComponent {
   public textEdit: string = "";
   public exist = false;
   public talkOpen: boolean = false;
+  //@Input() talkOpen: boolean = false;
   public openEditDialog: boolean = false;
   public openEdit: boolean = false;
   showEmojis: boolean | undefined;
@@ -44,8 +46,8 @@ export class PrivateMessageComponent {
   chatHelper: ChatHepler = new ChatHepler();
   public messageInformation: any[] = [];
   public addresses = false;
-  private mA: HTMLInputElement;
-  private upload: any;
+  //private mA: HTMLInputElement;
+  //private upload: any;
   @Input() indexLastUser = -2;
 
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -55,20 +57,29 @@ export class PrivateMessageComponent {
   @Output() lastUserIndex = new EventEmitter<number>();
 
   @ViewChild('textArea') textArea: { nativeElement: any; }
+  @ViewChild('mesageArea') mA: HTMLInputElement;
+  @ViewChild('imgPrivate') upload: HTMLInputElement;
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog, public lastUserService: SaveLastUserService) {
-    setTimeout(() => {
-      this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
-      this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
-    }, 1500);
-    setTimeout(() => {
-      // if (this.oldTalkId != "" && this.currentTalkId == "") {
-      this.currentTalkId = this.oldTalkId;
-      this.otherChatUser = lastUserService.lastUser;
-      this.openTalk();
-      this.talkOpen = true;
-      // }
-    }, 125);
+    // setTimeout(() => {
+    //   this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
+    //   this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
+    // }, 1500);
+    //setTimeout(() => {
+    ////////////////// if (this.oldTalkId != "" && this.currentTalkId == "") {
+
+    // this.currentTalkId = this.oldTalkId;
+    // this.otherChatUser = lastUserService.lastUser;
+    // this.openTalk();
+    // this.talkOpen = true;
+
+    ////////////////// }
+    //}, 125);
+
+    //this.currentTalkId = this.oldTalkId;
+    //this.otherChatUser = lastUserService.lastUser;
+    //this.openTalk();
+    //this.talkOpen = true;
   }
 
 
@@ -160,40 +171,58 @@ export class PrivateMessageComponent {
    * @param mes JSON that represents the message.
    */
   saveMessageExist(mes: {}) {
-    setTimeout(() => {
-      let len = this.currentTalkData.communikation.length;
-      let date = this.currentTalkData.communikation[len - 1].date;
-      let today = this.chatHepler.parseDate(new Date(Date.now()));
-      if (date == today) {
-        this.currentTalkData.communikation[len - 1].messages.push(mes);
-      } else {
-        if (date == "") { this.currentTalkData.communikation = []; }
-        let com = {
-          "date": this.chatHepler.parseDate(new Date(Date.now())),
-          "messages": [mes]
-        }
-        this.currentTalkData.communikation.push(com);
+    // setTimeout(() => {
+    //   let len = this.currentTalkData.communikation.length;
+    //   let date = this.currentTalkData.communikation[len - 1].date;
+    //   let today = this.chatHepler.parseDate(new Date(Date.now()));
+    //   if (date == today) {
+    //     this.currentTalkData.communikation[len - 1].messages.push(mes);
+    //   } else {
+    //     if (date == "") { this.currentTalkData.communikation = []; }
+    //     let com = {
+    //       "date": this.chatHepler.parseDate(new Date(Date.now())),
+    //       "messages": [mes]
+    //     }
+    //     this.currentTalkData.communikation.push(com);
+    //   }
+    // }, 500);
+    let len = this.currentTalkData.communikation.length;
+    let date = this.currentTalkData.communikation[len - 1].date;
+    let today = this.chatHepler.parseDate(new Date(Date.now()));
+    if (date == today) {
+      this.currentTalkData.communikation[len - 1].messages.push(mes);
+    } else {
+      if (date == "") { this.currentTalkData.communikation = []; }
+      let com = {
+        "date": this.chatHepler.parseDate(new Date(Date.now())),
+        "messages": [mes]
       }
-    }, 500);
+      this.currentTalkData.communikation.push(com);
+    }
   }
 
 
   /**
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
-  saveMessage() {
+  async saveMessage() {
     if (this.text == "" && this.dataUpload.link == "") { return; }
     let mes = this.createMessageFromText(this.text);
     if (!this.exist) {
-      this.startTalk(mes);
+      await this.startTalk(mes);
+      this.currentTalkData.idDB = this.currentTalkId;
+
       this.exist = true;
     }
     else {
       this.saveMessageExist(mes);
+      this.currentTalkData.idDB = this.currentTalkId;
+      await this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }
     setTimeout(() => {
-      this.currentTalkData.idDB = this.currentTalkId;
-      this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+      //this.currentTalkData.idDB = this.currentTalkId;
+
+      //this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }, 750);
     this.text = "";
   }
@@ -214,7 +243,7 @@ export class PrivateMessageComponent {
   /**
    * Initializes a new private talk. Sets the needed information to both users, that take part on the conversation.
    */
-  startTalkInitialize() {
+  async startTalkInitialize() {
     let talkUser = { //the id of the talk is saved in a List of the user
       "talkID": this.currentTalkId,
       "oUDbID": this.otherChatUser.idDB
@@ -223,28 +252,35 @@ export class PrivateMessageComponent {
       "talkID": this.currentTalkId,
       "oUDbID": this.user.idDB
     }// other user database id 
-    this.user.talkID.push(talkUser);  //user talkliste         
-    this.otherChatUser.talkID.push(talkOther);  //other talklist       
-    this.sendCurrentTalkId.emit(this.currentTalkId);
+    this.user.talkID.push(talkUser);  //user talkliste
+    if (!this.chatWithMyself()) {
+      this.otherChatUser.talkID.push(talkOther);  //other talklist       
+    }
+    this.sendCurrentTalkId.emit(this.currentTalkId); await this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
+    await this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
 
-    this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
-    this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
+    await this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+
   }
 
+  chatWithMyself() {
+    return this.user.idDB == this.otherChatUser.idDB;
+  }
 
   /** Called when a new private talk is started.
    * 
    * @param talk JSON of information of the new message
    * @returns 
    */
-  startTalk(talk: {}): {} {
+  async startTalk(talk: {}): Promise<{}> {
     let t: any = this.chatHepler.createNewTalk(this.user, this.otherChatUser);
 
     t.communikation[0].messages = [talk];
-    this.addTalk(t);
-    setTimeout(() => {
-      this.startTalkInitialize();
-    }, 2000);
+    await this.addTalk(t);
+    await this.startTalkInitialize();
+    // setTimeout(() => {
+    //   this.startTalkInitialize();
+    // }, 2000);
     t.idDB = this.currentTalkId;
     this.currentTalkData = t;
     this.sendCurrentTalkId.emit(this.currentTalkId);

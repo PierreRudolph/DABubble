@@ -21,12 +21,12 @@
       (newItemEventLoggedUser)="setLoggedInUser($event)" (callOpenUser)="openMessage($event)" [talkList]="talkList"
       (sendCurrentTalkId)="setCurrentTalkId($event)" [userList]="userList" [oldTalkId]="oldTalkId"
       [currentTalkData]="currentTalkData"></app-private-message>
-
-    <app-send-new-message style="height:100%" [threadList]="threadList" [talkList]="talkList" [user]="user"
-      [userList]="userList" (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)"
-      (areaText)="setAreaText($event)" (areaTextPrivate)="setAreaTextPrivate($event)"
-      (callOpenTalk)="openMessage($event)" (dataUploadChannel)="setdataUploadChannel($event)"
-      (dataUploadPrivate)="setdataUploadPrivate($event)" *ngIf="newMessOpen"></app-send-new-message>
+    <!-- [talkList]="talkList"  war in app-send-new-message drin-->
+    <app-send-new-message style="height:100%" [threadList]="threadList" [user]="user" [userList]="userList"
+      (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)" (areaText)="setAreaText($event)"
+      (areaTextPrivate)="setAreaTextPrivate($event)" (callOpenTalk)="openMessage($event)"
+      (dataUploadChannel)="setdataUploadChannel($event)" (dataUploadPrivate)="setdataUploadPrivate($event)"
+      *ngIf="newMessOpen"></app-send-new-message>
 
   </div>
 

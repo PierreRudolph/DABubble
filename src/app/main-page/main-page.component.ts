@@ -44,7 +44,7 @@ export class MainPageComponent {
   private unsub: any;
   private unsubtalk: any;
   loaded = false;
-  public currentTalkData: any = this.chathelper.createEmptyTalk();
+  public currentTalkData: any = [];//any = this.chathelper.createEmptyTalk();
   private currentTalkId: string = "";
   public oldTalkId: string = "";
   private userAuth: any; //authenticated user
@@ -63,7 +63,10 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
-    this.clearCommunikationOfCurrentTalkData();
+    //console.log(this.currentTalkData.communikation)
+    //this.clearCommunikationOfCurrentTalkData();
+    //console.log(this.currentTalkData.communikation)
+
     this.prepareUserData();
     this.assignAndActivateObservables();
   }
@@ -125,8 +128,11 @@ export class MainPageComponent {
       if (u.uid == this.userUid) {
         this.newGoogleUser = false;
         this.user = u;
-        this.user.status = "Aktiv";
-        this.updateUser(this.user.idDB)
+        if (u.status !== "Aktiv") {
+          this.user.status = "Aktiv";
+          this.updateUser(this.user.idDB);
+        }
+
         // gibt Firebase error aus wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen /auskommentiert am:30.1.24
         // if (!this.idSet) {
         //   this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
@@ -191,9 +197,22 @@ export class MainPageComponent {
           this.talkList.push(talk.data());
         }
       });
+      this.checkIfTalkOpen();
     });
+
   }
 
+
+  checkIfTalkOpen() {
+    this.talkList.forEach((talk) => {
+      if (((talk['member1DBid'] == this.otherChatUser.idDB || talk['member2DBid'] == this.otherChatUser.idDB) && (this.user.idDB !== this.otherChatUser.idDB) && this.childPrivateMes)) {
+        this.currentTalkData = talk;
+        this.currentTalkId = talk.idDB;
+        this.childPrivateMes.exist = true;
+        this.childPrivateMes.currentTalkId = talk.idDB;
+      }
+    })
+  }
 
 
   /**
@@ -343,17 +362,17 @@ export class MainPageComponent {
     setTimeout(() => { this.childChannel.scrollDown(); }, 500);
   }
 
-
-  /**  
-   * @returns Am i talking to myself?
-   */
-  isItMe() {
-    return this.otherChatUser.idDB == this.user.idDB;
-  }
+  //Wird nirgends genutzt
+  // /**  
+  //  * @returns Am i talking to myself?
+  //  */
+  // isItMe() {
+  //   return this.otherChatUser.idDB == this.user.idDB;
+  // }
 
 
   /**
-   * Set the other chatUser to u and start the private talk.
+   * Set the other chatUser to given user and start the private talk.
    * @param user Ohter chat user
    */
   setOtherUser(user: User) {
@@ -363,12 +382,16 @@ export class MainPageComponent {
     this.channelOpen = false;
     this.privateOpen = true;
     this.openChat = false;
+    this.otherChatUser = user;
 
     setTimeout(() => {
       this.otherChatUser = user;
       this.childPrivateMes.setOtherUser(user);
 
-    }, 500);
+    }, 10);
+
+
+
 
   }
 

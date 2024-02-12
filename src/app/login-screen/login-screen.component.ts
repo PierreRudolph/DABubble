@@ -49,7 +49,6 @@ export class LoginScreenComponent {
 
   async loginAsGuest() {
     let user;
-    //console.log((await this.authService.logIn("gast@mail.com", "111111")).user)
     user = (await this.authService.logIn("gast@mail.com", "111111")).user
 
     let id = user._delegate.uid;

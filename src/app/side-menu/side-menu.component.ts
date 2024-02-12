@@ -96,7 +96,7 @@ export class SideMenuComponent {
     this.newMessage = false;
     this.isOpen.emit(false);
     this.addNewItem(u);
-    this.lastUserService.lastUser = u;
+    //this.lastUserService.lastUser = u;
 
     if (!this.newMessageMobile) {
       this.setDrawerValues();
