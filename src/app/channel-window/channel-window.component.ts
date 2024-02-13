@@ -29,7 +29,7 @@ export class ChannelWindowComponent {
   public channelMembersOpen: boolean | false;
   public openEditDialog: boolean = false;
   public smileEdit = false;
-  @Input() number: number = 0;
+  @Input() channelNumber: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();//authenticated user
   @Input() userList: User[];
@@ -79,7 +79,7 @@ export class ChannelWindowComponent {
     this.toggleEditChanBol();
     let dialogRef = this.dialog.open(EditChannelComponent,
       { panelClass: this.dialogEditChanClasses, position: { left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop } });
-    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.number, this.userList, this.user);
+    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.channelNumber, this.userList, this.user);
     dialogRef.afterClosed().subscribe(() => {
       this.toggleEditChanBol();
     });
@@ -110,7 +110,7 @@ export class ChannelWindowComponent {
    * @param m     Information we want to store
    */
   setTreadData(index: number, n: string, m: any) {
-    this.threadList[this.number].communikation[this.commIndex].threads[index][n] = m;
+    this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n] = m;
   }
 
   /**
@@ -120,7 +120,7 @@ export class ChannelWindowComponent {
  * @param n     What kind of information do we want to acces? 
  */
   getTreadData(index: number, n: string) {
-    return this.threadList[this.number].communikation[this.commIndex].threads[index][n];
+    return this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n];
   }
 
   /**
@@ -131,7 +131,7 @@ export class ChannelWindowComponent {
    * @param sIndex  Index of the Smile
    */
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
-    let threadId = this.threadList[this.number].channel.idDB;
+    let threadId = this.threadList[this.channelNumber].channel.idDB;
     this.commIndex = cIndex;
     let userSmiles = this.getTreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
@@ -140,7 +140,7 @@ export class ChannelWindowComponent {
       userSmiles.splice(sIndex, 1);
     }
     this.setTreadData(tIndex, 'smile', userSmiles);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
   }
 
   /**
@@ -155,10 +155,10 @@ export class ChannelWindowComponent {
   }
 
   saveEmojiCommentHelper(emoji: any) {
-    let threadId = this.threadList[this.number].channel.idDB;
+    let threadId = this.threadList[this.channelNumber].channel.idDB;
     let sm = this.channelHelper.createEmojiData(emoji, this.getTreadData(this.threadIndex, 'smile'), this.smileHelper, this.user);
     this.setTreadData(this.threadIndex, 'smile', sm);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.number].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
   }
 
   /**
@@ -314,7 +314,7 @@ export class ChannelWindowComponent {
   setAddPplDialogValues(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     let instance = dialogRef.componentInstance;
     instance.user = new User(this.user.toJSON());
-    instance.channel = this.threadList[this.number].channel;
+    instance.channel = this.threadList[this.channelNumber].channel;
     instance.userList = this.userList;
   }
 
@@ -356,13 +356,13 @@ export class ChannelWindowComponent {
    */
   saveEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
-    this.threadList[this.number].communikation[cIndex].threads[tIndex].message = this.textEdit;
-    this.threadList[this.number].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
-    let threadIndex = this.threadList[this.number].channel.idDB;
-    if (this.textEdit == "" && this.threadList[this.number].communikation[cIndex].threads[tIndex].url.link == "") {
-      this.channelHelper.deleteMessage(this.number, cIndex, tIndex, this.threadList);
+    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].message = this.textEdit;
+    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
+    let threadIndex = this.threadList[this.channelNumber].channel.idDB;
+    if (this.textEdit == "" && this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].url.link == "") {
+      this.channelHelper.deleteMessage(this.channelNumber, cIndex, tIndex, this.threadList);
     } else {
-      this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.number].communikation });
+      this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
     }
   }
 
@@ -406,7 +406,7 @@ export class ChannelWindowComponent {
 
     if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
-      this.sendQuestion(this.number);
+      this.sendQuestion(this.channelNumber);
     }
 
   }
@@ -458,7 +458,7 @@ export class ChannelWindowComponent {
    * @param dialogRef MatDialogRef of ChannelMembersComponent
    */
   setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-    this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.threadList, this.number, this.userList);
+    this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.threadList, this.channelNumber, this.userList);
   }
 
   /**
@@ -525,7 +525,7 @@ export class ChannelWindowComponent {
    * @param sIndex  Index of the smile
    */
   showPopUpCommentUsers(i: number, j: number, sIndex: number) {
-    let smile = this.threadList[this.number].communikation[i].threads[j].smile[sIndex];
+    let smile = this.threadList[this.channelNumber].communikation[i].threads[j].smile[sIndex];
     let smileUsers = [];
     smile.users.forEach((s) => {
       smileUsers.push(s.id);
@@ -573,7 +573,7 @@ export class ChannelWindowComponent {
    */
   deleteUp(e: any, i: number, j: number) {
     e.preventDefault();
-    this.channelHelper.deleteUp(this.number, i, j, this.threadList);
+    this.channelHelper.deleteUp(this.channelNumber, i, j, this.threadList);
   }
 
 }

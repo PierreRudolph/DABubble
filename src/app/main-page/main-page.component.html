@@ -6,16 +6,16 @@
 <div class="main-page">
 
   <app-side-menu (newItemEvent)="setOpen($event)" (newItemEventUser)="setOtherUser($event)"
-    (isOpen)="setNewMessage($event)" (newItemEventChanel)="setChannelNumber($event)"
+    (isOpen)="setNewMessage($event)" (newItemEventChanel)="callOpenChan($event)"
     (newItemEventMenuHidden)="setSideMenuHidden($event)" [user]="user" [userList]="userList" [threadList]="threadList"
     class="side-menu" [class.width100Percent]="!sideMenuHidden&&screen.mobileScreenWidth()" [talkList]="talkList"
-    (channelOpen)="setChannelBoolean($event)"></app-side-menu>
+    (channelOpen)="setChannelOpenBol($event)"></app-side-menu>
 
   <div class="main-content-div" *ngIf="setMobileView()" #mainContentDiv>
 
-    <app-channel-window class="channel-window" *ngIf="showChannel()" [threadList]="threadList" [number]="number"
-      [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)" [sideMenuHidden]="sideMenuHidden"
-      [openChat]="openChat" (callOpenTalk)="openMessage($event)"></app-channel-window>
+    <app-channel-window class="channel-window" *ngIf="showChannel()" [threadList]="threadList"
+      [channelNumber]="channelNumber" [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
+      [sideMenuHidden]="sideMenuHidden" [openChat]="openChat" (callOpenTalk)="openMessage($event)"></app-channel-window>
 
     <app-private-message class="privateMessage" *ngIf="showPrivateMessage()" [user]="user"
       (newItemEventLoggedUser)="setLoggedInUser($event)" (callOpenUser)="openMessage($event)" [talkList]="talkList"

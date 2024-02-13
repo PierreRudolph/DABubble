@@ -208,8 +208,6 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   async saveMessage() {
-    console.log(this.otherChatUser.getAktive())
-    return;
     if (this.text == "" && this.dataUpload.link == "") { return; }
     let mes = this.createMessageFromText(this.text);
     if (!this.exist) {
@@ -258,13 +256,12 @@ export class PrivateMessageComponent {
     }// other user database id 
     this.user.talkID.push(talkUser);  //user talkliste
     if (!this.chatWithMyself()) {
-      this.otherChatUser.talkID.push(talkOther);  //other talklist       
+      this.otherChatUser.talkID.push(talkOther);  //other talklist    
     }
-    this.sendCurrentTalkId.emit(this.currentTalkId); await this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
+    this.sendCurrentTalkId.emit(this.currentTalkId);
+    await this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
     await this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
-
     await this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
-
   }
 
   chatWithMyself() {

@@ -38,13 +38,13 @@ export class MainPageComponent {
   public load = false;
   public privateOpen = false;
   public sideMenuHidden: boolean;
-  public number: number = 0;
+  public channelNumber: number = 0;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   unsubChannel: any
   private unsub: any;
   private unsubtalk: any;
   loaded = false;
-  public currentTalkData: any = [];//any = this.chathelper.createEmptyTalk();
+  public currentTalkData: any = [];
   private currentTalkId: string = "";
   public oldTalkId: string = "";
   private userAuth: any; //authenticated user
@@ -68,13 +68,6 @@ export class MainPageComponent {
   }
 
 
-  /**
-   * Clears the communikation Array inside the emptyTalkJSON
-   */
-  clearCommunikationOfCurrentTalkData() {
-    this.currentTalkData.communikation = [];
-  }
-
 
   /**
    * this function assigns data of the actual logged in user to the Variables userAuth and userUid
@@ -82,28 +75,16 @@ export class MainPageComponent {
   async prepareUserData() {
     this.userAuth = await this.authService.getAuthServiceUser();
     this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
-
-    setTimeout(() => {
-      //this.userAuth =  this.authService.getAuthServiceUser();
-      //this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
-    }, 1000);
-    //war bei 1000
   }
 
 
   /**
-   * After given Time, this function Activate and Assign Observables, to variables, to make them unsubscribeable.
+   * this function Activate and Assign Observables, to variables, to make them unsubscribeable.
    */
   assignAndActivateObservables() {
     this.unsub = this.subUserInfo();
     this.unsubtalk = this.subTalkInfo();
     this.unsubChannel = this.subChannelList();
-    // setTimeout(() => {
-    //   this.unsub = this.subUserInfo();
-    //   this.unsubtalk = this.subTalkInfo();
-    //   this.unsubChannel = this.subChannelList();
-    // }, 1500);
-    //war bei 1500
   }
 
 
@@ -129,39 +110,48 @@ export class MainPageComponent {
   findActualUserAndFillUserList(list: any[] | QuerySnapshot<DocumentData>) {
     list.forEach(elem => {
       let u = new User(elem.data())
-
-      if (this.childPrivateMes && (u.uid == this.otherChatUser.uid)) {
-        this.otherChatUser = u;
-      }
-      if (u.uid == this.userUid) {
-        this.newGoogleUser = false;
-        this.user = u;
-        if (u.status !== "Aktiv") {
-          this.user.status = "Aktiv";
-          this.updateUser(this.user.idDB);
-        }
-
-
-
-        // gibt Firebase error aus wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen /auskommentiert am:30.1.24
-        // if (!this.idSet) {
-        //   this.chathelper.updateDB(this.user.idDB, "user", this.user.toJSON());
-        //   this.idSet = true;
-        // }
-
-      } else { this.addUserToUserList(u) }
+      this.updateOtherUser(u);
+      this.setUser(u);
+      this.addUserToUserList(u)
     });
   }
 
 
-  async updateUser(id: string) {
-    let docRef = this.getSingleUserRef(id)
-    await updateDoc(docRef, this.user.toJSON());
+  /**
+   * this function keeps the actual otherChatUser's online status up To Date,
+   * if private-message open and if given User's uid the same as the actual otherChatUser's uid
+   * @param {User} u 
+   */
+  updateOtherUser(u: User) {
+    if (this.childPrivateMes && (u.uid == this.otherChatUser.uid)) {
+      this.otherChatUser.status = u.status;
+    }
   }
 
 
-  getSingleUserRef(docId: string) {
-    return doc(this.firestore, 'user', docId);
+  /**
+   * sets the actual User
+   * @param {User} user 
+   * @returns stops here, if given user is not actual user
+   */
+  setUser(user: User) {
+    if (!this.actualUser(user))
+      return
+    this.newGoogleUser = false;
+    this.user = user;
+    this.setActualUserActive(user);
+  }
+
+
+  /**
+   * sets the actual user to status: Active and updates the Database
+   * @param {User} user 
+   */
+  setActualUserActive(user: User) {
+    if (user.status !== "Aktiv") {
+      this.user.status = "Aktiv";
+      this.updateUser(this.user.idDB);
+    }
   }
 
 
@@ -170,7 +160,37 @@ export class MainPageComponent {
    * @param {Class} user
    */
   addUserToUserList(user: User) {
+    if (this.actualUser(user))
+      return;
     this.userList.push(user);
+  }
+
+
+  /**
+   * @param {User} user 
+   * @returns true if given user.uid same as this.userUid
+   */
+  actualUser(user: User) {
+    return user.uid == this.userUid;
+  }
+
+
+  /**
+   * update the User with the give user id
+   * @param id given user Id
+   */
+  async updateUser(id: string) {
+    let docRef = this.getSingleUserRef(id)
+    await updateDoc(docRef, this.user.toJSON());
+  }
+
+
+  /**
+   * @param docId given id of the document reference
+   * @returns document reference found with given docId in the collection 'user'
+   */
+  getSingleUserRef(docId: string) {
+    return doc(this.firestore, 'user', docId);
   }
 
 
@@ -193,19 +213,14 @@ export class MainPageComponent {
 
   /**
   * Observes the database about changes on  all private talks of the current User.  
-  * 
   * @returns Snapshot of all private talks of the current User.
   */
   subTalkInfo() {
-    let talkRef = this.getCollectionRef('talk');
     this.talkList = [];
-    return onSnapshot(talkRef, (list) => {
+    return onSnapshot(this.getCollectionRef('talk'), (list) => {
       list.forEach(talk => {
         this.updateCurrentTalkData(talk);
-        //Only talks of the current user are saved
-        if (talk.data()['member1DBid'] == this.user.idDB || talk.data()['member2DBid'] == this.user.idDB) {
-          this.talkList.push(talk.data());
-        }
+        this.pushToTalkList(talk);
       });
       this.checkIfTalkOpen();
     });
@@ -213,15 +228,35 @@ export class MainPageComponent {
   }
 
 
+  pushToTalkList(talk: QueryDocumentSnapshot<DocumentData>) {
+    if (this.actualUserIsMember(talk)) {
+      this.talkList.push(talk.data());
+    }
+  }
+
+
+  actualUserIsMember(talk: QueryDocumentSnapshot<DocumentData>) {
+    return talk.data()['member1DBid'] == this.user.idDB || talk.data()['member2DBid'] == this.user.idDB
+  }
+
+
+  /**
+   * iterates thru talkList and updates the actual and open talk
+   */
   checkIfTalkOpen() {
-    this.talkList.forEach((talk) => {
-      if (((talk['member1DBid'] == this.otherChatUser.idDB || talk['member2DBid'] == this.otherChatUser.idDB) && (this.user.idDB !== this.otherChatUser.idDB) && this.childPrivateMes)) {
+    this.talkList.forEach((talk: { idDB: string; member1DBid: string; member2DBid: string }) => {
+      if (this.otherUserIsMember(talk) && (this.user.idDB !== this.otherChatUser.idDB) && this.childPrivateMes && this.otherChatUser.idDB != '') {
         this.currentTalkData = talk;
         this.currentTalkId = talk.idDB;
         this.childPrivateMes.exist = true;
         this.childPrivateMes.currentTalkId = talk.idDB;
       }
     })
+  }
+
+
+  otherUserIsMember(talk: { idDB: string; member1DBid: string; member2DBid: string; }) {
+    return (talk.member1DBid == this.otherChatUser.idDB || talk.member2DBid == this.otherChatUser.idDB)
   }
 
 
@@ -242,22 +277,15 @@ export class MainPageComponent {
    * @returns Snapshot of all channels and their associated threads.
    */
   subChannelList() {
-    let threadRef = this.getCollectionRef('thread');
-    return onSnapshot(threadRef, (list) => {
-      let cl: any = []
-      list.forEach(elem => {
-        if (this.isUserInMemberList(elem.data())) {
-          cl.push(elem.data());
+    return onSnapshot(this.getCollectionRef('thread'), (channels) => {
+      this.threadList = [];
+      channels.forEach(channel => {
+        if (this.isUserInMemberList(channel.data())) {
+          this.threadList.push(channel.data());
         }
       });
-      this.threadList = cl;
-
     });
-
   }
-
-
-
 
 
   /**
@@ -269,35 +297,70 @@ export class MainPageComponent {
   }
 
 
+  /**
+   * 
+   * @param {any}channel 
+   * @returns true if actual user is member of the given channel
+   */
   isUserInMemberList(channel: any) {
-    let b = false;
-    let list: any[] = channel.channel.members;
-    list.forEach((m) => {
-      if (m.memberID == this.user.idDB) {
-        b = true;
+    let isMember: boolean = false;
+    let memberList: any[] = channel.channel.members;//richtig wäre channel.info.members, gegebenenfalls noch ändern
+    memberList.forEach((member) => {
+      if (member.memberID == this.user.idDB) {
+        isMember = true;
       }
     });
-    return b;
+    return isMember;
   }
 
 
+  /**
+   * this function sets the newMessOpen boolean
+   * @param {boolean} b 
+   */
   setNewMessage(b: boolean) {
     this.newMessOpen = b;
   }
 
 
   /**
-   * Is used by the Searchfunction. When clicked on the result the channel is opend, where the result can be found.
-   *    
+   * Is used by the Searchfunction. When clicked on the result the channel is opend, 
+   * where the result can be found.
    * @param num  index of the current Cannel
    */
   callOpenChan(num: number) {
     this.setChannelNumber(num);
-    this.openChat = false;
-    this.privateOpen = false;
-    setTimeout(() => { this.childChannel.scrollDown(); }, 500);
+    this.currentThreadId = this.threadList[num].channel.idDB;
+    this.setAllBolToShowChannel();
+    this.showMainContentDivOn1400();
+    this.scrollDownChannel();
+  }
 
 
+  /**
+   *  Sets the required variables for visibility, of the channel-window
+   */
+  setAllBolToShowChannel() {
+    this.setOpenChatBol(false);
+    this.setPrivateOpenBol(false);
+    this.setTalkOpenBol(false);
+    this.setSideMenuNewMesBol(false);
+    this.setChannelOpenBol(true);
+  }
+
+
+  /**
+  * Sets the id of the current channel. 
+  * @param number index of the Channel set should be openend
+  */
+  setChannelNumber(number: number) {
+    this.channelNumber = number;
+
+  }
+
+
+  scrollDownChannel() {
+    setTimeout(() => { this.childChannel.scrollDown(); }, 10);
   }
 
 
@@ -309,19 +372,27 @@ export class MainPageComponent {
   openMessage(u: User) {
     this.sideMenu.newMessageMobile = true;
     this.sideMenu.openTalk(u);
-    this.sideMenu.newMessage = false;
+    this.setSideMenuNewMesBol(false);
   }
 
 
-  setdataUploadChannel(dataUpload: any) {
-    setTimeout(() => { this.childChannel.dataUpload = dataUpload; }, 500);
+  /**
+   * transfers dataUpload coming from send-new-message, to channel-window
+   * after 10 milliseconds to avoid calling channel-window before it is initialized
+   * @param {JSON} dataUpload 
+   */
+  setdataUploadChannel(dataUpload: { link: string; title: string }) {
+    setTimeout(() => { this.childChannel.dataUpload = dataUpload; }, 10);
   }
 
 
-  setdataUploadPrivate(dataUpload: any) {
-    setTimeout(() => {
-      this.childPrivateMes.dataUpload = dataUpload;
-    }, 500);
+  /**
+   * transfers dataUpload coming from send-new-message, to private-message
+   * after 10 milliseconds to avoid calling private-message before it is initialized
+   * @param {JSON} dataUpload 
+   */
+  setdataUploadPrivate(dataUpload: { link: string; title: string }) {
+    setTimeout(() => { this.childPrivateMes.dataUpload = dataUpload; }, 10);
   }
 
 
@@ -343,13 +414,14 @@ export class MainPageComponent {
    */
   openThisThread(n: number, i: number, j: number) {
     this.threadC.setValue(n, i, j);
-    this.openChat = true;
+    this.setOpenChatBol(true);
   }
 
 
   setOpenValue(e: boolean) {
     this.showMainContentDivOn1400();
-    this.openChat = e;
+
+    this.setOpenChatBol(e);
     if (!this.openChat && this.sideMenuHidden) {
       this.setMobileSideMenuValues();
     }
@@ -357,41 +429,14 @@ export class MainPageComponent {
 
 
   /**
-   * Sets the id of the current channel. Sets the required variables for visibility.
-   * @param number index of the Channel set should be openend
-   */
-  setChannelNumber(number: number) {
-    this.number = number;
-    this.channelOpen = true;
-    this.talkOpen = false;
-    this.privateOpen = false;
-    this.currentThreadId = this.threadList[number].channel.idDB;
-    this.sideMenu.newMessage = false;
-
-    this.showMainContentDivOn1400();
-    setTimeout(() => { this.childChannel.scrollDown(); }, 500);
-  }
-
-  //Wird nirgends genutzt
-  // /**  
-  //  * @returns Am i talking to myself?
-  //  */
-  // isItMe() {
-  //   return this.otherChatUser.idDB == this.user.idDB;
-  // }
-
-
-  /**
    * Set the other chatUser to given user and start the private talk.
    * @param user Ohter chat user
    */
   setOtherUser(user: User) {
-
-    //window.innerWidth = 1000; unser kleiner Fluch mit großen auswirkungen :)
-    this.talkOpen = true;
-    this.channelOpen = false;
-    this.privateOpen = true;
-    this.openChat = false;
+    this.setTalkOpenBol(true);
+    this.setChannelOpenBol(false);
+    this.setPrivateOpenBol(true);
+    this.setOpenChatBol(false);
     this.otherChatUser = user;
 
     setTimeout(() => {
@@ -399,10 +444,6 @@ export class MainPageComponent {
       this.childPrivateMes.setOtherUser(user);
 
     }, 10);
-
-
-
-
   }
 
 
@@ -413,19 +454,8 @@ export class MainPageComponent {
   }
 
 
-  setThreadList(list: any) {
-    this.threadList = list;
-
-  }
-
-  //wird nie verwendet
-  // setTalkList(tl: any) {
-  //   this.talkList = tl;
-  // }
-
-
   setOpen(value: boolean) {
-    this.openChat = value;
+    this.setOpenChatBol(value);
 
     this.showMainContentDivOn1400();
   }
@@ -461,9 +491,9 @@ export class MainPageComponent {
    */
   setThreadC(c: ThreadConnector) {
     this.threadC = c;
-    this.openChat = true;
+    this.setOpenChatBol(true);
     this.started = true;
-    this.privateOpen = false;
+    this.setPrivateOpenBol(false);
     this.hideMainContentDivOn1400();
     this.hideMainContentDivOn830();
     setTimeout(() => {
@@ -479,7 +509,7 @@ export class MainPageComponent {
 
   hideMainContentDivOn1400() {
     if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
-      this.channelOpen = false;
+      this.setChannelOpenBol(false);
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
@@ -487,7 +517,7 @@ export class MainPageComponent {
 
   showMainContentDivOn1400() {
     if (!this.privateOpen) {
-      this.channelOpen = true;
+      this.setChannelOpenBol(true);
     }
     if (this.mainContentDiv) {
       this.mainContentDiv.nativeElement.classList.remove('dNone');
@@ -497,7 +527,7 @@ export class MainPageComponent {
 
   hideMainContentDivOn830() {
     if (this.screen.screenWidth < 830) {
-      this.channelOpen = false;
+      this.setChannelOpenBol(false);
       this.mainContentDiv.nativeElement.classList.add('dNone');
     }
   }
@@ -553,14 +583,14 @@ export class MainPageComponent {
 
     if (this.screen.screenWidth <= 1400 && this.channelOpen && !this.sideMenuHidden) {
       setTimeout(() => {
-        this.openChat = false;
+        this.setOpenChatBol(false);
       }, 200);
       return false;
     } else
 
       if (this.screen.screenWidth <= 1220 && this.channelOpen && this.sideMenuHidden) {
         setTimeout(() => {
-          this.openChat = false;
+          this.setOpenChatBol(false);
         }, 200);
         return false;
       }
@@ -570,7 +600,28 @@ export class MainPageComponent {
       }
   }
 
-  setChannelBoolean(boolean: boolean) {
-    this.channelOpen = boolean;
+
+  setSideMenuNewMesBol(newValue: boolean) {
+    this.sideMenu.newMessage = newValue;
+  }
+
+
+  setTalkOpenBol(newValue: boolean) {
+    this.talkOpen = newValue;
+  }
+
+
+  setChannelOpenBol(newValue: boolean) {
+    this.channelOpen = newValue;
+  }
+
+
+  setOpenChatBol(newValue: boolean) {
+    this.openChat = newValue;
+  }
+
+
+  setPrivateOpenBol(newValue: boolean) {
+    this.privateOpen = newValue
   }
 }
