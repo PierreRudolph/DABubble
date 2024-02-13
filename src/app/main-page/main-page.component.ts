@@ -63,10 +63,6 @@ export class MainPageComponent {
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
 
   constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
-    //console.log(this.currentTalkData.communikation)
-    //this.clearCommunikationOfCurrentTalkData();
-    //console.log(this.currentTalkData.communikation)
-
     this.prepareUserData();
     this.assignAndActivateObservables();
   }
@@ -83,11 +79,15 @@ export class MainPageComponent {
   /**
    * this function assigns data of the actual logged in user to the Variables userAuth and userUid
    */
-  prepareUserData() {
+  async prepareUserData() {
+    this.userAuth = await this.authService.getAuthServiceUser();
+    this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
+
     setTimeout(() => {
-      this.userAuth = this.authService.getAuthServiceUser();
-      this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
+      //this.userAuth =  this.authService.getAuthServiceUser();
+      //this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
     }, 1000);
+    //war bei 1000
   }
 
 
@@ -95,11 +95,15 @@ export class MainPageComponent {
    * After given Time, this function Activate and Assign Observables, to variables, to make them unsubscribeable.
    */
   assignAndActivateObservables() {
-    setTimeout(() => {
-      this.unsub = this.subUserInfo();
-      this.unsubtalk = this.subTalkInfo();
-      this.unsubChannel = this.subChannelList();
-    }, 1500);
+    this.unsub = this.subUserInfo();
+    this.unsubtalk = this.subTalkInfo();
+    this.unsubChannel = this.subChannelList();
+    // setTimeout(() => {
+    //   this.unsub = this.subUserInfo();
+    //   this.unsubtalk = this.subTalkInfo();
+    //   this.unsubChannel = this.subChannelList();
+    // }, 1500);
+    //war bei 1500
   }
 
 
@@ -125,6 +129,10 @@ export class MainPageComponent {
   findActualUserAndFillUserList(list: any[] | QuerySnapshot<DocumentData>) {
     list.forEach(elem => {
       let u = new User(elem.data())
+
+      if (this.childPrivateMes && (u.uid == this.otherChatUser.uid)) {
+        this.otherChatUser = u;
+      }
       if (u.uid == this.userUid) {
         this.newGoogleUser = false;
         this.user = u;
@@ -132,6 +140,8 @@ export class MainPageComponent {
           this.user.status = "Aktiv";
           this.updateUser(this.user.idDB);
         }
+
+
 
         // gibt Firebase error aus wenn das erste mal mit einem google account angemeldet. /kein ersichtiler nutzen /auskommentiert am:30.1.24
         // if (!this.idSet) {

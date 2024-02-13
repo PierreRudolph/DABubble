@@ -11,11 +11,7 @@ import { MainDialogProfilComponent } from './main-dialog-profil/main-dialog-prof
 import { DatenschutzComponent } from './datenschutz/datenschutz.component';
 
 
-
 const routes: Routes = [
-  // 
-  // { path: 'main', component: MainPageComponent },
-  //  { path: '', component: MainPageComponent },
 
   { path: 'main', component: MainPageComponent, canActivate: [AuthGuardService] },
   { path: '', component: MainPageComponent, canActivate: [AuthGuardService] },
@@ -27,10 +23,11 @@ const routes: Routes = [
   { path: 'signup', component: CreateAccountMainComponent },// canActivate: [AuthGuardService] canaktivate hier nur zu Testzwecke
   { path: 'imprint', component: ImpressumComponent },
 ];
-// { useHash: true }
+
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }
 

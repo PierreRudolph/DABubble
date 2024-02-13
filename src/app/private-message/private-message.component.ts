@@ -186,6 +186,8 @@ export class PrivateMessageComponent {
     //     this.currentTalkData.communikation.push(com);
     //   }
     // }, 500);
+
+
     let len = this.currentTalkData.communikation.length;
     let date = this.currentTalkData.communikation[len - 1].date;
     let today = this.chatHepler.parseDate(new Date(Date.now()));
@@ -206,6 +208,8 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   async saveMessage() {
+    console.log(this.otherChatUser.getAktive())
+    return;
     if (this.text == "" && this.dataUpload.link == "") { return; }
     let mes = this.createMessageFromText(this.text);
     if (!this.exist) {
