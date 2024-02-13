@@ -38,7 +38,7 @@ export class SideMenuComponent {
   public threadTitleDec: any[] = [];
   public threadMessages: any[] = [];
   public talkMessages: any[] = [];
-  public userInfos: any[] = [];
+  public userInfos: any = [];
   public text = "";
   public newMessageMobile: boolean = false;
   @ViewChild('drawer') drawer: any;
