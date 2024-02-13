@@ -22,7 +22,8 @@ export class SendNewMessageComponent {
   public error = false;
   public addresses = false;
   public dataUpload = { "link": "", "title": "" };
-
+  public errorMessage = false;
+  public focus = false;
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -35,6 +36,7 @@ export class SendNewMessageComponent {
   toggleEmojisDialog() {
     this.showEmojis = !this.showEmojis;
   }
+
 
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
@@ -57,6 +59,12 @@ export class SendNewMessageComponent {
   }
 
   searchKey(searchT: string) {
+    this.errorMessage = false;
+    if (!this.userList) {
+      this.errorMessage = true;
+      return;
+    }
+
     let st = searchT.toLowerCase();
     this.searchText = st;
     let first = st[0];
@@ -73,6 +81,8 @@ export class SendNewMessageComponent {
       }
     })
   }
+
+
   saveMessage() {
     this.error = true;
     setTimeout(() => {
@@ -92,6 +102,7 @@ export class SendNewMessageComponent {
 
   }
 
+
   callOpenT(u: User) {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
@@ -100,9 +111,8 @@ export class SendNewMessageComponent {
     this.dataUploadPrivate.emit(dat);
     this.dataUpload.link = "";
     this.dataUpload.title = "";
-
-
   }
+
 
   chooseUser(u: User) {
     this.text += '@' + u.name;
@@ -117,15 +127,26 @@ export class SendNewMessageComponent {
     this.chathelper.onSelect(event, this.dataUpload);
   }
 
+
   showBlendIn() {
     return this.dataUpload.link != "";
   }
+
+
   showLink(link: string) {
     return link != "";
   }
 
+
   closeUpload() {
     this.dataUpload.link = "";
     this.dataUpload.title = "";
+  }
+
+
+  toggleFocusBol() {
+    setTimeout(() => {
+      this.focus = !this.focus;
+    }, 100);
   }
 }

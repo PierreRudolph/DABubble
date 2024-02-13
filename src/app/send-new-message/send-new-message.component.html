@@ -2,12 +2,14 @@
   <div class="newMesHeader">
     <div class="nunitoBlack">Neue Nachricht</div>
     <input *ngIf="!error" (ngModelChange)="searchKey($event)" ngModel type="input" class="address"
+      (focus)="this.toggleFocusBol()" (focusout)="this.toggleFocusBol()"
       placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
     <input *ngIf="error" ngModel disabled type="input" class="address error"
       placeholder="Bitte einen Addressaten eingeben und auswählen">
   </div>
   <div class="searchResults">
-    <div *ngIf="searchText.length >1 ">
+    <span *ngIf="errorMessage">Ooops! Bitte versuch es noch einmal.</span>
+    <div *ngIf="searchText.length >1 && focus">
       <div *ngFor="let user of searchResultUser; index as u" class="searchuserName nunitoBlack"
         (click)="callOpenT(user)">
         <img src="{{user.iconPath}}"> {{user.name}}
