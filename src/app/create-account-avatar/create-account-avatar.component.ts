@@ -27,7 +27,6 @@ export class CreateAccountAvatarComponent {
   public chathelper: ChatHepler = new ChatHepler();
 
   constructor(public authService: AuthService, private router: Router) {
-    //let u = authService.getAuthServiceUser(); VS-Code sagt wird nicht verwendet, kann man das löschen? *Pierre
   }
 
   /**

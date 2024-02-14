@@ -97,7 +97,7 @@ export class ChatHepler {
           "threads": [
             {
               "name": "",
-              "iD": "", //of person that writes the message
+              "iD": "",
               "edit": false,
               "smile": [
                 {
@@ -112,7 +112,7 @@ export class ChatHepler {
               "answer": [
                 {
                   "name": "",
-                  "iD": "", //of person that writes the message
+                  "iD": "",
                   "edit": false,
                   "smile": [
                     {
@@ -427,35 +427,7 @@ export class ChatHepler {
   }
 
 
-  // searchProfiles(text: string, userList: any[], user: User) {
-
-  //   return new Promise((resolve, reject) => {
-  //     try {
-  //       let output = [];
-  //       let searchText = text.toLowerCase();
-  //       let i = -1;
-  //       userList.forEach((t) => {
-  //         i++;
-  //         if (t.name.toLowerCase().includes(searchText) || t.email.toLowerCase().includes(searchText)) {
-  //           output.push(t);
-  //         }
-  //       });
-  //       if (user.name.toLowerCase().includes(searchText) || user.email.toLowerCase().includes(searchText)) {
-  //         output.push(user);
-  //       }
-  //       let userInfos = output;
-  //       resolve(userInfos);
-  //     }
-  //     catch (error) {
-  //       reject(error)
-  //     }
-  //   })
-
-
-  // }
-
-  /**
-   * 
+  /** 
    * @param info JSON of all infos of the private Message
    * @param userList List of all Users
    * @param user     current User

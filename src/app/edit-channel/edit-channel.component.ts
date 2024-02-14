@@ -108,11 +108,6 @@ export class EditChannelComponent {
     return icon;
   }
 
-  // Kann man die Funktion löschen? Das innere war bereits auskommentiert. *Pierre
-  // addMembersAction() {
-  //   //this.addMembers = true;
-  //   //this.dialogRef.close(this.addMembers);
-  // }
 
   openAddPeopleDialog() {
     let dialogRef = this.dialog.open(AddPeopleDialogComponent);

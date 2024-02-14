@@ -3,19 +3,19 @@ export class ThreadConnector {
     public coIndex: number;
     public thIndex: number;
     constructor(cN: number, ci: number, tI: number) {
-        this.chNum = cN;   //channelindex
-        this.coIndex = ci; // communikation index
-        this.thIndex = tI; //threadIndex
+        this.chNum = cN;
+        this.coIndex = ci;
+        this.thIndex = tI;
     }
 
     setValue(cN: number, ci: number, tI: number) {
-        this.chNum = cN;   //channelindex
-        this.coIndex = ci; // communikation index
+        this.chNum = cN;
+        this.coIndex = ci;
         this.thIndex = tI;
     }
 
     setValueIJ(ci: number, tI: number) {
-        this.coIndex = ci; // communikation index
+        this.coIndex = ci;
         this.thIndex = tI;
     }
 

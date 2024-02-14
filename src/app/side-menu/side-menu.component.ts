@@ -96,8 +96,6 @@ export class SideMenuComponent {
     this.newMessage = false;
     this.isOpen.emit(false);
     this.addNewItem(u);
-    //this.lastUserService.lastUser = u;
-
     if (!this.newMessageMobile) {
       this.setDrawerValues();
     }
@@ -118,8 +116,8 @@ export class SideMenuComponent {
   openCreateChannelDialog() {
     this.setCreateChannelDialogMobileStyle();
     let dialogRef = this.dialog.open(CreateChannelDialogComponent, { panelClass: this.dialogClasses });
-    dialogRef.componentInstance.user = new User(this.user.toJSON());//Kopie
-    dialogRef.componentInstance.userList = this.userList;//Kopie
+    dialogRef.componentInstance.user = new User(this.user.toJSON());
+    dialogRef.componentInstance.userList = this.userList;
     dialogRef.componentInstance.dialogReference = dialogRef;
     dialogRef.afterClosed().subscribe(result => {
       this.madeChannel = result;

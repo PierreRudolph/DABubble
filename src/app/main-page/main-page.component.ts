@@ -17,8 +17,7 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-  public user: User = new User();//authenticated user
-  //public gastID = "aFPvtx4nkhhF3IIAbvMP"
+  public user: User = new User();
   public firestore: Firestore = inject(Firestore);
   public userList: any;
   public choiceDialog: boolean = false;
@@ -47,11 +46,10 @@ export class MainPageComponent {
   public currentTalkData: any = [];
   private currentTalkId: string = "";
   public oldTalkId: string = "";
-  private userAuth: any; //authenticated user
-  private userUid: string = ""; //uid of the user
+  private userAuth: any;
+  private userUid: string = "";
   public started = false;
   amountOfCall = 0;
-  //idSet = false;
   private newGoogleUser = true;
 
   public storageList: Array<any> = [];
@@ -304,7 +302,7 @@ export class MainPageComponent {
    */
   isUserInMemberList(channel: any) {
     let isMember: boolean = false;
-    let memberList: any[] = channel.channel.members;//richtig wäre channel.info.members, gegebenenfalls noch ändern
+    let memberList: any[] = channel.channel.members;
     memberList.forEach((member) => {
       if (member.memberID == this.user.idDB) {
         isMember = true;

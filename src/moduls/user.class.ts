@@ -7,8 +7,6 @@ export class User {
     uid: string;
     idDB: string;
     talkID: [{ oUDbID: string, talkID: string }] = [{ oUDbID: '', talkID: '' }];
-    //talkID: {}[] = [];// changed 3.2.24
-
 
     constructor(obj?: any) {
         this.name = obj ? obj.name : '';
@@ -19,7 +17,6 @@ export class User {
         this.uid = obj ? obj.uid : '';
         this.idDB = obj ? obj.idDB : '';
         this.talkID = obj ? obj.talkID : [{ oUDbID: '', talkID: '' }];
-
     }
 
     toJSON() {

@@ -20,8 +20,6 @@
       <span *ngIf="getValid()&&registerForm.controls['password'].touched">Passwörter stimmen nicht überein!</span>
    </div>
    <div class="weiterContainer">
-      <!-- <button [disabled]="registerForm.invalid && (registerForm.value.password === registerForm.value.passwordConfirm)" 
-       (click)="changePw()" class="btn weiter">Passwort ändern</button> -->
       <button [disabled]="getValid()" (click)="handleResetPassword()" class="btn weiter">Passwort ändern</button>
    </div>
 

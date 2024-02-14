@@ -9,7 +9,7 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Input() user: User = new User();//authenticated user 
+  @Input() user: User = new User();
   @Input() userList: any;
   public chathelper: ChatHepler = new ChatHepler();
   @Input() threadList: any = [this.chathelper.createEmptyThread()];

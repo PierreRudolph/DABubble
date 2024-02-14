@@ -51,7 +51,7 @@ export class ChannelHelper {
    * Goves the needet variables to the Dialog
    * @param dialogRef MatDialogRef of ChannelMembersComponent
    */
-  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>, user: User, threadList: any[], number: number, userList: User[]) {  //---------------------------helper
+  setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>, user: User, threadList: any[], number: number, userList: User[]) {
     let instance = dialogRef.componentInstance;
     instance.user = new User(user.toJSON());
     instance.channel = threadList[number].channel;
@@ -67,7 +67,7 @@ export class ChannelHelper {
 
     let question = {
       "name": user.name,
-      "iD": user.idDB, //of person that writes the message
+      "iD": user.idDB,
       "edit": false,
       "smile": [],
       "time": chathelper.parseTime(new Date(Date.now())),
@@ -91,9 +91,9 @@ export class ChannelHelper {
    * @returns 
    */
   setValuesToEditDialog(dialogRef: MatDialogRef<EditChannelComponent, any>, threadList: any[], number: number, userList: User[], user: User) {
-    dialogRef.componentInstance.channel = threadList[number].channel;//Kopie
-    dialogRef.componentInstance.userList = userList;//Kopie
-    dialogRef.componentInstance.user = user;//Kopie    
+    dialogRef.componentInstance.channel = threadList[number].channel;
+    dialogRef.componentInstance.userList = userList;
+    dialogRef.componentInstance.user = user;
     return dialogRef;
   }
 

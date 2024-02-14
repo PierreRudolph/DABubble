@@ -24,7 +24,6 @@ export class LoginScreenComponent {
   async login() {
 
     this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
-      // Login successful       
       setTimeout(() => {
         let user = this.authService.getAuthServiceUser();
         if (user) {
@@ -55,26 +54,6 @@ export class LoginScreenComponent {
     localStorage.setItem('uid', id);
     this.deleteLocalStorageGoogleToken();
     this.navigateToMainPage();
-    // user = await this.authService.logIn("gast@mail.com", "111111").then((res) => {
-    //   // Login successful   
-    //   // localStorage.removeItem('google');
-
-    //   console.log(res.user)
-
-    //   //let user = this.authService.getAuthServiceUser();
-    //   console.log(user)
-
-    //   let id = user._delegate.uid;
-    //   localStorage.setItem('uid', id);
-    //   localStorage.removeItem('google');
-    //   this.route.navigateByUrl("/");
-
-
-    // }).catch((error) => {
-    //   console.log("fail", error);
-    //   this.errorMes = true;
-    //   setTimeout(() => { this.errorMes = false }, 1500);
-    // });
   }
 
 

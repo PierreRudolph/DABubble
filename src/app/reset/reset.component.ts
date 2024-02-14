@@ -18,7 +18,6 @@ export class ResetComponent implements OnInit, OnDestroy {
   public hide: boolean = true;
   public move: boolean = false;
   actionCode: string = "";
-  // public actionCodeChecked: boolean = false;
   public registerForm: FormGroup = new FormGroup({
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     passwordConfirm: new FormControl('', [Validators.required, Validators.minLength(6)]),
@@ -41,28 +40,21 @@ export class ResetComponent implements OnInit, OnDestroy {
     this.activatedRoute.queryParams
       .pipe(takeUntil(this.ngUnsubscribe))
       .subscribe(params => {
-        // if we didn't receive any parameters, 
-        // we can't do anything
-        if (!params) this.router.navigateByUrl('login');    // wieder einkommeniteren
-        // is the link a valid reset link
+        if (!params) this.router.navigateByUrl('login');
         this.mode = params['mode'];
         this.actionCode = params['oobCode'];
 
         switch (params['mode']) {
           case "resetPassword": {
-            // Verify the password reset code is valid.
             this.authService.getAuth().verifyPasswordResetCode(this.actionCode).then(email => {
-              // this.actionCodeChecked = true;             
             }).catch(e => {
-              // Invalid or expired action code. Ask user to try to reset the password
-              // again.
               alert(e);
-              this.router.navigate(['/auth/login']);   // wieder einkommentieren
+              this.router.navigate(['/auth/login']);
             });
           } break
           default: {
             console.log('query parameters are missing');
-            this.router.navigateByUrl('login');          // // wieder einkommeniteren
+            this.router.navigateByUrl('login');
           }
         }
       })

@@ -75,7 +75,6 @@
                                 <span>{{getAnswerData(aIndex,'time')}}Uhr</span>
                             </div>
                             <diV class="message fs18" [class.message-right]="fromLoggedInUser(answ)">
-                                <!-- messages/links -->
                                 <div *ngIf="showLink(answ.url.link)">
                                     <a class="upload" href="{{answ.url.link}}" target="_blank">
                                         <img class="linkImg" [src]="answ.url.link ||'http://placehold.it/180'"
@@ -155,7 +154,6 @@
                 </div>
             </div>
             <div class="textareaDirektMessage">
-                <!-- upload *ngIf="showBlendIn()" -->
                 <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
                     <img [src]="dataUploadThread.link ||'http://placehold.it/180'" alt="your image" />
                     <span>{{dataUploadThread.title}}</span>
@@ -166,7 +164,6 @@
                 <img class="sendArrow" (click)="saveAnswer()" src="assets/img/sendArrow.svg">
                 <div style="position:relative">
                     <div class="iconContainerTextArea">
-                        <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg"> -->
                         <input type="file" id="imgthread" style="display:none;" (change)="onSelection($event)">
                         <label for="imgthread"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
                         <div style="width:2px;background-color: #ADB0D9 ;"></div>

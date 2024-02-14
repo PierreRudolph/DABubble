@@ -12,7 +12,6 @@
             <div style="margin:30px 0px" *ngFor="let c of currentTalkData.communikation,index as i">
 
                 <div class="dateIcon" *ngIf="c.date!=''">
-                    <!-- <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs">{{c.date}}</div> -->
                     <div class="sendDate nunito fs18 wei400 flexMiddleX posAbs" [innerHTML]="c.date| transformDate">
                     </div>
                     <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
@@ -39,7 +38,6 @@
                                         </a>
                                         <div>{{m.url.title}}</div>
                                     </div>
-                                    <!-- {{m.message}}  -->
                                     <span *ngFor="let mes of m.messageSplits" style="width:100%">
                                         <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                             class="linkedUserName"
@@ -59,7 +57,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- edit message part, now -->
                             <div [class.dNone]="!m.edit" class="posEditWind">
                                 <div style="position:relative">
                                     <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
@@ -133,7 +130,6 @@
             (keydown)="keyDownFunction($event)"></textarea>
         <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
         <div class="iconContainerTextArea">
-            <!-- <img class="textAreaIconPlus" src="assets/img/plus-icon.svg">  -->
 
             <input type="file" id="imgPrivate" style="display:none;" (change)="onSelect($event)">
             <label for="imgPrivate"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>

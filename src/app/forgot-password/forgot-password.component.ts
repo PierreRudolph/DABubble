@@ -12,7 +12,6 @@ export class ForgotPasswordComponent {
 
   public hide: boolean = true;
   public move: boolean = false;
-//Checks if the given mail in a valid form
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   })
@@ -35,7 +34,7 @@ export class ForgotPasswordComponent {
    * @returns Send the forget request to the firebase authservice
    */
   async forgotPassword() {
-    return this.authService.forgotPassword(this.registerForm.value.email).then(() => {     
+    return this.authService.forgotPassword(this.registerForm.value.email).then(() => {
     }).catch((err) => {
       window.alert(err);
     });

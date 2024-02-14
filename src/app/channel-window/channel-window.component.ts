@@ -31,7 +31,7 @@ export class ChannelWindowComponent {
   public smileEdit = false;
   @Input() channelNumber: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
-  @Input() user: User = new User();//authenticated user
+  @Input() user: User = new User();
   @Input() userList: User[];
   @Input() sideMenuHidden: boolean;
   @Input() openChat: boolean;
@@ -310,7 +310,7 @@ export class ChannelWindowComponent {
     dialogRef.updatePosition({ right: this.channelHelper.addMembersDialogPosRight, top: this.channelHelper.dialogPosTop });
   }
 
-  //Bitte kommentieren
+
   setAddPplDialogValues(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     let instance = dialogRef.componentInstance;
     instance.user = new User(this.user.toJSON());

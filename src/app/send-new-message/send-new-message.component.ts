@@ -13,10 +13,9 @@ export class SendNewMessageComponent {
   public searchText = "";
   public showEmojis = false;
   @Input() userList: any;
-  @Input() public user: User = new User();//authenticated user
+  @Input() public user: User = new User();
   private chathelper: ChatHepler = new ChatHepler();
   @Input() public threadList: any = [this.chathelper.createEmptyThread()];
-  //@Input() public talkList: any = [this.chathelper.createEmptyTalk()];
   searchResultUser: User[] = [];
   searchResulChannel: any[] = [];
   public error = false;

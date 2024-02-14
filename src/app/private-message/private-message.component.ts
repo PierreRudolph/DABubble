@@ -16,7 +16,7 @@ import { timestamp } from 'rxjs';
   styleUrls: ['./private-message.component.scss']
 })
 export class PrivateMessageComponent {
-  @Input() user: User = new User();//authenticated user
+  @Input() user: User = new User();
   public firestore: Firestore = inject(Firestore);
   private chatHepler: ChatHepler = new ChatHepler();
   @Input() userList: any;
@@ -34,7 +34,6 @@ export class PrivateMessageComponent {
   public textEdit: string = "";
   public exist = false;
   public talkOpen: boolean = false;
-  //@Input() talkOpen: boolean = false;
   public openEditDialog: boolean = false;
   public openEdit: boolean = false;
   showEmojis: boolean | undefined;
@@ -46,8 +45,6 @@ export class PrivateMessageComponent {
   chatHelper: ChatHepler = new ChatHepler();
   public messageInformation: any[] = [];
   public addresses = false;
-  //private mA: HTMLInputElement;
-  //private upload: any;
   @Input() indexLastUser = -2;
 
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -61,21 +58,6 @@ export class PrivateMessageComponent {
   @ViewChild('imgPrivate') upload: HTMLInputElement;
 
   constructor(public authService: AuthService, public router: Router, public dialog: MatDialog, public lastUserService: SaveLastUserService) {
-    // setTimeout(() => {
-    //   this.mA = (document.getElementById("messageArea") as HTMLInputElement | null);
-    //   this.upload = (document.getElementById("imgPrivate") as HTMLInputElement | null);
-    // }, 1500);
-    //setTimeout(() => {
-    ////////////////// if (this.oldTalkId != "" && this.currentTalkId == "") {
-
-    // this.currentTalkId = this.oldTalkId;
-    // this.otherChatUser = lastUserService.lastUser;
-    // this.openTalk();
-    // this.talkOpen = true;
-
-    ////////////////// }
-    //}, 125);
-
     //this.currentTalkId = this.oldTalkId;
     //this.otherChatUser = lastUserService.lastUser;
     //this.openTalk();
@@ -171,23 +153,6 @@ export class PrivateMessageComponent {
    * @param mes JSON that represents the message.
    */
   saveMessageExist(mes: {}) {
-    // setTimeout(() => {
-    //   let len = this.currentTalkData.communikation.length;
-    //   let date = this.currentTalkData.communikation[len - 1].date;
-    //   let today = this.chatHepler.parseDate(new Date(Date.now()));
-    //   if (date == today) {
-    //     this.currentTalkData.communikation[len - 1].messages.push(mes);
-    //   } else {
-    //     if (date == "") { this.currentTalkData.communikation = []; }
-    //     let com = {
-    //       "date": this.chatHepler.parseDate(new Date(Date.now())),
-    //       "messages": [mes]
-    //     }
-    //     this.currentTalkData.communikation.push(com);
-    //   }
-    // }, 500);
-
-
     let len = this.currentTalkData.communikation.length;
     let date = this.currentTalkData.communikation[len - 1].date;
     let today = this.chatHepler.parseDate(new Date(Date.now()));
@@ -221,11 +186,6 @@ export class PrivateMessageComponent {
       this.currentTalkData.idDB = this.currentTalkId;
       await this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }
-    setTimeout(() => {
-      //this.currentTalkData.idDB = this.currentTalkId;
-
-      //this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
-    }, 750);
     this.text = "";
   }
 
@@ -246,17 +206,17 @@ export class PrivateMessageComponent {
    * Initializes a new private talk. Sets the needed information to both users, that take part on the conversation.
    */
   async startTalkInitialize() {
-    let talkUser = { //the id of the talk is saved in a List of the user
+    let talkUser = {
       "talkID": this.currentTalkId,
       "oUDbID": this.otherChatUser.idDB
-    }// other user database id
-    let talkOther = {//the id of the talk is saved in a List of the other user
+    }
+    let talkOther = {
       "talkID": this.currentTalkId,
       "oUDbID": this.user.idDB
-    }// other user database id 
-    this.user.talkID.push(talkUser);  //user talkliste
+    }
+    this.user.talkID.push(talkUser);
     if (!this.chatWithMyself()) {
-      this.otherChatUser.talkID.push(talkOther);  //other talklist    
+      this.otherChatUser.talkID.push(talkOther);
     }
     this.sendCurrentTalkId.emit(this.currentTalkId);
     await this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
@@ -279,9 +239,6 @@ export class PrivateMessageComponent {
     t.communikation[0].messages = [talk];
     await this.addTalk(t);
     await this.startTalkInitialize();
-    // setTimeout(() => {
-    //   this.startTalkInitialize();
-    // }, 2000);
     t.idDB = this.currentTalkId;
     this.currentTalkData = t;
     this.sendCurrentTalkId.emit(this.currentTalkId);
@@ -306,7 +263,7 @@ export class PrivateMessageComponent {
     this.exist = false;
     this.talkOpen = true;
     let dbIDOther = this.otherChatUser.idDB;
-    let talks = this.user.talkID; // list of all the talks of the user       
+    let talks = this.user.talkID;
     talks.forEach(talk => {
       if (talk.oUDbID === dbIDOther) {
         this.exist = true;
@@ -333,7 +290,7 @@ export class PrivateMessageComponent {
       this.currentTalkId = "";
       this.sendCurrentTalkId.emit("");
       this.currentTalkData = this.chatHepler.createEmptyTalk();
-      this.currentTalkData.communikation = [];//---------------------------
+      this.currentTalkData.communikation = [];
     }
   }
 
@@ -424,7 +381,6 @@ export class PrivateMessageComponent {
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    // let talkId = this.currentTalkData.idDB;
     let talkId = this.currentTalkId;
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
@@ -575,7 +531,6 @@ export class PrivateMessageComponent {
   }
 
 
-  //bildchen löschen(also uploads)
   deleteUp(e: any, i: number, mIndex: number) {
     e.preventDefault();
     let fileTitle = this.getFileTitleIfExist(i, mIndex);

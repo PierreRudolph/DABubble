@@ -175,7 +175,6 @@ body {
 
 .butttonBlue {
     color: #444DF2;
-    // color:red;
     background-color: white;
     border: 1px solid;
 
@@ -210,7 +209,6 @@ body {
     font-style: normal;
     font-weight: 500;
     line-height: normal;
-    //right: 200px;
     left: 260px;
     top: 55px;
     width: 250px;
@@ -455,8 +453,6 @@ mat-drawer-container {
 }
 
 .cross {
-    // position: absolute;
-    // right: 0;
     cursor: pointer;
 }
 
@@ -465,7 +461,6 @@ mat-drawer-container {
     bottom: 50px;
     background-color: white;
     max-width: 80%;
-    //width: 250px;
     height: fit-content;
     padding: 20px;
     border-radius: 30px;
@@ -484,7 +479,6 @@ mat-drawer-container {
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
-        //max-width: 250px;
     }
 }
 
@@ -496,7 +490,6 @@ mat-drawer-container {
     &:hover {
         background-color: rgba(68, 77, 242, 0.14);
         border-radius: 20px;
-        //padding: 2px 8px;
     }
 }
 

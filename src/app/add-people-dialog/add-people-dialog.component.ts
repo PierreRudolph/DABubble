@@ -33,7 +33,7 @@ export class AddPeopleDialogComponent {
    * @param u User that shell be added as a member
    */
   addMember(u: User) {
-    let inList = false;  // "strict": false, in compileoptions    
+    let inList = false;
     this.currentlyAddedUser.forEach(ul => {
       if (ul.idDB == u.idDB) { inList = true };
     });

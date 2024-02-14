@@ -105,13 +105,13 @@ export class CreateChannelDialogComponent {
     let radioBAll: any = document.getElementById("allMember");
     let memberList = [];
 
-    if (radioBAll.checked) {  //all User are selected as Member
+    if (radioBAll.checked) {
       memberList.push({ "memberName": this.user.name, "memberID": this.user.idDB });
       this.userList.forEach((u) => {
         memberList.push({ "memberName": u.name, "memberID": u.idDB });
       });
 
-    } else { //Only a part of the users are selected as members
+    } else {
       this.currentlyAddedUser.forEach((us) => {
         memberList.push({ "memberName": us.name, "memberID": us.idDB });
       });
