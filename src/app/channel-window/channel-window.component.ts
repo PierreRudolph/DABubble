@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -46,16 +46,15 @@ export class ChannelWindowComponent {
   public addresses = false;
   private text: string = "";
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
-  private cA: any;
   public dataUpload = { "link": "", "title": "" };
   private upload: any;
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
+  @ViewChild('channelBody') channelBody: ElementRef;
 
   constructor(public dialog: MatDialog, public screen: ScreenService) {
     setTimeout(() => {
-      this.cA = (document.getElementById("channelBody") as HTMLInputElement | null);
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
     }, 500);
   }
@@ -65,10 +64,10 @@ export class ChannelWindowComponent {
    */
   scrollDown() {
     setTimeout(() => {
-      if (this.cA) {
-        this.cA.scrollTo({ top: this.cA.scrollHeight, behavior: 'smooth' });
+      if (this.channelBody) {
+        this.channelBody.nativeElement.scrollTo({ top: this.channelBody.nativeElement.clientHeight, behavior: 'smooth' });
       }
-    }, 750);
+    }, 300);
   }
 
   /**

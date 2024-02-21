@@ -3,8 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ScreenService {
-  screenWidth;
+  public screenWidth: number;
 
   mobileScreenWidth() {
     return this.screenWidth <= 830;

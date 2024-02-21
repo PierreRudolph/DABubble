@@ -9,6 +9,7 @@ import { GoogleAuthProvider } from "firebase/auth";
 export class AuthService {
   public user: any;
   public sub: any;
+  
   constructor(private afAuth: AngularFireAuth) {
     this.sub = afAuth.authState.subscribe(user => {
       this.user = user;
@@ -20,13 +21,16 @@ export class AuthService {
     return this.afAuth;
   }
 
+
   async signUp(email: string, password: string) {
     return this.afAuth.createUserWithEmailAndPassword(email, password);
   }
 
+
   getAuthServiceUser() {
     return this.user;
   }
+
 
   async logIn(email: string, password: string) {
     let ret = this.afAuth.signInWithEmailAndPassword(email, password);
@@ -34,18 +38,18 @@ export class AuthService {
     return ret;
   }
 
+
   logout() {
     return this.afAuth.signOut();
   }
+
 
   async logInWithGoogle() {
     return this.afAuth.signInWithPopup(new GoogleAuthProvider());
   }
 
+
   async forgotPassword(mail: string) {
     return this.afAuth.sendPasswordResetEmail(mail);
   }
-
-
-
 }

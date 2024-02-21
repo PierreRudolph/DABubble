@@ -15,7 +15,6 @@ export class AuthGuardService {
     let allow = (id != null) || (google != null);
 
     if (!allow) {
-      console.log("not allowed");
       if (google != null) localStorage.removeItem('google');
       this.router.navigateByUrl("/login");
     }

@@ -1,4 +1,4 @@
-import { Component, inject, Input, Output, EventEmitter, ViewChild } from '@angular/core';
+import { Component, inject, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
@@ -7,7 +7,6 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { SmileHelper } from 'src/moduls/smileHelper.class';
 import { MatDialog } from '@angular/material/dialog';
 import { UserProfileComponent } from '../user-profile/user-profile.component';
-import { SaveLastUserService } from '../save-last-user.service';
 import { timestamp } from 'rxjs';
 
 @Component({
@@ -53,16 +52,10 @@ export class PrivateMessageComponent {
   @Output() callOpenUser = new EventEmitter<User>();
   @Output() lastUserIndex = new EventEmitter<number>();
 
-  @ViewChild('textArea') textArea: { nativeElement: any; }
-  @ViewChild('mesageArea') mA: HTMLInputElement;
+  @ViewChild('messageArea') messageArea: ElementRef;
   @ViewChild('imgPrivate') upload: HTMLInputElement;
 
-  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog, public lastUserService: SaveLastUserService) {
-    //this.currentTalkId = this.oldTalkId;
-    //this.otherChatUser = lastUserService.lastUser;
-    //this.openTalk();
-    //this.talkOpen = true;
-  }
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) { }
 
 
   /**
@@ -311,9 +304,8 @@ export class PrivateMessageComponent {
     this.openTalk();
 
     setTimeout(() => {
-      if (this.mA) { this.mA.scrollTo({ top: this.mA.scrollHeight, behavior: 'smooth' }); }
-
-    }, 1500);
+      if (this.messageArea) { this.messageArea.nativeElement.scrollTo({ top: this.messageArea.nativeElement.clientHeight, behavior: 'smooth' }) }
+    }, 300);
   }
 
 

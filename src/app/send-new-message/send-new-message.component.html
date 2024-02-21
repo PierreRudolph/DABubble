@@ -27,7 +27,7 @@
         <span>{{dataUpload.title}}</span>
         <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
       </div>
-      <textarea #textArea class="textAreaDirekt" [(ngModel)]="text"></textarea>
+      <textarea class="textAreaDirekt" [(ngModel)]="text"></textarea>
       <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
       <div class="iconContainerTA">
         <input type="file" id="imgNewMes" style="display:none;" (change)="onSelect($event)">

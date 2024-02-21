@@ -5,7 +5,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 import { ScreenService } from '../screen.service';
-import { SaveLastUserService } from '../save-last-user.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -44,7 +43,7 @@ export class SideMenuComponent {
   @ViewChild('drawer') drawer: any;
   @ViewChild('sideMenuDiv') sideMenuDiv: any;
 
-  constructor(public dialog: MatDialog, public screen: ScreenService, public lastUserService: SaveLastUserService) {
+  constructor(public dialog: MatDialog, public screen: ScreenService) {
   }
 
   getName(num: number) {

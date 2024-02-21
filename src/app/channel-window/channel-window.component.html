@@ -27,7 +27,7 @@
 
 
 </div>
-<div class="channel-body" id="channelBody"
+<div class="channel-body" #channelBody
     [class.positionStartChannel]="showBegin(threadList[this.channelNumber].communikation[0])" (click)="noEmoji()">
     <div class="message-div" *ngFor="let com of this.threadList[channelNumber].communikation, index as i ">
         <div class="dateIcon" *ngIf="!showBegin(com)">
