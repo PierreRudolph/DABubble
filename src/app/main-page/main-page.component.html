@@ -15,21 +15,22 @@
 
     <app-channel-window class="channel-window" *ngIf="showChannel()" [threadList]="threadList"
       [channelNumber]="channelNumber" [user]="user" [userList]="userList" (newItemEventChannel)="setThreadC($event)"
-      [sideMenuHidden]="sideMenuHidden" [openChat]="openChat" (callOpenTalk)="openMessage($event)"></app-channel-window>
+      [sideMenuHidden]="sideMenuHidden" [threadOpen]="threadOpen"
+      (callOpenTalk)="openMessage($event)"></app-channel-window>
 
     <app-private-message class="privateMessage" *ngIf="showPrivateMessage()" [user]="user"
       (newItemEventLoggedUser)="setLoggedInUser($event)" (callOpenUser)="openMessage($event)" [talkList]="talkList"
-      (sendCurrentTalkId)="setCurrentTalkId($event)" [userList]="userList" [oldTalkId]="oldTalkId"
-      [currentTalkData]="currentTalkData" [otherChatUser]="otherChatUser"></app-private-message>
+      (sendCurrentTalkId)="setCurrentTalkId($event)" [userList]="userList" [currentTalkData]="currentTalkData"
+      [otherChatUser]="otherChatUser"></app-private-message>
     <app-send-new-message style="height:100%" [threadList]="threadList" [user]="user" [userList]="userList"
-      (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)" (areaText)="setAreaText($event)"
+      (callOpenChannel)="callOpenChan($event)" (isOpen)="setNewMessage($event)" (areaText)="setAreaTextChannel($event)"
       (areaTextPrivate)="setAreaTextPrivate($event)" (callOpenTalk)="openMessage($event)"
       (dataUploadChannel)="setdataUploadChannel($event)" (dataUploadPrivate)="setdataUploadPrivate($event)"
       *ngIf="newMessOpen"></app-send-new-message>
 
   </div>
 
-  <app-side-menu-thread *ngIf="openChat&&setMobileThreadView()" class="sideMenuThread" [threadList]="threadList"
+  <app-side-menu-thread *ngIf="threadOpen&&setMobileThreadView()" class="sideMenuThread" [threadList]="threadList"
     [user]="user" [threadC]="threadC" [userList]="userList" (newSetOpen)="setOpenValue($event)"
     (newItemEventOpenChat)="setOpenValue($event)" (callOpenTalk)="openMessage($event)" [channelOpen]="channelOpen"
     [sideMenuHidden]="sideMenuHidden"></app-side-menu-thread>

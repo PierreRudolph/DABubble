@@ -26,7 +26,7 @@ export class PrivateMessageComponent {
   @Input() otherChatUser: User = new User();
   @Input() _setUser: boolean = false;
   public currentTalkId: string = "";
-  @Input() oldTalkId = "";
+  //@Input() oldTalkId = "";
   @Input() talkList: any = [this.chatHepler.createEmptyTalk()];
   @Input() currentTalkData: any = this.chatHepler.createEmptyTalk();
   public text: string = "";
@@ -55,7 +55,21 @@ export class PrivateMessageComponent {
   @ViewChild('messageArea') messageArea: ElementRef;
   @ViewChild('imgPrivate') upload: HTMLInputElement;
 
-  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) { }
+  constructor(public authService: AuthService, public router: Router, public dialog: MatDialog) {
+    this.onLoadSetOpen();
+  }
+
+
+  /**
+   * open talk on load is necessary if window-size gets so small that private-message would close,
+   * and afet window-size gets big enough to show private-message again this code manage to open Talk properly 
+   */
+  onLoadSetOpen() {
+    this.talkOpen = true;
+    setTimeout(() => {
+      this.openTalk();
+    }, 10);
+  }
 
 
   /**

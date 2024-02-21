@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
 import { User } from 'src/moduls/user.class';
 import { DocumentData, Firestore, QueryDocumentSnapshot, QuerySnapshot, collection, doc, onSnapshot, updateDoc } from '@angular/fire/firestore';
 import { PrivateMessageComponent } from '../private-message/private-message.component';
@@ -10,6 +9,7 @@ import { SideMenuThreadComponent } from '../side-menu-thread/side-menu-thread.co
 import { SideMenuComponent } from '../side-menu/side-menu.component';
 import { ChannelWindowComponent } from '../channel-window/channel-window.component';
 import { ScreenService } from '../screen.service';
+import { Unsubscribe } from '@angular/fire/app-check';
 
 @Component({
   selector: 'app-main-page',
@@ -17,54 +17,44 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent {
-  public user: User = new User();
+  private unsubUsers: Unsubscribe;
+  private unsubTalks: Unsubscribe;
+  private unsubChannels: Unsubscribe;
   public firestore: Firestore = inject(Firestore);
-  public userList: any;
-  public choiceDialog: boolean = false;
-  public profileOpen = false;
-  public openChat = false;
+
+  public user: User = new User();
   public otherChatUser: User = new User();
-  public exist = false;
-  public talkOpen: boolean = false;
-  public currentThreadId: string = "";
   private chathelper: ChatHepler = new ChatHepler();
+  public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
+
   public threadList: any = [this.chathelper.createEmptyThread()];
   public talkList: any = [this.chathelper.createEmptyTalk()];
-  public channelOpen: boolean = false;
-  public newMessOpen: boolean = true;
-  public textThread = "";
-  public areaText = "";
-  public load = false;
-  public privateOpen = false;
-  public sideMenuHidden: boolean;
   public channelNumber: number = 0;
-  public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
-  unsubChannel: any
-  private unsub: any;
-  private unsubtalk: any;
-  loaded = false;
-  public currentTalkData: any = [];
+  public currentTalkData: any = {};
+  public userList: Array<User> = [];
+
   private currentTalkId: string = "";
-  public oldTalkId: string = "";
-  private userAuth: any;
+  private userAuth: any = {};
   private userUid: string = "";
-  public started = false;
-  amountOfCall = 0;
-  private newGoogleUser = true;
 
-  public storageList: Array<any> = [];
+  public sideMenuHidden: boolean = false;
+  public talkOpen: boolean = false;
+  public channelOpen: boolean = false;
+  public privateOpen: boolean = false;
+  public threadOpen: boolean = false;
+  public newMessOpen: boolean = true;
+  private newGoogleUser: boolean = true;
 
-  @ViewChild('mainContentDiv') mainContentDiv: any;
+  @ViewChild('mainContentDiv') mainContentDiv: ElementRef;
   @ViewChild(PrivateMessageComponent) childPrivateMes: PrivateMessageComponent;
   @ViewChild(ChannelWindowComponent) childChannel: ChannelWindowComponent;
   @ViewChild(SideMenuComponent) sideMenu: SideMenuComponent;
   @ViewChild(SideMenuThreadComponent) childSideThread: SideMenuThreadComponent;
 
-  constructor(public authService: AuthService, public router: Router, private changeDetector: ChangeDetectorRef, public screen: ScreenService) {
+  constructor(private authService: AuthService, public screen: ScreenService) {
     this.prepareUserData();
     this.assignAndActivateObservables();
   }
-
 
 
   /**
@@ -80,9 +70,9 @@ export class MainPageComponent {
    * this function Activate and Assign Observables, to variables, to make them unsubscribeable.
    */
   assignAndActivateObservables() {
-    this.unsub = this.subUserInfo();
-    this.unsubtalk = this.subTalkInfo();
-    this.unsubChannel = this.subChannelList();
+    this.unsubUsers = this.subUserInfo();
+    this.unsubTalks = this.subTalkInfo();
+    this.unsubChannels = this.subChannelList();
   }
 
 
@@ -328,7 +318,6 @@ export class MainPageComponent {
    */
   callOpenChan(num: number) {
     this.setChannelNumber(num);
-    this.currentThreadId = this.threadList[num].channel.idDB;
     this.setAllBolToShowChannel();
     this.showMainContentDivOn1400();
     this.scrollDownChannel();
@@ -339,7 +328,7 @@ export class MainPageComponent {
    *  Sets the required variables for visibility, of the channel-window
    */
   setAllBolToShowChannel() {
-    this.setOpenChatBol(false);
+    this.setThreadOpenBol(false);
     this.setPrivateOpenBol(false);
     this.setTalkOpenBol(false);
     this.setSideMenuNewMesBol(false);
@@ -412,15 +401,14 @@ export class MainPageComponent {
    */
   openThisThread(n: number, i: number, j: number) {
     this.threadC.setValue(n, i, j);
-    this.setOpenChatBol(true);
+    this.setThreadOpenBol(true);
   }
 
 
   setOpenValue(e: boolean) {
     this.showMainContentDivOn1400();
-
-    this.setOpenChatBol(e);
-    if (!this.openChat && this.sideMenuHidden) {
+    this.setThreadOpenBol(e);
+    if (!this.threadOpen && this.sideMenuHidden) {
       this.setMobileSideMenuValues();
     }
   }
@@ -434,50 +422,43 @@ export class MainPageComponent {
     this.setTalkOpenBol(true);
     this.setChannelOpenBol(false);
     this.setPrivateOpenBol(true);
-    this.setOpenChatBol(false);
+    this.setThreadOpenBol(false);
     this.otherChatUser = user;
 
     setTimeout(() => {
-      this.otherChatUser = user;
       this.childPrivateMes.setOtherUser(user);
-
     }, 10);
   }
 
 
   setCurrentTalkId(id: string) {
     this.currentTalkId = id;
-    if (id != "") { this.oldTalkId = id; }
     this.currentTalkData.iD = id;
   }
 
 
   setOpen(value: boolean) {
-    this.setOpenChatBol(value);
-
+    this.setThreadOpenBol(value);
     this.showMainContentDivOn1400();
   }
 
 
   setLoggedInUser(u: any) {
     this.user = u;
-    this.started = true;
   }
 
 
-  setAreaText(areaText: string) {
-    this.areaText = areaText;
+  setAreaTextChannel(areaText: string) {
     setTimeout(() => {
       this.childChannel.textThread = areaText;
-    }, 1000);
+    }, 10);
   }
 
 
   setAreaTextPrivate(areaText: string) {
-    this.areaText = areaText;
     setTimeout(() => {
       this.childPrivateMes.text = areaText;
-    }, 1000);
+    }, 10);
   }
 
 
@@ -489,8 +470,7 @@ export class MainPageComponent {
    */
   setThreadC(c: ThreadConnector) {
     this.threadC = c;
-    this.setOpenChatBol(true);
-    this.started = true;
+    this.setThreadOpenBol(true);
     this.setPrivateOpenBol(false);
     this.hideMainContentDivOn1400();
     this.hideMainContentDivOn830();
@@ -508,7 +488,7 @@ export class MainPageComponent {
   hideMainContentDivOn1400() {
     if (this.screen.screenWidth <= 1400 && this.screen.screenWidth > 830) {
       this.setChannelOpenBol(false);
-      this.mainContentDiv.nativeElement.classList.add('dNone');
+      this.mainContentDivAddDNone();
     }
   }
 
@@ -518,7 +498,7 @@ export class MainPageComponent {
       this.setChannelOpenBol(true);
     }
     if (this.mainContentDiv) {
-      this.mainContentDiv.nativeElement.classList.remove('dNone');
+      this.mainContentDivRemoveDNone();
     }
   }
 
@@ -526,7 +506,7 @@ export class MainPageComponent {
   hideMainContentDivOn830() {
     if (this.screen.screenWidth < 830) {
       this.setChannelOpenBol(false);
-      this.mainContentDiv.nativeElement.classList.add('dNone');
+      this.mainContentDivAddDNone();
     }
   }
 
@@ -559,43 +539,50 @@ export class MainPageComponent {
 
 
   closeSideMenuThreadMobile() {
-    if (this.openChat) {
+    if (this.threadOpen) {
       this.childSideThread.closeThread();
     }
   }
 
 
   unsubscribe() {
-    this.unsub();
-    this.unsubtalk();
-    this.unsubChannel();
+    this.unsubUsers();
+    this.unsubTalks();
+    this.unsubChannels();
   }
 
 
-
   setMobileThreadView() {
-
+    console.log('setMobileThreadView called')
     if (this.screen.screenWidth > 1400) {
       return true;
     }
 
     if (this.screen.screenWidth <= 1400 && this.channelOpen && !this.sideMenuHidden) {
       setTimeout(() => {
-        this.setOpenChatBol(false);
+        this.setThreadOpenBol(false);
       }, 200);
       return false;
-    } else
+    }
 
-      if (this.screen.screenWidth <= 1220 && this.channelOpen && this.sideMenuHidden) {
-        setTimeout(() => {
-          this.setOpenChatBol(false);
-        }, 200);
-        return false;
-      }
+    if (this.screen.screenWidth <= 1220 && this.channelOpen && this.sideMenuHidden) {
+      setTimeout(() => {
+        this.setThreadOpenBol(false);
+      }, 200);
+      return false;
+    } else {
+      return true;
+    }
+  }
 
-      else {
-        return true;
-      }
+
+  mainContentDivAddDNone() {
+    this.mainContentDiv.nativeElement.classList.add('dNone');
+  }
+
+
+  mainContentDivRemoveDNone() {
+    this.mainContentDiv.nativeElement.classList.remove('dNone');
   }
 
 
@@ -614,8 +601,8 @@ export class MainPageComponent {
   }
 
 
-  setOpenChatBol(newValue: boolean) {
-    this.openChat = newValue;
+  setThreadOpenBol(newValue: boolean) {
+    this.threadOpen = newValue;
   }
 
 

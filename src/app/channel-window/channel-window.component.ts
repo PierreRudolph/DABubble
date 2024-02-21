@@ -34,7 +34,7 @@ export class ChannelWindowComponent {
   @Input() user: User = new User();
   @Input() userList: User[];
   @Input() sideMenuHidden: boolean;
-  @Input() openChat: boolean;
+  @Input() threadOpen: boolean;
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -93,7 +93,7 @@ export class ChannelWindowComponent {
    * depending on whether side-menu-thread(==openChat), is open or closed.
    */
   setPositionOfDialogs() {
-    this.channelHelper.setPositionOfDialogs(this.openChat, this.screen.mobileScreenWidth());
+    this.channelHelper.setPositionOfDialogs(this.threadOpen, this.screen.mobileScreenWidth());
 
   }
 

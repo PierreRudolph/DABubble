@@ -92,6 +92,7 @@ export class SideMenuComponent {
 
 
   openTalk(u: User) {
+    this.channelActive = null;
     this.newMessage = false;
     this.isOpen.emit(false);
     this.addNewItem(u);

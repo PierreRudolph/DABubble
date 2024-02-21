@@ -2,7 +2,7 @@
 
 
     <div class="channel-header-left flexMiddleX" [class.channel-header-left-sideMenuShownMobile]="!sideMenuHidden"
-        [class.channel-header-left-threeWindowShownMobile]="!sideMenuHidden&&openChat"
+        [class.channel-header-left-threeWindowShownMobile]="!sideMenuHidden&&threadOpen"
         [class.hoverStyleHeaderLeft]="editChannelOpen" mat-button (click)="openEditChannelDialog()">
         <img class="tag-icon" src="assets/icons/tag.svg">
         <span class="fs24 wei700">{{this.threadList[channelNumber].channel.name}}</span>
