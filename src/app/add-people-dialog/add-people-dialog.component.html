@@ -6,17 +6,17 @@
         <span class="nunito fs24 wei700">Leute hinzufügen</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
-    <div *ngIf="screen.screenWidth>471" class="channelName">
+    <div class="channelName">
         <img src="assets/icons/tag-hover.svg">
         <span>{{channel.name}}</span>
     </div>
 
-    <div style="position: relative;">
+    <div style="position: relative; ">
         <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
             class="inputText" type="text" placeholder="Name eingeben">
         <span *ngIf="userInList" style="color:red">User bereits vorhanden</span>
-        <div style="display: flex; gap:10px">
-            <div class="addedMember" *ngFor="let cu of currentlyAddedUser">
+        <div style="display: flex; gap:5px">
+            <div class="addedMember" *ngFor="let cu of currentlyAddedUserList">
                 <img style="width:20px;height:20px" src="{{cu.iconPath}}">
                 <div class="nunitoBlack fs14 wei400">{{cu.name}}</div>
                 <img style="width:20px;height:20px;cursor: pointer;" (click)="deleteUser(cu)"
@@ -26,7 +26,7 @@
         <div *ngIf="isPopUpOpen()" class="popUp">
             <div class="row" (click)="addMember(e)" *ngFor="let e of filteredMembers">
                 <div class="portraitChannel">
-                    <img style="width: 40px;" src="{{e.iconPath}}">
+                    <img src="{{e.iconPath}}">
                     <div class="dot" [class.green]="e.status=='Aktiv'"></div>
                 </div>
                 <div class="nunitoBlack fs18 wei400">{{e.name}}</div>
@@ -35,6 +35,6 @@
     </div>
 
     <div class="addBtnDiv">
-        <button mat-dialog-close class="btn" (click)="make()">Hinzufügen</button>
+        <button mat-dialog-close class="btn" (click)="addUsersToChannel()">Hinzufügen</button>
     </div>
 </div>

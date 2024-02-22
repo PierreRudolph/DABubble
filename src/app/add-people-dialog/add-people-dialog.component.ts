@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
-import { ScreenService } from '../screen.service';
 
 @Component({
   selector: 'app-add-people-dialog',
@@ -11,50 +10,55 @@ import { ScreenService } from '../screen.service';
 })
 
 export class AddPeopleDialogComponent {
-  public searchedMembers: Array<string> = [];
   public user: User = new User();
   public userList = [this.user];
-  public searchText: any;
-  public channelJSON = {};
+  public searchText: string;
+  private channelJSON: any = {};
   public filteredMembers: User[] = [];
-  public currentlyAddedUser: User[] = [];
-  public fristPage = true;
-  public dialogReference: MatDialogRef<AddPeopleDialogComponent>;
+  public currentlyAddedUserList: User[] = [];
+  private dialogReference: MatDialogRef<AddPeopleDialogComponent>;
   private chathelper: ChatHepler = new ChatHepler();
   public channel: any = this.chathelper.createEmptyThread();
   public mobileFromBottom: boolean | false;
-  public userInList = false;
+  public userInList: boolean = false;
 
-  constructor(public addPeopleDialog: MatDialog, public screen: ScreenService) { }
+  constructor(public addPeopleDialog: MatDialog) { }
 
 
   /**
-   * Adds the given User do the currentlyAddedUser
-   * @param u User that shell be added as a member
+   * Adds the given User do the currentlyAddedUser-List
+   * @param u User that shall be added as a member
    */
   addMember(u: User) {
-    let inList = false;
-    this.currentlyAddedUser.forEach(ul => {
-      if (ul.idDB == u.idDB) { inList = true };
-    });
-    if (this.isAlreadyMember(u)) { inList = true; }
-
-    if (!inList) {
-      this.currentlyAddedUser.push(u);
+    this.checkIfIsAlreadyAdded(u);
+    this.checkIfIsAlreadyMember(u);
+    if (!this.userInList) {
+      this.currentlyAddedUserList.push(u);
     } else {
-      this.userInList = true;
-      setTimeout(() => { this.userInList = false; }, 2000)
-
+      setTimeout(() => { this.userInList = false; }, 1000)
     }
   }
 
 
-  isAlreadyMember(user: User) {
-    let inList = false;
-    this.channel.members.forEach(ul => {
-      if (ul.memberID == user.idDB) { inList = true };
+  /**
+   * iterates thru members of actual channel, checks if given user is already member of actual channel
+   * @param u User that shall be added as member
+   */
+  checkIfIsAlreadyMember(u: User) {
+    this.channel.members.forEach((user: { memberID: string; idDB: string; }) => {
+      if (user.memberID == u.idDB) { this.userInList = true };
     });
-    return inList;
+  }
+
+
+  /**
+   * iterates thru currently added user array, checks if given user is already added to actual channel
+   * @param u User that shall be added as member
+   */
+  checkIfIsAlreadyAdded(u: User) {
+    this.currentlyAddedUserList.forEach(user => {
+      if (user.idDB == u.idDB) { this.userInList = true };
+    });
   }
 
 
@@ -63,13 +67,11 @@ export class AddPeopleDialogComponent {
    * @param us User that should  be removes from the MemberList
    */
   deleteUser(us: User) {
-    let array: User[] = [];
-    this.currentlyAddedUser.forEach((u) => {
-      if (u.idDB != us.idDB) {
-        array.push(u);
+    for (let i = 0; i < this.currentlyAddedUserList.length; i++) {
+      if (this.currentlyAddedUserList[i].idDB == us.idDB) {
+        this.currentlyAddedUserList.splice(i, 1);
       }
-    });
-    this.currentlyAddedUser = array;
+    }
   }
 
 
@@ -105,20 +107,14 @@ export class AddPeopleDialogComponent {
   }
 
 
-  onSubmit() {
-    this.fristPage = false;
-  }
-
-
   /**
    * Make the memberlist for the current channel
    */
-  make() {
-    this.fristPage = true;
-    this.currentlyAddedUser.forEach((us) => {
+  async addUsersToChannel() {
+    this.currentlyAddedUserList.forEach((us) => {
       this.channel.members.push({ "memberName": us.name, "memberID": us.idDB });
     });
-    this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
+    await this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
   }
 
 
@@ -129,7 +125,6 @@ export class AddPeopleDialogComponent {
   searchKey(data: string) {
     this.searchText = data;
     this.filterMember();
-
   }
 
 

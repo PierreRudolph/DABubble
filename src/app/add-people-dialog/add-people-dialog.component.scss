@@ -56,13 +56,18 @@
     padding: 5px;
     border: 1px solid #cbcdec;
     border-radius: 10px;
+    margin: 5px 0px;
 }
 
 .portraitChannel {
     position: relative;
+    display: flex;
+    align-items: center;
 
     img {
         border-radius: 100%;
+        width: 40px;
+        height: 40px;
     }
 }
 
@@ -72,8 +77,8 @@
     height: 10px;
     background-color: gray;
     position: absolute;
-    right: -4px;
-    bottom: 8px;
+    right: 0px;
+    bottom: 0px;
     border: 1px solid white;
 }
 
@@ -82,10 +87,10 @@
 }
 
 .row {
-
     display: flex;
-    gap: 30px;
     align-items: center;
+    padding-right: 10px;
+    gap: 10px;
 
     &:hover {
         background-color: #cbcdec;
@@ -100,8 +105,11 @@
     border: 1px solid lightgray;
     border-radius: 30px;
     border-top-left-radius: 0;
-    padding: 30px;
+    padding: 10px 30px;
     background-color: white;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .input-field {
@@ -146,7 +154,8 @@
 
 @media (max-width:830px) {
     .dialog-div {
-        width: 60vw;
+        width: 75vw;
+        min-height: 245px;
         padding: 20px 15px;
     }
 
@@ -162,5 +171,34 @@
 
     .btn {
         padding: 10px 15px;
+        margin-bottom: 10px;
+    }
+
+    .popUp {
+        position: unset;
+        max-height: 200px;
+        overflow-y: auto;
+        margin-top: 5px;
+    }
+
+    .addedMember {
+        margin: 0px;
+        margin-top: 5px;
+    }
+}
+
+@media (max-width:550px) {
+    .dialog-div {
+        width: 70vw;
+    }
+}
+
+@media (max-width:471px) {
+    .dialog-div {
+        min-height: 200px;
+    }
+
+    .channelName {
+        display: none;
     }
 }

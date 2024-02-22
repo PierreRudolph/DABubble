@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, ElementRef, OnDestroy, } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { ThreadConnector } from 'src/moduls/threadConnecter.class';
@@ -16,7 +16,7 @@ import { ScreenService } from '../screen.service';
   templateUrl: './channel-window.component.html',
   styleUrls: ['./channel-window.component.scss']
 })
-export class ChannelWindowComponent {
+export class ChannelWindowComponent implements OnDestroy {
   public textThread = "";
   public textEdit = ""
   showEmojis: boolean | undefined;
@@ -59,6 +59,7 @@ export class ChannelWindowComponent {
     }, 500);
   }
 
+
   /**
    * Scrolls to the end of the channel window
    */
@@ -90,7 +91,7 @@ export class ChannelWindowComponent {
 
   /**
    * Sets the Position of channel-members-dialog and add-people-dialog,
-   * depending on whether side-menu-thread(==openChat), is open or closed.
+   * depending on whether side-menu-thread(==threadOpen), is open or closed.
    */
   setPositionOfDialogs() {
     this.channelHelper.setPositionOfDialogs(this.threadOpen, this.screen.mobileScreenWidth());
@@ -575,4 +576,8 @@ export class ChannelWindowComponent {
     this.channelHelper.deleteUp(this.channelNumber, i, j, this.threadList);
   }
 
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
+  }
 }

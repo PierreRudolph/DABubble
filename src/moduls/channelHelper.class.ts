@@ -32,6 +32,7 @@ export class ChannelHelper {
       this.membersDialogPosRight = '110px';
       this.addMembersDialogPosRight = '60px';
     }
+    this.dialogPosTop = '195px';
     this.setPositionOfDialogsMobile(mobileScreenWidth);
   }
 
