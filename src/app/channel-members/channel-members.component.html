@@ -4,23 +4,20 @@
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
     <div class="members">
-
         <div class="contactDiv">
-            <div style="position: relative;">
+            <div style="position: relative; display: flex; margin-right:10px">
                 <img src="{{getIcon(user.idDB)}}">
                 <div [class.greenDot]="user.getAktive()" class="stateDot"></div>
             </div>
             <span>{{user.name}} (Du)</span>
         </div>
-
-        <div *ngFor="let u of channel.members" class="contactDiv">
-            <div style="position: relative;" *ngIf="!isMe(u)">
+        <div *ngFor="let u of membersExeptActualUser()" class="contactDiv">
+            <div style="position: relative;display: flex; margin-right:10px">
                 <img src="{{getIcon(u.memberID)}}">
                 <div [class.greenDot]="getAktive(u)" class="stateDot"></div>
             </div>
             <span *ngIf="!isMe(u)">{{u.memberName}}</span>
         </div>
-
     </div>
     <div class="addMembers" (click)="addMembersAction()">
         <img src="assets/icons/add-people.svg">

@@ -1,7 +1,5 @@
 <div class="dialog-div">
-
     <div class="smallThickBorder" *ngIf="mobileFromBottom"></div>
-
     <div class="dialog-header">
         <span class="nunito fs24 wei700">Leute hinzufügen</span>
         <img mat-dialog-close src="assets/img/close.svg">
@@ -10,7 +8,6 @@
         <img src="assets/icons/tag-hover.svg">
         <span>{{channel.name}}</span>
     </div>
-
     <div style="position: relative; ">
         <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
             class="inputText" type="text" placeholder="Name eingeben">
@@ -33,7 +30,6 @@
             </div>
         </div>
     </div>
-
     <div class="addBtnDiv">
         <button mat-dialog-close class="btn" (click)="addUsersToChannel()">Hinzufügen</button>
     </div>

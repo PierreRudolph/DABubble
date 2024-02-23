@@ -15,6 +15,8 @@ export class ChannelMembersComponent {
   public channel: any = this.chathelper.createEmptyThread().channel;
   public dialogRef: MatDialogRef<ChannelMembersComponent>;
   private addMembers: boolean | false;
+  private userIcon: string = "";
+
 
   /**
    * 
@@ -24,6 +26,7 @@ export class ChannelMembersComponent {
   isMe(u: any) {
     return u.memberID == this.user.idDB;
   }
+
 
   /** 
    * @param u JSON than contains the data of a member of a channel
@@ -39,22 +42,42 @@ export class ChannelMembersComponent {
     return aktive;
   }
 
-  /**   * 
+
+  /**
    * @param id Id of the user
    * @returns  Iconpath of the Icon for the given user.
    */
   getIcon(id: string) {
-    let icon = "";
-    this.userList.forEach((ul) => {
-      if (ul.idDB == id) {
-        icon = ul.iconPath;
+    this.userIcon = "";
+    this.setMemberIcon(id);
+    this.setActualUsersIcon(id);
+    return this.userIcon;
+  }
+
+
+  /**
+   * sets the userIcon to the found channel member
+   * @param id id of the user to search of
+   */
+  setMemberIcon(id: string) {
+    this.userList.forEach((user) => {
+      if (user.idDB == id) {
+        this.userIcon = user.iconPath;
       }
     })
-    if (this.user.idDB == id) {
-      icon = this.user.iconPath;
-    }
-    return icon;
   }
+
+
+  /**
+   * sets the userIcon to the found actualUser
+   * @param id id of the user to search of
+   */
+  setActualUsersIcon(id) {
+    if (this.user.idDB == id) {
+      this.userIcon = this.user.iconPath;
+    }
+  }
+
 
   /**
    * Finishes the process of adding a member by closing the dialog.
@@ -62,5 +85,13 @@ export class ChannelMembersComponent {
   addMembersAction() {
     this.addMembers = true;
     this.dialogRef.close(this.addMembers);
+  }
+
+
+  /**
+   * @returns members of the actual channel expept the actual logged in user
+   */
+  membersExeptActualUser() {
+    return this.channel.members.filter((member: { memberID: string; }) => member.memberID != this.user.idDB)
   }
 }

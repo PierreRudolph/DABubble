@@ -26,7 +26,6 @@
         "src/app/app.component.ts",
         "src/app/auth-guard.service.ts",
         "src/app/auth.service.ts",
-        "src/app/save-last-user.service.ts",
         "src/app/screen.service.ts",
         "src/app/transform-date.pipe.ts",
         "src/app/transform-pipe.pipe.ts",
