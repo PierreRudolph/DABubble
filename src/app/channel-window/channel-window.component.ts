@@ -52,7 +52,7 @@ export class ChannelWindowComponent implements OnDestroy {
   @Output() areaTextPrivate = new EventEmitter<string>();
 
   @ViewChild('channelBody') channelBody: ElementRef;
-
+  public clickInsideEmoji = false;
   constructor(public dialog: MatDialog, public screen: ScreenService) {
     setTimeout(() => {
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
@@ -275,12 +275,20 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
   noEmoji() {
+    if (this.clickInsideEmoji) {
+      this.clickInsideEmoji = false;
+      return;
+    }
     if (this.showEmojisTread)
       this.showEmojisTread = false;
     if (this.showEmojis)
       this.showEmojis = false;
     if (this.smileEdit)
       this.smileEdit = false;
+  }
+
+  clickedInsideEmojiMart() {
+    this.clickInsideEmoji = true;
   }
 
   /**

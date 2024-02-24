@@ -56,8 +56,8 @@
                             <img (click)="toggleEmojisUpperDialog($event,aIndex)" class="changeFace"
                                 src="assets/icons/add-reaction.svg">
                             <emoji-mart class="emojiDivUpper" [class.emojiDivUpperRight]="fromLoggedInUser(answ)"
-                                *ngIf="showEmojiUpper(aIndex)" title="Pick your emoji…"
-                                (emojiClick)="saveEmoji($event)"></emoji-mart>
+                                *ngIf="showEmojiUpper(aIndex)" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+                                (click)="clickedInsideEmojiMart()"></emoji-mart>
 
                             <img *ngIf="fromLoggedInUser(answ)" class="menu" src="assets/img/more_vert.svg"
                                 (click)="toggleEditPopUp()">
@@ -105,7 +105,8 @@
                                             src="assets/img/smiley-icon.svg">
                                     </div>
                                     <emoji-mart class="emoji-div-Edit" *ngIf="showSmile(aIndex)"
-                                        title="Pick your emoji…" (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
+                                        title="Pick your emoji…" (emojiClick)="saveEmojiEdit($event)"
+                                        (click)="clickedInsideEmojiMart()"></emoji-mart>
                                 </div>
 
                                 <div class="editButtonContainer">
@@ -147,7 +148,8 @@
                                 <img (click)="toggleEmojisLowerDialog($event,aIndex)" class="add-reaction-icon"
                                     src="assets/icons/add-reaction.svg">
                                 <emoji-mart class="emojiDivUpper emojiDivLower" *ngIf="showEmojiLower(aIndex)"
-                                    title="Pick your emoji…" (emojiClick)="saveEmoji($event)"></emoji-mart>
+                                    title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+                                    (click)="clickedInsideEmojiMart()"></emoji-mart>
                             </diV>
                         </div>
                     </div>
@@ -179,7 +181,7 @@
                         </div>
                     </div>
                     <emoji-mart class="emojiDivTA" *ngIf="showEmojisTA" title="Pick your emoji…"
-                        (emojiClick)="saveEmojiTextArea($event)" (darkMode)="false"></emoji-mart>
+                        (emojiClick)="saveEmojiTextArea($event)" (click)="clickedInsideEmojiMart()"></emoji-mart>
                 </div>
             </div>
         </mat-drawer>

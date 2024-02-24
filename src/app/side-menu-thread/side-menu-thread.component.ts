@@ -38,7 +38,7 @@ export class SideMenuThreadComponent {
   public openChat: boolean = true;
   public addresses = false;
   public dataUploadThread = { "link": "", "title": "" };
-
+  private clickInsideEmoji: boolean = false
   showEmojisUpper: boolean | undefined = false;
   showEmojisLower: boolean | undefined;
   showEmojisTA: boolean | undefined;
@@ -531,6 +531,10 @@ export class SideMenuThreadComponent {
   }
 
   noEmoji() {
+    if (this.clickInsideEmoji) {
+      this.clickInsideEmoji = false;
+      return;
+    }
     if (this.showEmojisLower)
       this.showEmojisLower = false;
     if (this.showEmojisUpper)
@@ -541,4 +545,8 @@ export class SideMenuThreadComponent {
       this.smileEdit = false;
   }
 
+
+  clickedInsideEmojiMart() {
+    this.clickInsideEmoji = true;
+  }
 }

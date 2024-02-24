@@ -44,6 +44,8 @@ export class PrivateMessageComponent {
   chatHelper: ChatHepler = new ChatHepler();
   public messageInformation: any[] = [];
   public addresses = false;
+  private clickInsideEmoji: boolean = false;
+
   @Input() indexLastUser = -2;
 
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -574,12 +576,21 @@ export class PrivateMessageComponent {
 
 
   noEmoji() {
+    if (this.clickInsideEmoji) {
+      this.clickInsideEmoji = false;
+      return;
+    }
     if (this.showEmojis)
       this.showEmojis = false;
     if (this.showEmojisComment)
       this.showEmojisComment = false;
     if (this.showEmojisEdit)
       this.showEmojisEdit = false;
+  }
+
+
+  clickedInsideEmojiMart() {
+    this.clickInsideEmoji = true;
   }
 }
 

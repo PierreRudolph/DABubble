@@ -118,7 +118,8 @@
                                         src="assets/img/smiley-icon.svg">
                                 </div>
                                 <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
-                                    (emojiClick)="saveEmojiEdit($event)"></emoji-mart>
+                                    (emojiClick)="saveEmojiEdit($event)"
+                                    (click)="clickedInsideEmojiMart()"></emoji-mart>
                             </div>
 
 
@@ -152,7 +153,7 @@
                             <img class="add-reaction-icon" (click)="toggleEmojisThread($event,i,j)"
                                 src="assets/icons/add-reaction.svg">
                             <emoji-mart class="emojiDiv posAbs" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
-                                (emojiClick)="saveEmojiComment($event)"></emoji-mart>
+                                (emojiClick)="saveEmojiComment($event)" (click)="clickedInsideEmojiMart()"></emoji-mart>
                         </div>
                     </div>
                 </div>
@@ -183,8 +184,8 @@
         <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
         <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
     </div>
-    <emoji-mart class="emoji-div posAbs" *ngIf="showEmojis" title="Pick your emoji…"
-        (emojiClick)="saveEmoji($event)"></emoji-mart>
+    <emoji-mart class="emoji-div posAbs" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+        (click)="clickedInsideEmojiMart()"></emoji-mart>
     <div class="addressBox" *ngIf="addresses">
         <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}
         </div>

@@ -23,6 +23,7 @@ export class SendNewMessageComponent {
   public dataUpload = { "link": "", "title": "" };
   public errorMessage = false;
   public focus = false;
+  private clickInsideEmoji: boolean = false;
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -32,7 +33,8 @@ export class SendNewMessageComponent {
   @Output() dataUploadPrivate = new EventEmitter<any>();
   @Output() dataUploadChannel = new EventEmitter<any>();
 
-  toggleEmojisDialog() {
+  toggleEmojisDialog(event) {
+    event.stopPropagation();
     this.showEmojis = !this.showEmojis;
   }
 
@@ -42,7 +44,7 @@ export class SendNewMessageComponent {
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     if (this.showEmojis) {
       this.text += emoji;
-      this.toggleEmojisDialog();
+      this.toggleEmojisDialog(event);
     }
   }
 
@@ -147,5 +149,18 @@ export class SendNewMessageComponent {
     setTimeout(() => {
       this.focus = !this.focus;
     }, 100);
+  }
+
+  noEmoji() {
+    if (this.clickInsideEmoji) {
+      this.clickInsideEmoji = false;
+      return;
+    }
+    if (this.showEmojis)
+      this.showEmojis = false;
+  }
+
+  clickedInsideEmojiMart() {
+    this.clickInsideEmoji = true;
   }
 }

@@ -1,4 +1,4 @@
-<div class="newMesOuterDiv">
+<div class="newMesOuterDiv" (click)="noEmoji()">
   <div class="newMesHeader">
     <div class="nunitoBlack">Neue Nachricht</div>
     <input *ngIf="!error" (ngModelChange)="searchKey($event)" ngModel type="input" class="address"
@@ -33,7 +33,7 @@
         <input type="file" id="imgNewMes" style="display:none;" (change)="onSelect($event)">
         <label for="imgNewMes"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
-        <img class="textAreaIconSmiley" (click)="toggleEmojisDialog()" src="assets/img/smiley-icon.svg">
+        <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
         <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
       </div>
     </div>
@@ -43,6 +43,6 @@
         <img src="{{usL.iconPath}}"> {{usL.name}}
       </div>
     </div>
-    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
-      (emojiClick)="saveEmoji($event)"></emoji-mart>
+    <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+      (click)="clickedInsideEmojiMart()"></emoji-mart>
   </div>

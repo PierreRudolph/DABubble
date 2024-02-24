@@ -272,6 +272,23 @@ export class MainPageComponent {
           this.threadList.push(channel.data());
         }
       });
+      this.sortThreadList();
+    });
+  }
+
+
+  sortThreadList() {
+    this.threadList.sort((a, b) => {
+      const nameA = a.channel.name.toUpperCase();
+      const nameB = b.channel.name.toUpperCase();
+      if (nameA < nameB) {
+        return -1;
+      }
+      if (nameA > nameB) {
+        return 1;
+      }
+
+      return 0;
     });
   }
 

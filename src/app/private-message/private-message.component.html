@@ -63,7 +63,8 @@
                                     <img (click)="toggleEmojisDialogEdit($event)" class="smileEdit"
                                         src="assets/img/smile.svg">
                                     <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit"
-                                        (emojiClick)="saveEmoji($event)"></emoji-mart>
+                                        (emojiClick)="saveEmoji($event)"
+                                        (click)="clickedInsideEmojiMart()"></emoji-mart>
                                 </div>
 
                                 <div class="editButtonContainer">
@@ -89,7 +90,8 @@
                             </div>
                         </div>
                         <emoji-mart class="emojiDivComment" *ngIf="isEmojisCommentShown(i,mIndex)"
-                            title="Pick your emoji…" (emojiClick)="saveEmojiComment($event)"></emoji-mart>
+                            title="Pick your emoji…" (emojiClick)="saveEmojiComment($event)"
+                            (click)="clickedInsideEmojiMart()"></emoji-mart>
 
 
                     </div>
@@ -136,8 +138,8 @@
             <div style="width:2px;background-color: #ADB0D9 ;"></div>
             <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
             <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
-            <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…"
-                (emojiClick)="saveEmoji($event)"></emoji-mart>
+            <emoji-mart class="emoji-div" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
+                (click)="clickedInsideEmojiMart()"></emoji-mart>
 
         </div>
         <div class="addressBox" *ngIf="addresses">
