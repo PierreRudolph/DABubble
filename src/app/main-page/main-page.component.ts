@@ -467,7 +467,7 @@ export class MainPageComponent {
 
   setAreaTextChannel(areaText: string) {
     setTimeout(() => {
-      this.childChannel.textThread = areaText;
+      this.childChannel.channelMessage = areaText;
     }, 10);
   }
 
@@ -570,7 +570,6 @@ export class MainPageComponent {
 
 
   setMobileThreadView() {
-    console.log('setMobileThreadView called')
     if (this.screen.screenWidth > 1400) {
       return true;
     }

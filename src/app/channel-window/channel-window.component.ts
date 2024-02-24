@@ -17,18 +17,14 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./channel-window.component.scss']
 })
 export class ChannelWindowComponent implements OnDestroy {
-  public textThread = "";
-  public textEdit = ""
-  showEmojis: boolean | undefined;
-  showEmojisTread: boolean | undefined;
+  public channelMessage: string = "";
+  public channelMessageEdit: string = ""
+
+
   public chathelper: ChatHepler = new ChatHepler();
-  private threadIndex: number = 0;
+  private channelIndex: number = 0;
   private commIndex: number = 0;
-  public editChannelOpen: boolean | false;
-  public addPeopleOpen: boolean | false;
-  public channelMembersOpen: boolean | false;
-  public openEditDialog: boolean = false;
-  public smileEdit = false;
+
   @Input() channelNumber: number = 0;
   @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();
@@ -43,16 +39,28 @@ export class ChannelWindowComponent implements OnDestroy {
 
   private dialogEditChanClasses: Array<string> =
     ['dialogBorToLeNone', 'maxWidth100', 'dialogBorRadNone', 'dialogMarginMiddle', 'dialogMarginNone'];
-  public addresses = false;
   private text: string = "";
   public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
   public dataUpload = { "link": "", "title": "" };
   private upload: any;
+
+  public addressBoxOpen: boolean = false;
+  public editChannelOpen: boolean = false;
+  public addPeopleOpen: boolean = false;
+  public channelMembersOpen: boolean = false;
+  public openEditDialog: boolean = false;
+
+  public showEmojis: boolean = false;
+  public showEmojisEdit: boolean = false;
+  public showEmojisTread: boolean = false;
+  private clickInsideEmoji: boolean = false;
+
+  private clickInsideAddressBox: boolean = false;
+
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
 
   @ViewChild('channelBody') channelBody: ElementRef;
-  public clickInsideEmoji = false;
   constructor(public dialog: MatDialog, public screen: ScreenService) {
     setTimeout(() => {
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
@@ -98,9 +106,7 @@ export class ChannelWindowComponent implements OnDestroy {
 
   }
 
-  toggleEditChanBol() {
-    this.editChannelOpen = !this.editChannelOpen;
-  }
+
 
   /**
    * Stores a given information as JSON at the given position
@@ -156,8 +162,8 @@ export class ChannelWindowComponent implements OnDestroy {
 
   saveEmojiCommentHelper(emoji: any) {
     let threadId = this.threadList[this.channelNumber].channel.idDB;
-    let sm = this.channelHelper.createEmojiData(emoji, this.getTreadData(this.threadIndex, 'smile'), this.smileHelper, this.user);
-    this.setTreadData(this.threadIndex, 'smile', sm);
+    let sm = this.channelHelper.createEmojiData(emoji, this.getTreadData(this.channelIndex, 'smile'), this.smileHelper, this.user);
+    this.setTreadData(this.channelIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
   }
 
@@ -170,10 +176,7 @@ export class ChannelWindowComponent implements OnDestroy {
     this.saveEmojiCommentHelper(e);
   }
 
-  toggleEmojisDialog(event: any) {
-    event.stopPropagation();
-    this.showEmojis = !this.showEmojis;
-  }
+
 
   /** 
    * @param thread JSON that contains the information of the thread.
@@ -234,7 +237,7 @@ export class ChannelWindowComponent implements OnDestroy {
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
     let threadId = this.threadList[indexCannel].channel.idDB;
-    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.textThread, this.userList, this.dataUpload)
+    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.channelMessage, this.userList, this.dataUpload)
     if (question.message == "" && question.url.link == "") { return; }
     if (today == lastdate) {
       this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
@@ -252,11 +255,11 @@ export class ChannelWindowComponent implements OnDestroy {
       this.threadList[indexCannel].communikation.push(c);
       this.chathelper.updateDB(threadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
     }
-    this.textThread = "";
+    this.channelMessage = "";
   }
 
   setIndices(cIndex: number, tIndex: number) {
-    this.threadIndex = tIndex;
+    this.channelIndex = tIndex;
     this.commIndex = cIndex;
   }
   /**
@@ -264,31 +267,39 @@ export class ChannelWindowComponent implements OnDestroy {
    * @param cIndex Communication-Index
    * @param tIndex ThreadIndex
    */
-  toggleEmojisThread(event: any, cIndex: number, tIndex: number) {
-    event.stopPropagation();
-    this.showEmojisTread = !this.showEmojisTread;
-    this.threadIndex = tIndex;
-    this.commIndex = cIndex;
-  }
+
   isThreadEmojiShown(cIndex: number, tIndex: number) {
-    return ((this.showEmojisTread) && (this.threadIndex == tIndex) && (this.commIndex == cIndex));
+    return ((this.showEmojisTread) && (this.channelIndex == tIndex) && (this.commIndex == cIndex));
   }
 
-  noEmoji() {
+  closeDialogs() {
     if (this.clickInsideEmoji) {
       this.clickInsideEmoji = false;
       return;
     }
+    if (this.clickInsideAddressBox) {
+      this.clickInsideAddressBox = false;
+      return;
+    }
+
     if (this.showEmojisTread)
       this.showEmojisTread = false;
     if (this.showEmojis)
       this.showEmojis = false;
-    if (this.smileEdit)
-      this.smileEdit = false;
+    if (this.showEmojisEdit)
+      this.showEmojisEdit = false;
+
+    if (this.addressBoxOpen) {
+      this.addressBoxOpen = false;
+    }
   }
 
   clickedInsideEmojiMart() {
     this.clickInsideEmoji = true;
+  }
+
+  clickedInsideAdressBox() {
+    this.clickInsideAddressBox = true;
   }
 
   /**
@@ -338,12 +349,7 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
 
-  /**
-   *toggles the addPeopleOpen boolean
-   */
-  toggleAddPplChanBol() {
-    this.addPeopleOpen = !this.addPeopleOpen;
-  }
+
 
   /** 
    * @param m JSON of data of a Channel-Message
@@ -364,27 +370,17 @@ export class ChannelWindowComponent implements OnDestroy {
    */
   saveEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
-    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].message = this.textEdit;
-    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textEdit);
+    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].message = this.channelMessageEdit;
+    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.channelMessageEdit);
     let threadIndex = this.threadList[this.channelNumber].channel.idDB;
-    if (this.textEdit == "" && this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].url.link == "") {
+    if (this.channelMessageEdit == "" && this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].url.link == "") {
       this.channelHelper.deleteMessage(this.channelNumber, cIndex, tIndex, this.threadList);
     } else {
       this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
     }
   }
 
-  /**
-   * Sets variable to the given values. Opens the edit-dialog Window.
-   * @param cIndex  Communication-Index
-   * @param tIndex  ThreadIndex 
-   */
-  toggleEmojisDialogEdit(event: any, cIndex: number, tIndex: number) {
-    event.stopPropagation();
-    this.threadIndex = tIndex;
-    this.commIndex = cIndex;
-    this.smileEdit = !this.smileEdit;
-  }
+
 
   /** * 
  * @param e JSON of the emoji that should be shown in the message within the channel
@@ -392,8 +388,8 @@ export class ChannelWindowComponent implements OnDestroy {
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    this.textThread += emoji;
-    this.showEmojis = !this.showEmojis;
+    this.channelMessage += emoji;
+    this.toggleEmojisDialog(event);
   }
 
   /** * 
@@ -402,8 +398,8 @@ export class ChannelWindowComponent implements OnDestroy {
   saveEmojiEdit(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    this.textEdit += emoji;
-    this.smileEdit = !this.smileEdit;
+    this.channelMessageEdit += emoji;
+    this.toggleEmojisDialogEdit(event);
   }
 
   /**Stope the default function when clicking on enter
@@ -425,15 +421,10 @@ export class ChannelWindowComponent implements OnDestroy {
   openEditWindow(m: any) {
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
-    this.textEdit = m.message;
+    this.channelMessageEdit = m.message;
   }
 
-  /**
-   * Blend in the popUp containing "Nachricht bearbeiten"
-   */
-  toggleEditPopUp() {
-    this.openEditDialog = !this.openEditDialog;
-  }
+
 
   closeEditPopUp() {
     if (this.openEditDialog) {
@@ -483,14 +474,6 @@ export class ChannelWindowComponent implements OnDestroy {
     })
   }
 
-  toggleChannelMembersBol() {
-    this.channelMembersOpen = !this.channelMembersOpen;
-  }
-
-  openMailAddresses() {
-    this.addresses = !this.addresses;
-  }
-
   openProfileOfUser(user: any) {
     let t = user.text.substring(1);
     if (this.user.name == t) { this.openDialog(this.user) }
@@ -502,8 +485,8 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
   chooseUser(u: User) {
-    this.textThread += '@' + u.name;
-    this.addresses = !this.addresses;
+    this.channelMessage += '@' + u.name;
+    this.toggleAdressBoxOpen();
   }
   /**
    * Opens the dialog of the given
@@ -587,5 +570,70 @@ export class ChannelWindowComponent implements OnDestroy {
 
   ngOnDestroy() {
     this.dialog.closeAll();
+  }
+
+  setAddReactionChannel(event: any, cIndex: number, tIndex: number) {
+    this.toggleEmojisThread(event);
+    this.channelIndex = tIndex;
+    this.commIndex = cIndex;
+  }
+
+
+  /**
+    * Sets variable to the given values. Opens the edit-dialog Window.
+    * @param cIndex  Communication-Index
+    * @param tIndex  ThreadIndex 
+    */
+  setEmojisDialogEdit(event: any, cIndex: number, tIndex: number) {
+    this.toggleEmojisDialogEdit(event);
+    this.channelIndex = tIndex;
+    this.commIndex = cIndex;
+  }
+
+  toggleAdressBoxOpen() {
+    this.addressBoxOpen = !this.addressBoxOpen;
+  }
+
+  /**
+   *toggles the addPeopleOpen boolean
+   */
+  toggleAddPplChanBol() {
+    this.addPeopleOpen = !this.addPeopleOpen;
+  }
+
+
+  toggleChannelMembersBol() {
+    this.channelMembersOpen = !this.channelMembersOpen;
+  }
+
+
+  toggleEditChanBol() {
+    this.editChannelOpen = !this.editChannelOpen;
+  }
+
+
+  /**
+   * Blend in the popUp containing "Nachricht bearbeiten"
+   */
+  toggleEditPopUp() {
+    this.openEditDialog = !this.openEditDialog;
+  }
+
+
+  toggleEmojisDialogEdit(event: any) {
+    event.stopPropagation();
+    this.showEmojisEdit = !this.showEmojisEdit;
+  }
+
+
+  toggleEmojisDialog(event: any) {
+    event.stopPropagation();
+    this.showEmojis = !this.showEmojis;
+  }
+
+
+  toggleEmojisThread(event: any) {
+    event.stopPropagation();
+    this.showEmojisTread = !this.showEmojisTread;
   }
 }

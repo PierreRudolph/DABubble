@@ -1,9 +1,9 @@
-<div class="newMesOuterDiv" (click)="noEmoji()">
+<div class="newMesOuterDiv" (click)="closeDialogs()">
   <div class="newMesHeader">
     <div class="nunitoBlack">Neue Nachricht</div>
-    <input *ngIf="!error" (ngModelChange)="searchKey($event)" ngModel type="input" class="address"
-      (focus)="this.toggleFocusBol()" (focusout)="this.toggleFocusBol()"
-      placeholder="An: #channel, oder @jemand oder E-Mail Adresse">
+    <input *ngIf="!error" (ngModelChange)="searchKey($event)" [(ngModel)]="searchText" type="input" class="address"
+      (focus)="this.toggleFocusBol();searchKey(searchText)" (focusout)="this.toggleFocusBol()"
+      placeholder="An: #channel, @jemand oder E-Mail Adresse">
     <input *ngIf="error" ngModel disabled type="input" class="address error"
       placeholder="Bitte einen Addressaten eingeben und auswählen">
   </div>
@@ -34,11 +34,12 @@
         <label for="imgNewMes"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
         <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
-        <img class="textAreaIconEmail" src="assets/img/email-icon.svg">
+        <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="toggleAddressBoxOpen($event)">
       </div>
     </div>
-    <div class="addressBox posAdBox" *ngIf="addresses">
-      <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}</div>
+    <div class="addressBox posAdBox" *ngIf="addressBoxOpen" (click)="clickedInsideAdressBox()">
+      <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}">
+        {{user.name}}</div>
       <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
         <img src="{{usL.iconPath}}"> {{usL.name}}
       </div>

@@ -19,11 +19,12 @@ export class SendNewMessageComponent {
   searchResultUser: User[] = [];
   searchResulChannel: any[] = [];
   public error = false;
-  public addresses = false;
+  public addressBoxOpen = false;
   public dataUpload = { "link": "", "title": "" };
   public errorMessage = false;
   public focus = false;
   private clickInsideEmoji: boolean = false;
+  private clickedInsideAddressBox: boolean = false;
   @Output() callOpenChannel = new EventEmitter<number>();
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() isOpen = new EventEmitter<boolean>();
@@ -33,10 +34,7 @@ export class SendNewMessageComponent {
   @Output() dataUploadPrivate = new EventEmitter<any>();
   @Output() dataUploadChannel = new EventEmitter<any>();
 
-  toggleEmojisDialog(event) {
-    event.stopPropagation();
-    this.showEmojis = !this.showEmojis;
-  }
+
 
 
   saveEmoji(e: { emoji: { unified: string; }; }) {
@@ -49,12 +47,13 @@ export class SendNewMessageComponent {
   }
 
   searchNameOrmail(st: string, first: string) {
+    console.log(st, first)
     this.userList.forEach((u) => {
-      if (((u.name.toLowerCase().includes(st)) && (first == '@')) || ((u.email.toLowerCase().includes(st)) && (first == '@'))) {
+      if ((u.name.toLowerCase().includes(st) && (first == '@')) || (u.email.toLowerCase() == (first + st))) {
         this.searchResultUser.push(u);
       }
     })
-    if (((this.user.name.toLowerCase().includes(st)) && (first == '@')) || ((this.user.email.toLowerCase().includes(st)) && (first == '@'))) {
+    if ((this.user.name.toLowerCase().includes(st) && (first == '@')) || (this.user.email.toLowerCase() == (first + st))) {
       this.searchResultUser.push(this.user);
     }
   }
@@ -117,7 +116,8 @@ export class SendNewMessageComponent {
 
   chooseUser(u: User) {
     this.text += '@' + u.name;
-    this.addresses = !this.addresses;
+    this.searchText = ('@' + u.name);
+    this.toggleAddressBoxOpen(event);
   }
 
   /**
@@ -151,16 +151,39 @@ export class SendNewMessageComponent {
     }, 100);
   }
 
-  noEmoji() {
+  toggleAddressBoxOpen(event) {
+    event.stopPropagation();
+    this.addressBoxOpen = !this.addressBoxOpen;
+
+  }
+  toggleEmojisDialog(event) {
+    event.stopPropagation();
+    this.showEmojis = !this.showEmojis;
+  }
+  closeDialogs() {
     if (this.clickInsideEmoji) {
       this.clickInsideEmoji = false;
       return;
     }
+
+    if (this.clickedInsideAddressBox) {
+      this.clickedInsideAddressBox = false;
+      return;
+    }
+
     if (this.showEmojis)
       this.showEmojis = false;
+    if (this.addressBoxOpen)
+      this.addressBoxOpen = false;
+
   }
 
   clickedInsideEmojiMart() {
     this.clickInsideEmoji = true;
+  }
+
+
+  clickedInsideAdressBox() {
+    this.clickedInsideAddressBox = true;
   }
 }

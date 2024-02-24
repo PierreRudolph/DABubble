@@ -43,9 +43,9 @@ export class PrivateMessageComponent {
   smileHelper: SmileHelper = new SmileHelper();
   chatHelper: ChatHepler = new ChatHepler();
   public messageInformation: any[] = [];
-  public addresses = false;
+  public addressBoxOpen = false;
   private clickInsideEmoji: boolean = false;
-
+  private clickedInsideAddressBox: boolean = false;
   @Input() indexLastUser = -2;
 
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
@@ -457,8 +457,9 @@ export class PrivateMessageComponent {
   }
 
 
-  openMailAddresses() {
-    this.addresses = !this.addresses;
+  toggleAddressBoxOpen(event) {
+    event.stopPropagation();
+    this.addressBoxOpen = !this.addressBoxOpen;
   }
 
 
@@ -476,7 +477,7 @@ export class PrivateMessageComponent {
 
   chooseUser(u: User) {
     this.text += '@' + u.name;
-    this.addresses = !this.addresses;
+    this.addressBoxOpen = !this.addressBoxOpen;
 
   }
 
@@ -575,22 +576,34 @@ export class PrivateMessageComponent {
   }
 
 
-  noEmoji() {
+  closeDialogs() {
     if (this.clickInsideEmoji) {
       this.clickInsideEmoji = false;
       return;
     }
+
+    if (this.clickedInsideAddressBox) {
+      this.clickedInsideAddressBox = false;
+      return;
+    }
+
     if (this.showEmojis)
       this.showEmojis = false;
     if (this.showEmojisComment)
       this.showEmojisComment = false;
     if (this.showEmojisEdit)
       this.showEmojisEdit = false;
+    if (this.addressBoxOpen)
+      this.addressBoxOpen = false;
   }
 
 
   clickedInsideEmojiMart() {
     this.clickInsideEmoji = true;
+  }
+
+  clickedInsideAdressBox() {
+    this.clickedInsideAddressBox = true;
   }
 }
 

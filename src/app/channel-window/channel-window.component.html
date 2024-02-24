@@ -1,6 +1,4 @@
 <div class="channel-header flexMiddleX posAbs" [class.channel-header-sideMenuShownMobile]="!sideMenuHidden">
-
-
     <div class="channel-header-left flexMiddleX" [class.channel-header-left-sideMenuShownMobile]="!sideMenuHidden"
         [class.channel-header-left-threeWindowShownMobile]="!sideMenuHidden&&threadOpen"
         [class.hoverStyleHeaderLeft]="editChannelOpen" mat-button (click)="openEditChannelDialog()">
@@ -8,8 +6,6 @@
         <span class="fs24 wei700">{{this.threadList[channelNumber].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
     </div>
-
-
 
     <div class="channel-header-right flexMiddleX">
         <div class="added-members flexMiddleX" (click)="openChannelMembersDialog()"
@@ -23,12 +19,9 @@
         <img *ngIf="screen.mobileScreenWidth()" class="add-people" (click)="openChannelMembersDialog()"
             src="assets/icons/add-people.svg" mat-button>
     </div>
-
-
-
 </div>
 <div class="channel-body" #channelBody
-    [class.positionStartChannel]="showBegin(threadList[this.channelNumber].communikation[0])" (click)="noEmoji()">
+    [class.positionStartChannel]="showBegin(threadList[this.channelNumber].communikation[0])" (click)="closeDialogs()">
     <div class="message-div" *ngFor="let com of this.threadList[channelNumber].communikation, index as i ">
         <div class="dateIcon" *ngIf="!showBegin(com)">
             <div class="sendDate posAbs flexMiddleX fs18 nunito wei400"
@@ -49,7 +42,7 @@
                             <img class="popUpIcons pad0" src="assets/img/popUpHaken.svg"
                                 (click)="saveEmojiCom(i,j,haken.innerText)">
                             <div style="display:none" #haken>✅</div>
-                            <img class="addReaction" (click)="toggleEmojisThread($event,i,j)"
+                            <img class="addReaction" (click)="setAddReactionChannel($event,i,j)"
                                 src="assets/icons/add-reaction.svg">
                             <span class="popUpIcons pad0" (click)="saveEmojiCom(i,j,raisedHands.innerText)"
                                 #raisedHands>🙌</span>
@@ -105,24 +98,19 @@
                             </div>
                             ​
                         </div>
-
-
-
                         <div [class.dNone]="!thread.edit" style="width:100%; display: flex;flex-direction: column;"
                             [class.messageRight]="getFlip(thread)">
                             <div style="position:relative">
                                 <div style="position:relative">
                                     <textarea class="textAreaDirekt fs18 nunito wei400"
-                                        [(ngModel)]="textEdit">{{thread.message}}  </textarea>
-                                    <img (click)="toggleEmojisDialogEdit($event,i,j)" class="smileEdit posAbs"
+                                        [(ngModel)]="channelMessageEdit">{{thread.message}}  </textarea>
+                                    <img (click)="setEmojisDialogEdit($event,i,j)" class="smileEdit posAbs"
                                         src="assets/img/smiley-icon.svg">
                                 </div>
-                                <emoji-mart class="emoji-div-Edit" *ngIf="smileEdit" title="Pick your emoji…"
+                                <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit" title="Pick your emoji…"
                                     (emojiClick)="saveEmojiEdit($event)"
                                     (click)="clickedInsideEmojiMart()"></emoji-mart>
                             </div>
-
-
                             <div class="editButtonContainer">
                                 <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
                                 <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
@@ -150,7 +138,7 @@
                                 </div>
                                 ​
                             </div>
-                            <img class="add-reaction-icon" (click)="toggleEmojisThread($event,i,j)"
+                            <img class="add-reaction-icon" (click)="setAddReactionChannel($event,i,j)"
                                 src="assets/icons/add-reaction.svg">
                             <emoji-mart class="emojiDiv posAbs" *ngIf="isThreadEmojiShown(i,j)" title="Pick your emoji…"
                                 (emojiClick)="saveEmojiComment($event)" (click)="clickedInsideEmojiMart()"></emoji-mart>
@@ -161,8 +149,6 @@
         </div>
     </div>
 </div>
-
-
 <div *ngIf="showBegin(threadList[this.channelNumber].communikation[0])" style="padding: 10px 40px 10px 40px;">
     <span class="nunitoBlack fs20"> #{{threadList[this.channelNumber].channel.name}}</span><br>
     Das ist der Anfang des Channels.
@@ -173,7 +159,7 @@
         <span>{{dataUpload.title}}</span>
         <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
     </div>
-    <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="textThread"
+    <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="channelMessage"
         placeholder="Nachricht an #{{this.threadList[channelNumber].channel.name}}"
         (keydown)="keyDownFunction($event)"></textarea>
     <img class="sendArrow posAbs" (click)="sendQuestion(channelNumber)" src="assets/img/sendArrow.svg">
@@ -182,11 +168,11 @@
         <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
         <div style="width:2px;background-color: #ADB0D9 ;"></div>
         <img class="textAreaIconSmiley" (click)="toggleEmojisDialog($event)" src="assets/img/smiley-icon.svg">
-        <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="openMailAddresses()">
+        <img class="textAreaIconEmail" src="assets/img/email-icon.svg" (click)="toggleAdressBoxOpen()">
     </div>
     <emoji-mart class="emoji-div posAbs" *ngIf="showEmojis" title="Pick your emoji…" (emojiClick)="saveEmoji($event)"
         (click)="clickedInsideEmojiMart()"></emoji-mart>
-    <div class="addressBox" *ngIf="addresses">
+    <div class="addressBox" *ngIf="addressBoxOpen" (click)="clickedInsideAdressBox()">
         <div class="addressElements" (click)="chooseUser(user)"><img src="{{user.iconPath}}"> {{user.name}}
         </div>
         <div *ngFor="let usL of userList" class="addressElements" (click)="chooseUser(usL)">
