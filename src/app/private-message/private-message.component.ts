@@ -320,8 +320,8 @@ export class PrivateMessageComponent {
     this.openTalk();
 
     setTimeout(() => {
-      if (this.messageArea) { this.messageArea.nativeElement.scrollTo({ top: this.messageArea.nativeElement.clientHeight, behavior: 'smooth' }) }
-    }, 300);
+      if (this.messageArea) { this.messageArea.nativeElement.scrollTo({ top: this.messageArea.nativeElement.scrollHeight, behavior: 'smooth' }) }
+    }, 10);
   }
 
 

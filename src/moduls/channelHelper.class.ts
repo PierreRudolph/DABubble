@@ -12,6 +12,9 @@ export class ChannelHelper {
   public membersDialogPosRight: string = '110px';
   public addMembersDialogPosRight: string = '60px';
   public chatHelper: ChatHepler = new ChatHepler();
+  public dialogEditChanClasses: Array<string> =
+    ['dialogBorToLeNone', 'maxWidth100', 'dialogBorRadNone', 'dialogMarginMiddle', 'dialogMarginNone'];
+
   setEditChanPos(sideMenuHidden: boolean) {
     if (sideMenuHidden) {
       this.editChanPosLeft = '60px';

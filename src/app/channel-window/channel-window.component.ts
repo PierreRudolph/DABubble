@@ -19,8 +19,6 @@ import { ScreenService } from '../screen.service';
 export class ChannelWindowComponent implements OnDestroy {
   public channelMessage: string = "";
   public channelMessageEdit: string = ""
-
-
   public chathelper: ChatHepler = new ChatHepler();
   private channelIndex: number = 0;
   private commIndex: number = 0;
@@ -37,11 +35,10 @@ export class ChannelWindowComponent implements OnDestroy {
   public smileHelper: SmileHelper = new SmileHelper();
   public channelHelper: ChannelHelper = new ChannelHelper()
 
-  private dialogEditChanClasses: Array<string> =
-    ['dialogBorToLeNone', 'maxWidth100', 'dialogBorRadNone', 'dialogMarginMiddle', 'dialogMarginNone'];
+
   private text: string = "";
-  public popUpText = { "du": "", "first": "", "other": "", "verb": "" };
-  public dataUpload = { "link": "", "title": "" };
+  public popUpText: any = { "du": "", "first": "", "other": "", "verb": "" };
+  public dataUpload: any = { "link": "", "title": "" };
   private upload: any;
 
   public addressBoxOpen: boolean = false;
@@ -54,13 +51,12 @@ export class ChannelWindowComponent implements OnDestroy {
   public showEmojisEdit: boolean = false;
   public showEmojisTread: boolean = false;
   private clickInsideEmoji: boolean = false;
-
   private clickInsideAddressBox: boolean = false;
 
   @Output() callOpenTalk = new EventEmitter<User>();
   @Output() areaTextPrivate = new EventEmitter<string>();
-
   @ViewChild('channelBody') channelBody: ElementRef;
+
   constructor(public dialog: MatDialog, public screen: ScreenService) {
     setTimeout(() => {
       this.upload = (document.getElementById("img") as HTMLInputElement | null);
@@ -72,62 +68,9 @@ export class ChannelWindowComponent implements OnDestroy {
    * Scrolls to the end of the channel window
    */
   scrollDown() {
-    setTimeout(() => {
-      if (this.channelBody) {
-        this.channelBody.nativeElement.scrollTo({ top: this.channelBody.nativeElement.clientHeight, behavior: 'smooth' });
-      }
-    }, 300);
+    this.channelBody.nativeElement.scrollTo({ top: this.channelBody.nativeElement.scrollHeight, behavior: 'smooth' });
   }
 
-  /**
-   * Openes the dialog for editing the Channel
-   */
-  openEditChannelDialog() {
-    this.channelHelper.setEditChanPos(this.sideMenuHidden);
-    this.toggleEditChanBol();
-    let dialogRef = this.dialog.open(EditChannelComponent,
-      { panelClass: this.dialogEditChanClasses, position: { left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop } });
-    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.channelNumber, this.userList, this.user);
-    dialogRef.afterClosed().subscribe(() => {
-      this.toggleEditChanBol();
-    });
-  }
-
-  showBegin(com: any) {
-    return com.date == "";
-  }
-
-  /**
-   * Sets the Position of channel-members-dialog and add-people-dialog,
-   * depending on whether side-menu-thread(==threadOpen), is open or closed.
-   */
-  setPositionOfDialogs() {
-    this.channelHelper.setPositionOfDialogs(this.threadOpen, this.screen.mobileScreenWidth());
-
-  }
-
-
-
-  /**
-   * Stores a given information as JSON at the given position
-   * 
-   * @param index Index of the message within the day
-   * @param n     What kind of information do we want to acces?
-   * @param m     Information we want to store
-   */
-  setTreadData(index: number, n: string, m: any) {
-    this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n] = m;
-  }
-
-  /**
- * Return the information as JSON that is stored at the given position
- * 
- * @param index Index of the message within the day
- * @param n     What kind of information do we want to acces? 
- */
-  getTreadData(index: number, n: string) {
-    return this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n];
-  }
 
   /**
    * Removes the Comment-Smilie at the given position. Structure of Threadbase communikation see ChatHelper.
@@ -139,15 +82,16 @@ export class ChannelWindowComponent implements OnDestroy {
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
     let threadId = this.threadList[this.channelNumber].channel.idDB;
     this.commIndex = cIndex;
-    let userSmiles = this.getTreadData(tIndex, 'smile');
+    let userSmiles = this.getThreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
     userSmiles[sIndex].users = newUserList;
     if (userSmiles[sIndex].users.length == 0) {
       userSmiles.splice(sIndex, 1);
     }
-    this.setTreadData(tIndex, 'smile', userSmiles);
+    this.setThreadData(tIndex, 'smile', userSmiles);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
   }
+
 
   /**
    * stors the given emoji   * 
@@ -160,12 +104,37 @@ export class ChannelWindowComponent implements OnDestroy {
     this.showEmojisTread = !this.showEmojisTread;
   }
 
+
   saveEmojiCommentHelper(emoji: any) {
     let threadId = this.threadList[this.channelNumber].channel.idDB;
-    let sm = this.channelHelper.createEmojiData(emoji, this.getTreadData(this.channelIndex, 'smile'), this.smileHelper, this.user);
-    this.setTreadData(this.channelIndex, 'smile', sm);
+    let sm = this.channelHelper.createEmojiData(emoji, this.getThreadData(this.channelIndex, 'smile'), this.smileHelper, this.user);
+    this.setThreadData(this.channelIndex, 'smile', sm);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
   }
+
+
+  /**
+ * Return the information as JSON that is stored at the given position
+ * 
+ * @param index Index of the message within the day
+ * @param n     What kind of information do we want to acces? 
+ */
+  getThreadData(index: number, n: string) {
+    return this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n];
+  }
+
+
+  /**
+     * Stores a given information as JSON at the given position
+     * 
+     * @param index Index of the message within the day
+     * @param n     What kind of information do we want to acces?
+     * @param m     Information we want to store
+     */
+  setThreadData(index: number, n: string, m: any) {
+    this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n] = m;
+  }
+
 
   /**
    * stors the specific emoji, Claps or Checkmark    
@@ -216,7 +185,6 @@ export class ChannelWindowComponent implements OnDestroy {
    * @returns 
    */
   getIconPathQuestionUser(id: string) {
-
     let path = "";
     this.userList.forEach((u) => {
       if (u.idDB == id) {
@@ -228,10 +196,10 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
   /**
-   * Send a Question 
+   * Save a Message
    * @param indexCannel index it the channel in that the question shell be released.
    */
-  sendQuestion(indexCannel: number) {
+  saveMessage(indexCannel: number) {
 
     let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
     let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
@@ -410,7 +378,7 @@ export class ChannelWindowComponent implements OnDestroy {
 
     if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
-      this.sendQuestion(this.channelNumber);
+      this.saveMessage(this.channelNumber);
     }
 
   }
@@ -503,6 +471,45 @@ export class ChannelWindowComponent implements OnDestroy {
     });
   }
 
+
+  /**
+   * Openes the dialog for editing the Channel
+   */
+  openEditChannelDialog() {
+    this.channelHelper.setEditChanPos(this.sideMenuHidden);
+    this.toggleEditChanBol();
+    let dialogRef = this.setEditChanDialogOpen();
+    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.channelNumber, this.userList, this.user);
+    this.subEditDialog(dialogRef);
+  }
+
+
+  /**
+   * opens the dialog and set styling attributes
+   * @returns MatDialogRef
+   */
+  setEditChanDialogOpen() {
+    return this.dialog.open(
+      EditChannelComponent, {
+      panelClass: this.channelHelper.dialogEditChanClasses,
+      position: {
+        left: this.channelHelper.editChanPosLeft, top: this.channelHelper.dialogPosTop
+      }
+    });
+  }
+
+
+  /**
+   * subscribe the dialog that when it closes toggleEditChanBol() gets called
+   * @param dialogRef MatDialogRef<EditChannelComponent, any>
+   */
+  subEditDialog(dialogRef: MatDialogRef<EditChannelComponent, any>) {
+    dialogRef.afterClosed().subscribe(() => {
+      this.toggleEditChanBol();
+    });
+  }
+
+
   callOpenT(u: User) {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
@@ -568,10 +575,6 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
 
-  ngOnDestroy() {
-    this.dialog.closeAll();
-  }
-
   setAddReactionChannel(event: any, cIndex: number, tIndex: number) {
     this.toggleEmojisThread(event);
     this.channelIndex = tIndex;
@@ -589,6 +592,27 @@ export class ChannelWindowComponent implements OnDestroy {
     this.channelIndex = tIndex;
     this.commIndex = cIndex;
   }
+
+
+  /**
+   * returns true if com.date is a empty string
+   * @param com JSON
+   * @returns true of false
+   */
+  showBegin(com: { date: string; }) {
+    return com.date == "";
+  }
+
+
+  /**
+     * Sets the Position of channel-members-dialog and add-people-dialog,
+     * depending on whether side-menu-thread(==threadOpen), is open or closed.
+     */
+  setPositionOfDialogs() {
+    this.channelHelper.setPositionOfDialogs(this.threadOpen, this.screen.mobileScreenWidth());
+
+  }
+
 
   toggleAdressBoxOpen() {
     this.addressBoxOpen = !this.addressBoxOpen;
@@ -635,5 +659,10 @@ export class ChannelWindowComponent implements OnDestroy {
   toggleEmojisThread(event: any) {
     event.stopPropagation();
     this.showEmojisTread = !this.showEmojisTread;
+  }
+
+
+  ngOnDestroy() {
+    this.dialog.closeAll();
   }
 }

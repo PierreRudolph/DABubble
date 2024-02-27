@@ -162,7 +162,7 @@
     <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="channelMessage"
         placeholder="Nachricht an #{{this.threadList[channelNumber].channel.name}}"
         (keydown)="keyDownFunction($event)"></textarea>
-    <img class="sendArrow posAbs" (click)="sendQuestion(channelNumber)" src="assets/img/sendArrow.svg">
+    <img class="sendArrow posAbs" (click)="saveMessage(channelNumber)" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
         <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
         <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>
