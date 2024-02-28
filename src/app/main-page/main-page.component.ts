@@ -27,7 +27,7 @@ export class MainPageComponent {
   private chathelper: ChatHepler = new ChatHepler();
   public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
 
-  public threadList: any = [this.chathelper.createEmptyThread()];
+  public channelList: any = [this.chathelper.createEmptyThread()];
   public talkList: any = [this.chathelper.createEmptyTalk()];
   public channelNumber: number = 0;
   public currentTalkData: any = {};
@@ -266,10 +266,10 @@ export class MainPageComponent {
    */
   subChannelList() {
     return onSnapshot(this.getCollectionRef('thread'), (channels) => {
-      this.threadList = [];
+      this.channelList = [];
       channels.forEach(channel => {
         if (this.isUserInMemberList(channel.data())) {
-          this.threadList.push(channel.data());
+          this.channelList.push(channel.data());
         }
       });
       this.sortThreadList();
@@ -278,7 +278,7 @@ export class MainPageComponent {
 
 
   sortThreadList() {
-    this.threadList.sort((a, b) => {
+    this.channelList.sort((a, b) => {
       const nameA = a.channel.name.toUpperCase();
       const nameB = b.channel.name.toUpperCase();
       if (nameA < nameB) {

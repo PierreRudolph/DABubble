@@ -58,7 +58,7 @@
                                 </div>
                             </div>
                         </mat-expansion-panel-header>
-                        <div *ngFor="let ch of threadList, index as c">
+                        <div *ngFor="let ch of channelList, index as c">
                             <div class="created-channel" [class.channelActive]="channelActive==c"
                                 (click)="openChannel(c)">
                                 <img src="assets/icons/tag.svg">

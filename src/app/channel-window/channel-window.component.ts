@@ -24,7 +24,7 @@ export class ChannelWindowComponent implements OnDestroy {
   private commIndex: number = 0;
 
   @Input() channelNumber: number = 0;
-  @Input() threadList: any[] = [this.chathelper.createEmptyThread()];
+  @Input() channelList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();
   @Input() userList: User[];
   @Input() sideMenuHidden: boolean;
@@ -80,7 +80,7 @@ export class ChannelWindowComponent implements OnDestroy {
    * @param sIndex  Index of the Smile
    */
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
-    let threadId = this.threadList[this.channelNumber].channel.idDB;
+    let threadId = this.getThreadId();
     this.commIndex = cIndex;
     let userSmiles = this.getThreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
@@ -89,7 +89,7 @@ export class ChannelWindowComponent implements OnDestroy {
       userSmiles.splice(sIndex, 1);
     }
     this.setThreadData(tIndex, 'smile', userSmiles);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.channelList[this.channelNumber].communikation });
   }
 
 
@@ -106,12 +106,15 @@ export class ChannelWindowComponent implements OnDestroy {
 
 
   saveEmojiCommentHelper(emoji: any) {
-    let threadId = this.threadList[this.channelNumber].channel.idDB;
+    let threadId = this.getThreadId();
     let sm = this.channelHelper.createEmojiData(emoji, this.getThreadData(this.channelIndex, 'smile'), this.smileHelper, this.user);
     this.setThreadData(this.channelIndex, 'smile', sm);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.channelList[this.channelNumber].communikation });
   }
 
+  getThreadId() {
+    return this.channelList[this.channelNumber].channel.idDB;
+  }
 
   /**
  * Return the information as JSON that is stored at the given position
@@ -120,7 +123,7 @@ export class ChannelWindowComponent implements OnDestroy {
  * @param n     What kind of information do we want to acces? 
  */
   getThreadData(index: number, n: string) {
-    return this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n];
+    return this.channelList[this.channelNumber].communikation[this.commIndex].threads[index][n];
   }
 
 
@@ -132,7 +135,7 @@ export class ChannelWindowComponent implements OnDestroy {
      * @param m     Information we want to store
      */
   setThreadData(index: number, n: string, m: any) {
-    this.threadList[this.channelNumber].communikation[this.commIndex].threads[index][n] = m;
+    this.channelList[this.channelNumber].communikation[this.commIndex].threads[index][n] = m;
   }
 
 
@@ -197,34 +200,100 @@ export class ChannelWindowComponent implements OnDestroy {
 
   /**
    * Save a Message
-   * @param indexCannel index it the channel in that the question shell be released.
    */
-  saveMessage(indexCannel: number) {
-
-    let communikationLastIndex = this.threadList[indexCannel].communikation.length - 1;
-    let lastdate = this.threadList[indexCannel].communikation[communikationLastIndex].date;
+  saveMessage() {
+    let commLastIndex = this.channelList[this.channelNumber].communikation.length - 1;
+    let lastdate = this.channelList[this.channelNumber].communikation[commLastIndex].date;
     let today = this.chathelper.parseDate(new Date(Date.now()));
-    let threadId = this.threadList[indexCannel].channel.idDB;
-    let question = this.channelHelper.getQuestion(this.user, this.chathelper, this.channelMessage, this.userList, this.dataUpload)
-    if (question.message == "" && question.url.link == "") { return; }
-    if (today == lastdate) {
-      this.threadList[indexCannel].communikation[communikationLastIndex].threads.push(question);
-      let th = this.threadList[indexCannel].communikation;
-      this.chathelper.updateDB(threadId, "thread", { "communikation": th });
-    }
-    else {
-      if (this.threadList[indexCannel].communikation[communikationLastIndex].date == "") {
-        this.threadList[indexCannel].communikation = [];
-      }
-      let c = {
-        "date": today,
-        "threads": [question]
-      }
-      this.threadList[indexCannel].communikation.push(c);
-      this.chathelper.updateDB(threadId, "thread", { "communikation": this.threadList[indexCannel].communikation });
-    }
+    let threadId = this.getThreadId();
+    let messageJSON = this.channelHelper.createMessage(this.user, this.chathelper, this.channelMessage, this.userList, this.dataUpload)
+    if (this.messageIsEmpty(messageJSON)) { return; }
+    console.log(messageJSON)
+
+    this.pushOrCreateNewComm(today, lastdate, commLastIndex, messageJSON, threadId);
     this.channelMessage = "";
   }
+
+
+  /**
+   * returns true of false depending on given message is empty or not
+   * @param {JSON} messageJSON 
+   * @returns true of false
+   */
+  messageIsEmpty(messageJSON: { url: any; message: any; }) {
+    return messageJSON.message == "" && messageJSON.url.link == "";
+  }
+
+
+  /**
+   * add a existing comm or create a new comm,
+   * depending on if a comm exist and if it was created today or not
+   * @param {string}today 
+   * @param {string}lastdate 
+   * @param {number}commLastIndex 
+   * @param {JSON} messageJSON 
+   * @param {string} threadId 
+   */
+  pushOrCreateNewComm(today: string, lastdate: string, commLastIndex: number, messageJSON: {}, threadId: string) {
+    if (today == lastdate) {
+      this.addMessageToExistComm(commLastIndex, messageJSON, threadId);
+    }
+    else {
+      this.clearCommsIfFirstMessage(commLastIndex);
+      this.createNewDateComm(today, messageJSON, threadId);
+    }
+  }
+
+
+  /**
+   * add a new message to a existing communication
+   * @param {number} commLastIndex 
+   * @param {JSON} question 
+   * @param {string} threadId 
+   */
+  async addMessageToExistComm(commLastIndex: number, question: {}, threadId: string) {
+    this.channelList[this.channelNumber].communikation[commLastIndex].threads.push(question);
+    let th = this.channelList[this.channelNumber].communikation;
+    await this.chathelper.updateDB(threadId, "thread", { "communikation": th });
+  }
+
+
+  /**
+   * deletes empty communikation from channels communikation Array
+   * @param {number} commLastIndex 
+   */
+  clearCommsIfFirstMessage(commLastIndex: number) {
+    if (this.channelList[this.channelNumber].communikation[commLastIndex].date == "") {
+      this.channelList[this.channelNumber].communikation = [];
+    }
+  }
+
+
+  /**
+   * create a new communication
+   * @param {string} today 
+   * @param {JSON} message 
+   * @param {string} threadId 
+   */
+  async createNewDateComm(today: string, message: {}, threadId: string) {
+    let newComm = this.getNewComm(today, message);
+    this.channelList[this.channelNumber].communikation.push(newComm);
+    await this.chathelper.updateDB(threadId, "thread", { "communikation": this.channelList[this.channelNumber].communikation });
+  }
+
+
+  /**
+   * @param {string} today
+   * @param {JSON} message 
+   * @returns JSON a new Communication with actual date
+   */
+  getNewComm(today: string, message: {}) {
+    return {
+      "date": today,
+      "threads": [message]
+    }
+  }
+
 
   setIndices(cIndex: number, tIndex: number) {
     this.channelIndex = tIndex;
@@ -301,7 +370,7 @@ export class ChannelWindowComponent implements OnDestroy {
   setAddPplDialogValues(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     let instance = dialogRef.componentInstance;
     instance.user = new User(this.user.toJSON());
-    instance.channel = this.threadList[this.channelNumber].channel;
+    instance.channel = this.channelList[this.channelNumber].channel;
     instance.userList = this.userList;
   }
 
@@ -315,8 +384,6 @@ export class ChannelWindowComponent implements OnDestroy {
       this.toggleAddPplChanBol();
     })
   }
-
-
 
 
   /** 
@@ -338,13 +405,13 @@ export class ChannelWindowComponent implements OnDestroy {
    */
   saveEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
-    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].message = this.channelMessageEdit;
-    this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.channelMessageEdit);
-    let threadIndex = this.threadList[this.channelNumber].channel.idDB;
-    if (this.channelMessageEdit == "" && this.threadList[this.channelNumber].communikation[cIndex].threads[tIndex].url.link == "") {
-      this.channelHelper.deleteMessage(this.channelNumber, cIndex, tIndex, this.threadList);
+    this.channelList[this.channelNumber].communikation[cIndex].threads[tIndex].message = this.channelMessageEdit;
+    this.channelList[this.channelNumber].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.channelMessageEdit);
+    let threadIndex = this.channelList[this.channelNumber].channel.idDB;
+    if (this.channelMessageEdit == "" && this.channelList[this.channelNumber].communikation[cIndex].threads[tIndex].url.link == "") {
+      this.channelHelper.deleteMessage(this.channelNumber, cIndex, tIndex, this.channelList);
     } else {
-      this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.threadList[this.channelNumber].communikation });
+      this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.channelList[this.channelNumber].communikation });
     }
   }
 
@@ -378,7 +445,7 @@ export class ChannelWindowComponent implements OnDestroy {
 
     if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
-      this.saveMessage(this.channelNumber);
+      this.saveMessage();
     }
 
   }
@@ -425,7 +492,7 @@ export class ChannelWindowComponent implements OnDestroy {
    * @param dialogRef MatDialogRef of ChannelMembersComponent
    */
   setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
-    this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.threadList, this.channelNumber, this.userList);
+    this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.channelList, this.channelNumber, this.userList);
   }
 
   /**
@@ -453,6 +520,7 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
   chooseUser(u: User) {
+
     this.channelMessage += '@' + u.name;
     this.toggleAdressBoxOpen();
   }
@@ -479,7 +547,7 @@ export class ChannelWindowComponent implements OnDestroy {
     this.channelHelper.setEditChanPos(this.sideMenuHidden);
     this.toggleEditChanBol();
     let dialogRef = this.setEditChanDialogOpen();
-    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.threadList, this.channelNumber, this.userList, this.user);
+    dialogRef = this.channelHelper.setValuesToEditDialog(dialogRef, this.channelList, this.channelNumber, this.userList, this.user);
     this.subEditDialog(dialogRef);
   }
 
@@ -523,7 +591,7 @@ export class ChannelWindowComponent implements OnDestroy {
    * @param sIndex  Index of the smile
    */
   showPopUpCommentUsers(i: number, j: number, sIndex: number) {
-    let smile = this.threadList[this.channelNumber].communikation[i].threads[j].smile[sIndex];
+    let smile = this.channelList[this.channelNumber].communikation[i].threads[j].smile[sIndex];
     let smileUsers = [];
     smile.users.forEach((s) => {
       smileUsers.push(s.id);
@@ -560,7 +628,7 @@ export class ChannelWindowComponent implements OnDestroy {
 
   deleteMessage(number: number, i: number, j: number) {
     this.openEditDialog = false;
-    this.channelHelper.deleteMessage(number, i, j, this.threadList);
+    this.channelHelper.deleteMessage(number, i, j, this.channelList);
   }
 
   /**
@@ -571,7 +639,7 @@ export class ChannelWindowComponent implements OnDestroy {
    */
   deleteUp(e: any, i: number, j: number) {
     e.preventDefault();
-    this.channelHelper.deleteUp(this.channelNumber, i, j, this.threadList);
+    this.channelHelper.deleteUp(this.channelNumber, i, j, this.channelList);
   }
 
 

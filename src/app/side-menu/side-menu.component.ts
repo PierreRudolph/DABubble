@@ -24,7 +24,7 @@ export class SideMenuComponent {
   @Input() user: User = new User();
   @Input() userList = [this.user];
   @Input() talkList: any = [this.chathelper.createEmptyTalk()];
-  @Input() threadList = [this.chathelper.createEmptyThread()];
+  @Input() channelList = [this.chathelper.createEmptyThread()];
   @Output() isOpen = new EventEmitter<boolean>();
   @Output() newItemEventMenuHidden = new EventEmitter<boolean>();
   @Output() newItemEventUser = new EventEmitter<User>();
@@ -47,7 +47,7 @@ export class SideMenuComponent {
   }
 
   getName(num: number) {
-    if (this.loaded) { return this.threadList[num].channel.name }
+    if (this.loaded) { return this.channelList[num].channel.name }
     else {
       return ""
     };
@@ -104,7 +104,7 @@ export class SideMenuComponent {
 
 
   getdate(info: any) {
-    return this.threadList[info.num].communikation[info.cIndex].date;
+    return this.channelList[info.num].communikation[info.cIndex].date;
   }
 
 
@@ -188,7 +188,7 @@ export class SideMenuComponent {
   }
 
   searchChannelNames(text: string) {
-    this.threadTitleDec = this.chathelper.searchChannelNames(text, this.threadList);
+    this.threadTitleDec = this.chathelper.searchChannelNames(text, this.channelList);
   }
 
 
@@ -203,7 +203,7 @@ export class SideMenuComponent {
 
 
   searchChannelMessages(text: string) {
-    this.threadMessages = this.chathelper.searchChannelMessages(text, this.threadList);
+    this.threadMessages = this.chathelper.searchChannelMessages(text, this.channelList);
   }
 
 

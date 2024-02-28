@@ -245,8 +245,13 @@ export class ChatHepler {
       let rest = t.substring(end);
       t = rest;
       subtrakt = text.length - rest.length;
-      messageInformation.push({ "type": "t", "text": s });
-      messageInformation.push({ "type": "l", "text": ut });
+      if (s != '') {
+        messageInformation.push({ "type": "t", "text": s });
+      }
+      if (ut != '') {
+        messageInformation.push({ "type": "l", "text": ut });
+
+      }
     });
     if (t.length > 0) {
       messageInformation.push({ "type": "t", "text": t });

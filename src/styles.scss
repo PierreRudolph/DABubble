@@ -486,10 +486,10 @@ mat-drawer-container {
     cursor: pointer;
     color: #444df2;
     padding: 2px 5px;
+    border-radius: 20px;
 
     &:hover {
         background-color: rgba(68, 77, 242, 0.14);
-        border-radius: 20px;
     }
 }
 

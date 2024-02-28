@@ -18,7 +18,7 @@ export class SideMenuThreadComponent {
   @Input() userList: User[];
   @Input() user: User;
   public chathelper: ChatHepler = new ChatHepler();
-  @Input() threadList: any = [this.chathelper.createEmptyThread()];
+  @Input() channelList: any = [this.chathelper.createEmptyThread()];
   @Input() threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Input() channelOpen: boolean;
   @Input() sideMenuHidden: boolean;
@@ -90,14 +90,14 @@ export class SideMenuThreadComponent {
    * @returns Get the amount of answeres of a previously selected message. 
    */
   getAnswerLength() {
-    return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer.length;
+    return this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer.length;
   }
 
   /**   * 
   * @returns Get the list of answeres of a previously selected message. 
   */
   getAnswerList() {
-    return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer
+    return this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer
   }
 
   /**    
@@ -106,7 +106,7 @@ export class SideMenuThreadComponent {
    * @returns     Returns the given information of the given answer.
    */
   getAnswerData(index: number, n: string) {
-    return this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n];
+    return this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n];
   }
   /**
    * Stores the given information in the given answer (represented by a JSON)
@@ -115,7 +115,7 @@ export class SideMenuThreadComponent {
    * @param m     The data that shell be stored
    */
   setAnswerData(index: number, n: string, m: any) {
-    this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n] = m;
+    this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index][n] = m;
   }
 
   /** 
@@ -123,14 +123,14 @@ export class SideMenuThreadComponent {
    * @returns     returns the list of commenticons of the answer
    */
   showSmilie(index: number) {
-    return 0 != this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
+    return 0 != this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[index].smile;
   }
 
   /**
    * @returns Returns the icon of the user, than sends the initial message that is opened in this thread window.
    */
   getIconPathQuestionUser() {
-    let id = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
+    let id = this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
     let path = "";
     this.userList.forEach((u) => {
       if (u.idDB == id) {
@@ -189,10 +189,10 @@ export class SideMenuThreadComponent {
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
-    let threadId = this.threadList[n].channel.idDB;
+    let threadId = this.channelList[n].channel.idDB;
     let answ = this.makeAnswer();
-    this.threadList[n].communikation[i].threads[j].answer.push(answ);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[n].communikation });
+    this.channelList[n].communikation[i].threads[j].answer.push(answ);
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.channelList[n].communikation });
     this.textThreadAnswer = "";
     this.editA = false;
   }
@@ -223,14 +223,14 @@ export class SideMenuThreadComponent {
     let n = this.threadC.chNum;
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
-    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadEdit;
-    this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadEdit);
+    this.channelList[n].communikation[i].threads[j].answer[this.editAIndex].message = this.textThreadEdit;
+    this.channelList[n].communikation[i].threads[j].answer[this.editAIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.textThreadEdit);
     this.editA = false;
 
-    if (this.textThreadEdit == "" && this.threadList[n].communikation[i].threads[j].answer[this.editAIndex].url.link == "") {
+    if (this.textThreadEdit == "" && this.channelList[n].communikation[i].threads[j].answer[this.editAIndex].url.link == "") {
       this.deleteMessage(this.editAIndex);
     } else {
-      this.chathelper.updateDB(this.threadList[n].channel.idDB, 'thread', { "communikation": this.threadList[n].communikation });
+      this.chathelper.updateDB(this.channelList[n].channel.idDB, 'thread', { "communikation": this.channelList[n].communikation });
     }
   }
 
@@ -281,7 +281,7 @@ export class SideMenuThreadComponent {
   saveEmoji(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    let threadId = this.channelList[this.threadC.chNum].channel.idDB;
     let sm = this.getAnswerData(this.answerIndex, 'smile');
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
@@ -300,7 +300,7 @@ export class SideMenuThreadComponent {
       }
     }
     this.setAnswerData(this.answerIndex, 'smile', sm);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.channelList[this.threadC.chNum].communikation });
     this.showEmojisUpper = false;
     this.showEmojisLower = false;
 
@@ -361,7 +361,7 @@ export class SideMenuThreadComponent {
    * @param sIndex 
    */
   removeSmile(aIndex: number, sIndex: number) {
-    let threadId = this.threadList[this.threadC.chNum].channel.idDB;
+    let threadId = this.channelList[this.threadC.chNum].channel.idDB;
     let userSmiles = this.getAnswerData(aIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
     userSmiles[sIndex].users = newUserList;
@@ -369,7 +369,7 @@ export class SideMenuThreadComponent {
       userSmiles.splice(sIndex, 1);
     }
     this.setAnswerData(aIndex, 'smile', userSmiles);
-    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.threadList[this.threadC.chNum].communikation });
+    this.chathelper.updateDB(threadId, 'thread', { "communikation": this.channelList[this.threadC.chNum].communikation });
   }
 
   /**
@@ -437,7 +437,7 @@ export class SideMenuThreadComponent {
   }
 
   showPopUpCommentUsers(aIndex: number, sIndex: number) {
-    let smile = this.threadList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[aIndex].smile[sIndex];
+    let smile = this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].answer[aIndex].smile[sIndex];
     let smileUsers = [];
     smile.users.forEach((s) => {
       smileUsers.push(s.id);
@@ -491,8 +491,8 @@ export class SideMenuThreadComponent {
     let i = this.threadC.coIndex;
     let j = this.threadC.thIndex;
     this.deleteFileIfExist(number, i, j, aIndex)
-    this.threadList[number].communikation[i].threads[j].answer.splice(aIndex, 1);
-    this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
+    this.channelList[number].communikation[i].threads[j].answer.splice(aIndex, 1);
+    this.chathelper.updateDB(this.channelList[number].channel.idDB, "thread", { "communikation": this.channelList[number].communikation });
   }
 
   deleteUp(e: any, aIndex: number) {
@@ -502,15 +502,15 @@ export class SideMenuThreadComponent {
     let j = this.threadC.thIndex;
     let fileTitle = this.getFileTitleIfExist(number, i, j, aIndex);
 
-    if (this.threadList[number].communikation[i].threads[j].answer[aIndex].message != "") {
+    if (this.channelList[number].communikation[i].threads[j].answer[aIndex].message != "") {
       this.deleteFileFromStorage(fileTitle);
-      this.threadList[number].communikation[i].threads[j].answer[aIndex].url = { "link": "", "title": "" };
+      this.channelList[number].communikation[i].threads[j].answer[aIndex].url = { "link": "", "title": "" };
     } else {
       this.deleteFileFromStorage(fileTitle);
-      this.threadList[number].communikation[i].threads[j].answer[aIndex].url = { "link": "", "title": "" };
+      this.channelList[number].communikation[i].threads[j].answer[aIndex].url = { "link": "", "title": "" };
       this.deleteMessage(aIndex);
     }
-    this.chathelper.updateDB(this.threadList[number].channel.idDB, "thread", { "communikation": this.threadList[number].communikation });
+    this.chathelper.updateDB(this.channelList[number].channel.idDB, "thread", { "communikation": this.channelList[number].communikation });
   }
 
   deleteFileIfExist(number, i, j, aIndex) {
@@ -525,8 +525,8 @@ export class SideMenuThreadComponent {
   }
 
   getFileTitleIfExist(number, i, j, aIndex) {
-    if (this.threadList[number].communikation[i].threads[j].answer[aIndex].url.title) {
-      return this.threadList[number].communikation[i].threads[j].answer[aIndex].url.title;
+    if (this.channelList[number].communikation[i].threads[j].answer[aIndex].url.title) {
+      return this.channelList[number].communikation[i].threads[j].answer[aIndex].url.title;
     } else { return false };
   }
 

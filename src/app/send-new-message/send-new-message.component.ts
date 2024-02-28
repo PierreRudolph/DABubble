@@ -15,7 +15,7 @@ export class SendNewMessageComponent {
   @Input() userList: any;
   @Input() public user: User = new User();
   private chathelper: ChatHepler = new ChatHepler();
-  @Input() public threadList: any = [this.chathelper.createEmptyThread()];
+  @Input() public channelList: any = [this.chathelper.createEmptyThread()];
   searchResultUser: User[] = [];
   searchResulChannel: any[] = [];
   public error = false;
@@ -73,7 +73,7 @@ export class SendNewMessageComponent {
     this.searchResulChannel = [],
       this.searchNameOrmail(st, first);
     let num = -1;
-    this.threadList.forEach((t) => {
+    this.channelList.forEach((t) => {
       num++;
       if ((t.channel.name.toLowerCase().includes(st)) && (first == '#')) {
         let info = { "name": t.channel.name, "num": num }

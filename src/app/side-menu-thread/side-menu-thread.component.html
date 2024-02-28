@@ -6,7 +6,7 @@
                 <div class="flexMiddleX">
                     <span class="sidenav-headline">Thread</span>
                     <img class="tag-icon" src="assets/icons/tag-hover.svg">
-                    <span class="thread-name">{{threadList[threadC.chNum].channel.name}}</span>
+                    <span class="thread-name">{{channelList[threadC.chNum].channel.name}}</span>
                 </div>
                 <img (click)="closeThread()" class="close-icon" src="assets/img/close.svg">
             </div>
@@ -17,25 +17,25 @@
                         <div class="message-inner-div">
                             <div class="mes-name-clock">
                                 <span
-                                    class="mes-name fs18 wei700">{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
-                                <span>{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].time}}
+                                    class="mes-name fs18 wei700">{{channelList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].name}}</span>
+                                <span>{{channelList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].time}}
                                     Uhr</span>
                             </div>
                             <diV class="message fs18">
                                 <div
-                                    *ngIf="showLink(threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link)">
-                                    <a href="{{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link}}"
+                                    *ngIf="showLink(channelList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link)">
+                                    <a href="{{channelList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link}}"
                                         target="_blank">
                                         <img class="linkImg"
-                                            [src]="threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link ||'http://placehold.it/180'"
+                                            [src]="channelList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.link ||'http://placehold.it/180'"
                                             alt="your image" />
                                     </a>
                                     <div>
-                                        {{threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.title}}
+                                        {{channelList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].url.title}}
                                     </div>
                                 </div>
                                 <span
-                                    *ngFor="let mes of threadList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].messageSplits"
+                                    *ngFor="let mes of channelList[threadC.chNum].communikation[threadC.coIndex].threads[threadC.thIndex].messageSplits"
                                     style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                         class="linkedUserName">{{mes.text}}</span>

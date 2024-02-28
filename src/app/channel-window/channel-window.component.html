@@ -3,16 +3,16 @@
         [class.channel-header-left-threeWindowShownMobile]="!sideMenuHidden&&threadOpen"
         [class.hoverStyleHeaderLeft]="editChannelOpen" mat-button (click)="openEditChannelDialog()">
         <img class="tag-icon" src="assets/icons/tag.svg">
-        <span class="fs24 wei700">{{this.threadList[channelNumber].channel.name}}</span>
+        <span class="fs24 wei700">{{this.channelList[channelNumber].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
     </div>
 
     <div class="channel-header-right flexMiddleX">
         <div class="added-members flexMiddleX" (click)="openChannelMembersDialog()"
             [class.hoverStyleChannelMembers]="channelMembersOpen" mat-button>
-            <img *ngFor=" let m of this.threadList[channelNumber].channel.members.slice(0,3)"
+            <img *ngFor=" let m of this.channelList[channelNumber].channel.members.slice(0,3)"
                 src="{{getIconPathQuestionUser(m.memberID)}}">
-            <span class="fs20 wei600">{{this.threadList[channelNumber].channel.members.length}}</span>
+            <span class="fs20 wei600">{{this.channelList[channelNumber].channel.members.length}}</span>
         </div>
         <img *ngIf="!screen.mobileScreenWidth()" class="add-people" (click)="openAddPeopleDialog()"
             [class.hoverStyleAddPeople]="addPeopleOpen" src="assets/icons/add-people.svg" mat-button>
@@ -21,11 +21,11 @@
     </div>
 </div>
 <div class="channel-body" #channelBody
-    [class.positionStartChannel]="showBegin(threadList[this.channelNumber].communikation[0])" (click)="closeDialogs()">
-    <div class="message-div" *ngFor="let com of this.threadList[channelNumber].communikation, index as i ">
+    [class.positionStartChannel]="showBegin(channelList[this.channelNumber].communikation[0])" (click)="closeDialogs()">
+    <div class="message-div" *ngFor="let com of this.channelList[channelNumber].communikation, index as i ">
         <div class="dateIcon" *ngIf="!showBegin(com)">
             <div class="sendDate posAbs flexMiddleX fs18 nunito wei400"
-                [innerHTML]="this.threadList[channelNumber].communikation[i].date| transformDate"></div>
+                [innerHTML]="this.channelList[channelNumber].communikation[i].date| transformDate"></div>
             <div style="width:100% ; height:2px;background-color: #ADB0D9;"></div>
         </div>
         <div class="add-reaction posAbs flexMiddleX">
@@ -34,7 +34,7 @@
         <div class="messageDataPart">
             <div class="message-inner-div" [class.message-inner-div-sideMenuShownMobile]="!sideMenuHidden"
                 (mouseleave)="closeEditPopUp()"
-                *ngFor="let thread of this.threadList[channelNumber].communikation[i].threads; index as j">
+                *ngFor="let thread of this.channelList[channelNumber].communikation[i].threads; index as j">
                 <div class="innerContainer" [class.innerContainer-sideMenuShownMobile]="!sideMenuHidden"
                     [class.flippInnerContainer]="getFlip(thread)">
                     <div class="popUpMessageContainer posAbs" [class.popUpFlipContainer]="getFlip(thread)">
@@ -75,12 +75,15 @@
                                     <div>{{thread.url.title}}</div>
 
                                 </div>
+
                                 <span *ngFor="let mes of thread.messageSplits" style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                         class="linkedUserName"
                                         [class.linkedUserNameRight]="getFlip(thread)">{{mes.text}}</span>
+
                                     <span [innerHTML]="mes.text | transformPipe" *ngIf="!chathelper.isLink(mes)"></span>
                                 </span>
+
                             </div>
                         </div>
 
@@ -149,10 +152,11 @@
         </div>
     </div>
 </div>
-<div *ngIf="showBegin(threadList[this.channelNumber].communikation[0])" style="padding: 10px 40px 10px 40px;">
-    <span class="nunitoBlack fs20"> #{{threadList[this.channelNumber].channel.name}}</span><br>
+<div *ngIf="showBegin(channelList[this.channelNumber].communikation[0])" style="padding: 10px 40px 10px 40px;">
+    <span class="nunitoBlack fs20"> #{{channelList[this.channelNumber].channel.name}}</span><br>
     Das ist der Anfang des Channels.
 </div>
+
 <div class="textareaDirektMessage">
     <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
         <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />
@@ -160,9 +164,9 @@
         <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
     </div>
     <textarea class="textAreaDirekt nunitoBlack wei400" [(ngModel)]="channelMessage"
-        placeholder="Nachricht an #{{this.threadList[channelNumber].channel.name}}"
+        placeholder="Nachricht an #{{this.channelList[channelNumber].channel.name}}"
         (keydown)="keyDownFunction($event)"></textarea>
-    <img class="sendArrow posAbs" (click)="saveMessage(channelNumber)" src="assets/img/sendArrow.svg">
+    <img class="sendArrow posAbs" (click)="saveMessage()" src="assets/img/sendArrow.svg">
     <div class="iconContainerTextArea">
         <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
         <label for="img"><img class="textAreaIconPlus" src="assets/img/plus-icon.svg"></label>

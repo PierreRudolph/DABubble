@@ -67,9 +67,9 @@ export class ChannelHelper {
  * 
  * @returns Creates a new Question as JSON
  */
-  getQuestion(user: User, chathelper: ChatHepler, textThread: string, userList: User[], dataUpload: any) {
+  createMessage(user: User, chathelper: ChatHepler, textThread: string, userList: User[], dataUpload: any) {
 
-    let question = {
+    let messageJSON = {
       "name": user.name,
       "iD": user.idDB,
       "edit": false,
@@ -80,9 +80,10 @@ export class ChannelHelper {
       "messageSplits": chathelper.getLinkedUsers(user, userList, textThread),
       "answer": []
     }
+    console.log('textThread=', textThread)
     dataUpload.link = "";
     dataUpload.title = "";
-    return question;
+    return messageJSON;
   }
 
   /**
