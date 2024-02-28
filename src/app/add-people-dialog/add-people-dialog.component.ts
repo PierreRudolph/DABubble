@@ -11,7 +11,7 @@ import { User } from 'src/moduls/user.class';
 
 export class AddPeopleDialogComponent {
   public user: User = new User();
-  public userList = [this.user];
+  public userList: Array<any> = [this.user];
   public searchText: string;
   private channelJSON: any = {};
   public filteredMembers: User[] = [];

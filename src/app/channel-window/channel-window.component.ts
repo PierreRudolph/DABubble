@@ -22,31 +22,26 @@ export class ChannelWindowComponent implements OnDestroy {
   public chathelper: ChatHepler = new ChatHepler();
   private channelIndex: number = 0;
   private commIndex: number = 0;
-
   @Input() channelNumber: number = 0;
   @Input() channelList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();
   @Input() userList: User[];
   @Input() sideMenuHidden: boolean;
   @Input() threadOpen: boolean;
-  public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
   @Output() isOpen = new EventEmitter<boolean>();
   public smileHelper: SmileHelper = new SmileHelper();
-  public channelHelper: ChannelHelper = new ChannelHelper()
-
-
+  public channelHelper: ChannelHelper = new ChannelHelper();
+  public threadC: ThreadConnector = new ThreadConnector(0, 0, 0);
   private text: string = "";
   public popUpText: any = { "du": "", "first": "", "other": "", "verb": "" };
   public dataUpload: any = { "link": "", "title": "" };
   private upload: any;
-
   public addressBoxOpen: boolean = false;
   public editChannelOpen: boolean = false;
   public addPeopleOpen: boolean = false;
   public channelMembersOpen: boolean = false;
   public openEditDialog: boolean = false;
-
   public showEmojis: boolean = false;
   public showEmojisEdit: boolean = false;
   public showEmojisTread: boolean = false;
@@ -74,10 +69,9 @@ export class ChannelWindowComponent implements OnDestroy {
 
   /**
    * Removes the Comment-Smilie at the given position. Structure of Threadbase communikation see ChatHelper.
-   * 
-   * @param cIndex  Index of the communication
-   * @param tIndex  Index of the Message that belongs to this communication
-   * @param sIndex  Index of the Smile
+   * @param {number} cIndex  Index of the communication
+   * @param {number} tIndex  Index of the Message that belongs to this communication
+   * @param {number} sIndex  Index of the Smile
    */
   removeSmileComment(cIndex: number, tIndex: number, sIndex: number) {
     let threadId = this.getThreadId();
@@ -85,23 +79,33 @@ export class ChannelWindowComponent implements OnDestroy {
     let userSmiles = this.getThreadData(tIndex, 'smile');
     let newUserList = this.smileHelper.removeUser(userSmiles[sIndex].users, this.user)
     userSmiles[sIndex].users = newUserList;
-    if (userSmiles[sIndex].users.length == 0) {
-      userSmiles.splice(sIndex, 1);
-    }
+    this.deleteSmileyIfNoUsers(userSmiles, sIndex);
     this.setThreadData(tIndex, 'smile', userSmiles);
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.channelList[this.channelNumber].communikation });
   }
 
 
   /**
-   * stors the given emoji   * 
+   * deletes the Smiley JSON if it has no users anymore
+   * @param {Array} userSmiles 
+   * @param {number} sIndex 
+   */
+  deleteSmileyIfNoUsers(userSmiles: any[], sIndex: number) {
+    if (userSmiles[sIndex].users.length == 0) {
+      userSmiles.splice(sIndex, 1);
+    }
+  }
+
+
+  /**
+   * stores the given emoji
    * @param e JSON of the emoji
    */
   saveEmojiComment(e: { emoji: { unified: string; }; }) {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     this.saveEmojiCommentHelper(emoji);
-    this.showEmojisTread = !this.showEmojisTread;
+    this.toggleEmojisThread(event);
   }
 
 
@@ -112,9 +116,11 @@ export class ChannelWindowComponent implements OnDestroy {
     this.chathelper.updateDB(threadId, 'thread', { "communikation": this.channelList[this.channelNumber].communikation });
   }
 
+
   getThreadId() {
     return this.channelList[this.channelNumber].channel.idDB;
   }
+
 
   /**
  * Return the information as JSON that is stored at the given position
@@ -149,7 +155,6 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
 
-
   /** 
    * @param thread JSON that contains the information of the thread.
    * @returns      Time from the last answer of this message.
@@ -159,6 +164,7 @@ export class ChannelWindowComponent implements OnDestroy {
     if (lastIndex == -1) { return 0; }
     return thread.answer[lastIndex].time;
   }
+
 
   /**
    * Opens the threads/answers of the message with the given location Lada.
@@ -172,6 +178,7 @@ export class ChannelWindowComponent implements OnDestroy {
     this.newItemEventChannel.emit(this.threadC);
   }
 
+
   /**   
    * @param thread JSON that contains the information of the thread.
    * @returns      is the message from the currently logged in user (important for Styling)
@@ -181,6 +188,7 @@ export class ChannelWindowComponent implements OnDestroy {
     let aId = thread.iD;
     return (uId == aId);
   }
+
 
   /**
    * 
@@ -198,6 +206,7 @@ export class ChannelWindowComponent implements OnDestroy {
     return path;
   }
 
+
   /**
    * Save a Message
    */
@@ -208,8 +217,6 @@ export class ChannelWindowComponent implements OnDestroy {
     let threadId = this.getThreadId();
     let messageJSON = this.channelHelper.createMessage(this.user, this.chathelper, this.channelMessage, this.userList, this.dataUpload)
     if (this.messageIsEmpty(messageJSON)) { return; }
-    console.log(messageJSON)
-
     this.pushOrCreateNewComm(today, lastdate, commLastIndex, messageJSON, threadId);
     this.channelMessage = "";
   }
@@ -299,6 +306,8 @@ export class ChannelWindowComponent implements OnDestroy {
     this.channelIndex = tIndex;
     this.commIndex = cIndex;
   }
+
+
   /**
    * Stores the given Data in Variables
    * @param cIndex Communication-Index
@@ -309,35 +318,6 @@ export class ChannelWindowComponent implements OnDestroy {
     return ((this.showEmojisTread) && (this.channelIndex == tIndex) && (this.commIndex == cIndex));
   }
 
-  closeDialogs() {
-    if (this.clickInsideEmoji) {
-      this.clickInsideEmoji = false;
-      return;
-    }
-    if (this.clickInsideAddressBox) {
-      this.clickInsideAddressBox = false;
-      return;
-    }
-
-    if (this.showEmojisTread)
-      this.showEmojisTread = false;
-    if (this.showEmojis)
-      this.showEmojis = false;
-    if (this.showEmojisEdit)
-      this.showEmojisEdit = false;
-
-    if (this.addressBoxOpen) {
-      this.addressBoxOpen = false;
-    }
-  }
-
-  clickedInsideEmojiMart() {
-    this.clickInsideEmoji = true;
-  }
-
-  clickedInsideAdressBox() {
-    this.clickInsideAddressBox = true;
-  }
 
   /**
    * Opends the dialog for adding peopple to the Channel.
@@ -351,9 +331,9 @@ export class ChannelWindowComponent implements OnDestroy {
     this.subscribeAddPplDialog(dialogRef);
   }
 
+
   /**
    * Sets the Position of the MatDialog.
-   * 
    * @param dialogRef Reference of the given MatDialog
    * @returns to stop function from propagation, if the App is in Mobile mode
    */
@@ -374,9 +354,9 @@ export class ChannelWindowComponent implements OnDestroy {
     instance.userList = this.userList;
   }
 
+
   /**
    *after the the given MatDialog is closed, this function call toggleAddPplChanBol()
-   *  
    * @param dialogRef Reference of the given MatDialog
    */
   subscribeAddPplDialog(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
@@ -394,16 +374,19 @@ export class ChannelWindowComponent implements OnDestroy {
     return m.iD == this.user.idDB;
   }
 
-  closeEdit(m: any) {
+
+  closeMessageEdit(m: any) {
     m.edit = false;
   }
+
+
   /**
    * Save the Edited message 
    * @param m JSON of data of a Channel-Message
    * @param cIndex  Communication-Index
    * @param tIndex  ThreadIndex
    */
-  saveEdit(m: any, cIndex: number, tIndex: number) {
+  async saveMessageEdit(m: any, cIndex: number, tIndex: number) {
     m.edit = false;
     this.channelList[this.channelNumber].communikation[cIndex].threads[tIndex].message = this.channelMessageEdit;
     this.channelList[this.channelNumber].communikation[cIndex].threads[tIndex].messageSplits = this.chathelper.getLinkedUsers(this.user, this.userList, this.channelMessageEdit);
@@ -411,10 +394,9 @@ export class ChannelWindowComponent implements OnDestroy {
     if (this.channelMessageEdit == "" && this.channelList[this.channelNumber].communikation[cIndex].threads[tIndex].url.link == "") {
       this.channelHelper.deleteMessage(this.channelNumber, cIndex, tIndex, this.channelList);
     } else {
-      this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.channelList[this.channelNumber].communikation });
+      await this.chathelper.updateDB(threadIndex, 'thread', { "communikation": this.channelList[this.channelNumber].communikation });
     }
   }
-
 
 
   /** * 
@@ -427,6 +409,7 @@ export class ChannelWindowComponent implements OnDestroy {
     this.toggleEmojisDialog(event);
   }
 
+
   /** * 
  * @param e JSON of the emoji that should be shown in the message-edit within the channel
  */
@@ -437,18 +420,18 @@ export class ChannelWindowComponent implements OnDestroy {
     this.toggleEmojisDialogEdit(event);
   }
 
+
   /**Stope the default function when clicking on enter
    * 
    * @param input Key event
    */
   keyDownFunction(input: any) {
-
     if (input.key == "Enter" && !input.shiftKey) {
       input.preventDefault();
       this.saveMessage();
     }
-
   }
+
 
   /**    
    * @param m JSON of data of a Channel-Message
@@ -460,12 +443,15 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
 
-
+  /**
+   * makes sure that the editPopUp gets closed if mouseleave the message
+   */
   closeEditPopUp() {
     if (this.openEditDialog) {
       this.openEditDialog = false;
     }
   }
+
 
   /**
    * Opens a window with all users that are assigned to the channel.
@@ -478,6 +464,8 @@ export class ChannelWindowComponent implements OnDestroy {
     this.setChannelMembersValues(dialogRef);
     this.subscribeChannelMembersDialog(dialogRef);
   }
+
+
   /**
    * sets the position of the Dialog that contains all assigned members.
    */
@@ -487,6 +475,8 @@ export class ChannelWindowComponent implements OnDestroy {
       return;
     dialogRef.updatePosition({ right: this.channelHelper.membersDialogPosRight, top: this.channelHelper.dialogPosTop });
   }
+
+
   /**
    * Gives the needet variables to the Dialog
    * @param dialogRef MatDialogRef of ChannelMembersComponent
@@ -494,6 +484,7 @@ export class ChannelWindowComponent implements OnDestroy {
   setChannelMembersValues(dialogRef: MatDialogRef<ChannelMembersComponent, any>) {
     this.channelHelper.setChannelMembersValues(dialogRef, this.user, this.channelList, this.channelNumber, this.userList);
   }
+
 
   /**
    * Open add-people-dialog if User click on the Button add-people, in channel-members-dialog.
@@ -509,6 +500,11 @@ export class ChannelWindowComponent implements OnDestroy {
     })
   }
 
+
+  /**
+   * search for the given user and calls to open his profile in a dialog
+   * @param {User} user 
+   */
   openProfileOfUser(user: any) {
     let t = user.text.substring(1);
     if (this.user.name == t) { this.openDialog(this.user) }
@@ -519,14 +515,20 @@ export class ChannelWindowComponent implements OnDestroy {
     }
   }
 
-  chooseUser(u: User) {
 
+  /**
+   * add the selected user as a link to the message in textArea
+   * @param {User} u 
+   */
+  chooseUser(u: User) {
     this.channelMessage += '@' + u.name;
     this.toggleAdressBoxOpen();
   }
+
+
   /**
-   * Opens the dialog of the given
-   * @param user 
+   * Opens the dialog of the given User, and opens a talk with that user if in the dialog clicked
+   * @param {User} user 
    */
   openDialog(user: User): void {
     const dialogRef = this.dialog.open(UserProfileComponent);
@@ -578,17 +580,22 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
 
+  /**
+   * emit(share) all needed data to open a talk with the given user
+   * @param {User} u 
+   */
   callOpenT(u: User) {
     this.callOpenTalk.emit(u);
     this.isOpen.emit(false);
     this.areaTextPrivate.emit(this.text);
   }
 
+
   /**
    * Blends in a PopUp up window with the emoji icon and the people that commented the message with the emoji
-   * @param i Index of the communication
-   * @param j Index of the tread
-   * @param sIndex  Index of the smile
+   * @param {number} i Index of the communication
+   * @param {number} j Index of the tread
+   * @param {number} sIndex  Index of the smile
    */
   showPopUpCommentUsers(i: number, j: number, sIndex: number) {
     let smile = this.channelList[this.channelNumber].communikation[i].threads[j].smile[sIndex];
@@ -599,13 +606,24 @@ export class ChannelWindowComponent implements OnDestroy {
     this.popUpText = this.smileHelper.showPopUpCommentUsers(smileUsers, this.user, this.userList);
   }
 
+  /**
+   * returns true if the given attribute in the popUpText is not empty
+   * @param {string} attr 
+   * @returns true or false
+   */
   showBlendin(attr: string) {
     return this.popUpText[attr] != "";
   }
 
+
+  /**
+   * returns true if dataUpload.link is not empty
+   * @returns true of false
+   */
   showBlendIn() {
     return this.dataUpload.link != "";
   }
+
 
   /**
  * Saves the uploaded portrait.
@@ -682,6 +700,39 @@ export class ChannelWindowComponent implements OnDestroy {
   }
 
 
+  closeDialogs() {
+    if (this.clickInsideEmoji) {
+      this.clickInsideEmoji = false;
+      return;
+    }
+    if (this.clickInsideAddressBox) {
+      this.clickInsideAddressBox = false;
+      return;
+    }
+
+    if (this.showEmojisTread)
+      this.showEmojisTread = false;
+    if (this.showEmojis)
+      this.showEmojis = false;
+    if (this.showEmojisEdit)
+      this.showEmojisEdit = false;
+
+    if (this.addressBoxOpen) {
+      this.addressBoxOpen = false;
+    }
+  }
+
+
+  clickedInsideEmojiMart() {
+    this.clickInsideEmoji = true;
+  }
+
+
+  clickedInsideAdressBox() {
+    this.clickInsideAddressBox = true;
+  }
+
+
   toggleAdressBoxOpen() {
     this.addressBoxOpen = !this.addressBoxOpen;
   }
@@ -734,3 +785,4 @@ export class ChannelWindowComponent implements OnDestroy {
     this.dialog.closeAll();
   }
 }
+

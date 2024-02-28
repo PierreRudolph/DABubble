@@ -2,7 +2,6 @@
     <img src="assets/img/logo.svg">
     <img src="assets/img/LogoName.svg">
 </div>
-
 <div class="logInDialog">
     <a routerLink="/login"><img class="arrowBack" src="assets/img/arrow-back.svg"></a>
     <h1 class="nunito headline">Wähle deinen Avatar</h1>
@@ -27,7 +26,6 @@
         <input type="file" id="img" style="display:none;" (change)="onSelect($event)">
         <label for="img" class="btn upload">Foto hochladen</label>
     </div>
-
     <div class="weiterContainer">
         <button (click)="register()" [disabled]="wait" class="btn weiter">Weiter</button>
     </div>
@@ -38,7 +36,6 @@
     <div>
         <a routerLink="/imprint" target="_blank">Impressum</a>
     </div>
-
     <div>
         <a routerLink="/datenschutz" target="_blank">Datenschutz</a>
     </div>

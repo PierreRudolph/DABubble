@@ -6,7 +6,6 @@
         <span class="fs24 wei700">{{this.channelList[channelNumber].channel.name}}</span>
         <img class="arrow-down" src="assets/img/arrowDown.svg">
     </div>
-
     <div class="channel-header-right flexMiddleX">
         <div class="added-members flexMiddleX" (click)="openChannelMembersDialog()"
             [class.hoverStyleChannelMembers]="channelMembersOpen" mat-button>
@@ -73,9 +72,7 @@
                                             (click)="deleteUp($event,i,j)" *ngIf="getFlip(thread)">
                                     </a>
                                     <div>{{thread.url.title}}</div>
-
                                 </div>
-
                                 <span *ngFor="let mes of thread.messageSplits" style="width:100%">
                                     <span *ngIf="chathelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                         class="linkedUserName"
@@ -86,7 +83,6 @@
 
                             </div>
                         </div>
-
                         <div class="answers-info" [class.answerInfoFlip]="getFlip(thread)"
                             *ngIf="thread.answer.length>0">
 
@@ -115,11 +111,10 @@
                                     (click)="clickedInsideEmojiMart()"></emoji-mart>
                             </div>
                             <div class="editButtonContainer">
-                                <button class="btn buttonLight" (click)="closeEdit(thread)">Abbrechen</button>
-                                <button class="btn butttonBlue" (click)="saveEdit(thread,i,j)">Speichern</button>
+                                <button class="btn buttonLight" (click)="closeMessageEdit(thread)">Abbrechen</button>
+                                <button class="btn butttonBlue" (click)="saveMessageEdit(thread,i,j)">Speichern</button>
                             </div>
                         </div>
-
                         <div class="reactions flexMiddleX" [class.dNone]="thread.edit"
                             [class.messageRight]="getFlip(thread)">
                             <div class="reactIconsDiv flexMiddleX">
@@ -139,7 +134,6 @@
                                         <div>{{popUpText.verb}} reagiert</div>
                                     </div>
                                 </div>
-                                ​
                             </div>
                             <img class="add-reaction-icon" (click)="setAddReactionChannel($event,i,j)"
                                 src="assets/icons/add-reaction.svg">
@@ -156,7 +150,6 @@
     <span class="nunitoBlack fs20"> #{{channelList[this.channelNumber].channel.name}}</span><br>
     Das ist der Anfang des Channels.
 </div>
-
 <div class="textareaDirektMessage">
     <div class="dataUpload nunitoBlack fs18  posUpload" *ngIf="showBlendIn()">
         <img [src]="dataUpload.link ||'http://placehold.it/180'" alt="your image" />

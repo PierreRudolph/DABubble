@@ -22,6 +22,7 @@ export class CreateAccountComponent {
   })
   public loading: boolean = false;
 
+
   /**
    * Method send the given user up to the parent compopnent.
    * @param user User that was created 
@@ -29,6 +30,7 @@ export class CreateAccountComponent {
   addNewItem(user: User) {
     this.newItemEvent.emit(user);
   }
+
 
   /**
    * Is executed when clicking in "weiter" in the create new account
@@ -46,7 +48,6 @@ export class CreateAccountComponent {
     };
     this.user = new User(userInfo);
     this.userInfo = JSON.stringify(userInfo);
-
     this.addNewItem(this.user);
   }
 

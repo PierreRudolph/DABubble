@@ -134,7 +134,7 @@ export class ChannelHelper {
    * @param chatHelper   
    * @param threadList 
    */
-  deleteMessage(number: number, i: number, j: number, threadList: any[]) {
+  async deleteMessage(number: number, i: number, j: number, threadList: any[]) {
 
     if (threadList[number].communikation[i].threads.length > 1) {
       this.deleteFileIfExist(i, j, number, threadList);
@@ -151,7 +151,7 @@ export class ChannelHelper {
       }
     }
 
-    this.chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
+    await this.chatHelper.updateDB(threadList[number].channel.idDB, "thread", { "communikation": threadList[number].communikation });
   }
 
   /**

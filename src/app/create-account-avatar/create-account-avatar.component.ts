@@ -11,7 +11,6 @@ import { ChatHepler } from 'src/moduls/chatHelper.class';
   styleUrls: ['./create-account-avatar.component.scss']
 })
 export class CreateAccountAvatarComponent {
-
   @Input() name: string = "";
   @Input() user: User = new User();
   @Output() emailExistEvent = new EventEmitter();
@@ -20,14 +19,14 @@ export class CreateAccountAvatarComponent {
   public correct: boolean = true;
   public move: boolean = false;
   public wait: boolean = false;
-  public choosen = false;
-  public portraitPath = "assets/img/person.svg";
+  public choosen: boolean = false;
+  public portraitPath: string = "assets/img/person.svg";
   public firestore: Firestore = inject(Firestore);
-  public idDoc = "";
+  public idDoc: string = "";
   public chathelper: ChatHepler = new ChatHepler();
 
-  constructor(public authService: AuthService, private router: Router) {
-  }
+  constructor(public authService: AuthService, private router: Router) { }
+
 
   /**
    * Sign up a new user and saves the authentication uid in the userinformations
@@ -56,11 +55,13 @@ export class CreateAccountAvatarComponent {
       })
   }
 
+
   emitGoBack() {
     setTimeout(() => {
       this.emailExistEvent.emit(true);
     }, 2000);
   }
+
 
   /** 
    * Navigates to the login Page.
@@ -75,6 +76,7 @@ export class CreateAccountAvatarComponent {
     }, 2500);
   }
 
+
   /**
    * Sets the selected iconpath.
    * @param path  Iconpath for the user
@@ -85,6 +87,7 @@ export class CreateAccountAvatarComponent {
     this.portraitPath = path;
     this.padding = false;
   }
+
 
   /**
    * Saves the uploaded portrait as base64 code in the data. 
