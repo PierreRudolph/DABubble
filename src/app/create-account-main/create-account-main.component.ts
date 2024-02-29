@@ -7,8 +7,9 @@ import { User } from 'src/moduls/user.class';
   styleUrls: ['./create-account-main.component.scss']
 })
 export class CreateAccountMainComponent {
-  public fristpage = true;
+  public firstpage: boolean = true;
   public user: User = new User();
+
 
   /**
    * Sets the User and handles what page is active.
@@ -16,10 +17,11 @@ export class CreateAccountMainComponent {
    */
   setPage(user: User) {
     this.user = user;
-    this.fristpage = false;
+    this.firstpage = false;
   }
 
+
   goBack(goBackBol: boolean) {
-    this.fristpage = goBackBol;
+    this.firstpage = goBackBol;
   }
 }

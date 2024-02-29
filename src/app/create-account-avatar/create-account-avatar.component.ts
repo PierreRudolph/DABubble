@@ -19,7 +19,7 @@ export class CreateAccountAvatarComponent {
   public correct: boolean = true;
   public move: boolean = false;
   public wait: boolean = false;
-  public choosen: boolean = false;
+  public selectAvatar: boolean = false;
   public portraitPath: string = "assets/img/person.svg";
   public firestore: Firestore = inject(Firestore);
   public idDoc: string = "";
@@ -32,17 +32,20 @@ export class CreateAccountAvatarComponent {
    * Sign up a new user and saves the authentication uid in the userinformations
    */
   register() {
-    if (!this.choosen) {
+    if (!this.selectAvatar) {
       this.user.iconPath = "assets/img/personStandard.png";
     }
     this.wait = true;
+    this.signUpUser();
+  }
+
+
+  signUpUser() {
     this.authService.signUp(this.user.email, this.user.password).then((res) => {
       this.hide = false;
       this.move = true;
       this.user.password = "";
-      let userAny: any = res;
-      let id = userAny.user._delegate.uid;
-      this.user.uid = id;
+      this.user.uid = res.user.uid;
       this.chathelper.addUser(this.user.toJSON());
       this.navigatePage();
     })
@@ -82,7 +85,7 @@ export class CreateAccountAvatarComponent {
    * @param path  Iconpath for the user
    */
   setPortraitPath(path: string) {
-    this.choosen = true;
+    this.selectAvatar = true;
     this.user.iconPath = path;
     this.portraitPath = path;
     this.padding = false;
@@ -100,7 +103,7 @@ export class CreateAccountAvatarComponent {
       reader.onload = (event: any) => {
         this.portraitPath = event.target.result;
         this.user.iconPath = this.portraitPath;
-        this.choosen = true;
+        this.selectAvatar = true;
       };
     }
   }

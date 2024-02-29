@@ -1,4 +1,4 @@
-<app-create-account class="createAccount flexMiddleX" *ngIf="fristpage"
+<app-create-account class="createAccount flexMiddleX" *ngIf="firstpage"
     (newItemEvent)="setPage($event)"></app-create-account>
-<app-create-account-avatar (emailExistEvent)="goBack($event)" *ngIf="!fristpage"
+<app-create-account-avatar (emailExistEvent)="goBack($event)" *ngIf="!firstpage"
     [user]="user"></app-create-account-avatar>

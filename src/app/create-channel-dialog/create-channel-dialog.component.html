@@ -1,24 +1,22 @@
 <div class="dialog-div ">
-    <div class="blendOutDiv" *ngIf="!fristPage&&screen.mobileScreenWidth()"></div>
-    <div class="dialog-header" *ngIf="fristPage||screen.mobileScreenWidth()">
+    <div class="blendOutDiv" *ngIf="!firstPage&&screen.mobileScreenWidth()"></div>
+    <div class="dialog-header" *ngIf="firstPage||screen.mobileScreenWidth()">
         <span class="nunito fs24 wei700">Channel erstellen</span>
         <img mat-dialog-close src="assets/img/close.svg">
     </div>
-    <div *ngIf="fristPage||screen.mobileScreenWidth()" class="explanation fs18">Channels dienen deinem Team zur
+    <div *ngIf="firstPage||screen.mobileScreenWidth()" class="explanation fs18">Channels dienen deinem Team zur
         Kommunikation.
         Am
         besten sollten sie
         themenbezigen sein
         #marketing zum Beispiel.
     </div>
-
-    <form *ngIf="fristPage||screen.mobileScreenWidth()" (ngSubmit)="onSubmit()" #channelForm="ngForm">
+    <form *ngIf="firstPage||screen.mobileScreenWidth()" (ngSubmit)="onSubmit()" #channelForm="ngForm">
         <div>
             <h2 class="fs18 wei700">Channel-Name</h2>
             <input name="channelName" class="input-field" [(ngModel)]="channelName"
                 placeholder="#  z.B Kooperatinsprojekte" required>
         </div>
-
         <div>
             <div class="third-headline-div">
                 <h2 class="fs18 wei700">Beschreibung</h2>
@@ -32,35 +30,29 @@
             <button [disabled]="!channelForm.form.valid" type="submit" class="btn createBtn dis">Erstellen</button>
         </div>
     </form>
-
-    <div class="dialog-div-add" *ngIf="!fristPage">
-
+    <div class="dialog-div-add" *ngIf="!firstPage">
         <div class="smallThickBorder" *ngIf="screen.mobileScreenWidth()"></div>
 
         <div class="dialog-header-add">
             <span class="nunito fs24 wei700">Leute hinzufügen</span>
             <img mat-dialog-close src="assets/img/close.svg">
         </div>
-
         <div class="checkbox-div">
-
             <label class="container">
-                <input id="allMember" name="add-people" type="radio" (change)="setValue('allUser')" checked>
+                <input #allMemberInput name="add-people" type="radio" (change)="setValue('allUser')" checked>
                 <span class="checkmark"></span>
                 <span class="fs18 nunito">Alle Mitglieder von <span style="color: #7e83f5;">Code learning</span>
                     hinzufügen</span>
             </label>
-
             <label class="container">
                 <input name="add-people" type="radio" (change)="setValue('partOfUser')">
                 <span class="checkmark"></span>
                 <span class="fs18 nunito">Bestimmte Leute hinzfügen</span>
             </label>
-
         </div>
         <div style="position: relative;">
             <input [ngModel]="searchText" (ngModelChange)="searchKey($event)" placeholder="Find by name" ngModel
-                *ngIf="isChecked" class="inputText" type="text" placeholder="Name eingeben" id="partOfMember">
+                *ngIf="showSearchUserInput" class="inputText" type="text" placeholder="Name eingeben" id="partOfMember">
             <div style="display: flex; gap:10px; overflow-x: auto;">
                 <div class="addedMember" *ngFor="let cu of currentlyAddedUser">
                     <img style="width:20px;height:20px" src="{{cu.iconPath}}">
@@ -79,10 +71,8 @@
                 </div>
             </div>
         </div>
-
         <div class="create-btn-div">
-            <button (click)="make()" class="btn">Erstellen</button>
+            <button (click)="createChannel()" class="btn">Erstellen</button>
         </div>
     </div>
-
 </div>
