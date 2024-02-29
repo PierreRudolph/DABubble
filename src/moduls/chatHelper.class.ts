@@ -433,15 +433,15 @@ export class ChatHepler {
 
 
   /** 
-   * @param info JSON of all infos of the private Message
+   * @param message JSON of all infos from the private Message
    * @param userList List of all Users
    * @param user     current User
    * @returns       returns the other user of the private message
    */
-  getOtherUser(info: any, userList: any[], user: User) {
+  getOtherUser(message: any, userList: any[], user: User) {
     let otherUser = new User();
-    let m1 = info.member1DBid;
-    let m2 = info.member2DBid;
+    let m1 = message.member1DBid;
+    let m2 = message.member2DBid;
     if (m1 == m2) { otherUser = user; }
     else {
       userList.forEach((ul) => {
@@ -450,9 +450,7 @@ export class ChatHepler {
           otherUser = ul;
         }
       });
-
     }
-
     return otherUser;
   }
 

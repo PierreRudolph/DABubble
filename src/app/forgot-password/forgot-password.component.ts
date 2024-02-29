@@ -8,13 +8,14 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./forgot-password.component.scss']
 })
 export class ForgotPasswordComponent {
-  constructor(public authService: AuthService) { }
-
   public hide: boolean = true;
   public move: boolean = false;
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   })
+
+  constructor(public authService: AuthService) { }
+
 
   /**
    * Executed when click on "weiter"
@@ -29,6 +30,7 @@ export class ForgotPasswordComponent {
     }, 2500);
   }
 
+
   /**
    * 
    * @returns Send the forget request to the firebase authservice
@@ -39,5 +41,4 @@ export class ForgotPasswordComponent {
       window.alert(err);
     });
   }
-
 }

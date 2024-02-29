@@ -154,7 +154,7 @@
 
 @media (max-width:830px) {
     .dialog-div {
-        width: 75vw;
+        width: 415px;
         min-height: 245px;
         padding: 20px 15px;
     }
@@ -189,7 +189,8 @@
 
 @media (max-width:550px) {
     .dialog-div {
-        width: 70vw;
+        width: 100vw;
+        box-sizing: border-box;
     }
 }
 

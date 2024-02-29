@@ -1,23 +1,19 @@
 <div class="headerContainer" [class.headerContainerMobilePadding]="sideMenuHidden"
     [class.padding-main-page]="router.url =='/'||router.url =='/imprint'||router.url =='/data-policy'||router.url =='/main'"
     [class.space-betw]="router.url=='/login'">
-
     <div class="logoContainer" *ngIf="showNormalHeader()">
         <img src="assets/img/logo.svg">
         <img src="assets/img/LogoName.svg">
     </div>
-
     <div class="openCloseSidenav" *ngIf="router.url=='/' && showNormalHeader()">
         <img class="open-sidenav" (click)="emitOpenSideMenu()" *ngIf="sideMenuHidden"
             src="assets/icons/open-sidenav.svg">
     </div>
-
     <div class="mobileHeader" *ngIf="showMobileHeader()">
         <img (click)="emitToggleSideMenu()" src="assets/img/arrow-back.svg">
         <img src="assets/img/workspace-logo.svg">
         <span>Code learning</span>
     </div>
-
     <div class="searchInput" *ngIf="router.url=='/'||router.url=='/main'">
         <input #searchInput (ngModelChange)="searchKey($event)" [(ngModel)]="text" type="text"
             placeholder="Code learning durchsuchen" ngModel (focus)="toggleFocusBol()" (focusout)="toggleFocusBol()">
@@ -52,10 +48,8 @@
             </div>
         </div>
     </div>
-
     <div [class.dNone]="router.url !='/login'" class="loginHeaderRight">
         <div class="nunito fs18">Neu bei DABubble?</div>
         <a routerLink="/signup" class="makeAccount">Konto erstellen</a>
     </div>
-
 </div>

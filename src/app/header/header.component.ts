@@ -9,19 +9,19 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-  @Input() user: User = new User();
-  @Input() userList: any;
   public chathelper: ChatHepler = new ChatHepler();
+  public threadTitleDec: Array<any> = [];
+  public threadMessages: Array<any> = [];
+  public talkMessages: Array<any> = [];
+  public userInfos: Array<User> = [];
+  public text: string = "";
+  public focus: boolean = false;
+  public errorMessage: boolean = false;
+  @Input() user: User = new User();
+  @Input() userList: Array<User>;
   @Input() threadList: any = [this.chathelper.createEmptyThread()];
   @Input() talkList: any = [this.chathelper.createEmptyTalk()];
   @Input() sideMenuHidden: boolean;
-  public threadTitleDec: any[] = [];
-  public threadMessages: any[] = [];
-  public talkMessages: any[] = [];
-  public userInfos: any;
-  public text = "";
-  public focus: boolean = false;
-  public errorMessage: boolean = false;
   @Output() openSideMenu = new EventEmitter<boolean>();
   @Output() toggleSideMenu = new EventEmitter<boolean>();
   @Output() callOpenChannel = new EventEmitter<number>();
@@ -71,8 +71,8 @@ export class HeaderComponent {
   }
 
 
-  getOtherUser(info: any) {
-    return this.chathelper.getOtherUser(info, this.userList, this.user);
+  getOtherUser(message: any) {
+    return this.chathelper.getOtherUser(message, this.userList, this.user);
   }
 
 

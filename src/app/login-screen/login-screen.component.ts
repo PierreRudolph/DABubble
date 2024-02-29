@@ -10,16 +10,15 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./login-screen.component.scss']
 })
 export class LoginScreenComponent {
-  hide: boolean = true;
-  public errorMes = false;
+  public hide: boolean = true;
+  public errorMes: boolean = false;
+  public loading: boolean = false;
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
-  public loading: boolean = false;
 
-  constructor(public authService: AuthService, public route: Router, public screen: ScreenService) {
-  }
+  constructor(public authService: AuthService, public route: Router, public screen: ScreenService) { }
 
   async login() {
 

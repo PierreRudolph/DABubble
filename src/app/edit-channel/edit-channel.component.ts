@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ChatHepler } from 'src/moduls/chatHelper.class';
 import { User } from 'src/moduls/user.class';
 import { AddPeopleDialogComponent } from '../add-people-dialog/add-people-dialog.component';
 import { ScreenService } from '../screen.service';
+import { Channel } from 'src/moduls/channel.class';
 
 @Component({
   selector: 'app-edit-channel',
@@ -11,95 +12,101 @@ import { ScreenService } from '../screen.service';
   styleUrls: ['./edit-channel.component.scss']
 })
 export class EditChannelComponent {
-  chanNamOnEdit: boolean | false;
-  chanDescOnEdit: boolean | false;
   private chathelper: ChatHepler = new ChatHepler();
-  public channel: any = this.chathelper.createEmptyThread().channel;
+  public channel: Channel = new Channel();
+  public showChanNamOnEdit: boolean = false;
+  public showChanDescOnEdit: boolean = false;
   public user: User = new User();
-  public userList = [this.user];
-  threadList: any;
+  public userList: Array<User> = [this.user];
+  @ViewChild('channelNameInput') channelNameInput: ElementRef;
+  @ViewChild('channelDescInput') channelDescInput: ElementRef;
+  constructor(public dialog: MatDialog, public screen: ScreenService) { }
 
-  constructor(public dialog: MatDialog, public screen: ScreenService) {
-  }
 
   editChannelName() {
     this.toggleChanNameOnEdit();
     setTimeout(() => {
-      (document.getElementById("nameChannel") as HTMLInputElement | null).value = this.channel.name;
-    }, 125);
+      this.channelNameInput.nativeElement.value = this.channel.name;
+    }, 10);
   }
 
-  leaveChannel() {
-    let member = this.channel.members;
-    let list = [];
-    member.forEach((m) => {
-      if (m.memberID != this.user.idDB) {
-        list.push(m);
+
+  async leaveChannel() {
+    let newList = [];
+    this.channel.members.forEach((member) => {
+      if (member.memberID != this.user.idDB) {
+        newList.push(member);
       }
     });
-    this.channel.members = list;
-    this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
+    this.channel.members = newList;
+    await this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
   }
+
 
   /**
    * Saves the new name of the channel
    */
-  saveNewChannelName() {
-    let value = (document.getElementById("nameChannel") as HTMLInputElement | null)?.value;
-    this.channel.name = value;
-    this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
+  async saveNewChannelName() {
+    let newName = this.channelNameInput.nativeElement.value;
+    this.channel.name = newName;
+    await this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
     this.toggleChanNameOnEdit();
   }
+
 
   /**
   * Belends in the editing windows for the name
   */
   toggleChanNameOnEdit() {
-    this.chanNamOnEdit = !this.chanNamOnEdit;
+    this.showChanNamOnEdit = !this.showChanNamOnEdit;
   }
+
 
   editChannelDesc() {
     this.toggleChanDescOnEdit();
     setTimeout(() => {
-      (document.getElementById("description") as HTMLInputElement | null).value = this.channel.description;
-    }, 125);
+      this.channelDescInput.nativeElement.value = this.channel.description;
+    }, 10);
   }
+
+
   /**
    * Saves the changed description
    */
-  saveNewChannelDesc() {
-    let value = (document.getElementById("description") as HTMLInputElement | null)?.value;
-    this.channel.description = value;
-    this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
+  async saveNewChannelDesc() {
+    let newDesc = this.channelDescInput.nativeElement.value;
+    this.channel.description = newDesc;
+    await this.chathelper.updateDB(this.channel.idDB, "thread", { "channel": this.channel });
     this.toggleChanDescOnEdit();
   }
 
-  /**
-   * Belends in the editing windows for the Description
-   */
+
   toggleChanDescOnEdit() {
-    this.chanDescOnEdit = !this.chanDescOnEdit;
+    this.showChanDescOnEdit = !this.showChanDescOnEdit;
   }
 
-  isMe(u: any) {
+
+  isItMe(u: any) {
     return u.memberID == this.user.idDB;
   }
 
+
   getAktive(u: any) {
     let aktive = false;
-    this.userList.forEach((ul) => {
-      if (ul.idDB == u.memberID) {
-        aktive = ul.getAktive();
+    this.userList.forEach((user) => {
+      if (user.idDB == u.memberID) {
+        aktive = user.getAktive();
       }
     });
     return aktive;
   }
 
+
   getIcon(id: string) {
     let icon = "";
-    this.userList.forEach((ul) => {
-      if (ul.idDB == id) {
-        icon = ul.iconPath;
+    this.userList.forEach((user) => {
+      if (user.idDB == id) {
+        icon = user.iconPath;
       }
     })
     if (this.user.idDB == id) {
@@ -121,11 +128,15 @@ export class EditChannelComponent {
     })
   }
 
+
   setAddPeopleStyle(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     dialogRef.addPanelClass('maxWidth100');
-    dialogRef.addPanelClass('addPeopleDialogMobileStyle');
     dialogRef.updatePosition({ bottom: '-470px' });
+    this.dialogSlideFromBottomUp(dialogRef);
+  }
 
+
+  dialogSlideFromBottomUp(dialogRef: MatDialogRef<AddPeopleDialogComponent, any>) {
     setTimeout(() => {
       dialogRef.addPanelClass('transition225');
       dialogRef.updatePosition({ bottom: '-20px' });

@@ -1,5 +1,4 @@
 <app-header *ngIf="!screen.mobileScreenWidth()"></app-header>
-
 <div class="intro">
    <div class="logo-outer-div">
       <div class="logoContainer">
@@ -14,11 +13,9 @@
    <img src="assets/img/logo.svg">
    <img src="assets/img/LogoName.svg">
 </div>
-
 <form class="logInDialog" [formGroup]="registerForm">
    <h1 class="nunito headline">Anmeldung</h1>
    <p class="nunito loginDis">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
-
    <div class="inputWind">
       <img src="assets/img/mail.svg">
       <input formControlName="email" autocomplete="email" placeholder="beispielname@email.com" title="email" id="mail">
@@ -34,9 +31,7 @@
          sein.</span>
       <span style="color:red" *ngIf="errorMes">Passwort oder Email sind falsch!</span>
    </div>
-
    <a routerLink="/forget" class="pwForget">Passwort vergessen?</a>
-
    <div style="position: relative;">
       <div class="or">ODER</div>
       <svg xmlns="http://www.w3.org/2000/svg" width="500" height="2" viewBox="0 0 500 2" fill="none"
@@ -53,12 +48,10 @@
       Anmeldung mit Google
    </button>
    <div style="display: flex; gap:30px;">
-
       <button class="btn buttonLight" [disabled]="registerForm.invalid" (click)=" login()">Anmelden</button>
       <button class="btn buttonBlue" (click)="loginAsGuest()">Gäste-Login</button>
    </div>
 </form>
-
 <div class="impData" *ngIf="!screen.mobileScreenWidth()">
    <div>
       <a routerLink="/imprint" target="_blank">Impressum</a>
@@ -67,7 +60,6 @@
       <a href="/data" target="_blank">Datenschutz</a>
    </div>
 </div>
-
 <div [class.dNone]="route.url !='/login'" class="loginHeaderbottom" *ngIf="screen.mobileScreenWidth()">
    <div class="nunitoBlack fs18">Neu bei DABubble?</div>
    <a routerLink="/signup" class="makeAccount">Konto erstellen</a>

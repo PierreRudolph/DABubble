@@ -1,5 +1,4 @@
 <div class="edit-channel-dialog">
-
     <div class="dialog-header">
         <div>
             <img src="assets/icons/tag.svg">
@@ -7,43 +6,36 @@
         </div>
         <img mat-dialog-close style="cursor: pointer;" src="assets/img/close.svg">
     </div>
-
-    <div class="channel-sub-headlines" *ngIf="chanNamOnEdit">
+    <div class="channel-sub-headlines" *ngIf="showChanNamOnEdit">
         <span class="fs18 wei700">Channel-Name</span>
         <span (click)="saveNewChannelName()" class="fs18 wei600">Speichern</span>
     </div>
-
-    <div class="new-chan-name-input-div" *ngIf="chanNamOnEdit">
+    <div class="new-chan-name-input-div" *ngIf="showChanNamOnEdit">
         <img src="assets/icons/tag.svg">
-        <input id="nameChannel" placeholder="{{channel.name}}">
+        <input #channelNameInput id="nameChannel" placeholder="{{channel.name}}">
     </div>
-
-    <div class="channel-name-outer-div" *ngIf="!chanNamOnEdit">
-
+    <div class="channel-name-outer-div" *ngIf="!showChanNamOnEdit">
         <div class="channel-sub-headlines">
             <span class="fs18 wei700">Channel-Name</span>
             <span (click)="editChannelName()" class="fs18 wei600">Bearbeiten</span>
         </div>
-
         <div>
             <img src="assets/icons/tag.svg">
             <span class="fs18">{{channel.name}}</span>
         </div>
-
     </div>
-    <div class="channel-desc-edit-div" *ngIf="chanDescOnEdit">
-        <div class="channel-sub-headlines" *ngIf="chanDescOnEdit">
+    <div class="channel-desc-edit-div" *ngIf="showChanDescOnEdit">
+        <div class="channel-sub-headlines" *ngIf="showChanDescOnEdit">
             <span class="fs18 wei700">Beschreibung</span>
             <span class="fs18 wei600" (click)="saveNewChannelDesc()">Speichern</span>
         </div>
-        <input id="description" class="new-chan-desc-input" *ngIf="chanDescOnEdit"
+        <input #channelDescInput class="new-chan-desc-input" *ngIf="showChanDescOnEdit"
             placeholder=" {{channel.description}}">
-        <div class="border-div border-div-editing" *ngIf="chanDescOnEdit"></div>
-        <span class="fs18 wei700" *ngIf="chanDescOnEdit">Erstellt von</span>
-        <span class="channel-creater-name" *ngIf="chanDescOnEdit">{{channel.creator}}</span>
+        <div class="border-div border-div-editing" *ngIf="showChanDescOnEdit"></div>
+        <span class="fs18 wei700" *ngIf="showChanDescOnEdit">Erstellt von</span>
+        <span class="channel-creater-name" *ngIf="showChanDescOnEdit">{{channel.creator}}</span>
     </div>
-    <div class="channel-description-outer-div" *ngIf="!chanDescOnEdit">
-
+    <div class="channel-description-outer-div" *ngIf="!showChanDescOnEdit">
         <div class="channel-sub-headlines">
             <span class="fs18 wei700">Beschreibung</span>
             <span class="fs18 wei600" (click)="editChannelDesc()">Bearbeiten</span>
@@ -55,13 +47,11 @@
         <span class="fs18 wei700">Erstellt von</span>
         <span class="channel-creater-name"> {{channel.creator}}</span>
     </div>
-
     <div class="dialogDiv" *ngIf="screen.mobileScreenWidth()">
         <div class="dialogHeader">
             <span class="nunito fs24 wei700">Mitglieder</span>
         </div>
         <div class="members">
-
             <div class="contactDiv">
                 <div style="position: relative;">
                     <img src="{{getIcon(user.idDB)}}">
@@ -69,24 +59,20 @@
                 </div>
                 <span>{{user.name}} (Du)</span>
             </div>
-
-            <div *ngFor="let u of channel.members" class="contactDiv">
-                <div style="position: relative;" *ngIf="!isMe(u)">
-                    <img src="{{getIcon(u.memberID)}}">
-                    <div [class.greenDot]="getAktive(u)" class="stateDot"></div>
+            <div *ngFor="let member of channel.members" class="contactDiv">
+                <div style="position: relative;" *ngIf="!isItMe(member)">
+                    <img src="{{getIcon(member.memberID)}}">
+                    <div [class.greenDot]="getAktive(member)" class="stateDot"></div>
                 </div>
-                <span *ngIf="!isMe(u)">{{u.memberName}}</span>
+                <span *ngIf="!isItMe(member)">{{member.memberName}}</span>
             </div>
-
         </div>
         <div class="addMembers" (click)="openAddPeopleDialog()">
             <img src="assets/icons/add-people.svg">
             <span class="fs18">Mitglieder hinzufügen</span>
         </div>
     </div>
-
     <div class="btn-div">
         <button class="btn" mat-dialog-close (click)="leaveChannel()">Channel verlassen</button>
     </div>
-
 </div>

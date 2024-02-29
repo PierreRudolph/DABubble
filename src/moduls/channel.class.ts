@@ -3,7 +3,7 @@ export class Channel {
     creator: string;
     idDB: string;
     description: string;
-    members: {}[];
+    members: Array<any>;
 
     constructor(obj?: any) {
         this.creator = obj ? obj.creator : '';
