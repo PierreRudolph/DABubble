@@ -41,7 +41,7 @@
                                     <span *ngFor="let mes of m.messageSplits" style="width:100%">
                                         <span *ngIf="chatHelper.isLink(mes)" (click)="openProfileOfUser(mes)"
                                             class="linkedUserName"
-                                            [class.linkedUserNameRight]="getFlip(mes)">{{mes.text}}</span>
+                                            [class.linkedUserNameRight]="getFlip(m)">{{mes.text}}</span>
                                         <span [innerHTML]="mes.text | transformPipe"
                                             *ngIf="!chatHelper.isLink(mes)"></span>
                                     </span>
@@ -59,7 +59,8 @@
                             </div>
                             <div [class.dNone]="!m.edit" class="posEditWind">
                                 <div style="position:relative">
-                                    <textarea class="textAreaDirekt" [(ngModel)]="textEdit">{{m.message}}  </textarea>
+                                    <textarea class="textAreaDirekt"
+                                        [(ngModel)]="messageTextEdit">{{m.message}}  </textarea>
                                     <img (click)="toggleEmojisDialogEdit($event)" class="smileEdit"
                                         src="assets/img/smile.svg">
                                     <emoji-mart class="emoji-div-Edit" *ngIf="showEmojisEdit"
@@ -128,8 +129,8 @@
             <span>{{dataUpload.title}}</span>
             <img src="assets/img/close.svg" class="cross" (click)="closeUpload()">
         </div>
-        <textarea #textArea class="textAreaDirekt" [(ngModel)]="text" placeholder="Nachricht an {{otherChatUser.name}}"
-            (keydown)="keyDownFunction($event)"></textarea>
+        <textarea #textArea class="textAreaDirekt" [(ngModel)]="messageText"
+            placeholder="Nachricht an {{otherChatUser.name}}" (keydown)="keyDownFunction($event)"></textarea>
         <img class="sendArrow" (click)="saveMessage()" src="assets/img/sendArrow.svg">
         <div class="iconContainerTextArea">
 

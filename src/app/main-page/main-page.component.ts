@@ -472,7 +472,7 @@ export class MainPageComponent {
 
   setAreaTextPrivate(areaText: string) {
     setTimeout(() => {
-      this.childPrivateMes.text = areaText;
+      this.childPrivateMes.messageText = areaText;
     }, 10);
   }
 

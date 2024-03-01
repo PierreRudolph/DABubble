@@ -15,38 +15,39 @@ import { timestamp } from 'rxjs';
   styleUrls: ['./private-message.component.scss']
 })
 export class PrivateMessageComponent {
-  @Input() user: User = new User();
   public firestore: Firestore = inject(Firestore);
-  private chatHepler: ChatHepler = new ChatHepler();
-  @Input() userList: any;
-  public dataUpload = { "link": "", "title": "" };
-  public choiceDialog: boolean = false;
-  public profileOpen = false;
-  public openChat = false;
+  public chatHelper: ChatHepler = new ChatHepler();
+  public smileHelper: SmileHelper = new SmileHelper();
+  @Input() userList: Array<User>;
+  @Input() user: User = new User();
+  @Input() indexLastUser: number = -2;
   @Input() otherChatUser: User = new User();
   @Input() _setUser: boolean = false;
+  @Input() talkList: any = [this.chatHelper.createEmptyTalk()];
+  @Input() currentTalkData: any = this.chatHelper.createEmptyTalk();
+
+  public dataUpload: { "link": string, "title": string } = { "link": "", "title": "" };
+  //public messageInformation: Array<any> = [];
+
   public currentTalkId: string = "";
-  //@Input() oldTalkId = "";
-  @Input() talkList: any = [this.chatHepler.createEmptyTalk()];
-  @Input() currentTalkData: any = this.chatHepler.createEmptyTalk();
-  public text: string = "";
-  public textEdit: string = "";
-  public exist = false;
+  public messageText: string = "";
+  public messageTextEdit: string = "";
+
+  private emojiMessageIndex: number = 0;
+  private communikationIndex: number = 0;
+  public exist: boolean = false;
+  public choiceDialog: boolean = false;
+  public profileOpen: boolean = false;
+  public openChat: boolean = false;
+  public addressBoxOpen: boolean = false;
   public talkOpen: boolean = false;
   public openEditDialog: boolean = false;
   public openEdit: boolean = false;
-  showEmojis: boolean | undefined;
-  showEmojisEdit: boolean | undefined;
-  showEmojisComment: boolean | undefined;
-  emojiMessageIndex = 0;
-  communikationIndex = 0;
-  smileHelper: SmileHelper = new SmileHelper();
-  chatHelper: ChatHepler = new ChatHepler();
-  public messageInformation: any[] = [];
-  public addressBoxOpen = false;
+  public showEmojis: boolean = false;
+  public showEmojisEdit: boolean = false;
+  public showEmojisComment: boolean = false;
   private clickInsideEmoji: boolean = false;
   private clickedInsideAddressBox: boolean = false;
-  @Input() indexLastUser = -2;
 
   @Output() newItemEventLoggedUser = new EventEmitter<any>();
   @Output() newItemEventTalkList = new EventEmitter<any>();
@@ -82,7 +83,7 @@ export class PrivateMessageComponent {
   openEditWindow(m: any) {
     this.openEditDialog = !this.openEditDialog;
     m.edit = true;
-    this.textEdit = m.message;
+    this.messageTextEdit = m.message;
   }
 
 
@@ -111,13 +112,13 @@ export class PrivateMessageComponent {
    */
   saveEdit(m: any, i: number, mIndex) {
     m.edit = false;
-    if (this.textEdit == "" && m.url.link == "") {
+    if (this.messageTextEdit == "" && m.url.link == "") {
       this.deleteMessage(i, mIndex);
       return;
     }
-    m.message = this.textEdit;
-    m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.textEdit);
-    this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+    m.message = this.messageTextEdit;
+    m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.messageTextEdit);
+    this.chatHelper.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
 
@@ -143,12 +144,12 @@ export class PrivateMessageComponent {
       "iD": this.user.idDB,
       "edit": false,
       "smile": [],
-      "time": this.chatHepler.parseTime(new Date(Date.now())),
+      "time": this.chatHelper.parseTime(new Date(Date.now())),
       "url": { "link": this.dataUpload.link, "title": this.dataUpload.title },
       "message": text,
       "messageSplits": this.chatHelper.getLinkedUsers(this.user, this.userList, text),
     }
-    this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, text);
+    //this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, text);
     this.dataUpload.link = "";
     this.dataUpload.title = "";
     return mes;
@@ -164,13 +165,13 @@ export class PrivateMessageComponent {
   saveMessageExist(mes: {}) {
     let len = this.currentTalkData.communikation.length;
     let date = this.currentTalkData.communikation[len - 1].date;
-    let today = this.chatHepler.parseDate(new Date(Date.now()));
+    let today = this.chatHelper.parseDate(new Date(Date.now()));
     if (date == today) {
       this.currentTalkData.communikation[len - 1].messages.push(mes);
     } else {
       if (date == "") { this.currentTalkData.communikation = []; }
       let com = {
-        "date": this.chatHepler.parseDate(new Date(Date.now())),
+        "date": this.chatHelper.parseDate(new Date(Date.now())),
         "messages": [mes]
       }
       this.currentTalkData.communikation.push(com);
@@ -182,8 +183,8 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   async saveMessage() {
-    if (this.text == "" && this.dataUpload.link == "") { return; }
-    let mes = this.createMessageFromText(this.text);
+    if (this.messageText == "" && this.dataUpload.link == "") { return; }
+    let mes = this.createMessageFromText(this.messageText);
     if (!this.exist) {
       await this.startTalk(mes);
       this.currentTalkData.idDB = this.currentTalkId;
@@ -193,9 +194,10 @@ export class PrivateMessageComponent {
     else {
       this.saveMessageExist(mes);
       this.currentTalkData.idDB = this.currentTalkId;
-      await this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+      await this.chatHelper.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }
-    this.text = "";
+    console.log(mes)
+    this.messageText = "";
   }
 
 
@@ -228,9 +230,9 @@ export class PrivateMessageComponent {
       this.otherChatUser.talkID.push(talkOther);
     }
     this.sendCurrentTalkId.emit(this.currentTalkId);
-    await this.chatHepler.updateDB(this.user.idDB, "user", this.user.toJSON());
-    await this.chatHepler.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
-    await this.chatHepler.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+    await this.chatHelper.updateDB(this.user.idDB, "user", this.user.toJSON());
+    await this.chatHelper.updateDB(this.otherChatUser.idDB, "user", this.otherChatUser.toJSON());
+    await this.chatHelper.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
   chatWithMyself() {
@@ -243,7 +245,7 @@ export class PrivateMessageComponent {
    * @returns 
    */
   async startTalk(talk: {}): Promise<{}> {
-    let t: any = this.chatHepler.createNewTalk(this.user, this.otherChatUser);
+    let t: any = this.chatHelper.createNewTalk(this.user, this.otherChatUser);
 
     t.communikation[0].messages = [talk];
     await this.addTalk(t);
@@ -298,7 +300,7 @@ export class PrivateMessageComponent {
     } else {
       this.currentTalkId = "";
       this.sendCurrentTalkId.emit("");
-      this.currentTalkData = this.chatHepler.createEmptyTalk();
+      this.currentTalkData = this.chatHelper.createEmptyTalk();
       this.currentTalkData.communikation = [];
     }
   }
@@ -336,7 +338,7 @@ export class PrivateMessageComponent {
         (docRef) => {
           if (docRef) {
             this.currentTalkId = docRef.id;
-            this.chatHepler.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
+            this.chatHelper.updateDB(this.currentTalkId, 'talk', { "idDB": this.currentTalkId });
           }
         });
   }
@@ -372,11 +374,11 @@ export class PrivateMessageComponent {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     if (this.showEmojis) {
-      this.text += emoji;
+      this.messageText += emoji;
       this.showEmojis = !this.showEmojis;
     }
     if (this.showEmojisEdit) {
-      this.textEdit += emoji;
+      this.messageTextEdit += emoji;
       this.showEmojisEdit = !this.showEmojisEdit;
     }
   }
@@ -476,7 +478,7 @@ export class PrivateMessageComponent {
 
 
   chooseUser(u: User) {
-    this.text += '@' + u.name;
+    this.messageText += '@' + u.name;
     this.addressBoxOpen = !this.addressBoxOpen;
 
   }
@@ -606,6 +608,3 @@ export class PrivateMessageComponent {
     this.clickedInsideAddressBox = true;
   }
 }
-
-
-

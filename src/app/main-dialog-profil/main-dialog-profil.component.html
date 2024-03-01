@@ -1,13 +1,11 @@
 <div class="profileOuterDiv ">
     <div class="profile" (click)="openChoie()" style="cursor: pointer;">
-
         <span class="userName">{{user.name}}</span>
         <div class="charImgDiv flexMiddleX">
             <img class="avatarImg" src="{{user.iconPath}}">
             <div [class.greenDot]="user.getAktive()" class="stateDot">
             </div>
         </div>
-
         <img class="arrowImg" src="assets/img/arrowDown.svg">
     </div>
     <div *ngIf="choiceDialog" class="choiceDialog">
@@ -17,9 +15,7 @@
                 src="assets/icons/account-circle.svg">Profile</div>
         <div class="textImgDiv" (click)="logOut()"><img src="assets/icons/logout.svg">Logout</div>
     </div>
-
     <div *ngIf="choiceDialog" class="dialogGrey" (click)="openChoie()"></div>
-
     <app-profile-dialog [user]="user" (newItemEvent)="setOpen($event)" (newItemEventUser)="setUser($event)"
         *ngIf="profileOpen"></app-profile-dialog>
 </div>
