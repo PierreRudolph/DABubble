@@ -13,12 +13,12 @@
    <img src="assets/img/logo.svg">
    <img src="assets/img/LogoName.svg">
 </div>
-<form class="logInDialog" [formGroup]="registerForm">
+<form class="logInDialog" [formGroup]="registerForm" (ngSubmit)="login()">
    <h1 class="nunito headline">Anmeldung</h1>
    <p class="nunito loginDis">Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit verwendest.</p>
    <div class="inputWind">
       <img src="assets/img/mail.svg">
-      <input formControlName="email" autocomplete="email" placeholder="beispielname@email.com" title="email" id="mail">
+      <input formControlName="email" autocomplete="email" placeholder="beispielname@email.com" title="email" #mailInput>
       <span *ngIf="registerForm.controls['email'].errors?.['pattern']">*Diese E-Mail-Adresse ist leider
          ungültig.</span>
       <span style="color:red" *ngIf="errorMes">Passwort oder Email sind falsch!</span>
@@ -26,7 +26,7 @@
    <div class="inputWind">
       <img src="assets/img/lock.svg">
       <input formControlName="password" autocomplete="current-password" [type]="hide ? 'password' :'text'"
-         placeholder="Password" title="password" id="pw">
+         placeholder="Password" title="password" #passwordInput>
       <span *ngIf="registerForm.controls['password'].errors?.['minlength']">Das Passwort muss min. 6 Zeichen lang
          sein.</span>
       <span style="color:red" *ngIf="errorMes">Passwort oder Email sind falsch!</span>
@@ -43,13 +43,13 @@
          <path d="M500 1H0" stroke="#ADB0D9" />
       </svg>
    </div>
-   <button (click)="logInWithGoogle()" class="googleLoginButt">
+   <button type="button" (click)="logInWithGoogle()" class="googleLoginButt">
       <img src="assets/img/google-without-bg.svg">
       Anmeldung mit Google
    </button>
    <div style="display: flex; gap:30px;">
-      <button class="btn buttonLight" [disabled]="registerForm.invalid" (click)=" login()">Anmelden</button>
-      <button class="btn buttonBlue" (click)="loginAsGuest()">Gäste-Login</button>
+      <button class="btn buttonLight" [disabled]="registerForm.invalid" type="submit">Anmelden</button>
+      <button class="btn buttonBlue" type="button" (click)="loginAsGuest()">Gäste-Login</button>
    </div>
 </form>
 <div class="impData" *ngIf="!screen.mobileScreenWidth()">

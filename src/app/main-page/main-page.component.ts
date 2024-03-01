@@ -61,8 +61,8 @@ export class MainPageComponent {
    * this function assigns data of the actual logged in user to the Variables userAuth and userUid
    */
   async prepareUserData() {
-    this.userAuth = await this.authService.getAuthServiceUser();
-    this.userUid = this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
+    this.userAuth = this.authService.getAuthServiceUser();
+    this.userUid = await this.userAuth ? this.userAuth._delegate.uid : localStorage.getItem('uid');
   }
 
 
@@ -130,6 +130,14 @@ export class MainPageComponent {
     this.setActualUserActive(user);
   }
 
+  /**
+   * @param {User} user 
+   * @returns true if given user.uid same as this.userUid
+   */
+  actualUser(user: User) {
+    return user.uid == this.userUid;
+  }
+
 
   /**
    * sets the actual user to status: Active and updates the Database
@@ -151,15 +159,6 @@ export class MainPageComponent {
     if (this.actualUser(user))
       return;
     this.userList.push(user);
-  }
-
-
-  /**
-   * @param {User} user 
-   * @returns true if given user.uid same as this.userUid
-   */
-  actualUser(user: User) {
-    return user.uid == this.userUid;
   }
 
 
@@ -212,7 +211,6 @@ export class MainPageComponent {
       });
       this.checkIfTalkOpen();
     });
-
   }
 
 

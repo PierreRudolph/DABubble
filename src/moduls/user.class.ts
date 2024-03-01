@@ -8,6 +8,7 @@ export class User {
     idDB: string;
     talkID: [{ oUDbID: string, talkID: string }] = [{ oUDbID: '', talkID: '' }];
 
+
     constructor(obj?: any) {
         this.name = obj ? obj.name : '';
         this.email = obj ? obj.email : '';
@@ -16,8 +17,9 @@ export class User {
         this.status = obj ? obj.status : '';
         this.uid = obj ? obj.uid : '';
         this.idDB = obj ? obj.idDB : '';
-        this.talkID = obj ? obj.talkID : [{ oUDbID: '', talkID: '' }];
+        this.talkID = obj ? obj.talkID : [];
     }
+
 
     toJSON() {
         return {
@@ -31,6 +33,7 @@ export class User {
             "talkID": this.talkID,
         }
     }
+
 
     getAktive() {
         return this.status == "Aktiv";

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,78 +13,76 @@ export class LoginScreenComponent {
   public hide: boolean = true;
   public errorMes: boolean = false;
   public loading: boolean = false;
+  private user: any;
   public registerForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)])
   })
+  @ViewChild('mailInput') mailInput: ElementRef;
+  @ViewChild('passwordInput') passwordInput: ElementRef;
 
   constructor(public authService: AuthService, public route: Router, public screen: ScreenService) { }
 
+
   async login() {
-
-    this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
-      setTimeout(() => {
-        let user = this.authService.getAuthServiceUser();
-        if (user) {
-          let id = user._delegate.uid;
-          localStorage.setItem('uid', id);
-          this.deleteLocalStorageGoogleToken();
-          this.navigateToMainPage();
-        }
-      }, 500);
+    await this.authService.logIn(this.registerForm.value.email, this.registerForm.value.password).then((result) => {
+      this.setLoggedInUser(result);
+      this.navigateToMainPage();
     }).catch((error) => {
-      console.log("fail", error);
-      this.errorMes = true;
-      (document.getElementById("mail") as HTMLInputElement | null).value = "";
-      (document.getElementById("pw") as HTMLInputElement | null).value = "";
-
-      setTimeout(() => {
-        this.errorMes = false
-      }, 1500);
+      this.showErrorMessage(error);
+      this.clearInputs();
     });
-
   }
+
 
   async loginAsGuest() {
-    let user;
-    user = (await this.authService.logIn("gast@mail.com", "111111")).user
+    await this.authService.logIn("gast@mail.com", "111111").then((result) => {
+      this.setLoggedInUser(result);
+      this.navigateToMainPage();
+    }).
+      catch((err) => {
+        this.showErrorMessage(err)
+      });
 
-    let id = user._delegate.uid;
-    localStorage.setItem('uid', id);
-    this.deleteLocalStorageGoogleToken();
-    this.navigateToMainPage();
-  }
-
-
-  /**
-   * this function navigate to url "/", wich is the main page
-   */
-  navigateToMainPage() {
-    this.route.navigateByUrl("/");
-  }
-
-  /**
-   * deletes google login token, because normal login will not overwrite google token, if one is there
-   */
-  deleteLocalStorageGoogleToken() {
-    localStorage.removeItem('google');
   }
 
 
   async logInWithGoogle() {
-    this.authService.logInWithGoogle().
-      then((dat) => {
-        setTimeout(() => {
-          let user = this.authService.getAuthServiceUser();
-          let userName = user._delegate.displayName;
-          localStorage.setItem('google', userName);
-          this.navigateToMainPage();
-        }, 500);
-      }).
+    await this.authService.logInWithGoogle().then((result) => {
+      this.setLoggedInUser(result);
+      this.navigateToMainPage();
+    }).
       catch((err) => {
-        console.log("fail", err);
-        this.errorMes = true;
-        setTimeout(() => { this.errorMes = false }, 1500);
+        this.showErrorMessage(err)
       });
+  }
+
+
+  setLoggedInUser(result: { user: any; }) {
+    this.user = result.user
+    localStorage.setItem('uid', this.user.uid);
+  }
+
+
+  showErrorMessage(error: any) {
+    console.log("fail", error);
+    this.errorMes = true;
+    setTimeout(() => {
+      this.errorMes = false
+    }, 1500);
+  }
+
+
+  clearInputs() {
+    this.mailInput.nativeElement.value = '';
+    this.passwordInput.nativeElement.value = '';
+  }
+
+
+  /**
+  * this function navigate to url "/", wich is the main page
+  */
+  navigateToMainPage() {
+    this.route.navigateByUrl("/");
   }
 }
