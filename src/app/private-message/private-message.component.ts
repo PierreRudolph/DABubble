@@ -27,7 +27,6 @@ export class PrivateMessageComponent {
   @Input() currentTalkData: any = this.chatHelper.createEmptyTalk();
 
   public dataUpload: { "link": string, "title": string } = { "link": "", "title": "" };
-  //public messageInformation: Array<any> = [];
 
   public currentTalkId: string = "";
   public messageText: string = "";
@@ -36,8 +35,6 @@ export class PrivateMessageComponent {
   private emojiMessageIndex: number = 0;
   private communikationIndex: number = 0;
   public exist: boolean = false;
-  public choiceDialog: boolean = false;
-  public profileOpen: boolean = false;
   public openChat: boolean = false;
   public addressBoxOpen: boolean = false;
   public talkOpen: boolean = false;
@@ -65,7 +62,7 @@ export class PrivateMessageComponent {
 
   /**
    * open talk on load is necessary if window-size gets so small that private-message would close,
-   * and afet window-size gets big enough to show private-message again this code manage to open Talk properly 
+   * and after window-size gets big enough to show private-message again this code manage to open Talk properly 
    */
   onLoadSetOpen() {
     this.talkOpen = true;
@@ -107,10 +104,9 @@ export class PrivateMessageComponent {
 
   /**
    * Saves the edited message
-   * 
    * @param m Contains all the data of the current message.
    */
-  saveEdit(m: any, i: number, mIndex) {
+  async saveEdit(m: any, i: number, mIndex) {
     m.edit = false;
     if (this.messageTextEdit == "" && m.url.link == "") {
       this.deleteMessage(i, mIndex);
@@ -118,7 +114,7 @@ export class PrivateMessageComponent {
     }
     m.message = this.messageTextEdit;
     m.messageSplits = this.chatHelper.getLinkedUsers(this.user, this.userList, this.messageTextEdit);
-    this.chatHelper.updateDB(this.currentTalkId, "talk", this.currentTalkData);
+    await this.chatHelper.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
 
@@ -134,12 +130,19 @@ export class PrivateMessageComponent {
 
   /**
    * Creates a JSON that repesents the message. It contains the given text and other needed Informations.
-   * 
    * @param text String that yould be in the new created message.
    * @returns 
    */
   createMessageFromText(text: string) {
-    let mes = {
+    let mes = this.createMessageJSON(text);
+    this.dataUpload.link = "";
+    this.dataUpload.title = "";
+    return mes;
+  }
+
+
+  createMessageJSON(text: string) {
+    return {
       "name": this.user.name,
       "iD": this.user.idDB,
       "edit": false,
@@ -149,10 +152,6 @@ export class PrivateMessageComponent {
       "message": text,
       "messageSplits": this.chatHelper.getLinkedUsers(this.user, this.userList, text),
     }
-    //this.messageInformation = this.chatHelper.getLinkedUsers(this.user, this.userList, text);
-    this.dataUpload.link = "";
-    this.dataUpload.title = "";
-    return mes;
   }
 
 
@@ -169,12 +168,26 @@ export class PrivateMessageComponent {
     if (date == today) {
       this.currentTalkData.communikation[len - 1].messages.push(mes);
     } else {
-      if (date == "") { this.currentTalkData.communikation = []; }
-      let com = {
-        "date": this.chatHelper.parseDate(new Date(Date.now())),
-        "messages": [mes]
-      }
+      this.ifFirstComClearComArray(date);
+      let com = this.createNewComJSON(mes);
       this.currentTalkData.communikation.push(com);
+    }
+  }
+
+
+  /**
+   * when actual message is first communikation, this function clears the communikation array, to get rid of the empty com JSON
+   * @param {string} date 
+   */
+  ifFirstComClearComArray(date: string) {
+    if (date == "") { this.currentTalkData.communikation = []; }
+  }
+
+
+  createNewComJSON(mes: {}) {
+    return {
+      "date": this.chatHelper.parseDate(new Date(Date.now())),
+      "messages": [mes]
     }
   }
 
@@ -183,12 +196,11 @@ export class PrivateMessageComponent {
    * Saves the message stored in currentTalkData to the database. If it is the first message, that is starts a new talk.
    */
   async saveMessage() {
-    if (this.messageText == "" && this.dataUpload.link == "") { return; }
+    if (this.messageIsEmpty()) { return; }
     let mes = this.createMessageFromText(this.messageText);
     if (!this.exist) {
       await this.startTalk(mes);
       this.currentTalkData.idDB = this.currentTalkId;
-
       this.exist = true;
     }
     else {
@@ -196,8 +208,12 @@ export class PrivateMessageComponent {
       this.currentTalkData.idDB = this.currentTalkId;
       await this.chatHelper.updateDB(this.currentTalkId, "talk", this.currentTalkData);
     }
-    console.log(mes)
     this.messageText = "";
+  }
+
+
+  messageIsEmpty() {
+    return (this.messageText == "" && this.dataUpload.link == "");
   }
 
 
@@ -209,7 +225,9 @@ export class PrivateMessageComponent {
   getIconFromName(id: string) {
     if (id == this.user.idDB) {
       return this.user.iconPath;
-    } else return this.otherChatUser.iconPath;
+    } else {
+      return this.otherChatUser.iconPath
+    };
   }
 
 
@@ -217,14 +235,8 @@ export class PrivateMessageComponent {
    * Initializes a new private talk. Sets the needed information to both users, that take part on the conversation.
    */
   async startTalkInitialize() {
-    let talkUser = {
-      "talkID": this.currentTalkId,
-      "oUDbID": this.otherChatUser.idDB
-    }
-    let talkOther = {
-      "talkID": this.currentTalkId,
-      "oUDbID": this.user.idDB
-    }
+    let talkUser = this.createTalkJSON(this.currentTalkId, this.otherChatUser.idDB);
+    let talkOther = this.createTalkJSON(this.currentTalkId, this.user.idDB);
     this.user.talkID.push(talkUser);
     if (!this.chatWithMyself()) {
       this.otherChatUser.talkID.push(talkOther);
@@ -235,9 +247,25 @@ export class PrivateMessageComponent {
     await this.chatHelper.updateDB(this.currentTalkId, "talk", this.currentTalkData);
   }
 
+
+  /**
+   * creates a JSON with the given talk id and the USers Database Id
+   * @param {string} talkID 
+   * @param {string} userIdDB 
+   * @returns created JSON
+   */
+  createTalkJSON(talkID: string, userIdDB: string) {
+    return {
+      "talkID": talkID,
+      "oUDbID": userIdDB
+    }
+  }
+
+
   chatWithMyself() {
     return this.user.idDB == this.otherChatUser.idDB;
   }
+
 
   /** Called when a new private talk is started.
    * 
