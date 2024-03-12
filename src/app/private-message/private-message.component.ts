@@ -268,13 +268,11 @@ export class PrivateMessageComponent {
 
 
   /** Called when a new private talk is started.
-   * 
    * @param talk JSON of information of the new message
    * @returns 
    */
   async startTalk(talk: {}): Promise<{}> {
     let t: any = this.chatHelper.createNewTalk(this.user, this.otherChatUser);
-
     t.communikation[0].messages = [talk];
     await this.addTalk(t);
     await this.startTalkInitialize();
@@ -296,7 +294,6 @@ export class PrivateMessageComponent {
   /**
    * Determines the talk-id with otherChatUser and opens it.
    */
-
   openTalk() {
     let talkId = "";
     this.exist = false;
