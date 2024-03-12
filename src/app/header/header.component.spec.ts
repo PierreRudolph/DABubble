@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
+import { Firestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -8,9 +12,14 @@ describe('HeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ]
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase),
+        FormsModule
+      ],
+      declarations: [HeaderComponent],
+      providers: [{ provide: Firestore, useValue: {} }]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;

@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginScreenComponent } from './login-screen.component';
+import { Firestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
 
 describe('LoginScreenComponent', () => {
   let component: LoginScreenComponent;
@@ -8,9 +11,14 @@ describe('LoginScreenComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoginScreenComponent ]
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase)
+
+      ],
+      declarations: [LoginScreenComponent],
+      providers: [{ provide: Firestore, useValue: {} }]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(LoginScreenComponent);
     component = fixture.componentInstance;
