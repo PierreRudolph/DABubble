@@ -25,7 +25,7 @@ export class ChannelWindowComponent implements OnDestroy {
   @Input() channelNumber: number = 0;
   @Input() channelList: any[] = [this.chathelper.createEmptyThread()];
   @Input() user: User = new User();
-  @Input() userList: User[];
+  @Input() userList: Array<User> = [];
   @Input() sideMenuHidden: boolean;
   @Input() threadOpen: boolean;
   @Output() newItemEventChannel = new EventEmitter<ThreadConnector>();
@@ -197,11 +197,14 @@ export class ChannelWindowComponent implements OnDestroy {
    */
   getIconPathQuestionUser(id: string) {
     let path = "";
-    this.userList.forEach((u) => {
-      if (u.idDB == id) {
-        path = u.iconPath;
-      }
-    });
+    if (this.userList.length > 0) {//if abfrage fürs testing
+      this.userList.forEach((u) => {
+        if (u.idDB == id) {
+          path = u.iconPath;
+        }
+      });
+    }
+
     if (this.user.idDB == id) { path = this.user.iconPath; }
     return path;
   }

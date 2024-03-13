@@ -6,14 +6,15 @@ export class SmileHelper {
   private chathelper = new ChatHepler()
   isUserInSmile(us: any[], user: User) {
     let ret = false;
-    us.forEach((u) => {
-      if (u && user) {//if abfrage fürs testing
-        if (u.id == user.idDB) {
-          ret = true;
+    if (us) {//if abfrage fürs testing
+      us.forEach((u) => {
+        if (u && user) {//if abfrage fürs testing
+          if (u.id == user.idDB) {
+            ret = true;
+          }
         }
-      }
-    });
-
+      });
+    }
     return ret;
   }
 

@@ -4,9 +4,15 @@ import { User } from "./user.class";
 import { AngularFireStorage } from "@angular/fire/compat/storage";
 
 export class ChatHepler {
-  public firestore: Firestore = inject(Firestore);
-  public fireStorage: AngularFireStorage = inject(AngularFireStorage);
+  public firestore: Firestore | undefined;
+  public fireStorage: AngularFireStorage | undefined;
   public storageList: Array<string> = [];
+
+  constructor() {
+    this.firestore = inject(Firestore);
+    this.fireStorage = inject(AngularFireStorage);
+  }
+
   createEmptyTalk(): {} {
     let t = {
       "member1": "",

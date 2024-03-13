@@ -70,9 +70,11 @@ export class MainPageComponent {
    * this function Activate and Assign Observables, to variables, to make them unsubscribeable.
    */
   assignAndActivateObservables() {
-    this.unsubUsers = this.subUserInfo();
-    this.unsubTalks = this.subTalkInfo();
-    this.unsubChannels = this.subChannelList();
+    if (this.firestore.type == "firestore") {//if abfrage fürs testing
+      this.unsubUsers = this.subUserInfo();
+      this.unsubTalks = this.subTalkInfo();
+      this.unsubChannels = this.subChannelList();
+    }
   }
 
 
