@@ -37,27 +37,29 @@ export class ResetComponent implements OnInit, OnDestroy {
    * Process the Authentification of the reset email, by checking the sendet queryparameters
    */
   ngOnInit() {
-    this.activatedRoute.queryParams
-      .pipe(takeUntil(this.ngUnsubscribe))
-      .subscribe(params => {
-        if (!params) this.router.navigateByUrl('login');
-        this.mode = params['mode'];
-        this.actionCode = params['oobCode'];
+    if (this.activatedRoute.queryParams) {//if abfrage fürs testing
+      this.activatedRoute.queryParams
+        .pipe(takeUntil(this.ngUnsubscribe))
+        .subscribe(params => {
+          if (!params) this.router.navigateByUrl('login');
+          this.mode = params['mode'];
+          this.actionCode = params['oobCode'];
 
-        switch (params['mode']) {
-          case "resetPassword": {
-            this.authService.getAuth().verifyPasswordResetCode(this.actionCode).then(email => {
-            }).catch(e => {
-              alert(e);
-              this.router.navigate(['/auth/login']);
-            });
-          } break
-          default: {
-            console.log('query parameters are missing');
-            this.router.navigateByUrl('login');
+          switch (params['mode']) {
+            case "resetPassword": {
+              this.authService.getAuth().verifyPasswordResetCode(this.actionCode).then(email => {
+              }).catch(e => {
+                alert(e);
+                this.router.navigate(['/auth/login']);
+              });
+            } break
+            default: {
+              console.log('query parameters are missing');
+              this.router.navigateByUrl('login');
+            }
           }
-        }
-      })
+        })
+    }
   }
 
   /**

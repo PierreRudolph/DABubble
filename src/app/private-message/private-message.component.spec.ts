@@ -7,6 +7,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DIALOG_SCROLL_STRATEGY_PROVIDER, Dialog } from '@angular/cdk/dialog';
 import { FormGroup, FormsModule } from '@angular/forms';
+import { TransformPipePipe } from '../transform-pipe.pipe';
 
 describe('PrivateMessageComponent', () => {
   let component: PrivateMessageComponent;
@@ -18,7 +19,7 @@ describe('PrivateMessageComponent', () => {
         AngularFireModule.initializeApp(environment.firebase),
         FormsModule
       ],
-      declarations: [PrivateMessageComponent],
+      declarations: [PrivateMessageComponent, TransformPipePipe],
       providers: [
         MatDialogModule,
         MatDialog,

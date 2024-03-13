@@ -1,6 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ResetComponent } from './reset.component';
+import { ActivatedRoute } from '@angular/router';
+import { Firestore } from '@angular/fire/firestore';
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 describe('ResetComponent', () => {
   let component: ResetComponent;
@@ -8,9 +14,13 @@ describe('ResetComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ResetComponent ]
+      imports: [
+        AngularFireModule.initializeApp(environment.firebase), FormsModule, ReactiveFormsModule
+      ],
+      declarations: [ResetComponent],
+      providers: [{ provide: ActivatedRoute, useValue: {} }, { provide: Firestore, useValue: {} }]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ResetComponent);
     component = fixture.componentInstance;

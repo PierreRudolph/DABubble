@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ForgotPasswordComponent } from './forgot-password.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { Firestore } from '@angular/fire/firestore';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
@@ -13,8 +13,8 @@ describe('ForgotPasswordComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase)
-        , FormsModule
+        AngularFireModule.initializeApp(environment.firebase),
+        ReactiveFormsModule
       ],
       declarations: [ForgotPasswordComponent],
       providers: [{ provide: Firestore, useValue: {} }]

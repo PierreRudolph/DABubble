@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateAccountComponent } from './create-account.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
@@ -8,9 +9,10 @@ describe('CreateAccountComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreateAccountComponent ]
+      imports: [FormsModule, ReactiveFormsModule],
+      declarations: [CreateAccountComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(CreateAccountComponent);
     component = fixture.componentInstance;

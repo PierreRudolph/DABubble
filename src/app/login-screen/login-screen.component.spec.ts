@@ -5,7 +5,7 @@ import { Firestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { HeaderComponent } from '../header/header.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('LoginScreenComponent', () => {
   let component: LoginScreenComponent;
@@ -15,7 +15,7 @@ describe('LoginScreenComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
-        FormsModule
+        ReactiveFormsModule, FormsModule
       ],
       declarations: [LoginScreenComponent, HeaderComponent],
       providers: [{ provide: Firestore, useValue: {} }]
