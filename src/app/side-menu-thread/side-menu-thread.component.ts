@@ -15,7 +15,7 @@ import { ScreenService } from '../screen.service';
 export class SideMenuThreadComponent {
   i: 10 | number | undefined;
 
-  @Input() userList: User[];
+  @Input() userList: Array<User> = [];
   @Input() user: User;
   public chathelper: ChatHepler = new ChatHepler();
   @Input() channelList: any = [this.chathelper.createEmptyThread()];
@@ -132,12 +132,18 @@ export class SideMenuThreadComponent {
   getIconPathQuestionUser() {
     let id = this.channelList[this.threadC.chNum].communikation[this.threadC.coIndex].threads[this.threadC.thIndex].iD;
     let path = "";
-    this.userList.forEach((u) => {
-      if (u.idDB == id) {
-        path = u.iconPath;
-      }
-    });
-    if (this.user.idDB == id) { path = this.user.iconPath; }
+
+    if (this.userList.length > 0) {//if abfrage fürs testing
+      this.userList.forEach((u) => {
+        if (u.idDB == id) {
+          path = u.iconPath;
+        }
+      });
+    }
+    if (this.user) {//if abfrage fürs testing
+      if (this.user.idDB == id) { path = this.user.iconPath; }
+    }
+
     return path;
   }
 
@@ -154,7 +160,9 @@ export class SideMenuThreadComponent {
         path = u.iconPath;
       }
     });
-    if (this.user.idDB == id) { path = this.user.iconPath; }
+    if (this.user) {//if abfrage fürs testing
+      if (this.user.idDB == id) { path = this.user.iconPath; }
+    }
     return path;
   }
 
@@ -213,7 +221,12 @@ export class SideMenuThreadComponent {
  * @returns Returns wheather the person that wrote the thread is the current user. Important for styling.
  */
   getFlip(m: any) {
-    return m.iD == this.user.idDB;
+    if (this.user) {//if abfrage fürs testing
+      return m.iD == this.user.idDB;
+
+    } else {
+      return false
+    }
   }
 
   /**
@@ -269,8 +282,12 @@ export class SideMenuThreadComponent {
    * @returns   returns wheather the answer is of the current user(useed for styling)
    */
   fromLoggedInUser(answer: any) {
-    let uId = this.user.idDB;
-    let aId = answer.iD;
+    let uId = "";
+    let aId = "";
+    if (this.user) {//if abfrage fürs testing
+      uId = this.user.idDB;
+      aId = answer.iD;
+    }
     return (uId == aId);
   }
 

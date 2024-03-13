@@ -4,6 +4,8 @@ import { LoginScreenComponent } from './login-screen.component';
 import { Firestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
+import { HeaderComponent } from '../header/header.component';
+import { FormsModule } from '@angular/forms';
 
 describe('LoginScreenComponent', () => {
   let component: LoginScreenComponent;
@@ -12,10 +14,10 @@ describe('LoginScreenComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
-        AngularFireModule.initializeApp(environment.firebase)
-
+        AngularFireModule.initializeApp(environment.firebase),
+        FormsModule
       ],
-      declarations: [LoginScreenComponent],
+      declarations: [LoginScreenComponent, HeaderComponent],
       providers: [{ provide: Firestore, useValue: {} }]
     })
       .compileComponents();

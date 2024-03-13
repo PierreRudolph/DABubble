@@ -4,6 +4,7 @@ import { SendNewMessageComponent } from './send-new-message.component';
 import { Firestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
 
 describe('SendNewMessageComponent', () => {
   let component: SendNewMessageComponent;
@@ -13,7 +14,7 @@ describe('SendNewMessageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
-
+        FormsModule
       ],
       declarations: [SendNewMessageComponent],
       providers: [{ provide: Firestore, useValue: {} }]

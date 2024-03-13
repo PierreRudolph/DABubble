@@ -6,6 +6,11 @@ import { DIALOG_SCROLL_STRATEGY_PROVIDER, Dialog } from '@angular/cdk/dialog';
 import { Firestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { TransformPipePipe } from '../transform-pipe.pipe';
+
 
 describe('SideMenuThreadComponent', () => {
   let component: SideMenuThreadComponent;
@@ -15,14 +20,16 @@ describe('SideMenuThreadComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
+        MatSidenavModule, BrowserAnimationsModule, FormsModule
       ],
-      declarations: [SideMenuThreadComponent],
+      declarations: [SideMenuThreadComponent, TransformPipePipe],
       providers: [
         MatDialogModule,
         MatDialog,
         MAT_DIALOG_SCROLL_STRATEGY_PROVIDER,
         Dialog,
         DIALOG_SCROLL_STRATEGY_PROVIDER,
+
         { provide: Firestore, useValue: {} }
       ]
     })

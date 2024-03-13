@@ -6,6 +6,7 @@ import { DIALOG_SCROLL_STRATEGY_PROVIDER, Dialog } from '@angular/cdk/dialog';
 import { Firestore } from '@angular/fire/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
+import { FormsModule } from '@angular/forms';
 
 describe('ChannelWindowComponent', () => {
   let component: ChannelWindowComponent;
@@ -15,6 +16,7 @@ describe('ChannelWindowComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebase),
+        FormsModule
       ],
       declarations: [ChannelWindowComponent],
       providers: [

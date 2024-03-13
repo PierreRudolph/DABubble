@@ -4,6 +4,7 @@ import { ForgotPasswordComponent } from './forgot-password.component';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from 'src/environments/environment';
 import { Firestore } from '@angular/fire/firestore';
+import { FormsModule } from '@angular/forms';
 
 describe('ForgotPasswordComponent', () => {
   let component: ForgotPasswordComponent;
@@ -13,7 +14,7 @@ describe('ForgotPasswordComponent', () => {
     await TestBed.configureTestingModule({
       imports: [
         AngularFireModule.initializeApp(environment.firebase)
-
+        , FormsModule
       ],
       declarations: [ForgotPasswordComponent],
       providers: [{ provide: Firestore, useValue: {} }]
