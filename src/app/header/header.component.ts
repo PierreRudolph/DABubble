@@ -10,7 +10,7 @@ import { ScreenService } from '../screen.service';
 })
 export class HeaderComponent {
   public chathelper: ChatHepler = new ChatHepler();
-  public threadTitleDec: Array<any> = [];
+  public threadTitleDesc: Array<any> = [];
   public threadMessages: Array<any> = [];
   public talkMessages: Array<any> = [];
   public userInfos: Array<User> = [];
@@ -52,7 +52,7 @@ export class HeaderComponent {
 
 
   searchChannelNames(text: string) {
-    this.threadTitleDec = this.chathelper.searchChannelNames(text, this.threadList);
+    this.threadTitleDesc = this.chathelper.searchChannelNames(text, this.threadList);
   }
 
 

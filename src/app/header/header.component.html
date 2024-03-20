@@ -21,7 +21,7 @@
     </div>
     <div #searchResults class="searchResults" *ngIf="showPop() && focus">
         <span *ngIf="errorMessage">Ooops! Bitte versuch es noch einmal.</span>
-        <div *ngFor="let threadTitles of threadTitleDec" class="field" (click)="callOpenChan(threadTitles.index)">
+        <div *ngFor="let threadTitles of threadTitleDesc" class="field" (click)="callOpenChan(threadTitles.index)">
             <span class="nunitoBlack" style="display: flex;gap:10px;align-items: center;"><img
                     src="assets/icons/workspaces.svg"> {{threadTitles.name}}</span>
             <span class="nunitoBlack fs14">{{threadTitles.decription}}...</span>

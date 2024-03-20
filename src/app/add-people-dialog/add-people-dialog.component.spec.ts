@@ -20,9 +20,7 @@ describe('AddPeopleDialogComponent', () => {
       ],
       declarations: [AddPeopleDialogComponent],
       providers: [MatDialogModule, MatDialog, MAT_DIALOG_SCROLL_STRATEGY_PROVIDER, Dialog, DIALOG_SCROLL_STRATEGY_PROVIDER, { provide: Firestore, useValue: {} }]
-    })
-      .compileComponents();
-
+    }).compileComponents();
     fixture = TestBed.createComponent(AddPeopleDialogComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

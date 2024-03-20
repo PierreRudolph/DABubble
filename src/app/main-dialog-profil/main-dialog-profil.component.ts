@@ -1,5 +1,5 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
-import { Firestore, collection, doc, updateDoc } from '@angular/fire/firestore';
+import { Firestore, doc, updateDoc } from '@angular/fire/firestore';
 import { AuthService } from '../auth.service';
 import { User } from 'src/moduls/user.class';
 import { Router } from '@angular/router';
