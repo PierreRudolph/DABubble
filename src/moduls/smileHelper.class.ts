@@ -2,8 +2,8 @@ import { ChatHepler } from "./chatHelper.class";
 import { User } from "./user.class";
 
 export class SmileHelper {
-
   private chathelper = new ChatHepler()
+
   isUserInSmile(us: any[], user: User) {
     let ret = false;
     if (us) {//if abfrage fürs testing

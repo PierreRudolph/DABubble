@@ -415,28 +415,47 @@ export class PrivateMessageComponent {
     let unicodeCode: string = e.emoji.unified;
     let emoji = String.fromCodePoint(parseInt(unicodeCode, 16));
     let talkId = this.currentTalkId;
-    let sm = this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
+    let sm = this.getSmile();
     let smileIndex = this.smileHelper.smileInAnswer(emoji, sm);
     if (smileIndex == -1) {
-      let icon = {
-        "icon": emoji,
-        "users": [
-          { "id": this.user.idDB }
-        ]
-      };
+      let icon = this.createIconJSON(emoji);
       sm.push(icon);
-    } else {
-      let usersIcon = sm[smileIndex].users;
-      if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
-        sm[smileIndex].users.push({ "id": this.user.idDB });
-      }
+    } else if (!this.userHasSetSmile(sm, smileIndex)) {
+      sm[smileIndex].users.push({ "id": this.user.idDB });
     }
     this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile = sm;
-    this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
+    this.updateCommunication(talkId);
     this.chatHelper.updateDB(talkId, 'talk', { "idDB": talkId });
     this.showEmojisComment = false;
   }
 
+
+  getSmile() {
+    return this.currentTalkData.communikation[this.communikationIndex].messages[this.emojiMessageIndex].smile;
+  }
+
+
+  userHasSetSmile(sm, smileIndex) {
+    let usersIcon = sm[smileIndex].users
+    return this.smileHelper.isUserInSmile(usersIcon, this.user)
+  }
+
+
+  createIconJSON(emoji: string) {
+    return {
+      "icon": emoji,
+      "users": [
+        { "id": this.user.idDB }
+      ]
+    };
+  }
+
+  pushUserToSmileJSONIfNew(sm, smileIndex) {
+    let usersIcon = sm[smileIndex].users;
+    if (!this.smileHelper.isUserInSmile(usersIcon, this.user)) {
+      sm[smileIndex].users.push({ "id": this.user.idDB });
+    }
+  }
 
   /**
    * Removed the smilie of the smiliebox with the given location data.
@@ -447,12 +466,22 @@ export class PrivateMessageComponent {
   removeSmile(i: number, sIndex: number) {
     let talkId = this.currentTalkData.idDB;
     let sm = this.currentTalkData.communikation[this.communikationIndex].messages[i].smile;
-    let newUserList = this.smileHelper.removeUser(sm[sIndex].users, this.user)
+    let newUserList = this.smileHelper.removeUser(sm[sIndex].users, this.user);
     sm[sIndex].users = newUserList;
+    this.deleteSmileIfNoUsers(sm, sIndex);
+    this.currentTalkData.communikation[this.communikationIndex].messages[i].smile = sm;
+    this.updateCommunication(talkId);
+  }
+
+
+  deleteSmileIfNoUsers(sm: Array<any>, sIndex: number) {
     if (sm[sIndex].users.length == 0) {
       sm.splice(sIndex, 1);
     }
-    this.currentTalkData.communikation[this.communikationIndex].messages[i].smile = sm
+  }
+
+
+  updateCommunication(talkId: string) {
     this.chatHelper.updateDB(talkId, 'talk', { "communikation": this.currentTalkData.communikation });
   }
 
@@ -490,13 +519,13 @@ export class PrivateMessageComponent {
 
   openProfileOfUser(user: any) {
     let t = user.text.substring(1);
-    if (this.user.name == t) { this.openDialog(this.user) }
-    else {
+    if (this.user.name == t) {
+      this.openDialog(this.user)
+    } else {
       this.userList.forEach((u) => {
         if (u.name == t) { this.openDialog(u); }
       });
     }
-
   }
 
 
@@ -512,9 +541,8 @@ export class PrivateMessageComponent {
     dialogRef.componentInstance.user = new User(user.toJSON());
     dialogRef.componentInstance.ref = dialogRef;
     dialogRef.afterClosed().subscribe(result => {
-      if (user) {
+      if (result) {
         this.callOpenUser.emit(user);
-
       }
     });
   }
