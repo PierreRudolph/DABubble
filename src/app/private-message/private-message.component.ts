@@ -21,7 +21,6 @@ export class PrivateMessageComponent {
   @Input() user: User = new User();
   @Input() indexLastUser: number = -2;
   @Input() otherChatUser: User = new User();
-  @Input() _setUser: boolean = false;
   @Input() talkList: any = [this.chatHelper.createEmptyTalk()];
   @Input() currentTalkData: any = this.chatHelper.createEmptyTalk();
 
@@ -66,7 +65,7 @@ export class PrivateMessageComponent {
   onLoadSetOpen() {
     this.talkOpen = true;
     setTimeout(() => {
-      this.openTalk();
+      this.findAndLoadTalk();
     }, 10);
   }
 
@@ -267,18 +266,18 @@ export class PrivateMessageComponent {
 
 
   /** Called when a new private talk is started.
-   * @param talk JSON of information of the new message
+   * @param message JSON of information of the new message
    * @returns 
    */
-  async startTalk(talk: {}): Promise<{}> {
-    let t: any = this.chatHelper.createNewTalk(this.user, this.otherChatUser);
-    t.communikation[0].messages = [talk];
-    await this.addTalk(t);
+  async startTalk(message: {}): Promise<{}> {
+    let newTalk: any = this.chatHelper.createNewTalk(this.user, this.otherChatUser);
+    newTalk.communikation[0].messages = [message];
+    await this.addTalk(newTalk);
     await this.startTalkInitialize();
-    t.idDB = this.currentTalkId;
-    this.currentTalkData = t;
+    newTalk.idDB = this.currentTalkId;
+    this.currentTalkData = newTalk;
     this.sendCurrentTalkId.emit(this.currentTalkId);
-    return t;
+    return newTalk;
   }
 
 
@@ -293,7 +292,7 @@ export class PrivateMessageComponent {
   /**
    * Determines the talk-id with otherChatUser and opens it.
    */
-  openTalk() {
+  findAndLoadTalk() {
     let talkId = "";
     this.exist = false;
     this.talkOpen = true;
@@ -308,16 +307,16 @@ export class PrivateMessageComponent {
       }
     });
 
-    this.openeningTalk(talkId);
+    this.openFoundTalk(talkId);
   }
 
 
   /** 
-   * Used by openTalk(). Opens the talk in the appropirate way depending if it is a new talk or an existing one.
+   * Used by findAndLoadTalk(). Opens the talk in the appropirate way depending if it is a new talk or an existing one.
    * 
    * @param talkId Id of the talk, that should be opend
    */
-  openeningTalk(talkId: string) {
+  openFoundTalk(talkId: string) {
     if (this.exist) {
       this.openExistingTalk(talkId);
       this.currentTalkId = talkId;
@@ -343,7 +342,7 @@ export class PrivateMessageComponent {
   setOtherUser(user: User) {
     this.currentTalkId = "";
     this.otherChatUser = user;
-    this.openTalk();
+    this.findAndLoadTalk();
 
     setTimeout(() => {
       if (this.messageArea) { this.messageArea.nativeElement.scrollTo({ top: this.messageArea.nativeElement.scrollHeight, behavior: 'smooth' }) }
